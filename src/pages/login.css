@@ -1,0 +1,114 @@
+/* login.css */
+
+.login-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100vh;
+  /* background-color: #3498db; */
+  padding: 20px;
+  justify-content: center;
+  background-image:linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+}
+
+.user-selection {
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+}
+
+.user-button {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.user-button img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  
+}
+
+.user-button:hover {
+  transform: scale(1.05);
+}
+
+.selected {
+  background-image: linear-gradient(to top, #48c6ef 0%, #6f86d6 100%);
+  border: 1px solid #3498db;
+}
+
+.login-form {
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  height: 50vh;
+  width: 50vh;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+label {
+  font-size: 18px;
+}
+
+input[type="text"],
+input[type="password"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button {
+  background-color: #2ecc71;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+button:hover {
+  background-color: #27ae60;
+}
+
+.clear-selection-button {
+  background-color: #e74c3c;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.clear-selection-button:hover {
+  background-color: #c0392b;
+}
+.Register{
+  color: #e74c3c;
+  margin: none;
+  padding: none;
+  gap: none;
+}
+.Register a {
+  color: #e74c3c;
+}
