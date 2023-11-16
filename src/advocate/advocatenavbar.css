@@ -1,6 +1,8 @@
-ul{
+.hari{
    display: flex;
-   flex-direction: row;
+   flex-direction: column;
    flex-wrap: wrap;
+   background-color: aqua;
+   list-style: none;
 }
 

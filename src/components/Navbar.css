@@ -4,7 +4,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-nav {
+.main-nav{
     background-color:rgb(57,167,255); 
     color: #fff; 
     display: flex;
@@ -24,18 +24,18 @@ nav {
 }
 
 /* Style for the navigation links */
-ul {
+.main-nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: flex;
 }
 
-li {
+.main-nav li{
     margin: auto 15px;
 }
 
-a {
+.main-nav a{
     text-decoration: none;
     color: #fff;
     padding-left: 10px; 
