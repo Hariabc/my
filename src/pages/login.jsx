@@ -4,7 +4,7 @@ import './login.css';
 import admin from "../components/admin.png";
 import advocate from "../components/advocate.png";
 import client from "../components/client.png";
-import judge from "../components/judge.png"
+import judge from "../components/judge.png";
 import COAdashboard from '../coa/COAdashboard';
 import Clientdashboard from '../client/Clientdashboard';
 import Judgedashboard from '../judge/Judgedashboard';
@@ -81,7 +81,7 @@ const LoginPage = () => {
             />
             <button type="submit" ><Link to={`/${selectedUser}d`}>Login</Link></button>
             <p className='Register'>
-              Don't have an account?<span><Link to="/Register">Register</Link></span>
+              Don't have an account?<span><Link to="/Register" style={{textDecoration:"none"}}>Register</Link></span>
             </p>
           </form>
         </div>

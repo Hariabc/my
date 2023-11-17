@@ -1,0 +1,44 @@
+.admin {
+    display: flex;
+    line-height: 40px;
+    background-color: #007bff;
+    z-index: 111;
+  }
+  
+  .logo-admin {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+  
+  .logo-admin img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+  }
+  
+  .sidebar {
+    background-color: #f2f2f2;
+    padding: 20px;
+    width: 200px;
+    height: 100vh;
+    overflow: scroll;
+    scroll-behavior: smooth;
+  }
+  .section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .section li {
+    margin-bottom: 20px;
+    background-color: aqua;
+  }
+  
+  .section a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    padding:10px 10px;
+  }
+  
