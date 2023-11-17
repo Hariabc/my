@@ -25,7 +25,7 @@ const router=createBrowserRouter(
         <Route path='services' element={<Services/>}/>
         <Route path='contact' element={<Contact/>}/>
       </Route>
-      <Route path='' element={<Layout/>}> 
+      <Route path=''> 
         <Route path='/clientd' element={<Clientdashboard/>}/>
         <Route path='/advocated' element={<AdvocateDashboard/>}/>
         <Route path='/judged' element={<Judgedashboard/>}/>

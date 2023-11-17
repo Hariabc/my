@@ -1,0 +1,252 @@
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+  }
+  
+  .centered-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .text-and-button {
+    display: flex;
+    flex-direction: column;
+    padding-left: 100px;
+  }
+  
+  button {
+    margin-top: 10px;
+  }
+  .home-container img{
+    width: 800px;
+    height: 100%;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .dark-div {
+    display: flex;
+    align-items: center;
+    margin-top: 2px;
+  }
+  .marque-div {
+    width: 100%;
+    height: 30px;
+    background-color: yellow;
+    margin-top: 10px;
+  }
+  
+  .marque-p {
+    margin-left: 10px;
+  }
+  
+  .boxes-div {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr ;
+    padding-left:40px;
+  }
+  
+  .box1,
+  .box2,
+  .box3,
+  .box4,
+  .box5,
+  .box6 {
+    color: white;
+    width: 270px;
+    height: 130px;
+    border: 5px solid white;
+    box-shadow: 3px 2px 20px gray;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+  }
+  
+  .box1 {
+    background-color: rgb(96, 98, 98);
+  }
+  
+  .box2 {
+    background-color: rgb(96, 98, 98);
+  }
+  
+  .box3 {
+    background-color:rgb(96, 98, 98);
+  }
+  
+  .box4 {
+    background-color: rgb(96, 98, 98);
+  }
+  
+  .box5 {
+    background-color:rgb(96, 98, 98);
+  }
+  
+  .box6 {
+    background-color:rgb(96, 98, 98);
+  }
+  
+  .box-header {
+    font-weight: bold;
+  }
+  
+  .services-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .services-header {
+    font-weight: bold;
+  }
+  
+  .services-div1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    background-color: white;
+    padding: 15px;
+  }
+  
+  .service-div {
+    color: white;
+    width: 300px;
+    height: 150px;
+    margin-left: 10px;
+    margin-top: 10px;
+    border: 5px solid white;
+    box-shadow: 3px 2px 20px gray;
+    text-align: center;
+    position: relative;
+    bottom: 5px;
+  }
+  
+  .service-div2 {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 0;
+    text-align: center;
+  }
+  
+.quote-div {
+    text-align: center;
+    position: relative;
+    top: 130px;
+    font-weight: bold;
+  }
+  
+  .quote-author {
+    text-align: center;
+    position: relative;
+    font-weight: bold;
+  }
+  
+  .court-image,
+  .quote-image {
+    width: 100vw;
+    height: 50vh;
+  }
+  
+  @media (min-width: 1050px) {
+    .quote-author {
+      text-align: center;
+      position: relative;
+      top: -130px;
+      font-weight: bold;
+    }
+  
+    .home-div {
+      position: absolute;
+      right: 560px;
+      bottom: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .legal-div {
+      position: absolute;
+      right: 420px;
+      bottom: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .about-div {
+      position: absolute;
+      right: 345px;
+      bottom: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .contactus-div {
+      position: absolute;
+      right: 245px;
+      bottom: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .login-div {
+      position: absolute;
+      right: 150px;
+      bottom: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .language-div {
+      position: absolute;
+      right: 70px;
+      bottom: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .icon-div {
+      position: absolute;
+      right: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  
+  @media (min-width: 0px) {
+    .court-image,
+    .quote-image {
+      width: 100vw;
+      height: 50vh;
+    }
+  }
+  
+  @media (min-width: 0px) and (max-width: 479px) {
+    .box {
+      width: 80%;
+    }
+  
+    .service-div {
+      width: 80%;
+    }
+  }
+  

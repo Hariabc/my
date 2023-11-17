@@ -4,7 +4,7 @@ import './login.css';
 import admin from "../components/admin.png";
 import advocate from "../components/advocate.png";
 import client from "../components/client.png";
-import judge from "../components/judge.png"
+import judge from "../components/judge.png";
 import COAdashboard from '../coa/COAdashboard';
 import Clientdashboard from '../client/Clientdashboard';
 import Judgedashboard from '../judge/Judgedashboard';
