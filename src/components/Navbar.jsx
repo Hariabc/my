@@ -2,6 +2,7 @@ import React from "react";
 import { FaHome } from "react-icons/fa"; 
 import {IoIosContact} from "react-icons/io"
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   return (
@@ -10,22 +11,22 @@ export const Navbar = () => {
         <span className="logo">E-PORTAL</span>
         <ul>
           <li>
-            <a href="" >
+            <Link to="">
               <FaHome size={22} style={{verticalAlign:"sub"}}/> Home
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="">About Us</a>
+            <Link to="/about">About Us</Link>
           </li>
           <li>
-            <a href="">Legal Services</a>
+            <Link to="/services">Legal Services</Link>
           </li>
           <li>
-            <a href="">Contact Us</a>
+            <Link to="/contact">Contact Us</Link>
           </li>
           <li>
-            <a href=""><IoIosContact size={22} style={{verticalAlign:"sub"}}/>Login/Register
-            </a>
+            <Link to="/login" style={{textDecoration:"none"}}><IoIosContact size={22} style={{verticalAlign:"sub"}}/>Login/Register
+            </Link>
           </li>
         </ul>
       </nav>

@@ -12,6 +12,8 @@ import Clientdashboard from './client/Clientdashboard.jsx'
 import AdvocateDashboard from './advocate/AdvocateDashboard.jsx'
 import Judgedashboard from './judge/Judgedashboard.jsx'
 import COAdashboard from './coa/COAdashboard.jsx'
+import Services from './pages/services.jsx'
+import Contact from './pages/contact.jsx'
 const router=createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -20,6 +22,8 @@ const router=createBrowserRouter(
         <Route path='About' element={<About/>}/>
         <Route path='Login' element={<LoginPage/>}/>
         <Route path='Register' element={<RegisterPage/>}/>
+        <Route path='services' element={<Services/>}/>
+        <Route path='contact' element={<Contact/>}/>
       </Route>
       <Route path='' element={<Layout/>}> 
         <Route path='/clientd' element={<Clientdashboard/>}/>
