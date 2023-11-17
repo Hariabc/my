@@ -9,7 +9,8 @@ export default function Home() {
         <div className="centered-content">
           <img src={oip} alt="Description of the image" className="centered-image" />
           <div className="text-and-button">
-            <p>Unlocking Justice Online: Your digital path to seamless legal solutions</p>
+            <h3>Unlocking Justice Online</h3> 
+            <p>Your digital path to seamless legal solutions</p>
             <button>Explore</button>
           </div>
         </div>
