@@ -10,6 +10,7 @@ export default function Home() {
           <img src={oip} alt="Description of the image" className="centered-image" />
           <div className="text-and-button">
             <h1>Unlocking Justice Online</h1> 
+            <h3> Hello</h3>
             <p>Your digital path to seamless legal solutions</p>
             <button>Explore</button>
           </div>
