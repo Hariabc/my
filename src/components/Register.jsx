@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import "./Register.css"
-import admin from "./admin.png"
-import advocate from "./advocate.png"
-import client from "./client.png"
-import judge from "./judge.png"
+import './Register.css';
+import client from './client.png';
+import advocate from './advocate.png';
 
 const RegisterPage = () => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -11,8 +9,6 @@ const RegisterPage = () => {
   const users = [
     { id: 1, name: 'client', form: <ClientForm /> },
     { id: 2, name: 'advocate', form: <AdvocateForm /> },
-    { id: 3, name: 'judge', form: <JudgeForm /> },
-    { id: 4, name: 'admin', form: <CoaForm /> },
   ];
 
   const handleUserClick = (userId) => {
@@ -50,18 +46,6 @@ const RegisterPage = () => {
                 <p className="user-text">Advocate</p>
               </div>
             </div>
-            <div className="user-item" onClick={() => handleUserClick(3)}>
-              <div className="image-container">
-                <img src={judge} className="user-avatar" alt="Judge" />
-                <p className="user-text">Judge</p>
-              </div>
-            </div>
-            <div className="user-item" onClick={() => handleUserClick(4)}>
-              <div className="image-container">
-                <img src={admin} className="user-avatar" alt="Admin" />
-                <p className="user-text">Admin</p>
-              </div>
-            </div>
           </div>
         )}
       </div>
@@ -70,7 +54,17 @@ const RegisterPage = () => {
 };
 
 const ClientForm = () => {
-  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    username: '',
+    password: '',
+    dateOfBirth: '',
+    email: '',
+    phoneNumber: '',
+    address: '',
+    aadharNumber: '',
+  });
 
   const handleChange = (e) => {
     setFormData({
@@ -82,7 +76,6 @@ const ClientForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Client Form Data:', formData);
-    // Add your form submission logic here
   };
 
   return (
@@ -90,29 +83,73 @@ const ClientForm = () => {
       <h3 className="user-form-title">Client Registration</h3>
       <form onSubmit={handleSubmit} className="user-form">
         <label className="form-label">
+          First Name:
+          <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} className="form-input" />
+        </label>
+        <label className="form-label">
+          Last Name:
+          <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} className="form-input" />
+        </label>
+        <label className="form-label">
           Username:
           <input type="text" name="username" value={formData.username} onChange={handleChange} className="form-input" />
         </label>
         <label className="form-label">
           Password:
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            className="form-input"
-          />
+          <input type="password" name="password" value={formData.password} onChange={handleChange} className="form-input" />
         </label>
+        <label className="form-label">
+          Date of Birth:
+          <input type="date" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} className="form-input" />
+        </label>
+        <label className="form-label">
+          Email:
+          <input type="email" name="email" value={formData.email} onChange={handleChange} className="form-input" />
+        </label>
+        <label className="form-label">
+          Phone Number:
+          <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} className="form-input" />
+        </label>
+        <label className="form-label">
+          Address:
+          <input type="text" name="address" value={formData.address} onChange={handleChange} className="form-input" />
+        </label>
+        <label className="form-label">
+          Aadhar Number:
+          <input type="password" name="aadharNumber" value={formData.aadharNumber} onChange={handleChange} className="form-input" />
+        </label>
+        <label className="form-label">
+          Gender:
+          <select name="gender" value={formData.gender} onChange={handleChange} className="form-input">
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </label>
+        <div className="register">
         <button type="submit" className="form-button">
           Register as Client
         </button>
+        </div>
       </form>
     </div>
   );
 };
 
 const AdvocateForm = () => {
-  const [formData, setFormData] = useState({ name: '', specialization: '' });
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNo: '',
+    licenseNumber: '',
+    barAssociation: '',
+    jurisdiction: '',
+    educationQualifications: '',
+    yearsOfPractice: '',
+    practiceArea: '',
+  });
 
   const handleChange = (e) => {
     setFormData({
@@ -132,88 +169,50 @@ const AdvocateForm = () => {
       <h3 className="user-form-title">Advocate Registration</h3>
       <form onSubmit={handleSubmit} className="user-form">
         <label className="form-label">
-          Name:
-          <input type="text" name="name" value={formData.name} onChange={handleChange} className="form-input" />
+          First Name:
+          <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} className="form-input" />
         </label>
         <label className="form-label">
-          Specialization:
-          <input type="text" name="specialization" value={formData.specialization} onChange={handleChange} className="form-input" />
+          Last Name:
+          <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} className="form-input" />
         </label>
-        <button type="submit" className="form-button">
+        <label className="form-label">
+          Email:
+          <input type="email" name="email" value={formData.email} onChange={handleChange} className="form-input" />
+        </label>
+        <label className="form-label">
+          Phone No:
+          <input type="tel" name="phoneNo" value={formData.phoneNo} onChange={handleChange} className="form-input" />
+        </label>
+        <label className="form-label">
+          License Number:
+          <input type="text" name="licenseNumber" value={formData.licenseNumber} onChange={handleChange} className="form-input" />
+        </label>
+        <label className="form-label">
+          Bar Association:
+          <input type="text" name="barAssociation" value={formData.barAssociation} onChange={handleChange} className="form-input" />
+        </label>
+        <label className="form-label">
+          Jurisdiction:
+          <input type="text" name="jurisdiction" value={formData.jurisdiction} onChange={handleChange} className="form-input" />
+        </label>
+        <label className="form-label">
+          Education Qualifications:
+          <input type="text" name="educationQualifications" value={formData.educationQualifications} onChange={handleChange} className="form-input" />
+        </label>
+        <label className="form-label">
+          Years of Practice:
+          <input type="text" name="yearsOfPractice" value={formData.yearsOfPractice} onChange={handleChange} className="form-input" />
+        </label>
+        <label className="form-label">
+          Practice Area:
+          <input type="text" name="practiceArea" value={formData.practiceArea} onChange={handleChange} className="form-input" />
+        </label>
+        <div className="register">
+            <button type="submit" className="form-button">
           Register as Advocate
         </button>
-      </form>
-    </div>
-  );
-};
-
-const JudgeForm = () => {
-  const [formData, setFormData] = useState({ name: '', court: '' });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Judge Form Data:', formData);
-    // Add your form submission logic here
-  };
-
-  return (
-    <div>
-      <h3 className="user-form-title">Judge Registration</h3>
-      <form onSubmit={handleSubmit} className="user-form">
-        <label className="form-label">
-          Name:
-          <input type="text" name="name" value={formData.name} onChange={handleChange} className="form-input" />
-        </label>
-        <label className="form-label">
-          Court:
-          <input type="text" name="court" value={formData.court} onChange={handleChange} className="form-input" />
-        </label>
-        <button type="submit" className="form-button">
-          Register as Judge
-        </button>
-      </form>
-    </div>
-  );
-};
-
-const CoaForm = () => {
-  const [formData, setFormData] = useState({ name: '', department: '' });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Coa Form Data:', formData);
-    // Add your form submission logic here
-  };
-
-  return (
-    <div>
-      <h3 className="user-form-title">Coa Registration</h3>
-      <form onSubmit={handleSubmit} className="user-form">
-        <label className="form-label">
-          Name:
-          <input type="text" name="name" value={formData.name} onChange={handleChange} className="form-input" />
-        </label>
-        <label className="form-label">
-          Department:
-          <input type="text" name="department" value={formData.department} onChange={handleChange} className="form-input" />
-        </label>
-        <button type="submit" className="form-button">
-          Register as Coa
-        </button>
+        </div>
       </form>
     </div>
   );
