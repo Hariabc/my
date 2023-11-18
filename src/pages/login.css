@@ -9,7 +9,7 @@
   /* background-color: #3498db; */
   padding: 20px;
   justify-content: center;
-  background-image:linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+  /* background-image:linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%); */
 }
 
 .user-selection {
@@ -104,11 +104,11 @@ button:hover {
   background-color: #c0392b;
 }
 .Register{
-  color: #e74c3c;
+  color: #0c0c0c;
   margin: none;
   padding: none;
   gap: none;
 }
 .Register a {
-  color: #e74c3c;
+  color: #121111;
 }
