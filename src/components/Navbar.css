@@ -5,8 +5,8 @@
     box-sizing: border-box;
 }
 .main-nav{
-    background-color:rgb(57,167,255); 
-    color: #fff; 
+    background-color:white; 
+    color: black; 
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -20,7 +20,8 @@
 .logo {
     font-size: 24px;
     font-weight: bold;
-    padding-left: 60px;
+    padding-right: 100px;
+    
 }
 
 /* Style for the navigation links */
@@ -37,11 +38,12 @@
 
 .main-nav a{
     text-decoration: none;
-    color: #fff;
+    color:black;
     padding-left: 10px; 
     font-size: 18px;
     vertical-align: middle; 
 }
+
 
 
 /* Media query for responsive design */
