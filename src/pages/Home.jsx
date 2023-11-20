@@ -4,6 +4,7 @@ import './Home.css'; // Assuming you have a separate CSS file for styling
 /*import fontawesome from "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"*/
 export default function Home() {
   return (
+<<<<<<< HEAD
     <>  
       <div>
         <div className="image-div">
@@ -33,6 +34,17 @@ export default function Home() {
           </div>
           <div className="box5">
              <h2>District and Taluka court 10.4M</h2>
+=======
+    <>
+      <div className="home-container">
+        <div className="centered-content">
+          <img src={oip} alt="Description of the image" className="centered-image" />
+          <div className="text-and-button">
+            <h3>Unlocking Justice Online</h3> 
+            <p>Your digital path to seamless legal solutions</p>
+            <h1> Welcome to E-PORTAL</h1>
+            <button>Explore</button>
+>>>>>>> a1e806542828319c6ab76ef1f1058699d48b7372
           </div>
         </div>
         <div className="ourservices-div">
