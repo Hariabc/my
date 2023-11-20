@@ -41,7 +41,7 @@
     vertical-align: middle; 
 }
 .main-nav a:hover{
-          background-color: rgb(154, 154, 233);
+          background-color: rgb(231, 231, 238);
 }
 
 
@@ -50,6 +50,7 @@
     nav {
         flex-direction: column;
         text-align: center;
+        z-index: 1;
     }
 
     .logo {
