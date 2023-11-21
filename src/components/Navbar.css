@@ -1,67 +1,94 @@
-/* Base styles for the navigation bar */
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-.main-nav{ 
+  }
+  
+  .main-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    line-height: 50px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    line-height: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     z-index: 1000;
-}
-
-/* Style for the logo */
-.logo {
+  }
+  
+  /* Style for the logo container */
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Style for the logo */
+  .logo {
     font-size: 24px;
     font-weight: bold;
-    padding-left: 60px;
-}
-
-/* Style for the navigation links */
-.main-nav ul {
+    margin: 0;
+  }
+  
+  /* Style for the navigation links */
+  .main-nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: flex;
-}
-
-.main-nav li{
-    margin: auto 15px;
-}
-
-.main-nav a{
+  }
+  
+  .main-nav li {
+    margin-left: 15px;
+  }
+  
+  .main-nav a {
     color: #000;
     text-decoration: none;
-    padding-left: 10px; 
     font-size: 18px;
-    vertical-align: middle; 
-}
-.main-nav a:hover{
-          background-color: rgb(231, 231, 238);
-}
-
-
-/* Media query for responsive design */
-@media (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        text-align: center;
-        z-index: 1;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .main-nav a:hover {
+    background-color: rgb(231, 231, 238);
+  }
+  .mobile-icon{
+    display: none;
+  }
+  /* Media query for responsive design */
+  @media (max-width: 768px) {
+    .main-nav {
+      flex-direction: column;
+      text-align: center;
     }
-
-    .logo {
-        margin-bottom: 20px;
+    .main-nav ul {
+      flex-direction: column;
+      position: absolute;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      background-color: #fff;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      display: none;
+      z-index: 11111111111;
     }
-
-    ul {
-        flex-direction: column;
+  
+    .main-nav ul.open {
+      display: flex;
     }
+  
+    .main-nav .mobile-icon {
+     display: flex;
+     justify-content: space-evenly;
+      cursor: pointer;
+      margin-left: 220px;
 
-    li {
-        margin: 10px 0;
     }
-}
+  
+    .main-nav .mobile-icon:hover {
+      background-color: rgb(231, 231, 238);
+    }
+  }
+  

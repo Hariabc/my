@@ -5,9 +5,10 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  background-color:grey;
+  background-color:white;
   padding: 195px 195px;
-  height: 65vh;
+  height: 70vh;
+  color:black;
 }
 .image1 {
   position: absolute;
@@ -15,6 +16,7 @@
   top: 73px;
   width: 100vw;
   height: 50%;
+  padding-left: 60px;
 } 
 .img-btn-div {
   color: white;
@@ -230,4 +232,7 @@
 }
 body {
   overflow-x: hidden;
+}
+.img-btn-div{
+  color: black;
 }
