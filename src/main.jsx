@@ -12,7 +12,7 @@ import Clientdashboard from './client/Clientdashboard.jsx'
 import AdvocateDashboard from './advocate/AdvocateDashboard.jsx'
 import Judgedashboard from './judge/Judgedashboard.jsx'
 import COAdashboard from './coa/COAdashboard.jsx'
-import Services from './pages/services.jsx'
+import Services from './pages/service.jsx'
 import Contact from './pages/contact.jsx'
 const router=createBrowserRouter(
   createRoutesFromElements(

@@ -1,6 +1,9 @@
 import React from 'react';
+import About from './About';
+import Contact from './contact';
 import oip from '../pages/OIP.jpeg';
 import './Home.css'; // Assuming you have a separate CSS file for styling
+import LegalServices from './service';
 /*import fontawesome from "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"*/
 export default function Home() {
   return (
@@ -51,8 +54,14 @@ export default function Home() {
                 <h2 className="s-h2">Cause List</h2>
             </div>
         </div>
+        <div className="about">
+             <About/>
+        </div>
+        <div className="contact">
+         <Contact/>
+         <LegalServices/>
+        </div>
         <div className="footer-div">
-
         </div>
     </>
   );

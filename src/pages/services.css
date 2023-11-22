@@ -1,0 +1,36 @@
+/* LegalServices.css */
+
+.legal-services {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .services-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .legal-service {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    flex: 1 0 calc(33.33% - 20px);
+  }
+  
+  h2 {
+    color: #333;
+  }
+  
+  h3 {
+    color: #555;
+  }
+  
+  p {
+    color: #777;
+    line-height: 1.5;
+  }
+  
+  /* Add more styles as needed for specific elements */
+  
