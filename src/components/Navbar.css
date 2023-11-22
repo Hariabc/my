@@ -7,6 +7,7 @@
   .main-nav {
     display: flex;
     justify-content: space-between;
+    background-color: #6B8BA4;
     align-items: center;
     padding-left: 20px;
     padding-right: 20px;
