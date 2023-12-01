@@ -3,7 +3,7 @@ import { FaHome } from "react-icons/fa";
 import { IoIosContact } from "react-icons/io";
 import { MdMenu } from "react-icons/md";
 import "./Navbar.css";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -23,15 +23,9 @@ export const Navbar = () => {
         </div>
         <ul className={isMobileMenuOpen ? "open" : ""}>
           <li>
-            <NavLink to="" 
-             style={({ isActive }) => ({
-                 color: isActive
-                     ? "gold"
-                     : "white",
-             })}
-            onClick={toggleMobileMenu}>
+            <Link to="" onClick={toggleMobileMenu}>
               <FaHome size={20} style={{ verticalAlign: "sub" }} /> Home
-            </NavLink>
+            </Link>
           </li>
           <li>
             <Link to="/about" onClick={toggleMobileMenu}>

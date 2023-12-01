@@ -1,0 +1,41 @@
+/* Add the following styles to your existing CSS or create a new file */
+
+/* Your existing styles ... */
+
+.main-login-layout {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .left {
+    flex: 1;
+    position: relative;
+  }
+  
+  .slanted-divider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 0;
+    height: 0;
+    border-top: 100vh solid transparent;
+    border-bottom: 0;
+    border-left: 20px solid #3498db; /* Adjust color as needed */
+    z-index: -1;
+    transform: skewX(-20deg);
+  }
+  
+  .right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #d83f3f;
+    transform: skewX(350deg);/* Adjust color as needed */
+  }
+  
+  /* Your existing styles ... */
+  

@@ -14,6 +14,7 @@ import Judgedashboard from './judge/Judgedashboard.jsx'
 import COAdashboard from './coa/COAdashboard.jsx'
 import Services from './pages/service.jsx'
 import Contact from './pages/contact.jsx'
+import Loginlaylout from './pages/Loginlaylout.jsx'
 const router=createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -24,6 +25,8 @@ const router=createBrowserRouter(
         <Route path='Register' element={<RegisterPage/>}/>
         <Route path='services' element={<Services/>}/>
         <Route path='contact' element={<Contact/>}/>
+        <Route path='loginlayout' element={<Loginlaylout/>}/>
+
       </Route>
       <Route path=''> 
         <Route path='/clientd' element={<Clientdashboard/>}/>
