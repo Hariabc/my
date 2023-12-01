@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { Component, useState } from 'react';
 import './Register.css';
 import client from './client.png';
 import advocate from './advocate.png';
+
+
 
 const RegisterPage = () => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -18,6 +20,8 @@ const RegisterPage = () => {
   const resetSelection = () => {
     setSelectedUser(null);
   };
+
+
 
   return (
     <div className="register-container">
@@ -64,6 +68,7 @@ const ClientForm = () => {
     phoneNumber: '',
     address: '',
     aadharNumber: '',
+    gender: '',
   });
 
   const handleChange = (e) => {
@@ -76,6 +81,41 @@ const ClientForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Client Form Data:', formData);
+    fetch("http://localhost:5000/registerClient" , {
+      method: "POST",
+      crossDomain:true,
+      headers: {
+        "Content-type" : "application/json",
+        Accept:"application/json",
+        "Access-Control-Allow-Origin" : "*",
+      },
+      body: JSON.stringify({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        username: formData.username,
+        password: formData.password,
+        dateOfBirth: formData.dateOfBirth,
+        email: formData.email,
+        phoneNumber: formData.phoneNumber,
+        address: formData.address,
+        aadharNumber: formData.aadharNumber,
+        gender: formData.gender,
+      }),
+    })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! Status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data, "userRegister");
+      // Additional logic after a successful response
+    })
+    .catch((error) => {
+      console.error("Error during registration:", error.message);
+      // Handle the error appropriately, e.g., show an error message to the user
+    });
   };
 
   return (
@@ -161,7 +201,44 @@ const AdvocateForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Advocate Form Data:', formData);
+
     // Add your form submission logic here
+
+    fetch("http://localhost:5000/registerAdvocate" , {
+      method: "POST",
+      crossDomain:true,
+      headers: {
+        "Content-type" : "application/json",
+        Accept:"application/json",
+        "Access-Control-Allow-Origin" : "*",
+      },
+      body: JSON.stringify({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        username: formData.username,
+        password: formData.password,
+        dateOfBirth: formData.dateOfBirth,
+        email: formData.email,
+        phoneNumber: formData.phoneNumber,
+        address: formData.address,
+        aadharNumber: formData.aadharNumber,
+        gender: formData.gender,
+      }),
+    })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! Status: ${res.status}`);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data, "userRegister");
+      // Additional logic after a successful response
+    })
+    .catch((error) => {
+      console.error("Error during registration:", error.message);
+      // Handle the error appropriately, e.g., show an error message to the user
+    });
   };
 
   return (
