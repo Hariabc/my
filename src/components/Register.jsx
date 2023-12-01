@@ -215,14 +215,14 @@ const AdvocateForm = () => {
       body: JSON.stringify({
         firstName: formData.firstName,
         lastName: formData.lastName,
-        username: formData.username,
-        password: formData.password,
-        dateOfBirth: formData.dateOfBirth,
         email: formData.email,
-        phoneNumber: formData.phoneNumber,
-        address: formData.address,
-        aadharNumber: formData.aadharNumber,
-        gender: formData.gender,
+        phoneNo: formData.phoneNo,
+        licenseNumber: formData.licenseNumber,
+        barAssociation: formData.barAssociation,
+        jurisdiction: formData.jurisdiction,
+        educationQualifications: formData. educationQualifications,
+        yearsOfPractice: formData.yearsOfPractice,
+        practiceArea: formData.practiceArea,
       }),
     })
     .then((res) => {
@@ -232,7 +232,7 @@ const AdvocateForm = () => {
       return res.json();
     })
     .then((data) => {
-      console.log(data, "userRegister");
+      console.log(data, "advocateRegister");
       // Additional logic after a successful response
     })
     .catch((error) => {
