@@ -29,10 +29,7 @@ const COAdashboard = () => {
     };
   }, []);
 
-import React from 'react'
-import judge from './judge.png';
-import './Judgedashboard.css';
-export default function Judgedashboard() {
+
   return (
     <>
       <div className='admin'>
@@ -93,3 +90,4 @@ export default function Judgedashboard() {
 };
 
 export default COAdashboard;
+
