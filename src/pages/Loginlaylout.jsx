@@ -5,8 +5,15 @@ import "./login-layout.css"
 export default function Loginlaylout() {
   return (
     <div className="main-login-layout">
-        <div className="right">
-            <h1>dd</h1>
+        <div className="left-section slanted-divider">
+          <div className="decor">
+          </div>
+            <div className="text">
+            <h1>E-portal</h1>
+              <h3>
+                hello welcome 
+              </h3>
+            </div>
         </div>
         <div className="left">
             <LoginPage/>

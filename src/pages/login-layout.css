@@ -1,41 +1,52 @@
-/* Add the following styles to your existing CSS or create a new file */
-
-/* Your existing styles ... */
+/* login-layout.css */
 
 .main-login-layout {
-    display: flex;
-    height: 100vh;
-  }
-  
-  .left {
-    flex: 1;
-    position: relative;
-  }
-  
-  .slanted-divider::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 100%;
-    width: 0;
-    height: 0;
-    border-top: 100vh solid transparent;
-    border-bottom: 0;
-    border-left: 20px solid #3498db; /* Adjust color as needed */
-    z-index: -1;
-    transform: skewX(-20deg);
-  }
-  
-  .right {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
-    background-color: #d83f3f;
-    transform: skewX(350deg);/* Adjust color as needed */
-  }
-  
-  /* Your existing styles ... */
-  
+  display: flex;
+  height: 100vh;
+}
+
+.left-section {
+  flex: 1;
+  position: relative;
+  color: white; /* Change text color */
+}
+
+.slanted-divider::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 95%;
+  height: 100%;
+  background-color: #4CAF50; /* Change background color */
+  transform: skewX(-350deg);
+  transform-origin: 0 100%;
+}
+
+.text {
+  position: absolute;
+  top: 30%;
+  left: 20%;
+}
+
+.right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #333; /* Change background color */
+}
+
+/* Your existing styles ... */
+.decor{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 93%;
+  height: 100%;
+  background-color: #4c8caf; /* Change background color */
+  transform: skewX(-350deg);
+  transform-origin: 0 100%;
+}
