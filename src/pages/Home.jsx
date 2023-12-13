@@ -12,7 +12,7 @@ export default function Home() {
         </div>
         <div className="img-btn-div1">
         <div className="img-btn-div">
-        <h3 className="image-text">Justice Delayed is Justice Denied</h3>
+        <h3 className="image-text">Justice D</h3>
         <h1> Welcome to E-Portal</h1>
         <button class="btn-explore">Explore</button>
         </div>
