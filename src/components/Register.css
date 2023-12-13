@@ -1,7 +1,7 @@
 /* CSS for Register Page */
 
 body{
-  color: white;
+  color: black;
 }
 .register-container {
   display: flex;
@@ -29,7 +29,7 @@ body{
 
 .clear-selection-button {
   background-color: #e74c3c;
-  color: white;
+  color:black;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -98,7 +98,7 @@ body{
 
 .form-label {
   font-size: 18px;
-  color: white;
+  color: black;
 }
 
 .form-input {
