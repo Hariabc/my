@@ -6,7 +6,7 @@ app.use(cors());
 app.use(express.json());
 
 
-const mongoUrl = "mongodb+srv://VenuMadhav21:venom21@venu.5szdufj.mongodb.net/Venu?retryWrites=true&w=majority";
+const mongoUrl = "mongodb+srv://VenuMadhav21:venom21@venu.5szdufj.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose.connect(mongoUrl, {
     useNewUrlParser:true
