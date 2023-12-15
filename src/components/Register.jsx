@@ -156,7 +156,7 @@ const ClientForm = () => {
         </label>
         <label className="form-label">
           Aadhar Number:
-          <input type="password" name="aadharNumber" value={formData.aadharNumber} onChange={handleChange} className="form-input" />
+          <input type="password" name="aadharNumber" maxLength={12} value={formData.aadharNumber} onChange={handleChange} className="form-input" />
         </label>
         <label className="form-label">
           Gender:

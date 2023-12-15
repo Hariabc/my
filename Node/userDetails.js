@@ -6,7 +6,7 @@ const userDetailsSchema = new mongoose.Schema({
     username: String,
     password: String,
     dateOfBirth: Number,
-    email: String,
+    email: {type: String, unique: true},
     phoneNumber: Number,
     address: String,
     aadharNumber: Number,
@@ -23,7 +23,7 @@ mongoose.model("Userinfo", userDetailsSchema)
 const AdvocateDetailsSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
-    email: String,
+    email: {type: String, unique: true},
     phoneNo: Number,
     licenseNumber: Number,
     barAssociation: String,
