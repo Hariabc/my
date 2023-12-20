@@ -7,14 +7,14 @@
   .main-nav {
     display: flex;
     justify-content: space-between;
-    background-color: #6B8BA4;
+    background-color: #212020;
     align-items: center;
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 10px;
     padding-top: 10px;
     line-height: 20px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
     z-index: 1000;
   }
   
@@ -37,6 +37,7 @@
     margin: 0;
     padding: 0;
     display: flex;
+    color: white;
   }
   
   .main-nav li {
@@ -50,6 +51,7 @@
     padding: 10px;
     display: flex;
     align-items: center;
+    color: #fff;
   }
   
   .main-nav a:hover {

@@ -1,7 +1,12 @@
-import React from 'react'
-
-export default function About() {
+import React from 'react';
+import './about.css'; // Make sure to import your CSS file
+import bg from "./abc.jpg"
+const About = () => {
   return (
-    <h1>About Our Website</h1>
-  )
-}
+    <div>
+      <img src={bg} alt="hhh"/>
+    </div>
+  );
+};
+
+export default About;

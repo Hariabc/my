@@ -1,0 +1,57 @@
+/* Apply some basic styling to the body */
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Set the body to full viewport height */
+    position: relative; 
+    background-color: #212020;/* Set position to relative for absolute positioning */
+}
+
+/* Style the image */
+img {
+    width: auto; /* Maintain the aspect ratio of the image */
+    height: 100vh; /* Set the height to full viewport height */
+    position: absolute; /* Set the position to absolute */
+    bottom: 0; /* Align to the bottom */
+    right: 0; /* Align to the right */
+}
+
+/* Style the navigation bar */
+nav {
+    background-color: #333; /* Set background color */
+    padding: 15px; /* Add some padding */
+    
+}
+
+/* Style the navigation links */
+nav ul {
+    list-style: none; /* Remove list styling */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+}
+
+nav ul li {
+    display: inline; /* Display list items horizontally */
+    margin-right: 20px;
+    margin-left: 300px; /* Add some space between items */
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white; /* Set text color */
+    font-weight: bold;
+}
+
+/* Style the login button differently */
+.login-btn a {
+    background-color: #4CAF50; /* Green background color */
+    color: white; /* White text color */
+    padding: 10px 15px; /* Add padding */
+    border-radius: 5px; /* Add rounded corners */
+    text-decoration: none;
+}
