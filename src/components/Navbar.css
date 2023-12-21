@@ -127,8 +127,26 @@ nav a:hover {
 /* Media query for responsive design */
 @media (max-width: 768px) {
   .main-nav {
+
     flex-direction: column;
     text-align: center;
+    display: flex;
+    justify-content: space-between;
+    background-color: #212020;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    line-height: 20px;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+    z-index: 1000;
+  }
+  
+  /* Style for the logo container */
+  .logo-container {
+    display: flex;
+    align-items: center;
   }
 
   .main-nav ul {
@@ -141,6 +159,11 @@ nav a:hover {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     display: none;
     z-index: 11111111111;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    color: white;
   }
 
   .main-nav ul.open {
@@ -152,6 +175,8 @@ nav a:hover {
     justify-content: space-evenly;
     cursor: pointer;
     margin-left: 220px;
+    align-items: center;
+    color: #fff;
   }
 
   .main-nav .mobile-icon:hover {

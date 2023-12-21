@@ -9,5 +9,17 @@
 .home-container{
   background-color: rgb(58, 148, 226);
   width: 100%;
-  height: 100vh;
+  height: 200px;
+  position: relative;
+  top: 100px;
+}
+body {
+  overflow-x: hidden;
+}
+body{
+  background-image: url(law.jpeg);
+  background-size: cover;
+}
+.img-btn-div{
+  color: black;
 }

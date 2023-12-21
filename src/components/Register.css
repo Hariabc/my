@@ -1,4 +1,8 @@
 /* CSS for Register Page */
+
+body{
+  color: white;
+}
 .register-container {
   display: flex;
   flex-direction: column;
@@ -94,6 +98,7 @@
 
 .form-label {
   font-size: 18px;
+  color: white;
 }
 
 .form-input {
@@ -102,6 +107,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
+  color: black;
 }
 
 .form-button {
