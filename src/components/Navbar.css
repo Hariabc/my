@@ -1,20 +1,145 @@
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,600');
+/* Navigation Styles */
+nav {
+  font-family: 'Titillium Web';
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 600;
+}
+
+nav * {
+  box-sizing: border-box;
+  transition: all .35s ease;
+}
+
+nav li {
+  display: inline-block;
+  list-style: outside none none;
+  /* margin: .5em 1em; */
+  padding: 0;
+}
+
+nav a {
+  padding: .5em .8em;
+  color: rgba(255, 255, 255, .5);
+  position: relative;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+nav a::before,
+nav a::after {
+  content: '';
+  height: 14px;
+  width: 14px;
+  position: absolute;
+  transition: all .35s ease;
+  opacity: 0;
+}
+
+nav a::before {
+  content: '';
+  right: 0;
+  top: 0;
+  border-top: 3px solid blanchedalmond;
+  border-right: 3px solid blanchedalmond;
+  transform: translate(-100%, 50%);
+}
+
+nav a:after {
+  content: '';
+  left: 0;
+  bottom: 0;
+  border-bottom: 3px solid blanchedalmond;
+  border-left: 3px solid blanchedalmond;
+  transform: translate(100%, -50%);
+}
+
+nav a:hover:before,
+nav a:hover:after {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+nav a:hover {
+  color:black;
+}
+
+/* Main Navigation Styles */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  background-color: #6B8BA4;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  line-height: 20px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  z-index: 1000;
+}
+
+/* Style for the logo container */
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Style for the logo */
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Style for the navigation links */
+.main-nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.main-nav li {
+  margin-left: 15px;
+}
+
+.main-nav a {
+  color: #000;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.mobile-icon {
+  display: none;
+}
+
+/* Media query for responsive design */
+@media (max-width: 768px) {
   .main-nav {
+
+    flex-direction: column;
+    text-align: center;
     display: flex;
     justify-content: space-between;
-    background-color: #6B8BA4;
+    background-color: #212020;
     align-items: center;
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 10px;
     padding-top: 10px;
     line-height: 20px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
     z-index: 1000;
   }
   
@@ -23,73 +148,38 @@
     display: flex;
     align-items: center;
   }
-  
-  /* Style for the logo */
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 0;
-  }
-  
-  /* Style for the navigation links */
+
   .main-nav ul {
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: none;
+    z-index: 11111111111;
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: flex;
+    color: white;
   }
-  
-  .main-nav li {
-    margin-left: 15px;
-  }
-  
-  .main-nav a {
-    color: #000;
-    text-decoration: none;
-    font-size: 18px;
-    padding: 10px;
+
+  .main-nav ul.open {
     display: flex;
-    align-items: center;
   }
-  
-  .main-nav a:hover {
+
+  .main-nav .mobile-icon {
+    display: flex;
+    justify-content: space-evenly;
+    cursor: pointer;
+    margin-left: 220px;
+    align-items: center;
+    color: #fff;
+  }
+
+  .main-nav .mobile-icon:hover {
     background-color: rgb(231, 231, 238);
   }
-  .mobile-icon{
-    display: none;
-  }
-  /* Media query for responsive design */
-  @media (max-width: 768px) {
-    .main-nav {
-      flex-direction: column;
-      text-align: center;
-    }
-    .main-nav ul {
-      flex-direction: column;
-      position: absolute;
-      top: 70px;
-      left: 0;
-      width: 100%;
-      background-color: #fff;
-      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-      display: none;
-      z-index: 11111111111;
-    }
-  
-    .main-nav ul.open {
-      display: flex;
-    }
-  
-    .main-nav .mobile-icon {
-     display: flex;
-     justify-content: space-evenly;
-      cursor: pointer;
-      margin-left: 220px;
-
-    }
-  
-    .main-nav .mobile-icon:hover {
-      background-color: rgb(231, 231, 238);
-    }
-  }
-  
+}
