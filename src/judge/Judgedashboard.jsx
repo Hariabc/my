@@ -1,8 +1,8 @@
 // COAdashboard.js
 import React, { useState, useEffect, useRef } from 'react';
 import "../coa/COAdashboard.css";
-import admin from "../components/judge.png";
-import profile from "../components/icon-profile-1.jpg";
+import admin from "../assets/judge.png";
+import profile from "../assets/icon-profile-1.jpg";
 import { Link } from 'react-router-dom';
 import { IoIosNotifications } from "react-icons/io";
 
