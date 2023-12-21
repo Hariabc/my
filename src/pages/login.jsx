@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './login.css';
-import admin from "../components/admin.png";
-import advocate from "../components/advocate.png";
-import client from "../components/client.png";
-import judge from "../components/judge.png";
+import admin from "../assets/Admin.png";
+import advocate from "../assets/advocate.png";
+import client from "../assets/client.png";
+import judge from "../assets/judge.png";
 import COAdashboard from '../coa/COAdashboard';
 import Clientdashboard from '../client/Clientdashboard';
 import Judgedashboard from '../judge/Judgedashboard';
@@ -81,7 +81,7 @@ const LoginPage = () => {
             />
             <button type="submit" ><Link to={`/${selectedUser}d`}>Login</Link></button>
             <p className='Register'>
-              Don't have an account?<span><Link to="/Register" style={{textDecoration:"none"}}>Register</Link></span>
+              Don't have an account?<span><Link to={`/${selectedUser}r`} style={{textDecoration:"none"}}>Register</Link></span>
             </p>
           </form>
         </div>

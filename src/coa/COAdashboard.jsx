@@ -1,7 +1,7 @@
 // COAdashboard.js
 import React, { useState, useEffect, useRef } from 'react';
 import "./Coadashboard.css";
-import admin from "../components/admin.png";
+import admin from "../assets/admin.png";
 import { Link } from 'react-router-dom';
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 const COAdashboard = () => {

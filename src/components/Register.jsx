@@ -1,8 +1,7 @@
-import React, { Component, useState } from 'react';
-import './Register.css';
-import client from './client.png';
-import advocate from './advocate.png';
-
+import React, {useState } from 'react';
+import '../REGISTER/register.css';
+import client from '../assets/client.png';
+import advocate from '../assets/advocate.png';
 
 
 const RegisterPage = () => {
