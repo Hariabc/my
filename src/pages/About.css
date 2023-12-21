@@ -1,3 +1,29 @@
+
+/* AboutPage.css */
+
+.about-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
+  h2 {
+    color: #555;
+    margin-top: 20px;
+  }
+  
+  p {
+    color: #777;
+    line-height: 1.5;
+  }
+  
+  /* Add more styles as needed for specific elements */
+  
+=======
 /* Apply some basic styling to the body */
 body {
     font-family: 'Arial', sans-serif;
