@@ -4,6 +4,8 @@ import { IoIosContact } from "react-icons/io";
 import { MdMenu } from "react-icons/md";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa6";
+
 
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -42,10 +44,10 @@ export const Navbar = () => {
               Contact Us
             </Link>
           </li>
-          <li>
+          <li className="login-button">
             <Link to="/login" style={{ textDecoration: "none" }} onClick={toggleMobileMenu}>
               <IoIosContact size={22} style={{ verticalAlign: "sub" }} />
-              Login/Register
+              Login/Register <FaArrowRight size={22} style={{paddingLeft:"10px"}}/>
             </Link>
           </li>
         </ul>

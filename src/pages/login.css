@@ -6,7 +6,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   height: 100vh;
-  background-color:#95B4CC;
+  background-color:#fbfdff;
   padding: 20px;
   justify-content: center;
   /* background-image:linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%); */
@@ -46,7 +46,7 @@
 .login-form {
   background-color: white;
   border-radius: 10px;
-  padding: 10px;
+  padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   height: 50vh;
   width: 50vh;
@@ -54,7 +54,7 @@
 
 h2 {
   font-size: 24px;
-  margin-bottom: 20px;
+  /* margin-bottom: 10px; */
 }
 
 form {

@@ -183,3 +183,15 @@ nav a:hover {
     background-color: rgb(231, 231, 238);
   }
 }
+.login-button {
+  display: inline-block;
+  font-size: 12px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid #3498db;
+  border-radius: 5px;
+  color: #3498db;
+  background-color: #fff;
+  transition: background-color 0.3s, color 0.3s;
+}
