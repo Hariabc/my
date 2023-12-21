@@ -29,7 +29,7 @@ const router=createBrowserRouter(
         {/* <Route path='Register' element={<RegisterPage/>}/> */}
         <Route path='services' element={<Services/>}/>
         <Route path='contact' element={<Contact/>}/>
-        <Route path='loginlayout' element={<Loginl
+        <Route path='loginlayout' element={<Loginlaylout/>}/>
         <Route path='clientr' element={<ClientForm/>}/>
         <Route path='advocater' element={<AdvocateForm/>}/>
         <Route path="/set-password/:token" component={<SetPassword/>} />
