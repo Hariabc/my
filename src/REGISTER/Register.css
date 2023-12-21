@@ -1,7 +1,11 @@
 /* CSS for Register Page */
-
-body{
-  color: black;
+.register-main-box{
+  margin-left: 7%;
+  margin-right: 7%;
+  margin-top: 5%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 20px;
+  border-radius: 10px;
 }
 .register-container {
   display: flex;

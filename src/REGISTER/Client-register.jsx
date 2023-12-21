@@ -63,7 +63,7 @@ const ClientForm = () => {
     };
   
     return (
-      <div>
+      <div className='register-main-box'>
         <h3 className="user-form-title">Client Registration</h3>
         <form onSubmit={handleSubmit} className="user-form">
           <label className="form-label">

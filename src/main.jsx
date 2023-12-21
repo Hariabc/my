@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
+// import App from './App'
 import './index.css' 
 import { createBrowserRouter,createRoutesFromElements,Route, RouterProvider } from 'react-router-dom'
 import Layout from './components/Layout.jsx'
 import Home from './pages/Home.jsx'
 import About from './pages/About.jsx'
 import LoginPage from './pages/login.jsx'
-import RegisterPage from './components/Register.jsx'
+// import RegisterPage from './components/Register.jsx'
 import Clientdashboard from './client/Clientdashboard.jsx'
 import AdvocateDashboard from './advocate/AdvocateDashboard.jsx'
 import Judgedashboard from './judge/Judgedashboard.jsx'
@@ -16,6 +16,8 @@ import Services from './pages/services.jsx'
 import Contact from './pages/contact.jsx'
 import ClientForm from './REGISTER/Client-register.jsx'
 import AdvocateForm from './REGISTER/Adocate-register.jsx'
+import SetPassword from './components/SetPassword.jsx'
+
 const router=createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -28,6 +30,7 @@ const router=createBrowserRouter(
         <Route path='contact' element={<Contact/>}/>
         <Route path='clientr' element={<ClientForm/>}/>
         <Route path='advocater' element={<AdvocateForm/>}/>
+        <Route path="/set-password/:token" component={<SetPassword/>} />
       </Route>
       <Route path=''> 
         <Route path='/clientd' element={<Clientdashboard/>}/>
