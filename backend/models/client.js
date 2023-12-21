@@ -30,7 +30,6 @@ const clientSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true
   },
   address: {
     type: String,
@@ -45,7 +44,15 @@ const clientSchema = new mongoose.Schema({
     type: String,
     enum: ['male', 'female', 'other'],
     required: true
+  },
+  temp_token: {
+    type: String
+  },
+  role: {
+    type: String,
+    default:"client"
   }
+
 });
 
 // Create a model based on the schema
