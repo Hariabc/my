@@ -233,6 +233,10 @@
 body {
   overflow-x: hidden;
 }
+body{
+  background-image: url(law.jpeg);
+  background-size: cover;
+}
 .img-btn-div{
   color: black;
 }

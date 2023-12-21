@@ -1,7 +1,5 @@
 import React from 'react';
-import oip from '../pages/OIP.jpeg';
 import './Home.css'; // Assuming you have a separate CSS file for styling
-/*import fontawesome from "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"*/
 export default function Home() {
   return (
     <>  
@@ -12,7 +10,7 @@ export default function Home() {
         </div>
         <div className="img-btn-div1">
         <div className="img-btn-div">
-        <h3 className="image-text">Justice denied is justice delayed</h3>
+        <h3 className="image-text">Justice Delayed is Justice Denied</h3>
         <h1> Welcome to E-Portal</h1>
         <button class="btn-explore">Explore</button>
         </div>
