@@ -1,0 +1,34 @@
+/* COAdashboard.css */
+.admin {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;/* Adjust the column sizes as needed */
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .logo-admin, .admin-head, .logo-profile {
+    text-align: center;
+  }
+  
+  .dashboard-boxes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Ensure four boxes in a row */
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .dashboard-box {
+    padding: 15px;
+    text-align: center;
+    background-color: #f0f0f0; /* Adjust the background color as needed */
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333; /* Adjust the text color as needed */
+    font-weight: bold;
+  }
+  
+  .dashboard-box:hover {
+    background-color: #ddd; /* Adjust the hover background color as needed */
+  }
+  
