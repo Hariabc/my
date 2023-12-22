@@ -29,8 +29,7 @@ const sendSetPasswordEmail = async (email, token) => {
     from:"ecourtservicehelper@gmail.com",
     to: email,
     subject: 'Set Your Password for Court Case Management Portal',
-    text: `To set your password, please click on the following link: http://your-frontend-url/set-password/${token}`,
-    // Replace "your-frontend-url" with your actual frontend URL and endpoint for setting the password
+    text: `To set your password, please click on the following link: http://localhost:5173/set-password/${token}`,
   };
 
   try {
