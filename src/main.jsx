@@ -30,7 +30,7 @@ const router=createBrowserRouter(
         <Route path='contact' element={<Contact/>}/>
         <Route path='clientr' element={<ClientForm/>}/>
         <Route path='advocater' element={<AdvocateForm/>}/>
-        <Route path="/set-password/:token" component={<SetPassword/>} />
+        <Route path="/set-password/:token" element={<SetPassword/>} />
       </Route>
       <Route path=''> 
         <Route path='/clientd' element={<Clientdashboard/>}/>
