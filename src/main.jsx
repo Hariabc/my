@@ -17,7 +17,7 @@ import Contact from './pages/contact.jsx'
 import Loginlaylout from './pages/Loginlaylout.jsx'
 import ClientForm from './REGISTER/Client-register.jsx'
 import AdvocateForm from './REGISTER/Adocate-register.jsx'
-import SetPassword from './components/SetPassword.jsx'
+
 
 const router=createBrowserRouter(
   createRoutesFromElements(
@@ -32,7 +32,6 @@ const router=createBrowserRouter(
         <Route path='loginlayout' element={<Loginlaylout/>}/>
         <Route path='clientr' element={<ClientForm/>}/>
         <Route path='advocater' element={<AdvocateForm/>}/>
-        <Route path="/set-password/:token" element={<SetPassword/>} />
       </Route>
       <Route path=''> 
         <Route path='/clientd' element={<Clientdashboard/>}/>
