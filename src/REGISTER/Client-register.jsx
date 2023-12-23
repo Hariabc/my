@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './Register.css';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ClientForm = () => {
   const [formData, setFormData] = useState({
@@ -109,20 +111,35 @@ const ClientForm = () => {
         const response = await axios.post('http://localhost:5000/client/register', formData);
         if (response && response.data) {
           console.log('Server Response:', response.data);
+          toast.success('Link has been sent to your mail to set password'); // Success message
           // Handle success (redirect, display a success message, etc.)
         } else {
           console.error('Error: Response or response data is undefined');
+          toast.error('Failed to register client'); // Error message
         }
       } catch (error) {
         console.error('Error:', error.response ? error.response.data : error.message);
+        toast.error('Failed to register client'); // Error message
       }
     } else {
+      toast.error('Form has validation errors. Please fix them.'); // Validation error message
       console.log('Form has validation errors. Please fix them.');
     }
   };
 
   return (
     <div className='register-main-box'>
+     <ToastContainer
+        position="top-center" // Set the position to top-center
+        autoClose={5000} // Adjust duration
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <h3 className="user-form-title">Client Registration</h3>
       <form onSubmit={handleSubmit} className="user-form">
         <label className="form-label">
