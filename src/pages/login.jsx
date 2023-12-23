@@ -81,7 +81,7 @@ const LoginPage = () => {
             />
             <button type="submit" ><Link to={`/${selectedUser}d`}>Login</Link></button>
             <p className='Register'>
-              Don't have an account?<span><Link to={`/${selectedUser}r`} style={{textDecoration:"none"}}>Register</Link></span>
+              Don't have an account?<span><Link to={`/${selectedUser}/register`} style={{textDecoration:"none"}}>Register</Link></span>
             </p>
           </form>
         </div>

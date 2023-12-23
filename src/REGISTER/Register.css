@@ -1,97 +1,29 @@
 /* CSS for Register Page */
-.register-main-box{
-  margin-left: 7%;
-  margin-right: 7%;
-  margin-top: 5%;
+.register-main-box {
+  margin: 5% auto;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding: 20px;
   border-radius: 10px;
-}
-.register-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center horizontally */
-  justify-content: center; /* Center vertically */
-  /* background-color: #3498db; */
-  padding: 20px;
-  border-radius: 10px;
-  color: rgb(60, 61, 69);
-  height: 100vh;
+  width: 80%; /* Adjust the width as needed */
+  max-width: 600px; /* Maximum width for the box */
 }
 
-.register-header {
-  font-size: 24px;
-  margin-bottom: 20px;
+/* Error message styles */
+.error-message {
+  color: #ff0000; /* Red color for error messages */
+  font-size: 14px;
+  margin-top: 5px;
 }
 
-.user-selecting {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
+  
 
-.clear-selection-button {
-  background-color: #e74c3c;
-  color:black;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 18px;
-  margin-top: 20px;
-  font-weight: bold;
-}
 
-.clear-selection-button:hover {
-  background-color: #c0392b;
-}
 
-/* CSS for User List */
-.user-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-}
-
-.user-item {
-  margin: 10px;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  border: 1px solid #3498db;
-  border-radius: 10px;
-  background-color: white;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-.user-item:hover {
-  transform: scale(1.05);
-}
-
-.user-avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 2px solid #3498db;
-}
-
-.user-name {
-  margin-top: 10px;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-/* CSS for User Forms */
 .user-form-title {
   font-size: 24px;
   margin-bottom: 20px;
   color: #3498db;
+  text-align: center; /* Center the title */
 }
 
 .user-form {
@@ -115,33 +47,9 @@
 }
 
 .form-button {
-  width: 100%;
-  background-color: #2ecc71;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-.form-button:hover {
-  background-color: #27ae60;
-}
-/* ... (previous CSS code remains the same) */
-
-.user-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 40px;
-  justify-content: center; /* Center the grid horizontally */
-  align-items: center; /* Center the grid vertically */
-}
-
-.form-button {
   grid-column: span 2; /* Span the button across both columns */
-  width: 80%; /* Adjust the width as needed */
-  margin-top: 20px; /* Add margin for spacing */
+  width: calc(100% - 20px); /* Adjust the width as needed */
+  margin: 20px 0; /* Add margin for spacing */
   background-color: #2ecc71;
   color: white;
   padding: 10px;
@@ -149,11 +57,11 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 18px;
-  margin-left: 285px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block; /* Center the button */
 }
 
 .form-button:hover {
   background-color: #27ae60;
 }
-
-

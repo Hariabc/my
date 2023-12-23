@@ -29,10 +29,14 @@ const router=createBrowserRouter(
         {/* <Route path='Register' element={<RegisterPage/>}/> */}
         <Route path='services' element={<Services/>}/>
         <Route path='contact' element={<Contact/>}/>
-        <Route path='loginlayout' element={<Loginlaylout/>}/>
-        <Route path='clientr' element={<ClientForm/>}/>
-        <Route path='advocater' element={<AdvocateForm/>}/>
+        {/* <Route path='loginlayout' element={<Loginlaylout/>}/> */}
+        <Route  path='client/register' element={<ClientForm/>}/>
+        <Route  path='advocate/register' element={<AdvocateForm/>}/>
       </Route>
+      {/* <Route path='login'>
+        <Route></Route>
+
+      </Route> */}
       <Route path=''> 
         <Route path='/clientd' element={<Clientdashboard/>}/>
         <Route path='/advocated' element={<AdvocateDashboard/>}/>
