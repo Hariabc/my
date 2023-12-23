@@ -15,6 +15,7 @@ import ClientForm from './REGISTER/Client-register';
 import AdvocateForm from './REGISTER/Advocate-register';
 import SetPassword from './components/Setpassword';
 
+
 const App = () => {
   return (
     <Router>

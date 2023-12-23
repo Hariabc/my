@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import 
+import './SetPassword.css';
 
 const SetPassword = () => {
   const { token } = useParams(); // Fetching token from URL params
@@ -50,7 +50,7 @@ const SetPassword = () => {
   };
 
   return (
-    <div>
+    <div className="password-container">
       <h1>Set Your Password</h1>
       <ToastContainer
         position="top-center"
@@ -64,20 +64,22 @@ const SetPassword = () => {
         pauseOnHover
         toastStyle={{ width: 'auto' }}
       />
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="password-form">
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={handlePasswordChange}
+          className="password-input"
         />
         <input
           type="password"
           placeholder="Confirm Password"
           value={confirmPassword}
           onChange={handleConfirmPasswordChange}
+          className="password-input"
         />
-        <button type="submit">Set Password</button>
+        <button type="submit" className="password-button">Set Password</button>
       </form>
     </div>
   );
