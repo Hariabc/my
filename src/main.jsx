@@ -31,10 +31,10 @@ const App = () => {
           <Route path="/set-password/:token" element={<SetPassword/>} />
         </Route>
         <Route path="">
-          <Route path="/clientd" element={<ClientDashboard />} />
-          <Route path="/advocated" element={<AdvocateDashboard />} />
-          <Route path="/judged" element={<JudgeDashboard />} />
-          <Route path="/admind" element={<COADashboard />} />
+          <Route path="/clientdashboard" element={<ClientDashboard />} />
+          <Route path="/advocatedashboard" element={<AdvocateDashboard />} />
+          <Route path="/judgedashboard" element={<JudgeDashboard />} />
+          <Route path="/admindashboard" element={<COADashboard />} />
         </Route>
       </Routes>
     </Router>
