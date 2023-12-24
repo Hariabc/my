@@ -19,8 +19,20 @@ const SetPassword = () => {
     setConfirmPassword(event.target.value);
   };
 
+  const validatePassword = (password) => {
+    // Password pattern validation (at least 8 characters with at least one uppercase letter, one lowercase letter, one number, and one special character)
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+    return passwordPattern.test(password);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!validatePassword(password)) {
+      toast.error('Password must contain at least 8 characters with at least one uppercase letter, one lowercase letter, one number, and one special character');
+      return;
+    }
+
     if (password === confirmPassword) {
       try {
         await axios.post(`http://localhost:5000/client/set-password/${token}`, {
@@ -67,7 +79,7 @@ const SetPassword = () => {
       <form onSubmit={handleSubmit} className="password-form">
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Password (At least 8 characters with at least one uppercase letter, one lowercase letter, one number, and one special character)"
           value={password}
           onChange={handlePasswordChange}
           className="password-input"
