@@ -163,4 +163,42 @@ filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#5E9ADF", en
   margin-right: 10%;/* Adjust paragraph line height */
 }
 
+@media (max-width: 768px) {
+  .admin {
+    flex-direction: row;
+    margin-left: 5%;
+    width: 90%;
+  }
+  .dashboard-boxes {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+
+  .faq-question {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  .faq-item p {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin {
+    margin-left: 2%;
+    width: 96%;
+  }
+
+  .dashboard-box img {
+    max-width: 80%;
+  }
+
+  .faq-question,
+  .faq-item p {
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+}
+
 
