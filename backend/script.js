@@ -2,10 +2,18 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 require("dotenv").config();
-const clientRouters= require("./routers/clientRouters")
+const cors = require("cors");
+const clientRouters = require("./routers/clientRouters")
+app.use(cors({
+    origin: 'http://localhost:5173', // Change this to your React app's URL
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Enable credentials (if required)
+  }));
 const port = process.env.PORT || 5000;
 app.use(express.json());
-app.use("/client",clientRouters)
+app.use("/client", clientRouters)
+// app.use(cors())
+
 
 mongoose.connect('mongodb://127.0.0.1:27017/eportalDB', {
   useNewUrlParser: true,
