@@ -6,7 +6,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   height: 100vh;
-  background-color:#95B4CC;
+  /* background-color: #3498db; */
   padding: 20px;
   justify-content: center;
   /* background-image:linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%); */
@@ -15,7 +15,6 @@
 .user-selection {
   display: flex;
   gap: 10px;
-  padding: 20px;
 }
 
 .user-button {
@@ -54,13 +53,14 @@
 
 h2 {
   font-size: 24px;
-  margin-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
+  margin: 15px;
 }
 
 label {
@@ -112,3 +112,35 @@ button:hover {
 .Register a {
   color: #121111;
 }
+/* login.css */
+
+/* Add a mobile-first media query */
+@media only screen and (max-width: 600px) {
+  .login-container {
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+
+  .user-selection {
+    flex-direction: row; /* Stack user buttons vertically on smaller screens */
+  }
+
+  .user-button img {
+    width: 50px; /* Reduce image size for smaller screens */
+    height: 50px;
+  }
+
+  .login-form {
+    width: 80%; /* Adjust form width for smaller screens */
+  }
+}
+
+.login-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100vh;
+  padding: 20px;
+}
+
+/* ... (rest of your existing styles) ... */

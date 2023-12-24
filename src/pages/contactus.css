@@ -5,7 +5,9 @@
   }
   
   .contact-section {
-    background: linear-gradient(90deg,#e8eced 30%, #90c8e4 100%);
+    /* background: linear-gradient(90deg,#e8eced 30%, #90c8e4 100%); */
+    background: rgb(123,193,221);
+background: linear-gradient(90deg, rgba(123,193,221,1) 0%, rgba(232,214,229,1) 100%);
     display: flex;
     align-items: center;
   }
