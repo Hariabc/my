@@ -1,20 +1,48 @@
 .about{
   position: relative;
   width: 100%;
-  height: 100vh; /* Set the desired height */
+  height: 100vh;
   background:url('../assets/home-background.jpg');
   background-size: cover;
   background-position: center;
   overflow: hidden;
-  /* filter: blur(5px);  */
-  opacity: 1; 
+} 
+
+.about{
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('../assets/home-background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* filter: grayscale(1); */
+  opacity: 1;
+  filter: blur(10%);
 }
-.about::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Adjust the alpha value for transparency */
-  }
+.about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100vh; /* Adjust this value based on your design */
+}
+
+.about h1 {
+  font-size: 2em; /* Adjust the font size as needed */
+  margin-bottom: 10px; /* Adjust the margin as needed */
+}
+
+.about p {
+  font-size: 1.2em; /* Adjust the font size as needed */
+  color: #fefefe; /* Adjust the text color as needed */
+  max-width: 600px; /* Adjust the maximum width as needed */
+  margin: 0 auto; /* Center the paragraph horizontally */
+}
+.about h1 {
+  font-size: 2em; /* Adjust the font size as needed */
+  margin-bottom: 10px; /* Adjust the margin as needed */
+}
+
+.about h1 .justice {
+  color:yellow;/* Adjust the color for 'JUSTICE' */
+  font-weight: bold; /* Add bold style */
+}

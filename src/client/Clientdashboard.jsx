@@ -96,7 +96,7 @@ const COAdashboard = () => {
       <div className='admin'>
         <div className="logo-admin">
           <img src={client} alt="ggg" />
-          <h2>Client Dashboard</h2>
+          <span><h2>Client Dashboard</h2></span>
         </div>
         {/* <div className="admin-head">
           <h1></h1>
