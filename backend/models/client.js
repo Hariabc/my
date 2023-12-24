@@ -16,7 +16,7 @@ const clientSchema = new mongoose.Schema({
     unique: true
   },
   phone: {
-    type: String,
+    type: Number,
     required: true
   },
   dob: {
@@ -36,7 +36,7 @@ const clientSchema = new mongoose.Schema({
     required: true
   },
   adhar: {
-    type: String,
+    type: Number,
     required: true,
     unique: true
   },
