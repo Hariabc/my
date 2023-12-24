@@ -124,7 +124,7 @@ const COAdashboard = () => {
           {linksData.map((link, index) => (
             <Link key={index} to={link.path} className="dashboard-box">
               {link.image && <img src={link.image} />}
-              {link.label}
+              <h3>{link.label}</h3>
             </Link>
           ))}
         </div>
