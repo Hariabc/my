@@ -34,7 +34,7 @@
 .about p {
   font-size: 1.2em; /* Adjust the font size as needed */
   color: #fefefe; /* Adjust the text color as needed */
-  max-width: 600px; /* Adjust the maximum width as needed */
+  max-width: 800px; /* Adjust the maximum width as needed */
   margin: 0 auto; /* Center the paragraph horizontally */
 }
 .about h1 {
@@ -45,4 +45,45 @@
 .about h1 .justice {
   color:yellow;/* Adjust the color for 'JUSTICE' */
   font-weight: bold; /* Add bold style */
+}
+/* HorizontalLine.css */
+
+.horizontal-line-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0; /* Adjust the margin as needed */
+}
+
+.horizontal-line {
+  width: 33%;
+  border: 1px solid #ddd; 
+  margin-bottom: 10px;
+  margin-top: 11px;/* Adjust the border color as needed */
+}
+/* ExploreButton.css */
+
+.explore-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #3498db; /* Button background color */
+  color: #fff; /* Button text color */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.explore-button:hover {
+  background-color: #2980b9; /* Adjust the hover background color */
+}
+
+.arrow-icon {
+  margin-left: 8px; /* Adjust the margin as needed */
 }
