@@ -73,7 +73,7 @@
   padding: 20px;
   border-radius: 8px;
   transition: background-color 0.3s;
-  background-color: #3e4056;
+  /* background-color: #3e4056; */
 }
 
 .dashboard-box img {

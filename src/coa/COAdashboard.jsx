@@ -49,9 +49,14 @@ const AdminDashboard = () => {
     <div className="admin-dashboard">
       {/* Admin Header */}
       <div className='admin'>
+      <div className="logo-admin">
+          <img src={adminIcon} alt="ggg" />
+          <span><h2>Admin Dashboard</h2></span>
+      </div>
+
         <div className="logo-profile">
           <IoIosArrowDropdownCircle />
-          <h2>Admin Username</h2>
+          <span><h2>Username</h2></span>
           <img src={adminIcon} alt="Admin" />
         </div>
       </div>
