@@ -71,7 +71,7 @@ const linksData = [
   { path: "/file-a-case", label: "File a Case", image: casefile },
   { path: "/pre-trial", label: "Pre Trial", image: confrence },
   { path: "/share-files", label: "Share Files", image: document },
-  { path: "/payment-boxes", label: "Payment Boxes", image: payment },
+  { path: "/payment", label: "Payment Boxes", image: payment },
   { path: "/private-advocate-list", label: "Private Advocate List", image: advocatelist },
   { path: "/cause-list", label: "Cause List", image: causelist },
   { path: "/case-details", label: "Case Details", image: casedetails},

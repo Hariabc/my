@@ -18,6 +18,7 @@ import Loginlaylout from './pages/Loginlaylout.jsx'
 import ClientForm from './REGISTER/Client-register.jsx'
 import AdvocateForm from './REGISTER/Adocate-register.jsx'
 import SetPassword from './components/SetPassword.jsx'
+import PaymentComponent from './dashborad-components/payment.jsx'
 
 const router=createBrowserRouter(
   createRoutesFromElements(
@@ -39,6 +40,8 @@ const router=createBrowserRouter(
         <Route path='/advocated' element={<AdvocateDashboard/>}/>
         <Route path='/judged' element={<Judgedashboard/>}/>
         <Route path='/admind' element={<COAdashboard/>}/>
+        <Route path='/payment' element={<PaymentComponent/>}/>
+
       </Route>
       </>
   )
