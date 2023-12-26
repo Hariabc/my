@@ -1,0 +1,63 @@
+/* AdvocateList.css */
+
+/* Container styles */
+.advocate-list-container {
+    padding-left: 10%;
+    margin: 20px;
+  }
+  
+  /* Heading styles */
+  .advocate-list-heading {
+    color: #333;
+  }
+  
+  /* Type selection button styles */
+  .type-selection-buttons button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .type-selection-buttons button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Advocate list styles */
+  .advocate-type-section {
+    margin-top: 20px;
+  }
+  
+  .advocate-type-heading {
+    color: #333;
+  }
+  
+  .advocate-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .advocate-item {
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 10px;
+  }
+  
+  /* Contact button styles */
+  .contact-button {
+    background-color: #3498db;
+    color: white;
+    padding: 8px 15px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .contact-button:hover {
+    background-color: #2980b9;
+  }
+  

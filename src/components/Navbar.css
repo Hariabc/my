@@ -21,7 +21,7 @@ nav li {
 
 nav a {
   padding: .5em .8em;
-  color: rgba(255, 255, 255, .5);
+  color:white;
   position: relative;
   text-decoration: none;
   font-size: 20px;
@@ -61,10 +61,6 @@ nav a:hover:after {
   opacity: 1;
 }
 
-nav a:hover {
-  color:black;
-}
-
 /* Main Navigation Styles */
 * {
   margin: 0;
@@ -75,7 +71,7 @@ nav a:hover {
 .main-nav {
   display: flex;
   justify-content: space-between;
-  background-color: #a0c1da;;
+  background-color: #2c2e30;
   align-items: center;
   padding-left: 20px;
   padding-right: 20px;
@@ -97,6 +93,7 @@ nav a:hover {
   font-size: 24px;
   font-weight: bold;
   margin: 0;
+  color: #fff;
 }
 
 /* Style for the navigation links */
@@ -112,7 +109,7 @@ nav a:hover {
 }
 
 .main-nav a {
-  color: #000;
+  color: #f0eded;
   text-decoration: none;
   font-size: 18px;
   padding: 10px;
@@ -192,6 +189,5 @@ nav a:hover {
   border: 2px solid #3498db;
   border-radius: 5px;
   color: #3498db;
-  background-color: #fff;
   transition: background-color 0.3s, color 0.3s;
 }

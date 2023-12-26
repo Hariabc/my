@@ -16,6 +16,7 @@ import scheduling from "../assets/DASHBOARDS/Scheduling calender.jpg";
 import caseanalytics from "../assets/DASHBOARDS/case analytics.jpg";
 import advocatelist from "../assets/DASHBOARDS/Advocate list.jpg";
 import {FaPlus} from "react-icons/fa"
+import { IoNotifications } from "react-icons/io5";
 
 
 
@@ -70,7 +71,7 @@ const linksData = [
   { path: "/file-a-case", label: "File a Case", image: casefile },
   { path: "/pre-trial", label: "Pre Trial", image: confrence },
   { path: "/share-files", label: "Share Files", image: document },
-  { path: "/payment-boxes", label: "Payment Boxes", image: payment },
+  { path: "/payment", label: "Payment Boxes", image: payment },
   { path: "/private-advocate-list", label: "Private Advocate List", image: advocatelist },
   { path: "/cause-list", label: "Cause List", image: causelist },
   { path: "/case-details", label: "Case Details", image: casedetails},
@@ -103,12 +104,12 @@ const COAdashboard = () => {
         </div> */}
         <div className="logo-profile">
           <IoIosArrowDropdownCircle />
-          <h2>Username</h2>
+          <span><h2>Username</h2></span>
           <img src={client} alt="ggg" />
+          <IoNotifications size={32} style={{paddingLeft:'10px'}}/>
         </div>
       </div>
-      <div className="">
-            {/* <img src={/* Your news image source */} {/*alt="News" style={{ maxWidth: '100%', height: 'auto' }} /> */}
+      {/* <div className="">
             <div className="news-box">
             <marquee>Your news text goes here </marquee>
             <marquee>Your news text goes here </marquee>
@@ -118,7 +119,7 @@ const COAdashboard = () => {
             <marquee>Your news text goes here </marquee>
 
             </div>
-          </div>
+          </div> */}
       <div className="client-body">
         <div className="dashboard-boxes">
           {linksData.map((link, index) => (
