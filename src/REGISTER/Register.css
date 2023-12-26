@@ -99,3 +99,8 @@ body {
 }
 
 /* ... (other styles remain the same) */
+.error-message {
+  color: red; /* Text color for the error message */
+  font-size: 0.85rem; /* Font size */
+  margin-top: 0.25rem; /* Spacing from the input field */
+}
