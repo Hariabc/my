@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const cors = require("cors");
 const clientRouters = require("./routers/clientRouters");
-const privAdvRouters=require("./routers/privateAdvocate")
+const AdvRouters=require("./routers/privateAdvocate")
 app.use(cors({
     origin: 'http://localhost:5173', // Change this to your React app's URL
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -28,7 +28,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/eportalDB', {
     console.error("Error connecting to MongoDB:", err.message)
 })
 app.use("/client", clientRouters)
-app.use("/privateadvocate", privAdvRouters);
+app.use("/advocate", AdvRouters);
 
 app.listen(port, () => {
     console.log(`Server is running on ${port}`)

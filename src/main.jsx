@@ -14,7 +14,7 @@ import Contact from './pages/contact';
 import ClientForm from './REGISTER/Client-register';
 import AdvocateForm from './REGISTER/Advocate-register';
 import SetPassword from './components/Setpassword';
-
+import Advpassword from "./components/privateAdvpassword";
 
 const App = () => {
   return (
@@ -28,7 +28,9 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/client/register" element={<ClientForm />} />
           <Route path="/advocate/register" element={<AdvocateForm />} />
-          <Route path="/set-password/:token" element={<SetPassword/>} />
+          <Route path="/set-password/:token" element={<SetPassword />} />
+          <Route path="/privAdv/set-password/:token" element={<Advpassword/>} />
+          
         </Route>
         <Route path="">
           <Route path="/clientdashboard" element={<ClientDashboard />} />

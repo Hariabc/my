@@ -202,7 +202,7 @@ const AdvocateForm = () => {
         {/* Bar Association */}
         <label className="form-label">
         Bar Association:
-          <select name=" barAssociation" value={formData.barAssociation} onChange={handleChange} className="form-select">
+          <select name="barAssociation" value={formData.barAssociation} onChange={handleChange} className="form-select">
             <option value="">Select an option</option>
             {barAssociations.map((option) => (
               <option value={option} key={option}>{option}</option>
@@ -241,7 +241,7 @@ const AdvocateForm = () => {
         {/* Practice Area */}
         <label className="form-label">
           Practice Area:
-          <select name="educationQualifications" value={formData.practiceArea} onChange={handleChange} className="form-select">
+          <select name="practiceArea" value={formData.practiceArea} onChange={handleChange} className="form-select">
             <option value="">Select an option</option>
             {practiceAreas.map((option) => (
               <option value={option} key={option}>{option}</option>

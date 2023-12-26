@@ -43,6 +43,9 @@ const advocateSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  password: {
+    type:String
+  },
   temp_token: {
     type: String,
   },
