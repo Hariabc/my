@@ -5,6 +5,7 @@ require("dotenv").config();
 const cors = require("cors");
 const clientRouters = require("./routers/clientRouters");
 const AdvRouters = require("./routers/privateAdvocate")
+const caoRouters=require("./routers/caoRouters")
 // const { Court, CourtAdmin } = require("./models/cao")
 
 app.use(cors({
@@ -31,6 +32,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/eportalDB', {
 })
 app.use("/client", clientRouters)
 app.use("/advocate", AdvRouters);
+app.use("/cao",caoRouters)
 const { Court, CourtAdmin } = require('./models/cao'); // Import the models
 
 // Suppose you have the ObjectId of an existing Court document
