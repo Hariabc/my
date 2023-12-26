@@ -1,106 +1,145 @@
-// PaymentComponent.js
 import React, { useState } from 'react';
-import creditCardImage from '../assets/DASHBOARDS/Payments.jpg'; // Replace with your actual image URLs
-import upiImage from '../assets/DASHBOARDS/payments.jpg';
-import masterCardImage from '../assets/DASHBOARDS/payments.jpg';
+import './Payment.css'; // Import your CSS file
+import { Link } from 'react-router-dom';
 
-const PaymentComponent = () => {
-  const [paymentMethod, setPaymentMethod] = useState('');
-  const [cardNumber, setCardNumber] = useState('');
-  const [expiryDate, setExpiryDate] = useState('');
-  const [cvc, setCVC] = useState('');
+const PaymentOption = ({ option, selectedOption, handleOptionChange, selectedCaseType, handleCaseTypeChange }) => {
+  const [cnrNumber, setCnrNumber] = useState('');
+  const [amount, setAmount] = useState('');
+  const [message, setMessage] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
+  const [email, setEmail] = useState('');
 
-  const handlePaymentMethodChange = (e) => {
-    setPaymentMethod(e.target.value);
+  const handleCnrNumberChange = (event) => {
+    setCnrNumber(event.target.value);
   };
 
-  const handleCardNumberChange = (e) => {
-    setCardNumber(e.target.value);
+  const handleAmountChange = (event) => {
+    setAmount(event.target.value);
   };
 
-  const handleExpiryDateChange = (e) => {
-    setExpiryDate(e.target.value);
+  const handleMessageChange = (event) => {
+    setMessage(event.target.value);
   };
 
-  const handleCVCChange = (e) => {
-    setCVC(e.target.value);
+  const handleMobileNumberChange = (event) => {
+    setMobileNumber(event.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle the payment logic (e.g., send data to a server, process payment, etc.)
-    console.log('Payment submitted:', { paymentMethod, cardNumber, expiryDate, cvc });
-    // You can add further logic here for payment processing
-  };
-
-  const paymentMethodImages = {
-    creditCard: creditCardImage,
-    upi: upiImage,
-    masterCard: masterCardImage,
-    // Add more payment methods with their image URLs
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
 
   return (
-    <div className="payment-container">
-      <h2>Payment Details</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="paymentMethod">Payment Method:</label>
-          <select
-            id="paymentMethod"
-            value={paymentMethod}
-            onChange={handlePaymentMethodChange}
-            required
-          >
-            <option value="">Select Payment Method</option>
-            <option value="creditCard">Credit Card</option>
-            <option value="upi">UPI</option>
-            <option value="masterCard">MasterCard</option>
-            {/* Add more payment options as needed */}
-          </select>
+    <form className='payment-form'>
+      <span>
+        <label className='payment-label-main'>
+          <input
+            type="radio"
+            name="paymentOption"
+            value={option}
+            checked={selectedOption === option}
+            onChange={() => handleOptionChange(option)}
+          />
+          {option.charAt(0).toUpperCase() + option.slice(1)}
+        </label>
+      </span>
+      {selectedOption === 'courtFee' && selectedOption === option && (
+        <div className='new-existing'>
+          <label className='payment-label-main'>
+            <input
+              type="radio"
+              name="caseType"
+              value="newCase"
+              checked={selectedCaseType === 'newCase'}
+              onChange={() => handleCaseTypeChange('newCase')}
+            />
+            New Case
+          </label>
+          <label className='payment-label-main'>
+            <input
+              type="radio"
+              name="caseType"
+              value="existingCase"
+              checked={selectedCaseType === 'existingCase'}
+              onChange={() => handleCaseTypeChange('existingCase')}
+            />
+            Existing Case
+          </label>
         </div>
-        {paymentMethod && (
+      )}
+      {selectedOption === option && (
+        <div className='payment-details'>
           <div>
-            <div className="payment-image">
-              <img src={paymentMethodImages[paymentMethod]} alt={`${paymentMethod} image`} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="cardNumber">Card Number:</label>
-              <input
-                type="text"
-                id="cardNumber"
-                value={cardNumber}
-                onChange={handleCardNumberChange}
-                placeholder="Enter card number"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="expiryDate">Expiry Date:</label>
-              <input
-                type="text"
-                id="expiryDate"
-                value={expiryDate}
-                onChange={handleExpiryDateChange}
-                placeholder="MM/YY"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="cvc">CVC:</label>
-              <input
-                type="text"
-                id="cvc"
-                value={cvc}
-                onChange={handleCVCChange}
-                placeholder="CVC"
-                required
-              />
-            </div>
+            <label className='payment-label'>
+              CNR Number:
+              <input type="text" className='payment-input' value={cnrNumber} onChange={handleCnrNumberChange} />
+            </label>
           </div>
-        )}
-        <button type="submit">Submit Payment</button>
+          <div>
+            <label className='payment-label'>
+              Amount:
+              <input type="text" className='payment-input' value={amount} onChange={handleAmountChange} />
+            </label>
+          </div>
+          <div>
+            <label className='payment-label'>
+              Message:
+              <input type="text" className='payment-input' value={message} onChange={handleMessageChange} />
+            </label>
+          </div>
+          <div>
+            <label className='payment-label'>
+              Mobile Number:
+              <input type="text" className='payment-input' value={mobileNumber} onChange={handleMobileNumberChange} />
+            </label>
+          </div>
+          <div>
+            <label className='payment-label'>
+              Email:
+              <input type="text" className='payment-input' value={email} onChange={handleEmailChange} />
+            </label>
+          </div>
+          <div>
+          <button type="submit">
+          Proceed to payment
+          </button>
+          </div>
+        </div> 
+      )}
+    </form>
+  );
+};
+
+const PaymentComponent = () => {
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedCaseType, setSelectedCaseType] = useState(null);
+
+  const handleOptionChange = (option) => {
+    setSelectedOption(option);
+    setSelectedCaseType(null);
+  };
+
+  const handleCaseTypeChange = (caseType) => {
+    setSelectedCaseType(caseType);
+  };
+
+  return (
+    <div className="payment-main-div">
+      <div className="payment-container">
+      <h2>Payment Details</h2>
+      <form className='payment-form'>
+        {['courtFee', 'judicialDeposit', 'fine', 'penalty', 'others'].map((option) => (
+          <PaymentOption
+            key={option}
+            option={option}
+            selectedOption={selectedOption}
+            handleOptionChange={handleOptionChange}
+            selectedCaseType={selectedCaseType}
+            handleCaseTypeChange={handleCaseTypeChange}
+          />
+        ))}
       </form>
+    </div>
     </div>
   );
 };
