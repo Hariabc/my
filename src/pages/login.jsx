@@ -34,7 +34,7 @@ const LoginPage = () => {
         switch (selectedUser) {
           // Switch cases remain the same
           case 'admin':
-            endpoint = 'http://localhost:5000/admin/login'; // Replace with the admin login endpoint
+            endpoint = 'http://localhost:5000/cao/login'; // Replace with the admin login endpoint
             break;
           case 'advocate':
             endpoint = 'http://localhost:5000/advocate/login'; // Replace with the advocate login endpoint
