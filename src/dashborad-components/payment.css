@@ -1,0 +1,94 @@
+/* Payment.css */
+
+
+.payment-container {
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  background-color: #f5f5f5;
+  color: #c35656;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+.payment-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.payment-div {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: row;
+}
+
+.payment-div label {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+.payment-div input {
+  margin-right: 10px;
+}
+
+.new-existing {
+  margin-left: 30px;
+}
+
+.payment-details {
+  margin-top: 10px;
+}
+
+/* React icon styling */
+.react-icon {
+  font-size: 20px;
+  color: #3498db;
+  margin-right: 8px;
+}
+
+/* Hover effect */
+.payment-div:hover {
+  background-color: #e0e0e0;
+  transition: background-color 0.3s ease;
+}
+
+/* Additional styling for input fields */
+.payment-details input {
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.payment-details label {
+  margin-bottom: 5px;
+}
+
+.new-existing {
+  display: flex;
+}
+
+.payment-label input {
+  width: 60%;
+  margin-right: 100%;
+}
+
+.payment-label-main {
+  padding-left: 20px;
+  width: 100%;
+}
+
+.payment-input {
+  width: 100%;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 600px) {
+  .payment-container {
+    max-width: 100%;
+  }
+}

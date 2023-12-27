@@ -1,4 +1,4 @@
-.judge-dashboard {
+.advocate-dashboard {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,7 +6,7 @@
     font-family: 'Arial', sans-serif;
     background-color: #91b3ce;
   }
-  .judge-header {
+  .advocate-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -17,20 +17,20 @@
     border-radius: 10px;
   }
   
-  .logo-judge img,
+  .logo-advocate img,
   .logo-profile img {
     width: 50px;
     height: 50px;
     border-radius: 50%; /* Added border-radius for a circular shape */
   }
   
-  .logo-judge,
+  .logo-advocate,
   .logo-profile {
     display: flex;
     align-items: center;
   }
   
-  .logo-judge h2,
+  .logo-advocate h2,
   .logo-profile h2 {
     margin-left: 10px;
     font-size: 24px;
@@ -49,7 +49,7 @@
   }
   
   
-  .judge-body {
+  .advocate-body {
     width: 100%;
     max-width: 1200px;
     margin: 20px 0;
@@ -68,7 +68,7 @@
     align-items: center;
     text-align: center;
     text-decoration: none;
-    color: rgb(25, 21, 21);
+    color: white;
     border: 1px solid #ddd;
     padding: 20px;
     border-radius: 8px;
@@ -130,7 +130,7 @@
     color: #777;
   }
   .dashboard-boxes h3{
-    color: rgb(3, 3, 3);
+    color: rgb(223, 221, 221);
   }
   .faq-box h3{
     color: aliceblue;

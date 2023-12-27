@@ -1,4 +1,4 @@
-.admin-dashboard {
+.client-dashboard {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,7 +36,6 @@
   font-size: 24px;
   display: inline;
   color: rgb(9, 9, 9);
-  font-size: medium;
 }
 
 .logo-profile {
@@ -50,15 +49,15 @@
 }
 
 
-.admin-body {
+.client-body {
   width: 100%;
   max-width: 1200px;
   margin: 20px 0;
 }
 
-.admin-dashboard-boxes {
+.dashboard-boxes {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 50px;
   color:white;
 }
@@ -75,7 +74,6 @@
   border-radius: 8px;
   transition: background-color 0.3s;
   /* background-color: #3e4056; */
-  /* background-color: white; */
 }
 
 .dashboard-box img {
@@ -131,9 +129,8 @@
   font-size: 20px;
   color: #777;
 }
-.admin-dashboard-boxes h3{
-  color: rgb(255, 255, 255);
-  font-size: medium;
+.dashboard-boxes h3{
+  color: rgb(223, 221, 221);
 }
 .faq-box h3{
   color: aliceblue;

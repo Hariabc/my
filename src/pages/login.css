@@ -6,8 +6,9 @@
   flex-direction: column;
   justify-content: space-evenly;
   height: 100vh;
-  background-color:#fbfdff;
-  padding: 20px;
+  /* background-color: #3498db; */
+  padding: 30px;
+  padding-bottom: 120px;
   justify-content: center;
   /* background-image:linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%); */
 }
@@ -15,7 +16,6 @@
 .user-selection {
   display: flex;
   gap: 10px;
-  padding: 20px;
 }
 
 .user-button {
@@ -46,21 +46,23 @@
 .login-form {
   background-color: white;
   border-radius: 10px;
-  padding: 20px;
+  padding: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   height: 50vh;
   width: 50vh;
+  margin-top: 30px;
 }
 
 h2 {
   font-size: 24px;
-  /* margin-bottom: 10px; */
+  padding-bottom: 20px;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
+  margin: 15px;
 }
 
 label {
@@ -134,13 +136,13 @@ button:hover {
   }
 }
 
-.login-container {
+/* .login-container {
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
   height: 100vh;
   padding: 20px;
-}
+} */
 
 /* ... (rest of your existing styles) ... */

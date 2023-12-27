@@ -6,8 +6,9 @@
   
   .contact-section {
     /* background: linear-gradient(90deg,#e8eced 30%, #90c8e4 100%); */
-    background: rgb(123,193,221);
-background: linear-gradient(90deg, rgba(123,193,221,1) 0%, rgba(232,214,229,1) 100%);
+    /* background: rgb(123,193,221);
+background: linear-gradient(90deg, rgba(123,193,221,1) 0%, rgba(232,214,229,1) 100%); */
+    background: linear-gradient(177.9deg, rgb(58, 62, 88) 3.6%, rgb(119, 127, 148) 105.8%);
     display: flex;
     align-items: center;
   }
@@ -22,7 +23,7 @@ background: linear-gradient(90deg, rgba(123,193,221,1) 0%, rgba(232,214,229,1) 1
     display: flex;
     justify-content: center;
     align-items: center;
-    color: aliceblue;
+    color: rgb(23, 25, 26);
     margin-bottom: 30px;
   }
   
@@ -105,5 +106,7 @@ background: linear-gradient(90deg, rgba(123,193,221,1) 0%, rgba(232,214,229,1) 1
   .title{
     font-size: large;
   }
-  
+  .contact-form {
+    color: #333;
+  }
   

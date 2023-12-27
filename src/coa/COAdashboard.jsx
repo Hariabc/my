@@ -1,87 +1,84 @@
-// COAdashboard.js
-import React, { useState, useEffect, useRef } from 'react';
-import "./Coadashboard.css";
-import admin from "../assets/admin.png";
+// AdminDashboard.js
+import React, { useState } from 'react';
+import "./coadashboard.css"; // Add your CSS file for styling
+import adminIcon from "../assets/admin.png"; // Add your admin icon image
 import { Link } from 'react-router-dom';
 import { IoIosArrowDropdownCircle } from "react-icons/io";
-const COAdashboard = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
+import { FaPlus } from "react-icons/fa"
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+import addlawyers from "../assets/admindashboard/Admin Pics/Adding Govt Lawyers.jpg"
+import assignjudge from "../assets/admindashboard/Admin Pics/Assign Judges Advocates.jpg"
+import caseanalytics from "../assets/admindashboard/Admin Pics/case analytics.jpg"
+import Documentation from "../assets/admindashboard/Admin Pics/documentation.jpg"
+import news from "../assets/admindashboard/Admin Pics/latest news.jpg"
+import resources from "../assets/admindashboard/Admin Pics/managing resources.jpg"
+import recievecases from "../assets/admindashboard/Admin Pics/receice filed Cases.jpg"
+import scheduling from "../assets/admindashboard/Admin Pics/scheduling calender.jpg"
+import notifications from "../assets/admindashboard/Admin Pics/sending notifications.jpg"
+import updatecauselist from "../assets/admindashboard/Admin Pics/updating causelist.jpg"
+import videoconfrence from "../assets/admindashboard/Admin Pics/video conference.jpg"
+
+
+const AdminDashboard = () => {
+  const [showAnswers, setShowAnswers] = useState({});
+
+  // Function to toggle answer visibility
+  const toggleAnswer = (questionId) => {
+    setShowAnswers((prev) => ({
+      ...prev,
+      [questionId]: !prev[questionId],
+    }));
   };
 
-  const closeDropdown = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setIsDropdownOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('click', closeDropdown);
-    return () => {
-      document.removeEventListener('click', closeDropdown);
-    };
-  }, []);
+  const linksData = [
+    { path: "/receive-filed-cases", label: "Receive Filed Cases", image: recievecases},
+    { path: "/assign-judge-lawyer", label: "Assigging judges", image: assignjudge },
+    { path: "/documentation", label: "Documentation", image: Documentation },
+    { path: "/update-cause-list", label: "Updating Cause List", image: updatecauselist},
+    { path: "/scheduling-calendar", label: "Scheduling Calendar", image: scheduling },
+    { path: "/case-analytics", label: "Cases Analytics", image: caseanalytics },
+    { path: "/add-lawyers-judges", label: "Adding Lawyers", image: addlawyers },
+    { path: "/post-updates-news", label: "Posting Updates News", image: news },
+    { path: "/send-notifications", label: "Notifications", image: notifications },
+    { path: "/case-profile-management", label: "Case Management", image: resources },
+    { path: "/pre-trial-conferencing", label: "Pre-trial", image: videoconfrence },
+    // ... add more links as needed
+  ];
 
   return (
-    <>
+    <div className="admin-dashboard">
+      {/* Admin Header */}
       <div className='admin'>
-        <div className="logo-admin">
-          <img src={admin} alt="ggg" />
-          <h2>Admin</h2>
-        </div>
-        <div className="admin-head">
-          <h1>Welcome to Admin dashboard</h1>
-        </div>
+      <div className="logo-admin">
+          <img src={adminIcon} alt="ggg" />
+          <span><h2>Admin Dashboard</h2></span>
+      </div>
+
         <div className="logo-profile">
-          <div className="profile-dropdown" onClick={toggleDropdown} ref={dropdownRef}>
           <IoIosArrowDropdownCircle />
-            <h2>Admin</h2>
-            <img src={admin} alt="ggg" />
-            <IoIosArrowDropdownCircle />
-            {isDropdownOpen && (
-              <div className="dropdown-content">
-                <Link to="/about">Profile</Link>
-                <a href="#">Settings</a>
-                <a href="#">Logout</a>
-              </div>
-            )}
-          </div>
+          <span><h2>Username</h2></span>
+          <img src={adminIcon} alt="Admin" />
         </div>
       </div>
-      <div className="sidebar">
-        <div className="section">
-          <h2>Section Title</h2>
-          <ul>
-          <ul>
-            <li><a href="#">Link 1</a></li>
-            <li><a href="#">Link 2</a></li>
-            <li><a href="#">Link 3</a></li>
-            <li><a href="#">Link 4</a></li>
-            <li><a href="#">Link 5</a></li>
-            <li><a href="#">Link 6</a></li>
-            <li><a href="#">Link 7</a></li>
-            <li><a href="#">Link 8</a></li>
-            <li><a href="#">Link 9</a></li>
-            <li><a href="#">Link 10</a></li>
-            <li><a href="#">Link 1</a></li>
-            <li><a href="#">Link 2</a></li>
-            <li><a href="#">Link 3</a></li>
-            <li><a href="#">Link 4</a></li>
-            <li><a href="#">Link 5</a></li>
-            <li><a href="#">Link 6</a></li>
-            <li><a href="#">Link 7</a></li>
-            <li><a href="#">Link 8</a></li>
-            <li><a href="#">Link 9</a></li>
-            <li><a href="#">Link 10</a></li>
-          </ul>
-          </ul>
+
+      {/* Admin Body */}
+      <div className="admin-body">
+        <div className="admin-dashboard-boxes">
+          {linksData.map((link, index) => (
+            <Link key={index} to={link.path} className="dashboard-box">
+              {link.image && <img src={link.image} alt={link.label} />}
+              <h3 style={{color:"black"}}>{link.label}</h3>
+            </Link>
+          ))}
         </div>
       </div>
-    </>
+
+      {/* Admin FAQ Section */}
+      <div className="faq-box">
+        {/* Add FAQs related to admin features if needed */}
+      </div>
+    </div>
   );
 };
 
-export default COAdashboard;
+export default AdminDashboard;
