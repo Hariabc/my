@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-// import App from './App'
+import App from './App'
 import './index.css' 
 import { createBrowserRouter,createRoutesFromElements,Route, RouterProvider } from 'react-router-dom'
 import Layout from './components/Layout.jsx'
@@ -20,6 +20,7 @@ import AdvocateForm from './REGISTER/Advocate-register.jsx'
 import SetPassword from './components/SetPassword.jsx'
 import PaymentComponent from './dashborad-components/payment.jsx'
 import AdvocateList from './dashborad-components/AdvoacateList.jsx'
+import EventForm from './Features/EventForm.jsx'
 
 const router=createBrowserRouter(
   createRoutesFromElements(
@@ -43,6 +44,7 @@ const router=createBrowserRouter(
         <Route path='/admind' element={<COAdashboard/>}/>
         <Route path='/payment' element={<PaymentComponent/>}/>
         <Route path='/advocatelist' element={<AdvocateList/>}/>
+        <Route path='/scheduling-calendar' element={<EventForm/>}/>
 
 
       </Route>
@@ -52,6 +54,8 @@ const router=createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router}>
+      <App />
+    </RouterProvider>
   </React.StrictMode>
 );
