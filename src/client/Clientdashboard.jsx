@@ -70,8 +70,8 @@ const FAQ_DATA = [
 const linksData = [
   { path: "/file-a-case", label: "File a Case", image: casefile },
   { path: "/pre-trial", label: "Pre Trial", image: confrence },
-  { path: "/sendingfiles", label: "Share Files", image: document },
-  { path: "/payment", label: "Payment Boxes", image: payment },
+  { path: "/sendingfiles", label: "File Sharing", image: document },
+  { path: "/payment", label: "Payments", image: payment },
   { path: "/advocatelist", label: "Private Advocate List", image: advocatelist },
   { path: "/cause-list", label: "Cause List", image: causelist },
   { path: "/case-details", label: "Case Details", image: casedetails},
@@ -125,7 +125,7 @@ const COAdashboard = () => {
           {linksData.map((link, index) => (
             <Link key={index} to={link.path} className="dashboard-box">
               {link.image && <img src={link.image} />}
-              <h3>{link.label}</h3>
+              <h3 style={{color:"black"}}>{link.label}</h3>
             </Link>
           ))}
         </div>
