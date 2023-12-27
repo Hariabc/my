@@ -35,7 +35,7 @@ const SetPassword = () => {
 
     if (password === confirmPassword) {
       try {
-        await axios.post(`http://localhost:5000/client/set-password/${token}`, {
+        await axios.post(`http://localhost:5000/advocate/set-password/${token}`, {
           password: password,
         });
         toast.success('Password set successfully! Redirecting to login page.', {

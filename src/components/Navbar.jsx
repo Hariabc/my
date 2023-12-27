@@ -30,11 +30,6 @@ export const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/about">
-              About Us
-            </Link>
-          </li>
-          <li>
             <Link to="/services">
               Legal Services
             </Link>
