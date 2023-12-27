@@ -1,60 +1,51 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-// import App from './App'
-import './index.css' 
-import { createBrowserRouter,createRoutesFromElements,Route, RouterProvider } from 'react-router-dom'
-import Layout from './components/Layout.jsx'
-import Home from './pages/Home.jsx'
-import About from './pages/About.jsx'
-import LoginPage from './pages/login.jsx'
-// import RegisterPage from './components/Register.jsx'
-import Clientdashboard from './client/Clientdashboard.jsx'
-import AdvocateDashboard from './advocate/AdvocateDashboard.jsx'
-import Judgedashboard from './judge/Judgedashboard.jsx'
-import COAdashboard from './coa/COAdashboard.jsx'
-import Services from './pages/service.jsx'
-import Contact from './pages/contact.jsx'
-import Loginlaylout from './pages/Loginlaylout.jsx'
-import ClientForm from './REGISTER/Client-register.jsx'
-import AdvocateForm from './REGISTER/Adocate-register.jsx'
-import SetPassword from './components/SetPassword.jsx'
-import PaymentComponent from './dashborad-components/payment.jsx'
-import AdvocateList from './dashborad-components/AdvoacateList.jsx'
-import FileUploader from './dashborad-components/Sendingfiles.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import Home from './pages/Home';
+import About from './pages/About';
+import LoginPage from './pages/Login';
+import ClientDashboard from './client/Clientdashboard';
+import AdvocateDashboard from './advocate/AdvocateDashboard';
+import JudgeDashboard from './judge/Judgedashboard';
+import COADashboard from './coa/COAdashboard';
+import Services from './pages/service';
+import Contact from './pages/contact';
+import ClientForm from './REGISTER/Client-register';
+import AdvocateForm from './REGISTER/Advocate-register';
+import SetPassword from './components/Setpassword';
+import Advpassword from "./components/privateAdvpassword";
 
-const router=createBrowserRouter(
-  createRoutesFromElements(
-    <>
-      <Route path='' element={<Layout/>}>
-        <Route path='' element={<Home/>}/>
-        <Route path='About' element={<About/>}/>
-        <Route path='Login' element={<LoginPage/>}/>
-        {/* <Route path='Register' element={<RegisterPage/>}/> */}
-        <Route path='services' element={<Services/>}/>
-        <Route path='contact' element={<Contact/>}/>
-        <Route path='loginlayout' element={<Loginlaylout/>}/>
-        <Route path='clientr' element={<ClientForm/>}/>
-        <Route path='advocater' element={<AdvocateForm/>}/>
-        <Route path="/set-password/:token" element={<SetPassword/>} />
-      </Route>
-      <Route path=''> 
-        <Route path='/clientd' element={<Clientdashboard/>}/>
-        <Route path='/advocated' element={<AdvocateDashboard/>}/>
-        <Route path='/judged' element={<Judgedashboard/>}/>
-        <Route path='/admind' element={<COAdashboard/>}/>
-        <Route path='/payment' element={<PaymentComponent/>}/>
-        <Route path='/advocatelist' element={<AdvocateList/>}/>
-        <Route path='/sendingfiles' element={<FileUploader/>}/>
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/About" element={<About />} />
+          <Route path="/Login" element={<LoginPage />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/client/register" element={<ClientForm />} />
+          <Route path="/advocate/register" element={<AdvocateForm />} />
+          <Route path="/set-password/:token" element={<SetPassword />} />
+          <Route path="/Advocate/set-password/:token" element={<Advpassword/>} />
+          
+        </Route>
+        <Route path="">
+          <Route path="/clientdashboard" element={<ClientDashboard />} />
+          <Route path="/advocatedashboard" element={<AdvocateDashboard />} />
+          <Route path="/judgedashboard" element={<JudgeDashboard />} />
+          <Route path="/admindashboard" element={<COADashboard />} />
+        </Route>
+      </Routes>
+    </Router>
+  );
+};
 
-
-
-      </Route>
-      </>
-  )
-)
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-      <RouterProvider router={router}/>
-  </React.StrictMode>,
-)
+    <App />
+  </React.StrictMode>
+);

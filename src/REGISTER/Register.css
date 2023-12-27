@@ -1,111 +1,53 @@
-/* CSS for Register Page */
-.register-main-box{
-  margin-left: 7%;
-  margin-right: 7%;
-  margin-top: 5%;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  padding: 20px;
-  border-radius: 10px;
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
+
+/* Container for the Advocate Registration */
 .register-container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center horizontally */
-  justify-content: center; /* Center vertically */
-  /* background-color: #3498db; */
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+/* Main Box for Registration Form */
+.register-main-box {
+  margin: 5% auto;
+  width: 80%; /* Adjust the width as needed */
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding: 20px;
   border-radius: 10px;
-  color: rgb(60, 61, 69);
-  height: 100vh;
+  background-color: #ffffff;
 }
 
-.register-header {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.user-selecting {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-.clear-selection-button {
-  background-color: #e74c3c;
-  color:black;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 18px;
-  margin-top: 20px;
-  font-weight: bold;
-}
-
-.clear-selection-button:hover {
-  background-color: #c0392b;
-}
-
-/* CSS for User List */
-.user-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-}
-
-.user-item {
-  margin: 10px;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  border: 1px solid #3498db;
-  border-radius: 10px;
-  background-color: white;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-.user-item:hover {
-  transform: scale(1.05);
-}
-
-.user-avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 2px solid #3498db;
-}
-
-.user-name {
-  margin-top: 10px;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-/* CSS for User Forms */
+/* Title Styles */
 .user-form-title {
   font-size: 24px;
   margin-bottom: 20px;
   color: #3498db;
+  text-align: center;
 }
 
+/* Form Styles */
 .user-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 40px;
+  gap: 20px;
 }
 
 .form-label {
   font-size: 18px;
   color: black;
+  margin-bottom: 8px;
 }
 
-.form-input {
+.form-input,
+.form-select {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -114,8 +56,13 @@
   color: black;
 }
 
+.form-input {
+  grid-column: span 2;
+}
+
 .form-button {
   width: 100%;
+  margin-top: 20px;
   background-color: #2ecc71;
   color: white;
   padding: 10px;
@@ -128,32 +75,32 @@
 .form-button:hover {
   background-color: #27ae60;
 }
-/* ... (previous CSS code remains the same) */
 
-.user-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 40px;
-  justify-content: center; /* Center the grid horizontally */
-  align-items: center; /* Center the grid vertically */
-}
+/* Other Styles */
+/* ... (Other styles for different components or sections if required) */
+/* ... (previous CSS styles remain unchanged) */
 
 .form-button {
-  grid-column: span 2; /* Span the button across both columns */
-  width: 80%; /* Adjust the width as needed */
-  margin-top: 20px; /* Add margin for spacing */
+  width: fit-content; /* Adjust the width as needed */
+  margin-top: 20px;
   background-color: #2ecc71;
   color: white;
-  padding: 10px;
+  padding: 10px 20px; /* Adjust padding as needed */
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 18px;
-  margin-left: 285px;
+  margin: 0 auto; /* Center the button */
+  display: block; /* Ensure it's a block element */
 }
 
 .form-button:hover {
   background-color: #27ae60;
 }
 
-
+/* ... (other styles remain the same) */
+.error-message {
+  color: red; /* Text color for the error message */
+  font-size: 0.85rem; /* Font size */
+  margin-top: 0.25rem; /* Spacing from the input field */
+}
