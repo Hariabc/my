@@ -21,6 +21,8 @@ import SetPassword from './components/SetPassword.jsx'
 import PaymentComponent from './dashborad-components/payment.jsx'
 import AdvocateList from './dashborad-components/AdvoacateList.jsx'
 import EventForm from './Features/EventForm.jsx'
+import VideoConference from './Features/Video_Conference/VideoConference.jsx';
+import JudgeConference from './Features/JudgeConference.jsx'
 
 const router=createBrowserRouter(
   createRoutesFromElements(
@@ -38,14 +40,15 @@ const router=createBrowserRouter(
         <Route path="/set-password/:token" element={<SetPassword/>} />
       </Route>
       <Route path=''> 
-        <Route path='/clientd' element={<Clientdashboard/>}/>
-        <Route path='/advocated' element={<AdvocateDashboard/>}/>
-        <Route path='/judged' element={<Judgedashboard/>}/>
-        <Route path='/admind' element={<COAdashboard/>}/>
+        <Route path='/clientdashboard' element={<Clientdashboard/>}/>
+        <Route path='/advocatedashboard' element={<AdvocateDashboard/>}/>
+        <Route path='/judgedashboard' element={<Judgedashboard/>}/>
+        <Route path='/admindashboard' element={<COAdashboard/>}/>
         <Route path='/payment' element={<PaymentComponent/>}/>
         <Route path='/advocatelist' element={<AdvocateList/>}/>
         <Route path='/scheduling-calendar' element={<EventForm/>}/>
-
+        <Route path='/pre-trial' element={<VideoConference/>}/>
+        <Route path='/schedule-pre-trial' element={<JudgeConference/>}/>
 
       </Route>
       </>
