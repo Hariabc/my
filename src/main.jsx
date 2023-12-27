@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
-import About from './pages/About';
 import LoginPage from './pages/Login';
 import ClientDashboard from './client/Clientdashboard';
 import AdvocateDashboard from './advocate/AdvocateDashboard';
@@ -25,7 +24,6 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="/About" element={<About />} />
           <Route path="/Login" element={<LoginPage />} />
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
@@ -41,6 +39,7 @@ const App = () => {
           <Route path="/admindashboard" element={<COADashboard />} />
           <Route path='/payment' element={<PaymentComponent/>}/>
           <Route path='/advocatelist' element={<AdvocateList/>}/>
+          <Route path='/sendingfiles' element={<FileUploader/>}/>
           <Route path='/sendingfiles' element={<FileUploader/>}/>
         </Route>
       </Routes>
