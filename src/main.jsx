@@ -20,6 +20,7 @@ import AdvocateForm from './REGISTER/Adocate-register.jsx'
 import SetPassword from './components/SetPassword.jsx'
 import PaymentComponent from './dashborad-components/payment.jsx'
 import AdvocateList from './dashborad-components/AdvoacateList.jsx'
+import FileUploader from './dashborad-components/Sendingfiles.jsx'
 
 const router=createBrowserRouter(
   createRoutesFromElements(
@@ -43,6 +44,8 @@ const router=createBrowserRouter(
         <Route path='/admind' element={<COAdashboard/>}/>
         <Route path='/payment' element={<PaymentComponent/>}/>
         <Route path='/advocatelist' element={<AdvocateList/>}/>
+        <Route path='/sendingfiles' element={<FileUploader/>}/>
+
 
 
       </Route>
