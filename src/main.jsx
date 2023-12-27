@@ -21,12 +21,13 @@ import SetPassword from './components/SetPassword.jsx'
 import PaymentComponent from './dashborad-components/payment.jsx'
 import AdvocateList from './dashborad-components/AdvoacateList.jsx'
 import EventForm from './Features/EventForm.jsx'
+import VideoConference from './Features/VideoConference.jsx'
 
 const router=createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path='' element={<Layout/>}>
-        <Route path='' element={<Home/>}/>
+      <Route path='/' element={<Layout/>}>
+        <Route path='/' element={<Home/>}/>
         <Route path='About' element={<About/>}/>
         <Route path='Login' element={<LoginPage/>}/>
         {/* <Route path='Register' element={<RegisterPage/>}/> */}
@@ -45,6 +46,7 @@ const router=createBrowserRouter(
         <Route path='/payment' element={<PaymentComponent/>}/>
         <Route path='/advocatelist' element={<AdvocateList/>}/>
         <Route path='/scheduling-calendar' element={<EventForm/>}/>
+        <Route path='/pre-trial' element={<VideoConference/>}/>
 
 
       </Route>

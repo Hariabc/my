@@ -109,7 +109,7 @@ const COAdashboard = () => {
           <IoNotifications size={32} style={{paddingLeft:'10px'}}/>
         </div>
       </div>
-      {/* <div className="">
+      <div className="">
             <div className="news-box">
             <marquee>Your news text goes here </marquee>
             <marquee>Your news text goes here </marquee>
@@ -119,7 +119,7 @@ const COAdashboard = () => {
             <marquee>Your news text goes here </marquee>
 
             </div>
-          </div> */}
+          </div>
       <div className="client-body">
         <div className="dashboard-boxes">
           {linksData.map((link, index) => (
