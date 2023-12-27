@@ -1,41 +1,33 @@
-// LegalServices.js
+// AboutUsPage.js
 
 import React from 'react';
-import "./services.css"
-const LegalService = ({ title, description }) => (
-  <div className="legal-service">
-    <h3>{title}</h3>
-    <p>{description}</p>
-  </div>
-);
 
-const LegalServices = () => {
-  const services = [
-    {
-      title: 'Contract Review',
-      description: 'Our legal experts will review your contracts to ensure clarity and legal compliance.',
-    },
-    {
-      title: 'Legal Consultation',
-      description: 'Schedule a consultation with our attorneys to discuss your legal concerns and get guidance.',
-    },
-    {
-      title: 'Intellectual Property',
-      description: 'Protect your intellectual property with our experienced legal team. Trademarks, patents, and more.',
-    },
-    // Add more legal services as needed
-  ];
-
+const AboutUsPage = () => {
   return (
-    <div className="legal-services">
-      <h2>Our Legal Services</h2>
-      <div className="services-list">
-        {services.map((service, index) => (
-          <LegalService key={index} title={service.title} description={service.description} />
-        ))}
-      </div>
+    <div className="about-us-page">
+      <header className="page-header">
+        <h1>Welcome to Our Court Services</h1>
+      </header>
+
+      <section className="service-section">
+        <div className="service-category">
+          <h2>Our Services</h2>
+          <p>
+            We provide a range of services to make the legal process efficient and accessible for everyone involved.
+          </p>
+          <ul>
+            <li>Case Tracking</li>
+            <li>Case Filing</li>
+            <li>Pre-Trial Conference</li>
+            <li>Payments</li>
+            <li>Advocate Selection</li>
+            <li>Scheduling</li>
+            <li>Notifications</li>
+          </ul>
+        </div>
+      </section>
     </div>
   );
 };
 
-export default LegalServices;
+export default AboutUsPage;
