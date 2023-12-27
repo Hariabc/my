@@ -143,7 +143,7 @@ const AdvocateForm = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/privateadvocate/register', formData);
+      const response = await axios.post('http://localhost:5000/advocate/register', formData);
 
       if (response.status === 201) {
         toast.success('Email has been sent to set the password');

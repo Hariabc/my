@@ -29,7 +29,7 @@ const App = () => {
           <Route path="/client/register" element={<ClientForm />} />
           <Route path="/advocate/register" element={<AdvocateForm />} />
           <Route path="/set-password/:token" element={<SetPassword />} />
-          <Route path="/privAdv/set-password/:token" element={<Advpassword/>} />
+          <Route path="/Advocate/set-password/:token" element={<Advpassword/>} />
           
         </Route>
         <Route path="">
