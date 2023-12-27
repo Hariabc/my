@@ -8,7 +8,7 @@ import { FaArrowRight } from "react-icons/fa6";
 
 
 export const Navbar = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -25,27 +25,27 @@ export const Navbar = () => {
         </div>
         <ul className={isMobileMenuOpen ? "open" : ""}>
           <li>
-            <Link to="" onClick={toggleMobileMenu}>
+            <Link to="">
               <FaHome size={20} style={{ verticalAlign: "sub" }} /> Home
             </Link>
           </li>
           <li>
-            <Link to="/about" onClick={toggleMobileMenu}>
+            <Link to="/about">
               About Us
             </Link>
           </li>
           <li>
-            <Link to="/services" onClick={toggleMobileMenu}>
+            <Link to="/services">
               Legal Services
             </Link>
           </li>
           <li>
-            <Link to="/contact" onClick={toggleMobileMenu}>
+            <Link to="/contact">
               Contact Us
             </Link>
           </li>
           <li className="login-button">
-            <Link to="/login" style={{ textDecoration: "none" }} onClick={toggleMobileMenu}>
+            <Link to="/login" style={{ textDecoration: "none" }} >
               <IoIosContact size={22} style={{ verticalAlign: "sub" }} />
               Login/Register <FaArrowRight size={22} style={{paddingLeft:"10px"}}/>
             </Link>

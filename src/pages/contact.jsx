@@ -31,7 +31,7 @@ const ContactUs = () => {
         </div>
         <div className='box'>
           <div className='contact form'>
-            <h1>Contact Form</h1>
+            <h1 className='contact-form'>Contact Form</h1>
             <form onSubmit={handleSubmit}>
               <label htmlFor='name'>Name:</label>
               <input
