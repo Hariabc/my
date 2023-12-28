@@ -15,6 +15,7 @@ import ClientForm from './REGISTER/Client-register';
 import AdvocateForm from './REGISTER/Advocate-register';
 import SetPassword from './components/Setpassword';
 import Advpassword from "./components/privateAdvpassword";
+import Test from "./components/test";
 
 const App = () => {
   return (
@@ -37,6 +38,8 @@ const App = () => {
           <Route path="/advocatedashboard" element={<AdvocateDashboard />} />
           <Route path="/judgedashboard" element={<JudgeDashboard />} />
           <Route path="/admindashboard" element={<COADashboard />} />
+          <Route path="/test" element={<Test />} />
+
         </Route>
       </Routes>
     </Router>
