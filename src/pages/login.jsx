@@ -55,10 +55,14 @@ const LoginPage = () => {
           {
             email,
             password,
+          },{
+            withCredentials: true, // Ensure cookies are sent and received
+            credentials: 'include', // Include credentials (cookies) in cross-origin requests
           }
         );
 
         if (response.status === 200) {
+          // console.log(token)
           toast.success('Login successful!', {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 3000,
