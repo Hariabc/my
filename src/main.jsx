@@ -24,6 +24,7 @@ import EventForm from './Features/EventForm.jsx'
 
 import VideoConference from './Features/Video_Conference/VideoConference.jsx';
 import JudgeConference from './Features/JudgeConference.jsx'
+import Conference from './Features/Video_Conference/Conference.jsx'
 
 const router=createBrowserRouter(
   createRoutesFromElements(
@@ -50,7 +51,7 @@ const router=createBrowserRouter(
         <Route path='/scheduling-calendar' element={<EventForm/>}/>
         <Route path='/pre-trial' element={<VideoConference/>}/>
         <Route path='/schedule-pre-trial' element={<JudgeConference/>}/>
-
+        <Route path='/conference/:meetingId' element={<Conference />} />
 
       </Route>
       </>

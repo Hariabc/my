@@ -1,97 +1,93 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
-
-import './VideoConference.css';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 
 const VideoConference = () => {
-  const [scheduledConferences, setScheduledConferences] = useState([]);
-  const [roomCode, setRoomCode] = useState("");
-  const navigate = useNavigate();
-
-  const fetchScheduledConferences = async () => {
-    // Replace with your actual data fetching function
-    const conferences = await fetchData();
-    setScheduledConferences(conferences);
-  };
-
-  const submitCode = (e) => {
-    e.preventDefault();
-    navigate(`/room/${roomCode}`);
-  };
-
-  const joinConference = (conferenceDetails) => {
-    navigate(`/enter-passcode/${conferenceDetails.passcode}`);
-  };
+  const { meetingId } = useParams();
+  const [meetingInfo, setMeetingInfo] = useState(null);
+  const [passcode, setPasscode] = useState('');
+  const [joining, setJoining] = useState(false);
 
   useEffect(() => {
-    fetchScheduledConferences();
-  }, []);
+    const fetchMeetingInfo = async () => {
+      try {
+        const response = await fetch(`http://localhost:3001/api/meetings/get-meeting/${meetingId}`);
+        const meeting = await response.json();
+        setMeetingInfo(meeting);
+      } catch (error) {
+        console.error('Error fetching meeting info:', error);
+      }
+    };
 
-  const meeting = async (element) => {
-    const appID = 326790568;
-    const serverSecret = "ad581563225a754f4e531ef7ae18ff1b";
-    const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
-      appID,
-      serverSecret,
-      roomCode,
-      Date.now().toString(),
-      "Venu"
-    );
-    const zp = ZegoUIKitPrebuilt.create(kitToken);
+    fetchMeetingInfo();
+  }, [meetingId]);
 
-    zp.joinRoom({
-      container: element,
-      scenario: {
-        mode: ZegoUIKitPrebuilt.GroupCall,
-      },
-    });
+  const handleJoinMeeting = () => {
+    // Validate passcode, make API call for authentication if needed
+    if (passcodeIsValid()) {
+      // Use the Zego SDK to join the meeting
+      const appID = 326790568; // Replace with your app ID
+      const serverSecret = 'ad581563225a754f4e531ef7ae18ff1b'; // Replace with your server secret
+      const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
+        appID,
+        serverSecret,
+        meetingId,
+        Date.now().toString(),
+        'Name'
+      );
+
+      const zp = ZegoUIKitPrebuilt.create(kitToken);
+
+      zp.joinRoom({
+        container: document.getElementById('meeting-container'),
+        scenario: {
+          mode: ZegoUIKitPrebuilt.GroupCall,
+        },
+      });
+
+      setJoining(true);
+    } else {
+      alert('Invalid passcode. Please try again.');
+    }
+  };
+
+  const passcodeIsValid = () => {
+    // Implement your passcode validation logic here
+    // For simplicity, assume the passcode is valid
+    return true;
   };
 
   return (
     <div>
-      <div className="video-conference-container">
-        <div className="video-conference-header">
-          <h1 className="video-conference-title">Video Chat App</h1>
-          <p className="video-conference-subtitle">With ZegoCloud</p>
-        </div>
-
-        <form onSubmit={submitCode} className="video-conference-form">
-          <label className="form-label">Enter Room Code</label>
-          <input
-            type="text"
-            required
-            placeholder="Enter Room Code"
-            value={roomCode}
-            onChange={(e) => setRoomCode(e.target.value)}
-            className="form-input"
-          />
-          <button type="submit" className="form-button">
-            Go
-          </button>
-        </form>
-      </div>
-
-      {scheduledConferences.length === 0 ? (
-        <div className="message-container">
-          <p>No scheduled conferences available at the moment. Please check back later.</p>
-        </div>
-      ) : (
+      <h2>Video Conference Room</h2>
+      {meetingInfo ? (
         <>
-          <h1 className="welcome-message">Welcome to Video Conference!</h1>
-          <div className="conference-details-container">
-            {scheduledConferences.map((conference) => (
-              <div key={conference.id} className="conference-details">
-                <p>Conference ID: {conference.id}</p>
-                <p>Passcode: {conference.passcode}</p>
-                <button onClick={() => joinConference(conference)} className="join-button">
-                  Join Conference
-                </button>
-              </div>
-            ))}
+          <div>
+            <strong>Date:</strong> {meetingInfo.date} <br />
+            <strong>Time:</strong> {meetingInfo.time} <br />
+            <strong>Location:</strong> {meetingInfo.location} <br />
+            <strong>Case Number:</strong> {meetingInfo.caseNumber} <br />
+            <strong>Meeting ID:</strong> {meetingInfo.meetingId} <br />
           </div>
-          <div ref={meeting} className="video-container"></div>
+          {joining ? (
+            <div id="meeting-container" style={{ width: '100vw', height: '100vh' }}></div>
+          ) : (
+            <>
+              <label>
+                Enter Passcode:
+                <input
+                  type="password"
+                  value={passcode}
+                  onChange={(e) => setPasscode(e.target.value)}
+                />
+              </label>
+              <br />
+              <button onClick={handleJoinMeeting}>Join Conference</button>
+            </>
+          )}
         </>
+      ) : (
+        <p>No meeting scheduled. Please check back later.</p>
       )}
     </div>
   );
