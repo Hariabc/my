@@ -17,10 +17,8 @@ import caseanalytics from "../assets/DASHBOARDS/case analytics.jpg";
 import advocatelist from "../assets/DASHBOARDS/Advocate list.jpg";
 import {FaPlus} from "react-icons/fa"
 import { IoNotifications } from "react-icons/io5";
-
-
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from 'axios';
 
 const FAQ_DATA = [
   {
@@ -83,6 +81,23 @@ const linksData = [
 
 const COAdashboard = () => {
   const [showAnswers, setShowAnswers] = useState({});
+  const [userData, setUserData] = useState({});
+
+  // Frontend code making the API request
+useEffect(() => {
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/client/user', { withCredentials: true });
+      setUserData(response.data.user); // Assuming the response includes user data
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
+  fetchUserData();
+}, []);
+  
+
 
   // Function to toggle answer visibility
   const toggleAnswer = (questionId) => {
@@ -104,7 +119,7 @@ const COAdashboard = () => {
         </div> */}
         <div className="logo-profile">
           <IoIosArrowDropdownCircle />
-          <span><h2>Username</h2></span>
+          <span><h2>{userData ? userData.username : 'No username available'}</h2></span>
           <img src={client} alt="ggg" />
           <IoNotifications size={32} style={{paddingLeft:'10px'}}/>
         </div>

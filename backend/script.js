@@ -5,14 +5,16 @@ require("dotenv").config();
 const cors = require("cors");
 const clientRouters = require("./routers/clientRouters");
 const AdvRouters = require("./routers/privateAdvocate")
-const caoRouters=require("./routers/caoRouters")
+const caoRouters = require("./routers/caoRouters")
+
 // const { Court, CourtAdmin } = require("./models/cao")
 
 app.use(cors({
     origin: 'http://localhost:5173', // Change this to your React app's URL
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // Enable credentials (if required)
-  }));
+}));
+  // app.use(cookieParser())
 const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use("/client", clientRouters)

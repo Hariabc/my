@@ -5,8 +5,11 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 require("dotenv").config();
-
-// Initialize express session
+const jwt = require("jsonwebtoken")
+const cookie = require('cookie-parser')
+const User=require("../models/client")
+const authMiddleware = require("../middleware/authMiddleware")
+router.use(cookie());
 router.use(
   session({
     secret: 'thisisasecretkeyforthisproject',
@@ -29,7 +32,7 @@ const sendSetPasswordEmail = async (email, token) => {
     from:"ecourtservicehelper@gmail.com",
     to: email,
     subject: 'Set Your Password for Court Case Management Portal',
-    text: `To set your password, please click on the following link: http://localhost:5173/set-password/${token}`,
+    text: `To set your password, please click on the following link: http://localhost:5173/client/set-password/${token}`,
   };
 
   try {
@@ -78,7 +81,7 @@ router.post('/register', async (req, res) => {
     await sendSetPasswordEmail(email, token);
 
     // Start a session for the client after successful registration
-    req.session.clientId = newClient._id; // Store the client ID in the session
+    // req.session.clientId = newClient._id; // Store the client ID in the session
 
     return res.status(201).json({ message: 'Client registered successfully' });
   } catch (err) {
@@ -115,7 +118,12 @@ router.post('/set-password/:token', async (req, res) => {
   }
 });
 // Route for client login
-router.post('/login', async (req, res) => {
+// Other necessary imports and configurations
+
+
+
+
+router.post('/login',async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -133,15 +141,43 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid password' });
     }
 
-    // Start a session for the client after successful login
-    req.session.clientId = client._id; // Store the client ID in the session
-
-    return res.status(200).json({ message: 'Login successful', client });
+    // Create a JWT token
+    const token = jwt.sign(
+      { clientId: client._id, email: client.email },
+      'thisisthesecretkeyforthisproject'
+    );
+    
+    res.cookie("jwtoken", token, {
+      httpOnly: true,
+      secure: true,
+      maxAge: 500000
+    });
+    
+    return res.status(200).json({ message: 'Login successful'});
+    
+    // console.log(token)
+    // res.send(req.rootUser)
+    return res.status(200).json({ message: 'Login successful'});
+    
   } catch (err) {
     // Handle errors
     return res.status(500).json({ error: 'Failed to log in', message: err.message });
   }
 });
+
+router.get('/user', authMiddleware, (req, res) => {
+  try {
+      const userData = req.user;
+      res.status(200).json({ user: userData });
+  } catch (error) {
+      console.error('Error fetching user data:', error);
+      res.status(500).json({ error: 'Failed to fetch user data' });
+  }
+});
+
+
+// module.exports = router;
+
 // Logout route
 router.post('/logout', (req, res) => {
   try {

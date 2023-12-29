@@ -65,7 +65,7 @@ const AdminDashboard = () => {
       <div className="admin-body">
         <div className="admin-dashboard-boxes">
           {linksData.map((link, index) => (
-            <Link key={index} to={link.path} className="dashboard-box">
+            <Link key={index} to={`/admin${link.path}`} className="dashboard-box">
               {link.image && <img src={link.image} alt={link.label} />}
               <h3 style={{color:"black"}}>{link.label}</h3>
             </Link>
