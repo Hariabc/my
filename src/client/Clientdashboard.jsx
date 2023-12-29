@@ -119,7 +119,7 @@ useEffect(() => {
         </div> */}
         <div className="logo-profile">
           <IoIosArrowDropdownCircle />
-          <span><h2>{userData ? userData.username : 'No username available'}</h2></span>
+          <span><h2>{userData ? userData.firstName : 'No username available'}</h2></span>
           <img src={client} alt="ggg" />
           <IoNotifications size={32} style={{paddingLeft:'10px'}}/>
         </div>
