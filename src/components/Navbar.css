@@ -26,52 +26,10 @@ nav a {
   text-decoration: none;
   font-size: 20px;
 }
-
-nav a::before,
-nav a::after {
-  content: '';
-  height: 14px;
-  width: 14px;
-  position: absolute;
-  transition: all .35s ease;
-  opacity: 0;
-}
-
-nav a::before {
-  content: '';
-  right: 0;
-  top: 0;
-  border-top: 3px solid blanchedalmond;
-  border-right: 3px solid blanchedalmond;
-  transform: translate(-100%, 50%);
-}
-
-nav a:after {
-  content: '';
-  left: 0;
-  bottom: 0;
-  border-bottom: 3px solid blanchedalmond;
-  border-left: 3px solid blanchedalmond;
-  transform: translate(100%, -50%);
-}
-
-nav a:hover:before,
-nav a:hover:after {
-  transform: translate(0, 0);
-  opacity: 1;
-}
-
-/* Main Navigation Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 .main-nav {
   display: flex;
   justify-content: space-between;
-  background-color: #2c2e30;
+  background-color:#35363A;
   align-items: center;
   padding-left: 20px;
   padding-right: 20px;
@@ -122,9 +80,8 @@ nav a:hover:after {
 }
 
 /* Media query for responsive design */
-@media (max-width: 768px) {
-  .main-nav {
-
+ @media (max-width: 768px) { 
+  .mobile-menu-open {
     flex-direction: column;
     text-align: center;
     display: flex;
@@ -134,7 +91,6 @@ nav a:hover:after {
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 10px;
-    padding-top: 10px;
     line-height: 20px;
     /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
     z-index: 1000;
@@ -146,28 +102,29 @@ nav a:hover:after {
     align-items: center;
   }
 
-  .main-nav ul {
+  .mobile-menu-open ul {
     flex-direction: column;
     position: absolute;
-    top: 70px;
+    top: 45px;
     left: 0;
     width: 100%;
-    background-color: #fff;
+    background-color: #464242;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     display: none;
     z-index: 11111111111;
     list-style-type: none;
     margin: 0;
-    padding: 0;
+    padding-bottom: 10px;
+    padding-left: 10px;
     display: flex;
     color: white;
-  }
+   } 
 
-  .main-nav ul.open {
+  /* .main-nav ul.open {
     display: flex;
-  }
+  } */
 
-  .main-nav .mobile-icon {
+  .mobile-menu-open .mobile-icon {
     display: flex;
     justify-content: space-evenly;
     cursor: pointer;
@@ -177,7 +134,7 @@ nav a:hover:after {
   }
 
   .main-nav .mobile-icon:hover {
-    background-color: rgb(231, 231, 238);
+    background-color: rgb(80, 80, 96);
   }
 }
 .login-button {
@@ -186,7 +143,7 @@ nav a:hover:after {
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  border: 2px solid #3498db;
+  border: 2px solid #0192f2;
   border-radius: 5px;
   color: #3498db;
   transition: background-color 0.3s, color 0.3s;

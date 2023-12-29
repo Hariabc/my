@@ -4,19 +4,42 @@ import judgeImage from "../assets/judge.png";
 import { Link } from 'react-router-dom';
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { FaPlus } from "react-icons/fa";
+import casefile from "../assets/DASHBOARDS/File a case.jpg";
+import confrence from "../assets/DASHBOARDS/video conference.jpg";
+import payment from "../assets/DASHBOARDS/payments.jpg";
+import document from "../assets/DASHBOARDS/Documentation.jpg";
+import casedetails from "../assets/DASHBOARDS/Case details.jpg";
+import casetracking from "../assets/DASHBOARDS/Case tracking.jpg";
+import causelist from "../assets/DASHBOARDS/Cause List.jpg";
+import scheduling from "../assets/DASHBOARDS/Scheduling calender.jpg";
+import caseanalytics from "../assets/DASHBOARDS/case analytics.jpg";
+import advocatelist from "../assets/DASHBOARDS/Advocate list.jpg";
+import "./judgedashboard.css";
 
 const FAQ_DATA = [
-  // ... (similar to COA dashboard FAQs)
+  {
+    question: "How do I schedule a pre-trial conference?",
+    answer: "To schedule a pre-trial conference, go to the 'Schedule Pre Trial' section and follow the instructions provided."
+  },
+  {
+    question: "What information is available in the 'Documentation' section?",
+    answer: "The 'Documentation' section contains important documents related to cases, and you can manage them from this section."
+  },
+  {
+    question: "How can I track the progress of cases?",
+    answer: "You can track the progress of cases by visiting the 'Case Tracking' section and accessing the relevant information."
+  },
+  // Add more FAQ items as needed
 ];
 
 const linksData = [
-  { path: "/schedule-pre-trial", label: "Schedule Pre Trial", image: null },
-  { path: "/documentation", label: "Documentation", image: null },
-  { path: "/calendar-scheduling", label: "Calendar Scheduling", image: null },
-  { path: "/my-cases", label: "My Cases", image: null },
-  { path: "/cause-list", label: "Cause List", image: null },
-  { path: "/case-tracking", label: "Case Tracking", image: null },
-  { path: "/case-notes", label: "Case Notes", image: null },
+  { path: "/schedule-pre-trial", label: "Pre Trial", image: confrence },
+  { path: "/documentation", label: "Documentation", image: document },
+  { path: "/calendar-scheduling", label: "Calendar Scheduling", image: scheduling },
+  { path: "/my-cases", label: "My Cases", image: casedetails },
+  { path: "/cause-list", label: "Cause List", image: causelist },
+  { path: "/case-tracking", label: "Case Tracking", image: casetracking },
+  { path: "/case-notes", label: "Case Notes", image: caseanalytics },
 ];
 
 const JudgeDashboard = () => {
@@ -31,23 +54,23 @@ const JudgeDashboard = () => {
 
   return (
     <div className="judge-dashboard">
-      {/* <div className='judge-header'>
+      <div className='judge-header'>
         <div className="logo-judge">
           <img src={judgeImage} alt="Judge" />
-          <h2>Judge Dashboard</h2>
+          <span><h2>Judge Dashboard</h2></span>
         </div>
         <div className="logo-profile">
           <IoIosArrowDropdownCircle />
-          <h2>Judge Name</h2>
+          <span><h2>Judge Name</h2></span>
           <img src={judgeImage} alt="Judge" />
         </div>
-      </div> */}
-    <div className="judge-body">
+      </div>
+      <div className="judge-body">
         <div className="dashboard-boxes">
           {linksData.map((link, index) => (
             <Link key={index} to={link.path} className="dashboard-box">
               {link.image !== null ? <img src={link.image} alt={link.label} /> : null}
-              <h3>{link.label}</h3>
+              <h3 style={{color:"black"}}>{link.label}</h3>
             </Link>
           ))}
         </div>

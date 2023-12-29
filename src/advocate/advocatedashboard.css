@@ -1,0 +1,137 @@
+.advocate-dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #91b3ce;
+  }
+  .advocate-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:#f2f2f5;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width:100%;
+    border-radius: 10px;
+  }
+  
+  .logo-advocate img,
+  .logo-profile img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Added border-radius for a circular shape */
+  }
+  
+  .logo-advocate,
+  .logo-profile {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-advocate h2,
+  .logo-profile h2 {
+    margin-left: 10px;
+    font-size: 24px;
+    display: inline;
+    color: rgb(9, 9, 9);
+  }
+  
+  .logo-profile {
+    cursor: pointer;
+  }
+  
+  .logo-profile h2 {
+    font-size: 18px;
+    margin-right: 10px;
+    display: inline;
+  }
+  
+  
+  .advocate-body {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px 0;
+  }
+  
+  .dashboard-boxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 50px;
+    color:white;
+  }
+  
+  .dashboard-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    /* background-color: #3e4056; */
+  }
+  
+  .dashboard-box img {
+    width: 80px;
+    height: 70px;
+    margin-bottom: 8px;
+  }
+  
+  .dashboard-box:hover {
+    background-color: #a28a8a;
+  }
+  
+  .faq-box {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+  }
+  
+  .faq-item {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: background-color 0.3s;
+  }
+  
+  .faq-item.active {
+    background-color: #f5f5f5;
+  }
+  
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+    color:white;
+  }
+  
+  .faq-question h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #000;
+  }
+  
+  .faq-item p {
+    padding: 15px;
+    margin: 0;
+    font-size: 14px;
+  }
+  
+  .icon {
+    font-size: 20px;
+    color: #777;
+  }
+  .dashboard-boxes h3{
+    color: rgb(223, 221, 221);
+  }
+  .faq-box h3{
+    color: aliceblue;
+  }
