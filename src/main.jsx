@@ -17,6 +17,7 @@ import Advpassword from "./components/privateAdvpassword";
 import PaymentComponent from './dashborad-components/payment.jsx'
 import AdvocateList from './dashborad-components/AdvoacateList.jsx'
 import FileUploader from './dashborad-components/Sendingfiles.jsx'
+import CaseFilingForm from './dashborad-components/FileACase.jsx';
 
 const App = () => {
   return (
@@ -41,6 +42,7 @@ const App = () => {
           <Route path='/advocatelist' element={<AdvocateList/>}/>
           <Route path='/sendingfiles' element={<FileUploader/>}/>
           <Route path='/sendingfiles' element={<FileUploader/>}/>
+          <Route path='/fileacase' element={<CaseFilingForm/>}/>
         </Route>
       </Routes>
     </Router>
