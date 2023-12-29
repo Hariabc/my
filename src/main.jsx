@@ -17,6 +17,9 @@ import Advpassword from "./components/privateAdvpassword";
 import PaymentComponent from './dashborad-components/payment.jsx'
 import AdvocateList from './dashborad-components/AdvoacateList.jsx'
 import FileUploader from './dashborad-components/Sendingfiles.jsx'
+import VideoConference from './Features/Video_Conference/VideoConference.jsx';
+import JudgeConference from './Features/JudgeConference.jsx';
+import Conference from './Features/Video_Conference/Conference.jsx';
 
 const App = () => {
   return (
@@ -41,6 +44,9 @@ const App = () => {
           <Route path='/advocatelist' element={<AdvocateList/>}/>
           <Route path='/sendingfiles' element={<FileUploader/>}/>
           <Route path='/sendingfiles' element={<FileUploader/>}/>
+          <Route path='/pre-trial' element={<VideoConference/>}/>
+          <Route path='/schedule-pre-trial' element={<JudgeConference/>}/>
+          <Route path='/conference/:meetingId' element={<Conference/>}/>
         </Route>
       </Routes>
     </Router>
