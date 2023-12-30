@@ -13,7 +13,7 @@ import Contact from './pages/contact';
 import ClientForm from './REGISTER/Client-register';
 import AdvocateForm from './REGISTER/Advocate-register';
 import SetPassword from './components/Setpassword';
-import Advpassword from "./components/privateAdvpassword";
+import Advpassword from "./components/AdvSetPass.jsx";
 import PaymentComponent from './dashborad-components/payment.jsx'
 import AdvocateList from './dashborad-components/AdvoacateList.jsx'
 import FileUploader from './dashborad-components/Sendingfiles.jsx'
@@ -30,7 +30,7 @@ const App = () => {
           <Route path="/client/register" element={<ClientForm />} />
           <Route path="/advocate/register" element={<AdvocateForm />} />
           <Route path="/client/set-password/:token" element={<SetPassword />} />
-          <Route path="/Advocate/set-password/:token" element={<Advpassword/>} />
+          <Route path="/advocate/set-password/:token" element={<Advpassword/>} />
         </Route>
         <Route path="">
           <Route path="/clientdashboard" element={<ClientDashboard />} />
