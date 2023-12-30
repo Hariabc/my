@@ -6,11 +6,11 @@ const advocateSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  firstname: {
+  firstName: {
     type: String,
     required: true
   },
-  lastname: {
+  lastName: {
     type: String,
     required: true
   },
@@ -21,9 +21,13 @@ const advocateSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true
+    // required: true
   },
   phoneNumber: {
+    type: String,
+    required: true
+  },
+  gender: {
     type: String,
     required: true
   },
@@ -31,7 +35,7 @@ const advocateSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  educationQualification: {
+  educationQualifications: {
     type: String,
     required: true
   },
@@ -59,6 +63,9 @@ const advocateSchema = new mongoose.Schema({
     type: Boolean,
     required: true
   },
+  password_token: {
+    type: String
+  },
   court: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Court'
@@ -67,8 +74,7 @@ const advocateSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Case'
   }],
-  // additional fields you may consider adding
-  // ...
+  
 }, { timestamps: true });
 
 module.exports= mongoose.model('Advocate', advocateSchema);

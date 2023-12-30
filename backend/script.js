@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const cors = require("cors");
 const clientRouters = require("./routers/clientRouters");
-const AdvRouters = require("./routers/privateAdvocate")
+const AdvocateRouters = require("./routers/advocate")
 const caoRouters = require("./routers/caoRouters")
 const courtRouters=require(".//routers/court")
 
@@ -18,7 +18,8 @@ const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use("/client", clientRouters)
 app.use("/court", courtRouters)
-app.use("/cao",caoRouters)
+app.use("/cao", caoRouters)
+app.use("/advocate",AdvocateRouters)
 
 
 

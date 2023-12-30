@@ -97,7 +97,7 @@ router.post('/set-password/:token', async (req, res) => {
     const { password } = req.body;
 
     // Find the client by the verification token
-    const client = await Client.findOne({ temp_token: token });
+    const client = await Client.findOne({ password_token: token });
 
     if (!client) {
       return res.status(404).json({ error: 'Invalid token or client not found' });
@@ -108,7 +108,7 @@ router.post('/set-password/:token', async (req, res) => {
 
     // Update client's password and remove verification token
     client.password = hashedPassword;
-    client.verificationToken = undefined;
+    client.password_token = undefined;
     await client.save();
 
     return res.status(200).json({ message: 'Password set successfully' });

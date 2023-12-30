@@ -6,22 +6,24 @@ const Advocate = require('../models/advocate');
 require('dotenv').config();
 const bcrypt = require("bcrypt");
 const session = require('express-session');
-router.use(
-  session({
-    secret: 'thisisasecretkeyforthisproject',
-    resave: false,
-    saveUninitialized: true,
-  })
-);
+// router.use(
+//   session({
+//     secret: 'thisisasecretkeyforthisproject',
+//     resave: false,
+//     saveUninitialized: true,
+//   })
+// );
 
 
-router.post('/register', async (req, res) => {
+router.post('/private/register', async (req, res) => {
   try {
     const {
       firstName,
       lastName,
       email,
-      phoneNo,
+      username,
+      gender,
+      phoneNumber,
       licenseNumber,
       barAssociation,
       jurisdiction,
@@ -41,14 +43,18 @@ router.post('/register', async (req, res) => {
       firstName,
       lastName,
       email,
-      phoneNo,
+      username,
+      gender,
+      phoneNumber,
       licenseNumber,
       barAssociation,
       jurisdiction,
       educationQualifications,
       yearsOfPractice,
       practiceArea,
-      temp_token: token,
+      password_token: token,
+      isAppointedByCourtAdmin: false,
+      isPrivateAdvocate:true
     });
 
     await newAdvocate.save();
@@ -67,7 +73,7 @@ router.post('/set-password/:token', async (req, res) => {
     const { password } = req.body;
 
     // Find the advocate by the verification token
-    const advocate = await Advocate.findOne({ temp_token: token });
+    const advocate = await Advocate.findOne({ password_token: token });
 
     if (!advocate) {
       return res.status(404).json({ error: 'Invalid token or advocate not found' });
@@ -78,7 +84,7 @@ router.post('/set-password/:token', async (req, res) => {
 
     // Update advocate's password and remove verification token
     advocate.password = hashedPassword;
-    advocate.temp_token = undefined; // Update this to the field storing the verification token
+    advocate.password_token = undefined; // Update this to the field storing the verification token
     await advocate.save();
 
     return res.status(200).json({ message: 'Password set successfully' });
@@ -107,7 +113,7 @@ router.post('/login', async (req, res) => {
     }
 
     // Start a session for the advocate after successful login
-    req.session.advocateId = advocate._id; // Store the advocate ID in the session
+    // req.session.advocateId = advocate._id; // Store the advocate ID in the session
 
     return res.status(200).json({ message: 'Login successful', advocate });
   } catch (err) {
@@ -130,7 +136,7 @@ async function sendSetPasswordEmail(email, token) {
     from: "ecourtservicehelper@gmail.com",
     to: email,
     subject: 'Set your password',
-    text: `Here is the link to set your password: http://localhost:5173/Advocate/set-password/${token}`,
+    text: `Here is the link to set your password: http://localhost:5173/advocate/set-password/${token}`,
   };
 
   return transporter.sendMail(mailOptions);
