@@ -18,6 +18,8 @@ import PaymentComponent from './dashborad-components/payment.jsx'
 import AdvocateList from './dashborad-components/AdvoacateList.jsx'
 import FileUploader from './dashborad-components/Sendingfiles.jsx'
 import CaseFilingForm from './dashborad-components/FileACase.jsx';
+import FileACaseMin from './dashborad-components/FileACaseMin.jsx';
+import "./index.css"
 
 const App = () => {
   return (
@@ -43,6 +45,8 @@ const App = () => {
           <Route path='/sendingfiles' element={<FileUploader/>}/>
           <Route path='/sendingfiles' element={<FileUploader/>}/>
           <Route path='/fileacase' element={<CaseFilingForm/>}/>
+          <Route path='/fileacasemain' element={<FileACaseMin/>}/>
+
         </Route>
       </Routes>
     </Router>

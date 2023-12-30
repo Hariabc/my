@@ -1,23 +1,57 @@
-// CaseFilingForm.jsx
+// CaseFilingForm.js
+
 import React, { useState } from 'react';
-import './fileacase.css'; // Import the CSS file
 
 const CaseFilingForm = () => {
   const [formData, setFormData] = useState({
-    district: '',
-    establishment: '',
-    caseType: '',
+    // Personal Information
+    fullName: '',
+    gender: '',
+    dateOfBirth: '',
+    nationality: '',
+    address: '',
+    contactInformation: '',
+
+    // Court Details
+    courtName: '',
+    courtLocation: '',
+    courtCaseNumber: '',
+    filingFee: '',
+    filingMethod: '',
+
+    // Case Details
+    title: '',
+    summary: '',
+    causeOfAction: '',
     reliefSought: '',
-    partyDetails: {
-      defendantName: '',
-      defendantMobile: '',
-    },
+
+    // Party Information
+    plaintiffs: '',
+    defendants: '',
+    otherParties: '',
+
+    // Case Type and Category
+    caseType: '',
+    caseCategory: '',
+
+    // Preferred Advocate
+    preferredAdvocate: '',
+
+    // Supporting Documentation
+    supportingDocuments: '',
+
+    // Financial Information
+    income: '',
+    assets: '',
+    liabilities: '',
+
+    // Declaration and Signature
+    declaration: '',
+    signature: '',
+    date: '',
   });
 
-  const districts = ["District A", "District B", "District C"];
-  const establishments = ["Establishment X", "Establishment Y", "Establishment Z"];
-
-  const handleInputChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -25,136 +59,49 @@ const CaseFilingForm = () => {
     }));
   };
 
-  const handlePartyDetailsChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      partyDetails: {
-        ...prevData.partyDetails,
-        [name]: value,
-      },
-    }));
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Add logic here to handle form submission, e.g., sending data to a server
     console.log('Form submitted:', formData);
-    // Add your form submission logic here
-  };
-
-  const handleReset = () => {
-    setFormData({
-      district: '',
-      establishment: '',
-      caseType: '',
-      reliefSought: '',
-      partyDetails: {
-        defendantName: '',
-        defendantMobile: '',
-      },
-    });
   };
 
   return (
-    <div className="form-container">
-      <form onSubmit={handleSubmit} onReset={handleReset}>
-        {/* District Dropdown */}
-        <div className="form-box">
-          <label htmlFor="district">Select District:</label>
-          <select
-            id="district"
-            name="district"
-            value={formData.district}
-            onChange={handleInputChange}
-          >
-            <option value="">Select District</option>
-            {districts.map((district) => (
-              <option key={district} value={district}>
-                {district}
-              </option>
-            ))}
-          </select>
-        </div>
+    <div className="case-filing-form">
+      <h2>Case Filing Form</h2>
+      <form onSubmit={handleSubmit}>
+        {/* ... (Previous form fields) */}
 
-        {/* Establishment Dropdown */}
-        <div className="form-box">
-          <label htmlFor="establishment">Select Establishment:</label>
-          <select
-            id="establishment"
-            name="establishment"
-            value={formData.establishment}
-            onChange={handleInputChange}
-          >
-            <option value="">Select Establishment</option>
-            {establishments.map((establishment) => (
-              <option key={establishment} value={establishment}>
-                {establishment}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Case Information */}
-        <div className="form-section">
-          <h2 className="form-section-title">Case Information</h2>
-          <div className="form-box">
-            <label htmlFor="caseType">Case Type:</label>
-            <select
-              id="caseType"
-              name="caseType"
-              value={formData.caseType}
-              onChange={handleInputChange}
-            >
-              <option value="">Select Case Type</option>
-              <option value="civil">Civil</option>
-              <option value="criminal">Criminal</option>
-            </select>
-          </div>
-          <div className="form-box">
-            <label htmlFor="reliefSought">Relief Sought:</label>
+        {/* Declaration and Signature */}
+        <div className="declaration-section">
+          <label>
+            Declaration:
+            <textarea
+              name="declaration"
+              value={formData.declaration}
+              onChange={handleChange}
+            ></textarea>
+          </label>
+          <label>
+            Signature:
             <input
               type="text"
-              id="reliefSought"
-              name="reliefSought"
-              value={formData.reliefSought}
-              onChange={handleInputChange}
+              name="signature"
+              value={formData.signature}
+              onChange={handleChange}
             />
-          </div>
+          </label>
+          <label>
+            Date:
+            <input
+              type="date"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+            />
+          </label>
         </div>
 
-        {/* Party Details */}
-        <div className="form-section">
-          <h2 className="form-section-title">Party Details</h2>
-          <div className="form-box">
-            <label htmlFor="defendantName">Defendant Name:</label>
-            <input
-              type="text"
-              id="defendantName"
-              name="defendantName"
-              value={formData.partyDetails.defendantName}
-              onChange={handlePartyDetailsChange}
-            />
-          </div>
-          <div className="form-box">
-            <label htmlFor="defendantMobile">Defendant Mobile No:</label>
-            <input
-              type="text"
-              id="defendantMobile"
-              name="defendantMobile"
-              value={formData.partyDetails.defendantMobile}
-              onChange={handlePartyDetailsChange}
-            />
-          </div>
-        </div>
-
-        <div className="form-buttons">
-          <button type="submit" className="submit-button">
-            Submit
-          </button>
-          <button type="reset" className="reset-button">
-            Reset
-          </button>
-        </div>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
