@@ -70,7 +70,7 @@ router.post('/register', async (req, res) => {
         username,
         adhar,
         address,
-        temp_token: token, // Store the token for setting the password
+        password_token: token, // Store the token for setting the password
       // Add any other relevant fields
     });
 
@@ -175,24 +175,5 @@ router.get('/user', authMiddleware, (req, res) => {
   }
 });
 
-
-// module.exports = router;
-
-// Logout route
-router.post('/logout', (req, res) => {
-  try {
-    // Destroy the session and clear the client ID
-    req.session.destroy((err) => {
-      if (err) {
-        return res.status(500).json({ error: 'Failed to logout', message: err.message });
-      }
-      // Send a success response after destroying the session
-      return res.status(200).json({ message: 'Logout successful' });
-    });
-  } catch (err) {
-    // Handle errors
-    return res.status(500).json({ error: 'Failed to logout', message: err.message });
-  }
-});
 
 module.exports = router;

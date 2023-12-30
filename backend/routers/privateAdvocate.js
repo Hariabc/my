@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
-const Advocate = require('../models/privateAdvocate');
+const Advocate = require('../models/advocate');
 require('dotenv').config();
 const bcrypt = require("bcrypt");
 const session = require('express-session');
