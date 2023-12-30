@@ -67,6 +67,107 @@ router.post('/private/register', async (req, res) => {
   }
 });
 
+const sendSetPasswordEmail = async (email, token) => {
+  const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: "ecourtservicehelper@gmail.com",
+      pass: "aryj ahqq wggy bawx"
+    },
+  });
+
+  const mailOptions = {
+    from: "ecourtservicehelper@gmail.com",
+    to: email,
+    subject: 'Complete your registration',
+    text: `Click on the following link to complete your registration:  http://localhost:5173/advocate/public-registration/${token}`,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log('Email sent for setting password');
+  } catch (error) {
+    console.error('Error occurred while sending email:', error);
+    throw new Error('Failed to send email');
+  }
+};
+
+// Route for public advocate registration
+router.post('/public/register', async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const existingAdvocate = await Advocate.findOne({ email });
+
+    if (existingAdvocate) {
+      return res.status(400).json({ error: 'Email already exists.' });
+    }
+
+    const token = Math.random().toString(36).substr(2, 10);
+
+    const publicAdvocate = new Advocate({
+      username: req.body.username,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      phoneNumber: req.body.phoneNumber,
+      gender: req.body.gender,
+      licenseNumber: req.body.licenseNumber,
+      educationQualifications: req.body.educationQualifications,
+      jurisdiction: req.body.jurisdiction,
+      barAssociation: req.body.barAssociation,
+      yearsOfPractice: req.body.yearsOfPractice,
+      practiceArea: req.body.practiceArea,
+      courtAdminId:req.body.courtAdminId,
+      isPrivateAdvocate: false,
+      isAppointedByCourtAdmin: true,
+    });
+    publicAdvocate.password_token = token;
+    await publicAdvocate.save();
+
+    await sendSetPasswordEmail(publicAdvocate.email, token);
+
+    res.status(200).json({
+      message: 'Public advocate registered by court admin successfully. Please check your email to complete the registration.',
+    });
+  } catch (error) {
+    res.status(500).json({
+      error
+    });
+  }
+});
+
+
+
+
+
+// Complete the registration for a public advocate
+router.post('/register/complete', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    // const { token } = req.params;
+
+    // Find the advocate with the given email and token
+    const publicAdvocate = await Advocate.findOne({email});
+    
+
+    if (!publicAdvocate) {
+      return res.status(400).json({ error: 'Invalid token or email.' });
+    }
+
+    // Update the advocate's email and password
+    publicAdvocate.email = email;
+    publicAdvocate.password = await bcrypt.hash(password, 10);
+    publicAdvocate.password_token = undefined;
+    await publicAdvocate.save();
+
+    res.status(200).json({ message: 'Registration completed successfully.' });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while completing the registration.' });
+  }
+});
+
+
 router.post('/set-password/:token', async (req, res) => {
   try {
     const { token } = req.params;
@@ -123,23 +224,6 @@ router.post('/login', async (req, res) => {
 });
 
 
-async function sendSetPasswordEmail(email, token) {
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: "ecourtservicehelper@gmail.com",
-      pass: "aryj ahqq wggy bawx"
-    },
-  });
 
-  const mailOptions = {
-    from: "ecourtservicehelper@gmail.com",
-    to: email,
-    subject: 'Set your password',
-    text: `Here is the link to set your password: http://localhost:5173/advocate/set-password/${token}`,
-  };
-
-  return transporter.sendMail(mailOptions);
-}
 
 module.exports = router;

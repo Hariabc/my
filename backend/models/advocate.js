@@ -63,8 +63,11 @@ const advocateSchema = new mongoose.Schema({
     type: Boolean,
     required: true
   },
+  courtAdminMail: {
+    type: String,
+  },
   password_token: {
-    type: String
+    type: String,
   },
   court: {
     type: mongoose.Schema.Types.ObjectId,
@@ -74,7 +77,12 @@ const advocateSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Case'
   }],
-  
+  courtAdminId: {
+    type: String,
+    required: function() {
+      return this.isAppointedByCourtAdmin;
+    }
+  }
 }, { timestamps: true });
 
-module.exports= mongoose.model('Advocate', advocateSchema);
+module.exports = mongoose.model('Advocate', advocateSchema);
