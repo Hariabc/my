@@ -47,7 +47,8 @@ const App = () => {
           <Route path='/payment' element={<PaymentComponent/>}/>
           <Route path='/advocatelist' element={<AdvocateList/>}/>
           <Route path='/sendingfiles' element={<FileUploader/>}/>
-          <Route path='/sendingfiles' element={<FileUploader/>}/>
+          <Route path='/casefilingform' element={<CaseFilingForm/>}/>
+          <Route path='/fileacase' element={<FileACaseMin/>}/>
         </Route>
       </Routes>
     </Router>

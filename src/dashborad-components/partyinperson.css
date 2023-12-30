@@ -1,48 +1,109 @@
-/* PartyInPersonForm.css */
+/* partyinperson.css */
 
+/* Reset some default styles */
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+/* Make sure the form covers the entire page width */
 .party-in-person-form {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-  }
-  
-  .form-section {
-    margin-bottom: 20px;
-  }
-  
-  .section-title {
-    font-size: 18px;
-    margin-bottom: 10px;
-    background-color: aqua;
-    padding: 10px;
-  }
-  
-  .form-label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .form-input {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .submit-button {
-    padding: 10px;
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .submit-button:hover {
-    background-color: #45a049;
-  }
-  
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px; /* Add padding if needed */
+}
+
+/* Add some general styles for the form sections */
+.form-section-title {
+  color: #333;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px; /* Adjust the gap as needed */
+}
+
+/* Style for the personal details section */
+.personal-details-section,
+.contact-details-section , .case-details-section, .dispute-arising-out-of-section ,.court-details-section{
+  grid-column: span 3; /* Make it span across all three columns */
+  background-color: #f4f4f4; /* Add a background color if needed */
+  padding: 15px; /* Add padding if needed */
+  box-sizing: border-box;
+}
+
+.grid-half {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px; /* Adjust the gap as needed */
+}
+
+/* Reuse the styles for grid-half, form-label, and form-input */
+.personal-details-section .grid-half,
+.contact-details-section .grid-half {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px; /* Adjust the gap as needed */
+}
+
+.personal-details-section .form-label,
+.contact-details-section .form-label {
+  display: block;
+  margin-bottom: 5px; /* Adjust the margin as needed */
+}
+
+.personal-details-section .form-input,
+.contact-details-section .form-input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.section-title {
+  background-color: #333;
+  color: #fff;
+  padding: 8px; /* Adjust padding as needed */
+  margin-bottom: 10px; /* Adjust margin as needed */
+}
+/* ... (rest of the styles) */
+.state-details-section {
+  grid-column: span 3; /* Make it span across all three columns */
+  background-color: #f4f4f4; /* Add a background color if needed */
+  padding: 15px; /* Add padding if needed */
+  box-sizing: border-box;
+}
+
+/* Reuse the styles for grid-half, form-label, and form-input */
+.state-details-section .grid-half {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px; /* Adjust the gap as needed */
+}
+
+.state-details-section .form-label {
+  display: block;
+  margin-bottom: 5px; /* Adjust the margin as needed */
+}
+
+.state-details-section .form-input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+.submit-section {
+  grid-column: span 3; /* Make it span across all three columns */
+  text-align: center;
+  margin-top: 20px; /* Adjust margin as needed */
+}
+
+.submit-button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}

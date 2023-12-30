@@ -65,7 +65,7 @@ const LoginPage = () => {
           });
 
           setTimeout(() => {
-            navigate(`/${selectedUser}d`);
+            navigate(`/${selectedUser}dashboard`);
           }, 2000); // Redirect after a 2-second delay
         } else {
           toast.error('Login failed. Please try again.', {
