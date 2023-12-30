@@ -2,6 +2,7 @@ import React from 'react'
 import "./home.css"
 import ContactUs from './contact'
 import {FaArrowRight }from "react-icons/fa"
+import ServicePage from './service'
 export default function Home() {
   return (
     <>
@@ -14,6 +15,7 @@ export default function Home() {
       <FaArrowRight className="arrow-icon" />
     </button>
     </div>
+    <ServicePage/>
     <ContactUs/>
     </>
   )

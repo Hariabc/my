@@ -21,6 +21,9 @@ import EventForm from './Features/EventForm.jsx';
 import VideoConference from './Features/Video_Conference/VideoConference.jsx';
 import JudgeConference from './Features/JudgeConference.jsx';
 import Conference from './Features/Video_Conference/Conference.jsx';
+import CaseFilingForm from './dashborad-components/FileACase.jsx';
+import FileACaseMin from './dashborad-components/FileACaseMin.jsx';
+import "./index.css"
 
 const App = () => {
   return (
@@ -45,10 +48,6 @@ const App = () => {
           <Route path='/advocatelist' element={<AdvocateList/>}/>
           <Route path='/sendingfiles' element={<FileUploader/>}/>
           <Route path='/sendingfiles' element={<FileUploader/>}/>
-          <Route path='scheduling-calendar' element={<EventForm/>}/>
-          <Route path='/pre-trial' element={<VideoConference/>}/>
-          <Route path='/schedule-pre-trial' element={<JudgeConference/>}/>
-          <Route path='/conference/:meetingId' element={<Conference/>}/>
         </Route>
       </Routes>
     </Router>
