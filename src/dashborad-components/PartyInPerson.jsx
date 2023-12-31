@@ -552,7 +552,7 @@ const DefendantForm = () => {
   );
 };
 
-const CaseDetailsForm = ({ onSubmit }) => {
+const CaseDetailsForm = () => {
   const [caseDetailsFormData, setCaseDetailsFormData] = useState({
     caseType: '',
     title: '',
@@ -570,6 +570,8 @@ const CaseDetailsForm = ({ onSubmit }) => {
     filingFee:'',
   });
 
+  const [isCaseDetailsFormSubmitted, setCaseDetailsFormSubmitted] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCaseDetailsFormData((prevData) => ({
@@ -580,12 +582,19 @@ const CaseDetailsForm = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(caseDetailsFormData);
+    console.log('Defendant Form submitted:', caseDetailsFormData);
+    // You may want to redirect or show a success message after the form is submitted
+    setCaseDetailsFormSubmitted(true);
   };
 
   return (
     <div className="case-details-form">
       <h2 className="form-section-title">Case Details</h2>
+      {isCaseDetailsFormSubmitted ? (
+        // Render defendant form if plaintiff form is submitted
+        <DocumentsForm />
+      ) : (
+        // Render plaintiff form if it's not submitted
       <form onSubmit={handleSubmit} className="form-grid">
        {/* Case Details Fields */}
        <div className="case-details-section">
@@ -752,13 +761,146 @@ const CaseDetailsForm = ({ onSubmit }) => {
         </label>
         </div>
         </div>
-        
+         {/* Submit Button for Defendant Form */}
+         <div className="submit-section">
+          <button type="submit" className="submit-button">
+            Submit
+          </button>
+        </div>
       </form>
+      )}
     </div>
   );
 };
 
+const DocumentsForm = () => {
+  const [documentsFormData, setDocumentsFormData] = useState({
+    document1: null,
+    document2: null,
+    // Add more document fields as needed
+  });
 
+  const [isDocumentsFormSubmitted, setDocumentsFormSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, files } = e.target;
+    setDocumentsFormData((prevData) => ({
+      ...prevData,
+      [name]: files[0],
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Add logic to handle document submission, e.g., send to server
+    console.log('Documents submitted:', documentsFormData);
+    // You may want to redirect or show a success message after submission
+    setDocumentsFormSubmitted(true);
+  };
+
+  return (
+    <div className="documents-form">
+      <h2 className="form-section-title">Documents Uploading</h2>
+      {isDocumentsFormSubmitted ? (
+        // Render case details form if defendant form is submitted
+        <CourtFeePaymentForm />
+      ) : (
+        // Render defendant form if it's not submitted
+
+      <form onSubmit={handleSubmit} className="form-grid">
+        <div className='documents-section'>
+          <h3 className="section-title">Documents</h3>
+          <div className='grid-half'>
+        <label className="form-label">
+          Upload Document 1:
+          <input type="file" name="document1" onChange={handleChange} className="form-input" />
+        </label>
+        <label className="form-label">
+          Upload Document 2:
+          <input type="file" name="document2" onChange={handleChange} className="form-input" />
+        </label>
+        </div>
+        </div>
+        {/* Add more document upload fields as needed */}
+        {/* Submit Button for Documents Form */}
+        <div className="submit-section">
+          <button type="submit" className="submit-button">
+            Submit Documents
+          </button>
+        </div>
+      </form>
+      )}
+    </div>
+  );
+};
+
+const CourtFeePaymentForm = () => {
+  const [paymentFormData, setPaymentFormData] = useState({
+    paymentMethod: '',
+    cardNumber: '',
+    expiryDate: '',
+    cvv: '',
+  });
+
+  const [isCourtFeePaymentFormSubmitted, setCourtFeePaymentFormSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPaymentFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Add logic to handle payment submission, e.g., send to server
+    console.log('Payment submitted:', paymentFormData);
+    // You may want to redirect or show a success message after submission
+    setCourtFeePaymentFormSubmitted(true);
+  };
+
+  return (
+    <div className="court-fee-payment-form">
+      <h2 className="form-section-title">Court Fee Payment</h2>
+      
+      <form onSubmit={handleSubmit} className="form-grid">
+        <div className='court-fee-section'>
+          <h3 className='section-title' >Make Payment</h3>
+          <div className='grid-half'>
+        <label className="form-label">
+          Payment Method:
+          <select name="paymentMethod" onChange={handleChange} className="form-input">
+            <option value="">Select Payment Method</option>
+            <option value="creditCard">Credit Card</option>
+            <option value="debitCard">Debit Card</option>
+            <option value="netBanking">Net Banking</option>
+          </select>
+        </label>
+        <label className="form-label">
+          Card Number:
+          <input type="text" name="cardNumber" onChange={handleChange} className="form-input" />
+        </label>
+        <label className="form-label">
+          Expiry Date:
+          <input type="text" name="expiryDate" onChange={handleChange} className="form-input" />
+        </label>
+        <label className="form-label">
+          CVV:
+          <input type="text" name="cvv" onChange={handleChange} className="form-input" />
+        </label>
+        </div>
+        </div>
+        {/* Submit Button for Court Fee Payment Form */}
+        <div className="submit-section">
+          <button type="submit" className="submit-button">
+            Submit Payment
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
 
 
 

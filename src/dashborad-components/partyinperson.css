@@ -27,7 +27,7 @@ html {
 
 /* Style for the personal details section */
 .personal-details-section,
-.contact-details-section , .case-details-section, .dispute-arising-out-of-section ,.court-details-section{
+.contact-details-section , .case-details-section, .dispute-arising-out-of-section ,.court-details-section, .documents-section,.court-fee-section{
   grid-column: span 3; /* Make it span across all three columns */
   background-color: #f4f4f4; /* Add a background color if needed */
   padding: 15px; /* Add padding if needed */
