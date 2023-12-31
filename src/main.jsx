@@ -49,6 +49,10 @@ const App = () => {
           <Route path='/sendingfiles' element={<FileUploader/>}/>
           <Route path='/casefilingform' element={<CaseFilingForm/>}/>
           <Route path='/fileacase' element={<FileACaseMin/>}/>
+          <Route path='/pre-trial' element={<VideoConference/>}/>
+          <Route path='/schedule-pre-trial' element={<JudgeConference/>}/>
+          <Route path='/scheduling-calendar' element={<EventForm/>}/>
+
         </Route>
       </Routes>
     </Router>
