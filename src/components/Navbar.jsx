@@ -3,8 +3,10 @@ import { FaHome } from "react-icons/fa";
 import { IoIosContact } from "react-icons/io";
 import { MdMenu } from "react-icons/md";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link } from "react-scroll";
 import { FaArrowRight } from "react-icons/fa6";
+import { Link as UnScrollLink } from "react-router-dom";
+
 
 
 export const Navbar = () => {
@@ -25,25 +27,25 @@ export const Navbar = () => {
         </div>
         <ul className={isMobileMenuOpen ? "open" : ""}>
           <li>
-            <Link to="">
+            <Link to="top" spy={true} smooth={true} offset={50} duration={500}>
               <FaHome size={20} style={{ verticalAlign: "sub" }} /> Home
             </Link>
           </li>
           <li>
-            <Link to="/services">
+            <Link to="services" spy={true} smooth={true} offset={50} duration={500}>
               Legal Services
             </Link>
           </li>
           <li>
-            <Link to="/contact">
+            <Link to="contact" spy={true} smooth={true} offset={50} duration={500}>
               Contact Us
             </Link>
           </li>
           <li className="login-button">
-            <Link to="/login" style={{ textDecoration: "none" }} >
+            <UnScrollLink to="/login" style={{ textDecoration: "none" }}>
               <IoIosContact size={22} style={{ verticalAlign: "sub" }} />
               Login/Register <FaArrowRight size={22} style={{paddingLeft:"10px"}}/>
-            </Link>
+            </UnScrollLink>
           </li>
         </ul>
       </nav>

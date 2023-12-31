@@ -5,6 +5,7 @@ nav {
   text-transform: uppercase;
   text-align: center;
   font-weight: 600;
+  position: absolute;
 }
 
 nav * {
@@ -38,6 +39,7 @@ nav a {
   line-height: 20px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   z-index: 1000;
+  position: relative;
 }
 
 /* Style for the logo container */

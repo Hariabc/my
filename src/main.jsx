@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout';
 import Home from './pages/Home';
 import LoginPage from './pages/Login';
 import ClientDashboard from './client/Clientdashboard';
@@ -25,8 +24,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+          <Route index element={<Home />}/>
           <Route path="/Login" element={<LoginPage />} />
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
@@ -34,7 +32,6 @@ const App = () => {
           <Route path="/advocate/register" element={<AdvocateForm />} />
           <Route path="/set-password/:token" element={<SetPassword />} />
           <Route path="/Advocate/set-password/:token" element={<Advpassword/>} />
-        </Route>
         <Route path="">
           <Route path="/clientdashboard" element={<ClientDashboard />} />
           <Route path="/advocatedashboard" element={<AdvocateDashboard />} />
@@ -46,7 +43,6 @@ const App = () => {
           <Route path='/sendingfiles' element={<FileUploader/>}/>
           <Route path='/fileacase' element={<CaseFilingForm/>}/>
           <Route path='/fileacasemain' element={<FileACaseMin/>}/>
-
         </Route>
       </Routes>
     </Router>
