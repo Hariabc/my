@@ -68,7 +68,7 @@ const FAQ_DATA = [
 
 
 const linksData = [
-  { path: "/file-a-case", label: "File a Case", image: casefile },
+  { path: "/fileacase", label: "File a Case", image: casefile },
   { path: "/pre-trial", label: "Pre Trial", image: confrence },
   { path: "/sendingfiles", label: "File Sharing", image: document },
   { path: "/payment", label: "Payments", image: payment },
