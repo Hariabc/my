@@ -1,16 +1,27 @@
-// app.js (or server.js)
+// server.js
+
 const express = require('express');
-const cors = require('cors');
 const mongoose = require('mongoose');
-const meetingRoutes = require('./routes/meetingRoutes');
-const db = require('./db'); // Make sure to update the path
+const cors = require('cors');
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3002;
 
 app.use(cors());
 app.use(express.json());
 
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost:27017/conferenceDB', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const db = mongoose.connection;
+db.on('error', (error) => console.error('MongoDB connection error:', error));
+db.once('open', () => console.log('Connected to MongoDB'));
+
+// Setup routes
+const meetingRoutes = require('./routes/meetingRoutes');
 app.use('/api/meetings', meetingRoutes);
 
 app.listen(PORT, () => {

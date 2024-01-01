@@ -23,6 +23,8 @@ import JudgeConference from './Features/JudgeConference.jsx';
 import Conference from './Features/Video_Conference/Conference.jsx';
 import CaseFilingForm from './dashborad-components/FileACase.jsx';
 import FileACaseMin from './dashborad-components/FileACaseMin.jsx';
+import HomeCon from './Features/Video_Conference/homeCon.jsx';
+import Room from './Features/Video_Conference/Room.jsx';
 import "./index.css"
 
 const App = () => {
@@ -52,6 +54,8 @@ const App = () => {
           <Route path='/pre-trial' element={<VideoConference/>}/>
           <Route path='/schedule-pre-trial' element={<JudgeConference/>}/>
           <Route path='/scheduling-calendar' element={<EventForm/>}/>
+          <Route path="/homecon" element={<HomeCon/>}/>
+          <Route path='/room/:roomID' element={<Room/>}/>
 
         </Route>
       </Routes>
