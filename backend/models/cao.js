@@ -28,6 +28,10 @@ const courtAdminSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  courtAdminId: {
+    type: String,
+    required:true
+  },
   role: {
     type: String,
     default: 'Court Administrative Officer',

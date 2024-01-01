@@ -11,6 +11,7 @@ router.post('/register', async (req, res) => {
     password,
     email,
     phone,
+    courtAdminId,
     courtId } = req.body;
 
   try {
@@ -36,7 +37,8 @@ router.post('/register', async (req, res) => {
     lastName,
     username,
     password,
-    email,
+      email,
+    courtAdminId,
     phone,
     court: courtId,
     });

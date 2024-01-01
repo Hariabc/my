@@ -13,10 +13,11 @@ import Contact from './pages/contact';
 import ClientForm from './REGISTER/Client-register';
 import AdvocateForm from './REGISTER/Advocate-register';
 import SetPassword from './components/Setpassword';
-import Advpassword from "./components/AdvSetPass.jsx";
+import Advpassword from "./components/privateAdvpassword.jsx";
 import PaymentComponent from './dashborad-components/payment.jsx'
 import AdvocateList from './dashborad-components/AdvoacateList.jsx'
 import FileUploader from './dashborad-components/Sendingfiles.jsx'
+import PubAdvReg from "./components/publicadvreg.jsx";
 
 const App = () => {
   return (
@@ -40,8 +41,12 @@ const App = () => {
           <Route path='/payment' element={<PaymentComponent/>}/>
           <Route path='/advocatelist' element={<AdvocateList/>}/>
           <Route path='/sendingfiles' element={<FileUploader/>}/>
-          <Route path='/sendingfiles' element={<FileUploader/>}/>
+          <Route path='/sendingfiles' element={<FileUploader />} />
+          <Route path="/advocate/register/complete/:token" element={<PubAdvReg/>} />
         </Route>
+       
+            
+       
       </Routes>
     </Router>
   );

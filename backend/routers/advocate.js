@@ -80,7 +80,7 @@ const sendSetPasswordEmail = async (email, token) => {
     from: "ecourtservicehelper@gmail.com",
     to: email,
     subject: 'Complete your registration',
-    text: `Click on the following link to complete your registration:  http://localhost:5173/advocate/public-registration/${token}`,
+    text: `Click on the following link to complete your registration:  http://localhost:5173/advocate/register/complete/${token}`,
   };
 
   try {
@@ -142,28 +142,31 @@ router.post('/public/register', async (req, res) => {
 
 
 // Complete the registration for a public advocate
-router.post('/register/complete', async (req, res) => {
+router.post('/register/complete/:token', async (req, res) => {
   try {
-    const { email, password } = req.body;
-    // const { token } = req.params;
+    const { token } = req.params;
+    const { email,password } = req.body;
 
-    // Find the advocate with the given email and token
-    const publicAdvocate = await Advocate.findOne({email});
-    
+    // Find the client by the verification token
+    const advocate = await Advocate.findOne({ password_token: token });
 
-    if (!publicAdvocate) {
-      return res.status(400).json({ error: 'Invalid token or email.' });
+    if (!advocate) {
+      return res.status(404).json({ error: 'Invalid token or Advocate not found' });
     }
 
-    // Update the advocate's email and password
-    publicAdvocate.email = email;
-    publicAdvocate.password = await bcrypt.hash(password, 10);
-    publicAdvocate.password_token = undefined;
-    await publicAdvocate.save();
+    // Hash the new password using bcrypt
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    res.status(200).json({ message: 'Registration completed successfully.' });
-  } catch (error) {
-    res.status(500).json({ error: 'An error occurred while completing the registration.' });
+    // Update client's password and remove verification token
+    advocate.email = email;
+    advocate.password = hashedPassword;
+    advocate.password_token = undefined;
+    await advocate.save();
+
+    return res.status(200).json({ message: 'Registration completed successfully.' });
+  } catch (err) {
+    // Handle errors
+    return res.status(500).json({ error: 'An error occurred while completing the registration.', message: err.message });
   }
 });
 
