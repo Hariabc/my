@@ -9,6 +9,7 @@ export default function Layout() {
   return (
     <>
     <Navbar/>
+    <Home/>
     <Outlet/>
     {/* <Footer/> */}
     </>

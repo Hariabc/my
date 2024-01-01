@@ -19,11 +19,13 @@ import FileUploader from './dashborad-components/Sendingfiles.jsx'
 import CaseFilingForm from './dashborad-components/FileACase.jsx';
 import FileACaseMin from './dashborad-components/FileACaseMin.jsx';
 import "./index.css"
+import Layout from './components/Layout.jsx';
 
 const App = () => {
   return (
     <Router>
       <Routes>
+        <Route path='' element={<Layout/>}/>
           <Route index element={<Home />}/>
           <Route path="/Login" element={<LoginPage />} />
           {/*
