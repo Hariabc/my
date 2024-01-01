@@ -1,8 +1,13 @@
 const express = require('express');
 const CourtAdmin = require('../models/cao');
-const Court= require("../models/court")
+const Court = require("../models/court")
+const authMiddleware = require("../middleware/adminAuthMiddleware")
+const jwt = require("jsonwebtoken")
+const cookie=require("cookie-parser")
+
 
 const router = express.Router();
+router.use(cookie())
 // Register a new court admin
 router.post('/register', async (req, res) => {
   const { firstName,
@@ -72,7 +77,16 @@ router.post('/login', async (req, res) => {
     if (password !== courtAdmin.password) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
-
+    const token = jwt.sign(
+      { courtAdminId: courtAdmin._id, email: courtAdmin.email },
+      'thisisthesecretkeyforthisproject'
+    );
+    
+    res.cookie("jwtoken", token, {
+      httpOnly: true,
+      secure: true,
+      maxAge: 500000
+    });
     // Passwords match - successful login
       res.status(200).json({ message: 'Login successful' });
     //   res.status(200).json({message:"login sucess"})
@@ -80,6 +94,15 @@ router.post('/login', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
+  }
+});
+router.get('/user', authMiddleware, (req, res) => {
+  try {
+      const userData = req.user;
+      res.status(200).json({ user: userData });
+  } catch (error) {
+      console.error('Error fetching user data:', error);
+      res.status(500).json({ error: 'Failed to fetch user data' });
   }
 });
 

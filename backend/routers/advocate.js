@@ -5,7 +5,10 @@ const nodemailer = require('nodemailer');
 const Advocate = require('../models/advocate');
 require('dotenv').config();
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const authMiddleware = require("../middleware/advAuthMiddleware");
 const session = require('express-session');
+const cookie = require("cookie-parser")
 // router.use(
 //   session({
 //     secret: 'thisisasecretkeyforthisproject',
@@ -13,7 +16,7 @@ const session = require('express-session');
 //     saveUninitialized: true,
 //   })
 // );
-
+router.use(cookie())
 
 router.post('/private/register', async (req, res) => {
   try {
@@ -216,13 +219,32 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid password' });
     }
 
-    // Start a session for the advocate after successful login
-    // req.session.advocateId = advocate._id; // Store the advocate ID in the session
+    // Create a JWT token
+    const token = jwt.sign(
+      { advocateId: advocate._id, email: advocate.email },
+      'thisisthesecretkeyforthisproject'
+    );
+    
+    res.cookie("jwtoken", token, {
+      httpOnly: true,
+      secure: true,
+      maxAge: 500000
+    });
 
     return res.status(200).json({ message: 'Login successful', advocate });
   } catch (err) {
     // Handle errors
     return res.status(500).json({ error: 'Failed to log in', message: err.message });
+  }
+});
+
+router.get('/user', authMiddleware, (req, res) => {
+  try {
+      const userData = req.user;
+      res.status(200).json({ user: userData });
+  } catch (error) {
+      console.error('Error fetching user data:', error);
+      res.status(500).json({ error: 'Failed to fetch user data' });
   }
 });
 

@@ -8,15 +8,15 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken")
 const cookie = require('cookie-parser')
 const User=require("../models/client")
-const authMiddleware = require("../middleware/authMiddleware")
+const authMiddleware = require("../middleware/clientAuthMiddleware")
 router.use(cookie());
-router.use(
-  session({
-    secret: 'thisisasecretkeyforthisproject',
-    resave: false,
-    saveUninitialized: true,
-  })
-);
+// router.use(
+//   session({
+//     secret: 'thisisasecretkeyforthisproject',
+//     resave: false,
+//     saveUninitialized: true,
+//   })
+// );
 
 // Function to send an email with the link to set the password
 const sendSetPasswordEmail = async (email, token) => {
