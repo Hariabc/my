@@ -26,8 +26,9 @@ const App = () => {
       <Routes>
           <Route index element={<Home />}/>
           <Route path="/Login" element={<LoginPage />} />
+          {/*
           <Route path="/services" element={<Services />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/contact" element={<Contact />} /> */}
           <Route path="/client/register" element={<ClientForm />} />
           <Route path="/advocate/register" element={<AdvocateForm />} />
           <Route path="/set-password/:token" element={<SetPassword />} />
