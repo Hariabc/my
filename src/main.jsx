@@ -17,6 +17,7 @@ import Advpassword from "./components/privateAdvpassword";
 import PaymentComponent from './dashborad-components/payment.jsx'
 import AdvocateList from './dashborad-components/AdvoacateList.jsx'
 import FileUploader from './dashborad-components/Sendingfiles.jsx'
+import Profile from './client/Profile.jsx';
 
 const App = () => {
   return (
@@ -40,7 +41,7 @@ const App = () => {
           <Route path='/payment' element={<PaymentComponent/>}/>
           <Route path='/advocatelist' element={<AdvocateList/>}/>
           <Route path='/sendingfiles' element={<FileUploader/>}/>
-          <Route path='/sendingfiles' element={<FileUploader/>}/>
+          <Route path='/profile' element={<Profile/>}/>
         </Route>
       </Routes>
     </Router>
