@@ -1,5 +1,5 @@
 // JudgeDashboard.js
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import judgeImage from "../assets/judge.png";
 import { Link } from 'react-router-dom';
 import { IoIosArrowDropdownCircle } from "react-icons/io";
@@ -15,6 +15,7 @@ import scheduling from "../assets/DASHBOARDS/Scheduling calender.jpg";
 import caseanalytics from "../assets/DASHBOARDS/case analytics.jpg";
 import advocatelist from "../assets/DASHBOARDS/Advocate list.jpg";
 import "./judgedashboard.css";
+import axios from "axios"
 
 const FAQ_DATA = [
   {
@@ -44,6 +45,8 @@ const linksData = [
 
 const JudgeDashboard = () => {
   const [showAnswers, setShowAnswers] = useState({});
+  const [userData, setuserData] = useState({});
+
 
   const toggleAnswer = (questionId) => {
     setShowAnswers((prev) => ({
@@ -51,6 +54,18 @@ const JudgeDashboard = () => {
       [questionId]: !prev[questionId],
     }));
   };
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/judge/user', { withCredentials: true });
+        setuserData(response.data.user); // Assuming the response includes user data
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
 
   return (
     <div className="judge-dashboard">
@@ -61,7 +76,7 @@ const JudgeDashboard = () => {
         </div>
         <div className="logo-profile">
           <IoIosArrowDropdownCircle />
-          <span><h2>Judge Name</h2></span>
+          <span><h2>{userData.name }</h2></span>
           <img src={judgeImage} alt="Judge" />
         </div>
       </div>

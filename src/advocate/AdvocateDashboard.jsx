@@ -1,6 +1,7 @@
 // AdvocateDashboard.js
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import advocateImage from "../assets/advocate.png";
+import axios from "axios"
 import { Link } from 'react-router-dom';
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { FaPlus } from "react-icons/fa";
@@ -13,6 +14,7 @@ import casetracking from "../assets/DASHBOARDS/Case tracking.jpg";
 import causelist from "../assets/DASHBOARDS/Cause List.jpg";
 import scheduling from "../assets/DASHBOARDS/Scheduling calender.jpg";
 import caseanalytics from "../assets/DASHBOARDS/case analytics.jpg";
+
 import advocatelist from "../assets/DASHBOARDS/Advocate list.jpg";
 import "./AdvocateDashboard.css";
 
@@ -46,6 +48,8 @@ const linksData = [
 
 const AdvocateDashboard = () => {
   const [showAnswers, setShowAnswers] = useState({});
+  const [userData, setuserData] = useState({});
+
 
   const toggleAnswer = (questionId) => {
     setShowAnswers((prev) => ({
@@ -53,6 +57,18 @@ const AdvocateDashboard = () => {
       [questionId]: !prev[questionId],
     }));
   };
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/advocate/user', { withCredentials: true });
+        setuserData(response.data.user); // Assuming the response includes user data
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
 
   return (
     <div className="advocate-dashboard">
@@ -63,7 +79,7 @@ const AdvocateDashboard = () => {
         </div>
         <div className="logo-profile">
           <IoIosArrowDropdownCircle />
-          <span><h2>Username</h2></span>
+          <span><h2>{ userData.firstName}</h2></span>
           <img src={advocateImage} alt="Advocate" />
         </div>
       </div>

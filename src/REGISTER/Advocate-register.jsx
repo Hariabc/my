@@ -22,14 +22,17 @@ const jurisdictions = [
   "Dadra and Nagar Haveli and Daman and Diu", "Delhi", "Jammu and Kashmir", "Ladakh", "Lakshadweep",
   "Puducherry", "Other"
 ];
+const gender=["Male","Female","Others"]
 
 
 const AdvocateForm = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
+    username: '',
+    gender:'',
     email: '',
-    phoneNo: '',
+    phoneNumber: '',
     licenseNumber: '',
     barAssociation: '',
     jurisdiction: '',
@@ -41,8 +44,10 @@ const AdvocateForm = () => {
   const [errors, setErrors] = useState({
     firstName: '',
     lastName: '',
+    username: '',
+    gender:'',
     email: '',
-    phoneNo: '',
+    phoneNumber: '',
     licenseNumber: '',
     barAssociation: '',
     jurisdiction: '',
@@ -71,6 +76,11 @@ const AdvocateForm = () => {
     } else {
       validationErrors.firstName = '';
     }
+    if (formData.username.trim() === '') {
+      validationErrors.username = 'username is required';
+    } else {
+      validationErrors.username = '';
+    }
 
     if (formData.lastName.trim() === '') {
       validationErrors.lastName = 'Last name is required';
@@ -83,15 +93,15 @@ const AdvocateForm = () => {
     } else if (!isValidEmail(formData.email)) {
       validationErrors.email = 'Invalid email format';
     } else {
-      validationErrors.email = '';
+      validationErrors.email = ''
     }
 
-    if (formData.phoneNo.trim() === '') {
-      validationErrors.phoneNo = 'Phone number is required';
-    } else if (!isValidPhone(formData.phoneNo)) {
-      validationErrors.phoneNo = 'Invalid phone number format';
+    if (formData.phoneNumber.trim() === '') {
+      validationErrors.phoneNumber = 'Phone number is required';
+    } else if (!isValidPhone(formData.phoneNumber)) {
+      validationErrors.phoneNumber = 'Invalid phone number format';
     } else {
-      validationErrors.phoneNo = '';
+      validationErrors.phoneNumber = '';
     }
 
     if (formData.licenseNumber.trim() === '') {
@@ -101,7 +111,11 @@ const AdvocateForm = () => {
     } else {
       validationErrors.licenseNumber = '';
     }
-
+    if (formData.gender.trim() === '') {
+      validationErrors.gender = 'gender is required';
+    } else {
+      validationErrors.gender = '';
+    }
     if (formData.barAssociation.trim() === '') {
       validationErrors.barAssociation = 'Bar association is required';
     } else {
@@ -143,7 +157,7 @@ const AdvocateForm = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/advocate/register', formData);
+      const response = await axios.post('http://localhost:5000/advocate/private/register', formData);
 
       if (response.status === 201) {
         toast.success('Email has been sent to set the password');
@@ -181,6 +195,11 @@ const AdvocateForm = () => {
           <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} className="form-input" />
           {errors.lastName && <span className="error-message">{errors.lastName}</span>}
         </label>
+        <label className="form-label">
+          username:
+          <input type="text" name="username" value={formData.username} onChange={handleChange} className="form-input" />
+          {errors.username && <span className="error-message">{errors.username}</span>}
+        </label>
         {/* Email */}
         <label className="form-label">
           Email:
@@ -190,8 +209,18 @@ const AdvocateForm = () => {
         {/* Phone No */}
         <label className="form-label">
           Phone No:
-          <input type="tel" name="phoneNo" value={formData.phoneNo} onChange={handleChange} className="form-input" />
-          {errors.phoneNo && <span className="error-message">{errors.phoneNo}</span>}
+          <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} className="form-input" />
+          {errors.phoneNumber && <span className="error-message">{errors.phoneNumber}</span>}
+        </label>
+        <label className="form-label">
+          Gender:
+          <select name="gender" value={formData.gender} onChange={handleChange} className="form-select">
+            <option value="">Select an option</option>
+            {gender.map((option) => (
+              <option value={option} key={option}>{option}</option>
+            ))}
+          </select>
+          {errors.gender && <span className="error-message">{errors.gender}</span>}
         </label>
         {/* License Number */}
         <label className="form-label">
