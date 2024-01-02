@@ -1,15 +1,5 @@
 const mongoose = require('mongoose');
 
-const courtSchema = new mongoose.Schema({
-  name: String,
-  address: String,
-  city: String,
-  state: String,
-  country: String,
-  // Other court details can be added as needed
-});
-
-const Court = mongoose.model('Court', courtSchema);
 
 const courtAdminSchema = new mongoose.Schema({
   firstName: {
@@ -38,20 +28,20 @@ const courtAdminSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  courtAdminId: {
+    type: String,
+    required:true
+  },
   role: {
     type: String,
     default: 'Court Administrative Officer',
   },
   court: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Court', // Reference to the Court model
-    // required: true,
+    ref: 'Court',
+    required: true,
   },
-  department: String,
-  experienceYears: Number,
-  // Add more fields as needed
+ 
 });
 
-const CourtAdmin = mongoose.model('CourtAdmin', courtAdminSchema);
-
-module.exports = { Court, CourtAdmin };
+module.exports= mongoose.model('CourtAdmin', courtAdminSchema);
