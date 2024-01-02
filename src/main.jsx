@@ -20,6 +20,9 @@ import CaseFilingForm from './dashborad-components/FileACase.jsx';
 import FileACaseMin from './dashborad-components/FileACaseMin.jsx';
 import "./index.css"
 import Layout from './components/Layout.jsx';
+import SenderComponent from './dashborad-components/Notification/Sender.jsx';
+import ReceiverComponent from './dashborad-components/Notification/Reciever.jsx';
+import Profile from './dashborad-components/Profile.jsx';
 
 const App = () => {
   return (
@@ -46,6 +49,7 @@ const App = () => {
           <Route path='/sendingfiles' element={<FileUploader/>}/>
           <Route path='/fileacase' element={<CaseFilingForm/>}/>
           <Route path='/fileacasemain' element={<FileACaseMin/>}/>
+          <Route path='/profile' element={<Profile/>}/>
         </Route>
       </Routes>
     </Router>
