@@ -27,13 +27,29 @@ const sendSetPasswordEmail = async (email, token) => {
       pass:"aryj ahqq wggy bawx"
     },
   });
+  const registrationLink = `http://localhost:5173/client/set-password/${token}`;
+
 
   const mailOptions = {
     from:"ecourtservicehelper@gmail.com",
     to: email,
     subject: 'Set Your Password for Court Case Management Portal',
-    text: `To set your password, please click on the following link: http://localhost:5173/client/set-password/${token}`,
-  };
+    html: `
+    <html>
+      <head>
+        <title>Set Your Password</title>
+      </head>
+      <body>
+        <p>Hello,</p>
+        <p>To set your password, please click on the following link:</p>
+        <p><a href="${registrationLink}">Set Password</a></p>
+        <p>If the above link doesn't work, you can copy and paste this URL in your browser:</p>
+        <p>${registrationLink}</p>
+        <p>Thank you!</p>
+      </body>
+    </html>
+  `,
+};
 
   try {
     await transporter.sendMail(mailOptions);
@@ -89,7 +105,6 @@ router.post('/register', async (req, res) => {
   }
 });
 
-
 // Route to handle setting the password from the form submission
 router.post('/set-password/:token', async (req, res) => {
   try {
@@ -119,9 +134,6 @@ router.post('/set-password/:token', async (req, res) => {
 });
 // Route for client login
 // Other necessary imports and configurations
-
-
-
 
 router.post('/login',async (req, res) => {
   try {

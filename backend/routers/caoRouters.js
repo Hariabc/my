@@ -96,6 +96,7 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
 router.get('/user', authMiddleware, (req, res) => {
   try {
       const userData = req.user;

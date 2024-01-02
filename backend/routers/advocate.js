@@ -70,7 +70,7 @@ router.post('/private/register', async (req, res) => {
   }
 });
 
-const sendSetPasswordEmail = async (email, token) => {
+const sendSetPasswordEmail = async (email, token, firstName) => {
   const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
@@ -78,12 +78,17 @@ const sendSetPasswordEmail = async (email, token) => {
       pass: "aryj ahqq wggy bawx"
     },
   });
-
+  const registrationLink = `http://localhost:5173/advocate/register/complete/${token}`;
   const mailOptions = {
     from: "ecourtservicehelper@gmail.com",
     to: email,
     subject: 'Complete your registration',
-    text: `Click on the following link to complete your registration:  http://localhost:5173/advocate/register/complete/${token}`,
+    html: `
+      <p>Hello ${firstName},</p>
+      <p>You've been registered as a Public Advocate. Please click <a href="${registrationLink}">here</a> to set your password and complete the registration.</p>
+      <p>Thank you,</p>
+      <p>Your Court Administration Team</p>
+    `
   };
 
   try {
@@ -128,7 +133,7 @@ router.post('/public/register', async (req, res) => {
     publicAdvocate.password_token = token;
     await publicAdvocate.save();
 
-    await sendSetPasswordEmail(publicAdvocate.email, token);
+    await sendSetPasswordEmail(publicAdvocate.email, token,publicAdvocate.firstName);
 
     res.status(200).json({
       message: 'Public advocate registered by court admin successfully. Please check your email to complete the registration.',
@@ -139,10 +144,6 @@ router.post('/public/register', async (req, res) => {
     });
   }
 });
-
-
-
-
 
 // Complete the registration for a public advocate
 router.post('/register/complete/:token', async (req, res) => {
@@ -172,7 +173,6 @@ router.post('/register/complete/:token', async (req, res) => {
     return res.status(500).json({ error: 'An error occurred while completing the registration.', message: err.message });
   }
 });
-
 
 router.post('/set-password/:token', async (req, res) => {
   try {

@@ -1,7 +1,6 @@
 const express = require('express');
 const  Court= require('../models/court');
 const router = express.Router();
-;
 
 // Create a new court
 router.post('/register', async (req, res) => {
