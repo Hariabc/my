@@ -6,7 +6,8 @@ const cors = require("cors");
 const clientRouters = require("./routers/clientRouters");
 const AdvocateRouters = require("./routers/advocate")
 const caoRouters = require("./routers/caoRouters")
-const courtRouters=require(".//routers/court")
+const courtRouters = require(".//routers/court")
+const judgeRouters=require("./routers/judge")
 
 app.use(cors({
     origin: 'http://localhost:5173', // Change this to your React app's URL
@@ -19,7 +20,8 @@ app.use(express.json());
 app.use("/client", clientRouters)
 app.use("/court", courtRouters)
 app.use("/cao", caoRouters)
-app.use("/advocate",AdvocateRouters)
+app.use("/advocate", AdvocateRouters)
+app.use("/judge", judgeRouters);
 
 
 

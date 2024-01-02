@@ -18,6 +18,7 @@ import PaymentComponent from './dashborad-components/payment.jsx'
 import AdvocateList from './dashborad-components/AdvoacateList.jsx'
 import FileUploader from './dashborad-components/Sendingfiles.jsx'
 import PubAdvReg from "./components/publicadvreg.jsx";
+import JudgeReg from "./components/Judgereg.jsx"
 
 const App = () => {
   return (
@@ -42,7 +43,9 @@ const App = () => {
           <Route path='/advocatelist' element={<AdvocateList/>}/>
           <Route path='/sendingfiles' element={<FileUploader/>}/>
           <Route path='/sendingfiles' element={<FileUploader />} />
-          <Route path="/advocate/register/complete/:token" element={<PubAdvReg/>} />
+          <Route path="/advocate/register/complete/:token" element={<PubAdvReg />} />
+          <Route path="/judge/register/complete/:token" element={<JudgeReg/>} />
+          
         </Route>
        
             

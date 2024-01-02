@@ -8,6 +8,10 @@ const judgeSchema = new mongoose.Schema({
     lastname: {
       type: String,
       required: true
+  },
+  name: {
+    type: String,
+    required: true
     },
     username: {
       type: String,
@@ -51,4 +55,4 @@ const judgeSchema = new mongoose.Schema({
     ]
 }, { timestamps: true });
   
-module.exports = judgeSchema;
+module.exports = mongoose.model('Judge', judgeSchema);
