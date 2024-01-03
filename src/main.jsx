@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout';
 import Home from './pages/Home';
 import LoginPage from './pages/Login';
 import ClientDashboard from './client/Clientdashboard';
@@ -17,6 +16,14 @@ import Advpassword from "./components/privateAdvpassword.jsx";
 import PaymentComponent from './dashborad-components/payment.jsx'
 import AdvocateList from './dashborad-components/AdvoacateList.jsx'
 import FileUploader from './dashborad-components/Sendingfiles.jsx'
+import CaseFilingForm from './dashborad-components/FileACase.jsx';
+import FileACaseMin from './dashborad-components/FileACaseMin.jsx';
+import "./index.css"
+import Layout from './components/Layout.jsx';
+import SenderComponent from './dashborad-components/Notification/Sender.jsx';
+import ReceiverComponent from './dashborad-components/Notification/Reciever.jsx';
+import Profile from './dashborad-components/Profile.jsx';
+import AddUsers from './dashborad-components/AddUsers.jsx';
 import Profile from './client/Profile.jsx';
 import PubAdvReg from "./components/publicadvreg.jsx";
 import JudgeReg from "./components/Judgereg.jsx"
@@ -25,11 +32,9 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/Login" element={<LoginPage />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/contact" element={<Contact />} />
+        <Route path='' element={<Layout/>}/>
+          <Route index element={<Home />}/>
+          <Route path="/Login" element={<LoginPage />} />       
           <Route path="/client/register" element={<ClientForm />} />
           <Route path="/advocate/register" element={<AdvocateForm />} />
           <Route path="/client/set-password/:token" element={<SetPassword />} />
@@ -43,8 +48,10 @@ const App = () => {
           <Route path='/payment' element={<PaymentComponent/>}/>
           <Route path='/advocatelist' element={<AdvocateList/>}/>
           <Route path='/sendingfiles' element={<FileUploader/>}/>
+          <Route path='/fileacase' element={<CaseFilingForm/>}/>
+          <Route path='/fileacasemain' element={<FileACaseMin/>}/>
           <Route path='/profile' element={<Profile/>}/>
-          <Route path='/sendingfiles' element={<FileUploader />} />
+          <Route path='/addusers' element={<AddUsers/>}/>
           <Route path="/advocate/register/complete/:token" element={<PubAdvReg />} />
           <Route path="/judge/register/complete/:token" element={<JudgeReg/>} />
         </Route>
