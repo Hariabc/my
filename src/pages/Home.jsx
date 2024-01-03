@@ -8,7 +8,6 @@ import { Navbar } from '../components/Navbar'
 export default function Home() {
   return (
     <>
-    <Navbar/>
     <div className="about">
     <h1 style={{color:"white"}}>Bringing Efficiency to <span className='justice'>JUSTICE</span></h1>
     <hr className="horizontal-line" />

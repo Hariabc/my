@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import LoginPage from './pages/Login';
 import ClientDashboard from './client/Clientdashboard';
 import AdvocateDashboard from './advocate/AdvocateDashboard';
 import JudgeDashboard from './judge/Judgedashboard';
@@ -22,23 +21,22 @@ import "./index.css"
 import Layout from './components/Layout.jsx';
 import SenderComponent from './dashborad-components/Notification/Sender.jsx';
 import ReceiverComponent from './dashborad-components/Notification/Reciever.jsx';
-import Profile from './dashborad-components/Profile.jsx';
 import AddUsers from './dashborad-components/AddUsers.jsx';
 import Profile from './client/Profile.jsx';
 import PubAdvReg from "./components/publicadvreg.jsx";
 import JudgeReg from "./components/Judgereg.jsx"
-
+import LoginPage from "./pages/login.jsx"
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path='' element={<Layout/>}/>
-          <Route index element={<Home />}/>
-          <Route path="/Login" element={<LoginPage />} />       
-          <Route path="/client/register" element={<ClientForm />} />
-          <Route path="/advocate/register" element={<AdvocateForm />} />
-          <Route path="/client/set-password/:token" element={<SetPassword />} />
-          <Route path="/advocate/set-password/:token" element={<Advpassword/>} />
+      <Route path='' element={<Layout/>}>
+            <Route index element={<Home />}/>
+            <Route path="/Login" element={<LoginPage />} />
+            <Route path="/client/register" element={<ClientForm />} />
+            <Route path="/advocate/register" element={<AdvocateForm />} />
+            <Route path="/client/set-password/:token" element={<SetPassword />} />
+            <Route path="/advocate/set-password/:token" element={<Advpassword />} />
         </Route>
         <Route path="">
           <Route path="/clientdashboard" element={<ClientDashboard />} />
