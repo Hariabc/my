@@ -1,6 +1,7 @@
 // PrivateAdvocate.js
 
 import React, { useState } from 'react';
+import AdvocateList from './AdvoacateList';
 
 
 import './privateadvocate.css';
@@ -875,20 +876,8 @@ const ChooseAdvocate = () => {
     <div className="chooseadvocate-form">
       <h2 className="form-section-title">Choosing Advocate</h2>
 
-      <div className="private-advocates-section">
-        <h3 className="section-title">Private Advocates</h3>
-        <ul>
-          {privateAdvocates.map((advocate) => (
-            <li key={advocate.id}>
-              <p>Name: {advocate.name}</p>
-              <p>Specialization: {advocate.specialization}</p>
-              <button type="button" onClick={() => handleChooseAdvocate(advocate)}>
-                Choose Advocate
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {/* Use the new component */}
+      <AdvocateList privateAdvocates={privateAdvocates} onChooseAdvocate={handleChooseAdvocate} />
 
       <div className="client-advocates-section">
         <h3 className="section-title">Your Advocates</h3>

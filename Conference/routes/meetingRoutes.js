@@ -1,44 +1,38 @@
-// meetingRoutes.js
-
+// routes/events.js
 const express = require('express');
 const router = express.Router();
+const Event = require('../models/Event');
+
 const Meeting = require('../models/meeting');
 
-// Get all meetings
+// Get all events
 router.get('/', async (req, res) => {
   try {
-    const meetings = await Meeting.find();
-    res.json(meetings);
+    const events = await Meeting.find();
+    res.json(events);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-// Schedule a new meeting
+// Create a new event
 router.post('/', async (req, res) => {
+    console.log('Received POST request to /api/events');
   const meeting = new Meeting({
     title: req.body.title,
     description: req.body.description,
     date: req.body.date,
-    time: req.body.time,
   });
 
   try {
+    console.log('Attempting to save new conference:', meeting);
     const newMeeting = await meeting.save();
+    console.log('Conference saved successfully:', newMeeting);
     res.status(201).json(newMeeting);
   } catch (error) {
+    console.error('Error creating conference:', error);
     res.status(400).json({ message: error.message });
   }
-});
-
-// Update a meeting
-router.patch('/:id', async (req, res) => {
-  // Implement update logic here
-});
-
-// Delete a meeting
-router.delete('/:id', async (req, res) => {
-  // Implement delete logic here
 });
 
 module.exports = router;

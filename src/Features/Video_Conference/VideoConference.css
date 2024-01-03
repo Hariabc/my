@@ -1,109 +1,66 @@
 /* VideoConference.css */
 
 .video-conference-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-}
-
-.video-conference-header {
-  text-align: center;
-  margin-bottom: 20px;
+  margin: 20px;
 }
 
 .video-conference-title {
-  font-size: 36px;
+  font-size: 1.8rem;
   font-weight: bold;
-  color: #333;
-}
-
-.video-conference-subtitle {
-  font-size: 18px;
-  color: #666;
-}
-
-.video-conference-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.form-label {
-  font-size: 20px;
   margin-bottom: 10px;
 }
 
-.form-input {
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 300px;
-  font-size: 16px;
+.conference-list {
+  list-style: none;
+  padding: 0;
 }
 
-.form-button {
-  padding: 10px 20px;
-  background-color: #3498db;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 18px;
-  transition: background-color 0.3s;
-}
-
-.form-button:hover {
-  background-color: #2980b9;
-}
-
-.message-container {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.welcome-message {
-  text-align: center;
-  font-size: 28px;
-  margin-top: 20px;
-  color: #333;
-}
-
-.conference-details-container {
+.conference-list-item {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 20px;
+  justify-content: space-between;
 }
 
 .conference-details {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 15px;
-  margin: 10px;
-  text-align: center;
+  flex: 2;
+}
+
+.conference-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.conference-description {
+  font-size: 1rem;
+  color: #555;
+}
+
+.conference-date {
+  font-size: 1rem;
+  color: #888;
+}
+
+.conference-buttons {
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 
 .join-button {
-  padding: 10px 15px;
-  background-color: #27ae60;
-  color: #fff;
+  background-color: #3498db;
+  color: white;
+  font-weight: bold;
+  padding: 8px 12px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease-out;
 }
 
 .join-button:hover {
-  background-color: #219d4f;
-}
-
-.video-container {
-  width: 100%;
-  height: 500px;
-  margin-top: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  background-color: #2980b9;
 }
