@@ -23,6 +23,7 @@ import Layout from './components/Layout.jsx';
 import SenderComponent from './dashborad-components/Notification/Sender.jsx';
 import ReceiverComponent from './dashborad-components/Notification/Reciever.jsx';
 import Profile from './dashborad-components/Profile.jsx';
+import AddUsers from './dashborad-components/AddUsers.jsx';
 
 const App = () => {
   return (
@@ -50,6 +51,7 @@ const App = () => {
           <Route path='/fileacase' element={<CaseFilingForm/>}/>
           <Route path='/fileacasemain' element={<FileACaseMin/>}/>
           <Route path='/profile' element={<Profile/>}/>
+          <Route path='/addusers' element={<AddUsers/>}/>
         </Route>
       </Routes>
     </Router>

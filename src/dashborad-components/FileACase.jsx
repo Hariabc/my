@@ -1,110 +1,63 @@
-// CaseFilingForm.js
+// FileACase.jsx
 
 import React, { useState } from 'react';
+import './FileACase.css'; // Import the CSS file for styling
+import PartyInPersonImage from '../assets/client.png';
 
-const CaseFilingForm = () => {
-  const [formData, setFormData] = useState({
-    // Personal Information
-    fullName: '',
-    gender: '',
-    dateOfBirth: '',
-    nationality: '',
-    address: '',
-    contactInformation: '',
+export default function FileACase() {
+  const [selectedOption, setSelectedOption] = useState(null);
 
-    // Court Details
-    courtName: '',
-    courtLocation: '',
-    courtCaseNumber: '',
-    filingFee: '',
-    filingMethod: '',
-
-    // Case Details
-    title: '',
-    summary: '',
-    causeOfAction: '',
-    reliefSought: '',
-
-    // Party Information
-    plaintiffs: '',
-    defendants: '',
-    otherParties: '',
-
-    // Case Type and Category
-    caseType: '',
-    caseCategory: '',
-
-    // Preferred Advocate
-    preferredAdvocate: '',
-
-    // Supporting Documentation
-    supportingDocuments: '',
-
-    // Financial Information
-    income: '',
-    assets: '',
-    liabilities: '',
-
-    // Declaration and Signature
-    declaration: '',
-    signature: '',
-    date: '',
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add logic here to handle form submission, e.g., sending data to a server
-    console.log('Form submitted:', formData);
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
   };
 
   return (
-    <div className="case-filing-form">
-      <h2>Case Filing Form</h2>
-      <form onSubmit={handleSubmit}>
-        {/* ... (Previous form fields) */}
-
-        {/* Declaration and Signature */}
-        <div className="declaration-section">
-          <label>
-            Declaration:
-            <textarea
-              name="declaration"
-              value={formData.declaration}
-              onChange={handleChange}
-            ></textarea>
-          </label>
-          <label>
-            Signature:
-            <input
-              type="text"
-              name="signature"
-              value={formData.signature}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Date:
-            <input
-              type="date"
-              name="date"
-              value={formData.date}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-
-        <button type="submit">Submit</button>
-      </form>
+   <div className="file-a-case-main">
+    <h2>File a Case</h2>
+     <div className="file-a-case">
+      <div className={`option-container ${selectedOption === 'partyInPerson' ? 'selected' : ''}`}>
+        <button
+          className="option"
+          onClick={() => handleOptionClick('partyInPerson')}
+        >
+          <img src={PartyInPersonImage} alt="Party-in-Person" />
+          <span>Party-in-Person</span>
+        </button>
+      </div>
+      <div className={`option-container ${selectedOption === 'privateAdvocate' ? 'selected' : ''}`}>
+        <button
+          className="option"
+          onClick={() => handleOptionClick('privateAdvocate')}
+        >
+          <img src={PartyInPersonImage} alt="Private Advocate" />
+          <span>Private Advocate</span>
+        </button>
+      </div>
+      <div className={`option-container ${selectedOption === 'publicAdvocate' ? 'selected' : ''}`}>
+        <button
+          className="option"
+          onClick={() => handleOptionClick('publicAdvocate')}
+        >
+          <img src={PartyInPersonImage} alt="Public Advocate" />
+          <span>Public Advocate</span>
+        </button>
+      </div>
     </div>
+      {selectedOption === 'partyInPerson' && <PartyInPersonForm />}
+      {selectedOption === 'privateAdvocate' && <PrivateAdvocateForm />}
+      {selectedOption === 'publicAdvocate' && <PublicAdvocateForm />}
+   </div>
   );
-};
+}
 
-export default CaseFilingForm;
+function PartyInPersonForm() {
+  return <div className="form-container">Party-in-Person Form</div>;
+}
+
+function PrivateAdvocateForm() {
+  return <div className="form-container">Private Advocate Form</div>;
+}
+
+function PublicAdvocateForm() {
+  return <div className="form-container">Public Advocate Form</div>;
+}
