@@ -1,0 +1,45 @@
+/* Profile.css */
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd; /* Add a border to the profile container */
+  }
+  
+  .profile-header {
+    text-align: center;
+  }
+  
+  .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  .username {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+  
+  .profile-details {
+    font-size: 16px;
+  }
+  
+  /* Add line to the bottom of all paragraphs */
+  .profile-details p {
+    margin-bottom: 10px;
+    position: relative;
+  }
+  
+  .profile-details p::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #ddd; /* Color of the line */
+  }
+  

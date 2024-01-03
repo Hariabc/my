@@ -12,7 +12,7 @@ import Contact from './pages/contact';
 import ClientForm from './REGISTER/Client-register';
 import AdvocateForm from './REGISTER/Advocate-register';
 import SetPassword from './components/Setpassword';
-import Advpassword from "./components/privateAdvpassword";
+import Advpassword from "./components/privateAdvpassword.jsx";
 import PaymentComponent from './dashborad-components/payment.jsx'
 import AdvocateList from './dashborad-components/AdvoacateList.jsx'
 import FileUploader from './dashborad-components/Sendingfiles.jsx'
@@ -24,6 +24,9 @@ import SenderComponent from './dashborad-components/Notification/Sender.jsx';
 import ReceiverComponent from './dashborad-components/Notification/Reciever.jsx';
 import Profile from './dashborad-components/Profile.jsx';
 import AddUsers from './dashborad-components/AddUsers.jsx';
+import Profile from './client/Profile.jsx';
+import PubAdvReg from "./components/publicadvreg.jsx";
+import JudgeReg from "./components/Judgereg.jsx"
 
 const App = () => {
   return (
@@ -31,14 +34,12 @@ const App = () => {
       <Routes>
         <Route path='' element={<Layout/>}/>
           <Route index element={<Home />}/>
-          <Route path="/Login" element={<LoginPage />} />
-          {/*
-          <Route path="/services" element={<Services />} />
-          <Route path="/contact" element={<Contact />} /> */}
+          <Route path="/Login" element={<LoginPage />} />       
           <Route path="/client/register" element={<ClientForm />} />
           <Route path="/advocate/register" element={<AdvocateForm />} />
-          <Route path="/set-password/:token" element={<SetPassword />} />
-          <Route path="/Advocate/set-password/:token" element={<Advpassword/>} />
+          <Route path="/client/set-password/:token" element={<SetPassword />} />
+          <Route path="/advocate/set-password/:token" element={<Advpassword/>} />
+        </Route>
         <Route path="">
           <Route path="/clientdashboard" element={<ClientDashboard />} />
           <Route path="/advocatedashboard" element={<AdvocateDashboard />} />
@@ -47,11 +48,12 @@ const App = () => {
           <Route path='/payment' element={<PaymentComponent/>}/>
           <Route path='/advocatelist' element={<AdvocateList/>}/>
           <Route path='/sendingfiles' element={<FileUploader/>}/>
-          <Route path='/sendingfiles' element={<FileUploader/>}/>
           <Route path='/fileacase' element={<CaseFilingForm/>}/>
           <Route path='/fileacasemain' element={<FileACaseMin/>}/>
           <Route path='/profile' element={<Profile/>}/>
           <Route path='/addusers' element={<AddUsers/>}/>
+          <Route path="/advocate/register/complete/:token" element={<PubAdvReg />} />
+          <Route path="/judge/register/complete/:token" element={<JudgeReg/>} />
         </Route>
       </Routes>
     </Router>
