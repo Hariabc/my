@@ -25,6 +25,8 @@ import CaseFilingForm from './dashborad-components/FileACase.jsx';
 import FileACaseMin from './dashborad-components/FileACaseMin.jsx';
 import HomeCon from './Features/Video_Conference/homeCon.jsx';
 import Room from './Features/Video_Conference/Room.jsx';
+import AdvocateConference from './Features/AdvocateConference.jsx';
+import CaseTracking from './dashborad-components/CaseTracking.jsx';
 import "./index.css"
 
 const App = () => {
@@ -56,7 +58,8 @@ const App = () => {
           <Route path='/scheduling-calendar' element={<EventForm/>}/>
           <Route path="/homecon" element={<HomeCon/>}/>
           <Route path='/room/:roomID' element={<Room/>}/>
-
+          <Route path='pre-trial-conferencing' element={<AdvocateConference/>}/>
+          <Route path='/case-tracking' element={<CaseTracking/>}/>
         </Route>
       </Routes>
     </Router>

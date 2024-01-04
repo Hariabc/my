@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import './partyinperson.css';
 
-
-
 const PartyInPersonForm = () => {
   const [formData, setFormData] = useState({
     fullName: '',
