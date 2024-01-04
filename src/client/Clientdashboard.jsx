@@ -1,8 +1,10 @@
 // COAdashboard.js
 import React from 'react';
+import { motion } from 'framer-motion';
+
 import "./clientdashboard.css";
 import client from "../assets/client.png";
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate} from 'react-router-dom';
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import casefile from "../assets/DASHBOARDS/File a case.jpg";
@@ -15,7 +17,7 @@ import causelist from "../assets/DASHBOARDS/Cause List.jpg";
 import scheduling from "../assets/DASHBOARDS/Scheduling calender.jpg";
 import caseanalytics from "../assets/DASHBOARDS/case analytics.jpg";
 import advocatelist from "../assets/DASHBOARDS/Advocate list.jpg";
-import {FaPlus} from "react-icons/fa"
+import {FaMinus, FaPlus} from "react-icons/fa"
 import { IoNotifications } from "react-icons/io5";
 import { useState, useEffect } from "react";
 import axios from 'axios';
@@ -63,8 +65,6 @@ const FAQ_DATA = [
 
   }]
 
-
-
 const linksData = [
   { path: "/file-a-case", label: "File a Case", image: casefile },
   { path: "/pre-trial", label: "Pre Trial", image: confrence },
@@ -79,27 +79,138 @@ const linksData = [
 
 ];
 
+// const COAdashboard = () => {
+//   const [showAnswers, setShowAnswers] = useState({});
+//   const [userData, setUserData] = useState({});
+
+//   // Frontend code making the API request
+// useEffect(() => {
+//   const fetchUserData = async () => {
+//     try {
+//       const response = await axios.get('http://localhost:5000/client/user', { withCredentials: true });
+//       setUserData(response.data.user); // Assuming the response includes user data
+//     } catch (error) {
+//       console.error('Error fetching user data:', error);
+//     }
+//   };
+
+//   fetchUserData();
+// }, []);
+  
+
+
+//   // Function to toggle answer visibility
+//   const toggleAnswer = (questionId) => {
+//     setShowAnswers((prev) => ({
+//       ...prev,
+//       [questionId]: !prev[questionId],
+//     }));
+//   };
+
+//   return (
+//     <div className="client-dashboard">
+//       <div className='admin'>
+//         <div className="logo-admin">
+//           <img src={client} alt="ggg" />
+//           <span><h2>Client Dashboard</h2></span>
+//         </div>
+//         {/* <div className="admin-head">
+//           <h1></h1>
+//         </div> */}
+//         <div className="logo-profile">
+//           <IoIosArrowDropdownCircle />
+//           <span><h2>{userData ? userData.firstName : 'No username available'}</h2></span>
+//           <img src={client} alt="ggg" />
+//           <IoNotifications size={32} style={{paddingLeft:'10px'}}/>
+//         </div>
+//       </div>
+//       {/* <div className="">
+//             <div className="news-box">
+//             <marquee>Your news text goes here </marquee>
+//             <marquee>Your news text goes here </marquee>
+//             <marquee>Your news text goes here </marquee>
+//             <marquee>Your news text goes here </marquee>
+//             <marquee>Your news text goes here </marquee>
+//             <marquee>Your news text goes here </marquee>
+
+//             </div>
+//           </div> */}
+//       <div className="client-body">
+//         <div className="dashboard-boxes">
+//           {linksData.map((link, index) => (
+//             <Link key={index} to={link.path} className="dashboard-box">
+//               {link.image && <img src={link.image} />}
+//               <h3 style={{color:"black"}}>{link.label}</h3>
+//             </Link>
+//           ))}
+//         </div>
+//       </div>
+//       {/* <div className="dashboard-box faq-box">
+//             <h3>Frequently Asked Questions</h3>
+//             <div className="faq-item">
+//               <h4 onClick={() => toggleAnswer('question1')}>
+//                 Q: How can I file a case in court? <IoIosArrowDropdownCircle/>
+//               </h4>
+//               {showAnswers['question1'] && (
+//                 <p>A: To file a case, you can go to the "File a Case" section and follow the instructions to fill out the required form, choose an advocate, and upload necessary documents.</p>
+//               )}
+//             </div>
+//             <div className="faq-item">
+//               <h4 onClick={() => toggleAnswer('question2')}>
+//                 Q: How do I check the status of my case? <IoIosArrowDropdownCircle/>
+//               </h4>
+//               {showAnswers['question2'] && (
+//                 <p>A: You can view the status of your case in the "My Cases" section. It provides updates on the current status and any recent actions taken.</p>
+//               )}
+//             </div>
+//           </div> */}
+//       <div className="faq-box">
+//         <h3>Frequently Asked Questions</h3>
+//         {FAQ_DATA.map((faq, index) => (
+//           <div className={`faq-item ${showAnswers[`question${index + 3}`] ? 'active' : ''}`} key={index}>
+//             <div className="faq-question" onClick={() => toggleAnswer(`question${index + 3}`)}>
+//               <h4>{faq.question}</h4>
+//               <FaPlus className="icon" />
+//             </div>
+//             {showAnswers[`question${index + 3}`] && (
+//               <p>{faq.answer}</p>
+//             )}
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default COAdashboard;
+
+
+
 const COAdashboard = () => {
   const [showAnswers, setShowAnswers] = useState({});
   const [userData, setUserData] = useState({});
 
-  // Frontend code making the API request
-useEffect(() => {
-  const fetchUserData = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/client/user', { withCredentials: true });
-      setUserData(response.data.user); // Assuming the response includes user data
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-    }
+  const navigate = useNavigate();
+
+  const handleProfileClick = () => {
+    // Assuming '/profile' is the path you want to navigate to
+    navigate('/profile');
   };
 
-  fetchUserData();
-}, []);
-  
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/client/user', { withCredentials: true });
+        setUserData(response.data.user); // Assuming the response includes user data
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
 
-  // Function to toggle answer visibility
+    fetchUserData();
+  }, []);
+
   const toggleAnswer = (questionId) => {
     setShowAnswers((prev) => ({
       ...prev,
@@ -108,80 +219,77 @@ useEffect(() => {
   };
 
   return (
-    <div className="client-dashboard">
+    <motion.div
+      className="client-dashboard"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className='admin'>
         <div className="logo-admin">
           <img src={client} alt="ggg" />
           <span><h2>Client Dashboard</h2></span>
         </div>
-        {/* <div className="admin-head">
-          <h1></h1>
-        </div> */}
         <div className="logo-profile">
           <IoIosArrowDropdownCircle />
-          <span><h2>{userData ? userData.firstName : 'No username available'}</h2></span>
-          <img src={client} alt="ggg" />
-          <IoNotifications size={32} style={{paddingLeft:'10px'}}/>
+          <span><h2 onClick={handleProfileClick}>{userData ? userData.firstName : 'No username available'}</h2></span>
+          <img src={client} alt="ggg" onClick={handleProfileClick} />
+          <IoNotifications size={32} style={{ paddingLeft: '10px' }} />
         </div>
       </div>
-      {/* <div className="">
-            <div className="news-box">
-            <marquee>Your news text goes here </marquee>
-            <marquee>Your news text goes here </marquee>
-            <marquee>Your news text goes here </marquee>
-            <marquee>Your news text goes here </marquee>
-            <marquee>Your news text goes here </marquee>
-            <marquee>Your news text goes here </marquee>
 
-            </div>
-          </div> */}
-      <div className="client-body">
-        <div className="dashboard-boxes">
+      <motion.div
+        className="client-body"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        <motion.div
+          className="dashboard-boxes"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
           {linksData.map((link, index) => (
             <Link key={index} to={link.path} className="dashboard-box">
-              {link.image && <img src={link.image} />}
-              <h3 style={{color:"black"}}>{link.label}</h3>
+              {link.image && <motion.img src={link.image} />}
+              <h3 style={{ color: "black" }}>{link.label}</h3>
             </Link>
           ))}
-        </div>
-      </div>
-      {/* <div className="dashboard-box faq-box">
-            <h3>Frequently Asked Questions</h3>
-            <div className="faq-item">
-              <h4 onClick={() => toggleAnswer('question1')}>
-                Q: How can I file a case in court? <IoIosArrowDropdownCircle/>
-              </h4>
-              {showAnswers['question1'] && (
-                <p>A: To file a case, you can go to the "File a Case" section and follow the instructions to fill out the required form, choose an advocate, and upload necessary documents.</p>
-              )}
-            </div>
-            <div className="faq-item">
-              <h4 onClick={() => toggleAnswer('question2')}>
-                Q: How do I check the status of my case? <IoIosArrowDropdownCircle/>
-              </h4>
-              {showAnswers['question2'] && (
-                <p>A: You can view the status of your case in the "My Cases" section. It provides updates on the current status and any recent actions taken.</p>
-              )}
-            </div>
-          </div> */}
-      <div className="faq-box">
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        className="faq-box"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+      >
         <h3>Frequently Asked Questions</h3>
         {FAQ_DATA.map((faq, index) => (
-          <div className={`faq-item ${showAnswers[`question${index + 3}`] ? 'active' : ''}`} key={index}>
+          <div
+            className={`faq-item ${showAnswers[`question${index + 3}`] ? 'active' : ''}`}
+            key={index}
+          >
             <div className="faq-question" onClick={() => toggleAnswer(`question${index + 3}`)}>
               <h4>{faq.question}</h4>
-              <FaPlus className="icon" />
+              {showAnswers[`question${index + 3}`] ? (
+                <FaMinus className="icon" onClick={() => toggleAnswer(`question${index + 3}`)} style={{color:"black"}} />
+              ) : (
+                <FaPlus className="icon" onClick={() => toggleAnswer(`question${index + 3}`)} style={{color:"black"}} />
+              )}
             </div>
             {showAnswers[`question${index + 3}`] && (
               <p>{faq.answer}</p>
             )}
           </div>
         ))}
-      </div>
-      
-    
-
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
