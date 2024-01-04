@@ -29,10 +29,6 @@ const PrivateAdvocate = () => {
     courtDivision: '',
     caseCategory: '',
     filingFee: '',
-    // New fields for Contact Details
-    partyEmailAddresses: '',
-    partyPhoneNumbers: '',
-    partyAddresses: '',
     pinCode: '',
     occupation: '',
     state:'',
