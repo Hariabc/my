@@ -706,7 +706,7 @@ const CaseDetailsForm = () => {
           </div>
           <div className="court-details-section">
             <h3 className="section-title">Court Details</h3>
-            
+            <Dropdown onSelectCourt={handleCourtSelect} />
           </div>
           {/* Submit Button for Defendant Form */}
           <div className="submit-section">
