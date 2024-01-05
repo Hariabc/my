@@ -1,12 +1,14 @@
+// MultiStepForm.js
 import React, { useState } from 'react';
-import PlaintiffForm from '../PlaintiffForm';
-import DefendantForm from './DefendantForm';
-import CaseDetailsForm from './CaseDetailsForm';
-import DocumentsForm from './DocumentsForm';
-import CourtFeePaymentForm from './CourtFeePaymentForm';
+import PlaintiffForm from '../components/plantiffform';
+// import DefendantForm from '../components/defendentform';
+// import CaseDetailsForm from '../components/caseandcourtform';
+// import DocumentsForm from '../components/documentsform';
+// import PaymentForm from '../components/paymentform';
 import axios from 'axios';
 
 const MultiStepForm = () => {
+  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     plaintiff: {},
     defendant: {},
@@ -15,48 +17,46 @@ const MultiStepForm = () => {
     paymentDetails: {},
   });
 
-  const handlePlaintiffData = (data) => {
-    setFormData({ ...formData, plaintiff: data });
+  const nextStep = () => {
+    setStep(step + 1);
   };
 
-  const handleDefendantData = (data) => {
-    setFormData({ ...formData, defendant: data });
+  const prevStep = () => {
+    setStep(step - 1);
   };
 
-  const handleCaseDetailsData = (data) => {
-    setFormData({ ...formData, caseDetails: data });
+  const handleFormData = (data) => {
+    setFormData({ ...formData, ...data });
+    nextStep();
   };
 
-  const handleDocumentsData = (data) => {
-    setFormData({ ...formData, documents: data });
-  };
-
-  const handlePaymentDetailsData = (data) => {
-    setFormData({ ...formData, paymentDetails: data });
-    // Make a POST request with formData to the backend
-    submitFormDataToBackend();
-  };
-
-  const submitFormDataToBackend = async () => {
+  const handleSubmit = async () => {
     try {
-      const response = await axios.post('/api/formdata', formData);
-      console.log('Form submitted:', response.data);
-      // Handle success: show success message, reset form, etc.
+      // Make a POST request to your backend endpoint
+      const response = await axios.post('/api/case', formData);
+
+      // Handle the response if needed
+      console.log('Data sent successfully:', response.data);
     } catch (error) {
-      console.error('Error submitting form:', error);
-      // Handle error: show error message, handle retries, etc.
+      // Handle errors
+      console.error('Error sending data:', error);
     }
   };
 
-  return (
-    <div>
-      <PlaintiffForm onNext={handlePlaintiffData} />
-      <DefendantForm onNext={handleDefendantData} />
-      <CaseDetailsForm onNext={handleCaseDetailsData} />
-      <DocumentsForm onNext={handleDocumentsData} />
-      <CourtFeePaymentForm onSubmit={handlePaymentDetailsData} />
-    </div>
-  );
+  switch (step) {
+    case 1:
+      return <PlaintiffForm handleFormData={handleFormData} />;
+    case 2:
+      return <DefendantForm handleFormData={handleFormData} />;
+    case 3:
+      return <CaseDetailsForm handleFormData={handleFormData} />;
+    case 4:
+      return <DocumentsForm handleFormData={handleFormData} />;
+    case 5:
+      return <PaymentForm handleFormData={handleFormData} handleSubmit={handleSubmit} />;
+    default:
+      return null;
+  }
 };
 
 export default MultiStepForm;
