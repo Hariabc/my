@@ -26,6 +26,7 @@ import Profile from './client/Profile.jsx';
 import PubAdvReg from "./components/publicadvreg.jsx";
 import JudgeReg from "./components/Judgereg.jsx"
 import LoginPage from "./pages/login.jsx"
+import ScrollAnimation from './components/ScrollAnimation.jsx';
 // import MyChatComponent from './components/Framer.jsx';
 const App = () => {
   return (
@@ -53,7 +54,7 @@ const App = () => {
           <Route path='/addusers' element={<AddUsers/>}/>
           <Route path="/advocate/register/complete/:token" element={<PubAdvReg />} />
           <Route path="/judge/register/complete/:token" element={<JudgeReg/>} />
-          {/* <Route path='/framer' element={<MyChatComponent/>}/> */}
+          <Route path='/framer' element={<ScrollAnimation/>}/> 
         </Route>
       </Routes>
     </Router>

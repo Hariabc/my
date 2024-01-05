@@ -26,7 +26,6 @@ const ContactUs = () => {
   return (
     <section className='contact-section'>
       <div className='container'>
-        
         <div className='title'>
           <h1>Contact Us</h1>
         </div>

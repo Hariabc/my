@@ -7,11 +7,9 @@ import { Link } from "react-scroll";
 import { FaArrowRight } from "react-icons/fa6";
 import { Link as UnScrollLink } from "react-router-dom";
 
-
-
 export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
-
+  
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
