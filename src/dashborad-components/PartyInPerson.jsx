@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import PlaintiffForm from "../components/plantiffform"
+import PlaintiffForm from "../components/plantiffdata"
 
 const CaseFilingForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
