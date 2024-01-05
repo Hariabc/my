@@ -38,7 +38,7 @@ const linksData = [
   { path: "/calendar-scheduling", label: "Calendar Scheduling", image: scheduling },
   { path: "/my-cases", label: "My Cases", image: casedetails },
   { path: "/cause-list", label: "Cause List", image: causelist },
-  { path: "/case-tracking", label: "Case Tracking", image: casetracking },
+  { path: "/Judge-case-tracking", label: "Case Tracking", image: casetracking },
   { path: "/case-notes", label: "Case Notes", image: caseanalytics },
 ];
 

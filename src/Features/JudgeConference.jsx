@@ -12,17 +12,9 @@ const JudgeConference = () => {
 
   const navigate = useNavigate();
 
-  const generateMeetingID = () => {
-    // Use a secure random number generator or a cryptographic library
-    // to generate a unique and secure meeting ID.
-    return crypto.randomBytes(8).toString('hex');
-  };
-
-
-
   const handleJoinClick = () => {
     // Redirect to Home.js when the Join button is clicked
-    navigate('/homecon/${meetingId}');
+    navigate('/homecon');
   };
   
   const [conferences, setConference] = useState([]);
@@ -66,13 +58,11 @@ const JudgeConference = () => {
         // If in update mode, handle the update logic
         await handleUpdate();
       } else {
-        const newMeetingId = generateMeetingID();
         // If not in update mode, handle the create event logic
         const response = await axios.post('http://localhost:3002/api/conferences', {
           title,
           description,
           date,
-          meetingId: newMeetingId,  
           
         });
   
