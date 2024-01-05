@@ -6,7 +6,7 @@ import CaseDetailsForm from '../components/caseandcourtdetails'
 import DocumentsForm from '../components/documents';
 import CourtFeePaymentForm from '../components/payment';
 import "./partyInPerson.css"
-
+const TOTAL_STEPS = 5; 
 const MultiStepForm = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -85,13 +85,15 @@ const MultiStepForm = () => {
     },
   });
 
-  const handleNext = (data) => {
-    // Update form data based on the step
-    setFormData({ ...formData, ...data });
-
-    // Proceed to the next step
+  const handleNext = (stepNumber, data) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [`step${stepNumber}`]: { ...prevFormData[`step${stepNumber}`], ...data },
+    }));
     setStep(step + 1);
   };
+  
+  
 
   const handlePrevious = () => {
     // Go back to the previous step
@@ -99,17 +101,16 @@ const MultiStepForm = () => {
   };
 
   const handleSubmit = async () => {
-    //   try {
-    //     const response = await axios.post('http://localhost:5000/file/case', formData);
-    //     console.log('Form submitted:', response.data);
-    //     // Reset the form or perform any necessary actions after submission
-    //   } catch (error) {
-    //     console.error('Error submitting form:', error);
-    //     // Handle errors, show an error message, etc.
-    //   }
-    // };
-    console.log(formData)
-  }
+      try {
+        const response = await axios.post('http://localhost:5000/file/case', formData);
+        console.log('Form submitted:', response.data);
+        // Reset the form or perform any necessary actions after submission
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        // Handle errors, show an error message, etc.
+      }
+    };
+  
   return (
     <div className="multi-step-form">
       {step === 1 && (
@@ -125,8 +126,11 @@ const MultiStepForm = () => {
         <DocumentsForm formData={formData} onNext={handleNext} onPrevious={handlePrevious} />
       )}
       {step === 5 && (
-        <CourtFeePaymentForm onSubmit={handleSubmit} />
+        <CourtFeePaymentForm onSubmit={formData} />
 
+      )}
+      {step === TOTAL_STEPS && (
+        <button onClick={handleSubmit}>Submit</button>
       )}
     </div>
   );

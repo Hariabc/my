@@ -1,36 +1,22 @@
+// routes/formRoutes.js
 const express = require('express');
 const router = express.Router();
-const CaseDetails = require('../models/partyinperson'); // Import the CaseDetails model
+const bodyParser = require('body-parser');
+const Form = require('../models/partyinperson');
 
-// Route to handle storing case details
+// POST route to save form data
+router.use(bodyParser.json()); // Use body-parser middleware to parse JSON bodies
+router.use(bodyParser.urlencoded({ extended: true })); 
 router.post('/case', async (req, res) => {
   try {
-    const {
-      plaintiff,
-      defendant,
-      CaseDetails,
-      documents,
-      paymentDetails
-    } = req.body; // Assuming you receive these fields from the frontend
-
-    // Create a new instance of CaseDetails model with received data
-    const newCase = new CaseDetails({
-      plaintiff,
-      defendant,
-      CaseDetails,
-      documents,
-      paymentDetails
-    });
-
-    // Save the new case details to the database
-    const savedCase = await newCase.save();
-
-    res.status(201).json({ success: true, data: savedCase });
+    const formData = req.body;
+    const newForm = new Form(formData);
+    await newForm.save();
+    res.status(201).json({ message: 'Form data saved successfully', formData });
   } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
+    res.status(500).json({ error: 'Could not save form data' });
   }
 });
 
-// Other routes for getting, updating, deleting case details, etc.
-
 module.exports = router;
+

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const CourtFeePaymentForm = (props) => {
+const CourtFeePaymentForm = ({ data, onSubmit }) => {
   const [paymentFormData, setPaymentFormData] = useState({
     paymentMethod: '',
     cardNumber: '',
@@ -11,37 +11,25 @@ const CourtFeePaymentForm = (props) => {
   });
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    const fieldValue = type === 'checkbox' ? checked : value;
-
-    setPaymentFormData((prevData) => ({
-      ...prevData,
-      [name]: fieldValue,
-    }));
+    // ... (unchanged)
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Assuming validation logic goes here
-    // console.log(FormData)
-    console.log('onSubmit prop:', props.onSubmit);
     try {
-      // Perform the POST request using Axios
-      const response = await axios.post('http://localhost:5000/file/case', paymentFormData);
-      console.log('Response:', response.data);
-      // Trigger the callback onSubmit if provided
-      if (props.onSubmit) props.onSubmit();
+      const response = await axios.post('http://localhost:5000/file/case', data); // Ensure 'data' is available or passed as prop
+      console.log('Form submitted:', response.data);
+      if (onSubmit) onSubmit();
     } catch (error) {
-      console.error('Error submitting payment:', error);
+      console.error('Error submitting form:', error);
     }
   };
 
   return (
     <div className="court-fee-payment-form">
-      <h2 className="form-section-title">Court Fee Payment</h2>
+      {/* Form elements */}
       <form onSubmit={handleSubmit} className="form-grid">
         {/* Your form inputs */}
-        {/* ... */}
         <button type="submit" className="submit-button">
           Submit Payment
         </button>
