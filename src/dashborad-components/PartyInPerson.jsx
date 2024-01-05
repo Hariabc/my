@@ -1,62 +1,109 @@
-// MultiStepForm.js
 import React, { useState } from 'react';
-import PlaintiffForm from '../components/plantiffform';
-// import DefendantForm from '../components/defendentform';
-// import CaseDetailsForm from '../components/caseandcourtform';
-// import DocumentsForm from '../components/documentsform';
-// import PaymentForm from '../components/paymentform';
 import axios from 'axios';
+import PlaintiffForm from "../components/plantiffform"
 
-const MultiStepForm = () => {
-  const [step, setStep] = useState(1);
+const CaseFilingForm = () => {
+  const [currentStep, setCurrentStep] = useState(1);
+
   const [formData, setFormData] = useState({
-    plaintiff: {},
-    defendant: {},
+    plaintiffDetails: {},
+    defendantDetails: {},
     caseDetails: {},
     documents: {},
     paymentDetails: {},
   });
 
-  const nextStep = () => {
-    setStep(step + 1);
+  const handleNext = () => {
+    setCurrentStep((prevStep) => prevStep + 1);
   };
 
-  const prevStep = () => {
-    setStep(step - 1);
+  const handleBack = () => {
+    setCurrentStep((prevStep) => prevStep - 1);
   };
 
-  const handleFormData = (data) => {
-    setFormData({ ...formData, ...data });
-    nextStep();
+  const handleChange = (section, data) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [section]: { ...prevData[section], ...data },
+    }));
   };
 
   const handleSubmit = async () => {
     try {
-      // Make a POST request to your backend endpoint
       const response = await axios.post('/api/case', formData);
-
-      // Handle the response if needed
       console.log('Data sent successfully:', response.data);
     } catch (error) {
-      // Handle errors
       console.error('Error sending data:', error);
     }
   };
 
-  switch (step) {
-    case 1:
-      return <PlaintiffForm handleFormData={handleFormData} />;
-    case 2:
-      return <DefendantForm handleFormData={handleFormData} />;
-    case 3:
-      return <CaseDetailsForm handleFormData={handleFormData} />;
-    case 4:
-      return <DocumentsForm handleFormData={handleFormData} />;
-    case 5:
-      return <PaymentForm handleFormData={handleFormData} handleSubmit={handleSubmit} />;
-    default:
-      return null;
-  }
+  const renderForm = () => {
+    switch (currentStep) {
+      case 1:
+        return (
+          <PlaintiffForm
+            formData={formData.plaintiffDetails}
+            onChange={(data) => handleChange('plaintiffDetails', data)}
+            onNext={handleNext}
+          />
+        );
+      // case 2:
+      //   return (
+      //     <DefendantForm
+      //       formData={formData.defendantDetails}
+      //       onChange={(data) => handleChange('defendantDetails', data)}
+      //       onNext={handleNext}
+      //       onBack={handleBack}
+      //     />
+      //   );
+      // // Placeholder for additional steps
+      // case 3:
+      //   return (
+      //     <CaseDetailsForm
+      //       formData={formData.caseDetails}
+      //       onChange={(data) => handleChange('caseDetails', data)}
+      //       onNext={handleNext}
+      //       onBack={handleBack}
+      //     />
+      //   );
+      // case 4:
+      //   return (
+      //     <DocumentsForm
+      //       formData={formData.documents}
+      //       onChange={(data) => handleChange('documents', data)}
+      //       onNext={handleNext}
+      //       onBack={handleBack}
+      //     />
+      //   );
+      // case 5:
+      //   return (
+      //     <PaymentForm
+      //       formData={formData.paymentDetails}
+      //       onChange={(data) => handleChange('paymentDetails', data)}
+      //       onNext={handleNext}
+      //       onBack={handleBack}
+      //     />
+      //   );
+      // default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="case-filing-form">
+      <h2>Case Filing Form - Step {currentStep}</h2>
+      {renderForm()}
+      {currentStep > 1 && (
+        <button onClick={handleBack}>Back</button>
+      )}
+      {currentStep < 5 && (
+        <button onClick={handleNext}>Next</button>
+      )}
+      {currentStep === 5 && (
+        <button onClick={handleSubmit}>Submit</button>
+      )}
+    </div>
+  );
 };
 
-export default MultiStepForm;
+export default CaseFilingForm;
