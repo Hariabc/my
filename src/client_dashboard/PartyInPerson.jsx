@@ -1,8 +1,8 @@
 import React, { useState,useEffect} from 'react';
-import PlaintiffDetailsForm from '../components/PlaintiffDetailsForm';
+import PlaintiffDetailsForm from '../components/PlantiffDetailsForm';
 import DefendantDetailsForm from '../components/DefendantDetailsForm';
 import CaseAndCourtDetailsForm from '../components/CaseandCourtDetailsForm';
-import DocumentUploadForm from '../components/DocumentUploadForm';
+import DocumentUploadForm from '../components/DocumentsUploadForm';
 import PaymentDetailsForm from '../components/PaymentDetailsForm';
 import './PartyInPerson.css'
 import axios from 'axios';

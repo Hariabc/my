@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PartyInPersonfrom from './PartyInPerson';
-import PrivateAdvocate from './PrivateAdvocate';
-import PublicAdvocate from './PublicAdvocate';
+// import PrivateAdvocate from './PrivateAdvocate';
+// import PublicAdvocate from './PublicAdvocate';
 
 export default function FileACaseMin() {
   const [selectedOption, setSelectedOption] = useState(null);
