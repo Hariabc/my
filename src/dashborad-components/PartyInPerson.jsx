@@ -1,106 +1,78 @@
 import React, { useState } from 'react';
+import PlaintiffDetailsForm from '../components/PlaintiffDetailsForm';
+import DefendantDetailsForm from '../components/DefendantDetailsForm';
+import CaseAndCourtDetailsForm from '../components/CaseandCourtDetailsForm';
+import DocumentUploadForm from '../components/DocumentUploadForm';
+import PaymentDetailsForm from '../components/PaymentDetailsForm';
 import axios from 'axios';
-import PlaintiffForm from "../components/plantiffdata"
 
 const CaseFilingForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [plaintiffDetails, setPlaintiffDetails] = useState({});
+  const [defendantDetails, setDefendantDetails] = useState({});
+  const [caseDetails, setCaseAndCourtDetails] = useState({});
+  const [documents, setDocumentDetails] = useState({});
+  const [paymentDetails, setPaymentDetails] = useState({});
 
-  const [formData, setFormData] = useState({
-    plaintiffDetails: {},
-    defendantDetails: {},
-    caseDetails: {},
-    documents: {},
-    paymentDetails: {},
-  });
-
-  const handleNext = () => {
-    setCurrentStep((prevStep) => prevStep + 1);
+  const handlePlaintiffChange = (data) => {
+    setPlaintiffDetails(data);
+    setCurrentStep(2);
   };
 
-  const handleBack = () => {
-    setCurrentStep((prevStep) => prevStep - 1);
+  const handleDefendantChange = (data) => {
+    setDefendantDetails(data);
+    setCurrentStep(3);
   };
 
-  const handleChange = (section, data) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [section]: { ...prevData[section], ...data },
-    }));
+  const handleCaseAndCourtChange = (data) => {
+    setCaseAndCourtDetails(data);
+    setCurrentStep(4);
+  };
+
+  const handleDocumentUpload = (data) => {
+    setDocumentDetails(data);
+    setCurrentStep(5);
+  };
+
+  const handlePaymentChange = (data) => {
+    setPaymentDetails(data);
+    handleSubmit();
   };
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('/api/case', formData);
-      console.log('Data sent successfully:', response.data);
+      const allFormData = {
+        plaintiffDetails,
+        defendantDetails,
+        caseDetails,
+        documents,
+        paymentDetails,
+      };
+
+      await axios.post('http://localhost:5000/file/case', allFormData);
+      console.log('Data sent successfully!');
+      // Optionally reset form state or navigate somewhere else
     } catch (error) {
       console.error('Error sending data:', error);
     }
   };
 
-  const renderForm = () => {
-    switch (currentStep) {
-      case 1:
-        return (
-          <PlaintiffForm
-            formData={formData.plaintiffDetails}
-            onChange={(data) => handleChange('plaintiffDetails', data)}
-            onNext={handleNext}
-          />
-        );
-      // case 2:
-      //   return (
-      //     <DefendantForm
-      //       formData={formData.defendantDetails}
-      //       onChange={(data) => handleChange('defendantDetails', data)}
-      //       onNext={handleNext}
-      //       onBack={handleBack}
-      //     />
-      //   );
-      // // Placeholder for additional steps
-      // case 3:
-      //   return (
-      //     <CaseDetailsForm
-      //       formData={formData.caseDetails}
-      //       onChange={(data) => handleChange('caseDetails', data)}
-      //       onNext={handleNext}
-      //       onBack={handleBack}
-      //     />
-      //   );
-      // case 4:
-      //   return (
-      //     <DocumentsForm
-      //       formData={formData.documents}
-      //       onChange={(data) => handleChange('documents', data)}
-      //       onNext={handleNext}
-      //       onBack={handleBack}
-      //     />
-      //   );
-      // case 5:
-      //   return (
-      //     <PaymentForm
-      //       formData={formData.paymentDetails}
-      //       onChange={(data) => handleChange('paymentDetails', data)}
-      //       onNext={handleNext}
-      //       onBack={handleBack}
-      //     />
-      //   );
-      // default:
-        return null;
-    }
-  };
-
   return (
     <div className="case-filing-form">
-      <h2>Case Filing Form - Step {currentStep}</h2>
-      {renderForm()}
-      {currentStep > 1 && (
-        <button onClick={handleBack}>Back</button>
+      {currentStep === 1 && (
+        <PlaintiffDetailsForm onChange={handlePlaintiffChange} />
       )}
-      {currentStep < 5 && (
-        <button onClick={handleNext}>Next</button>
+      {currentStep === 2 && (
+        <DefendantDetailsForm onChange={handleDefendantChange} />
+      )}
+      {currentStep === 3 && (
+        <CaseAndCourtDetailsForm onChange={handleCaseAndCourtChange} />
+      )}
+      {currentStep === 4 && (
+        <DocumentUploadForm onChange={handleDocumentUpload} />
       )}
       {currentStep === 5 && (
-        <button onClick={handleSubmit}>Submit</button>
+        <PaymentDetailsForm onChange={handlePaymentChange} />
       )}
     </div>
   );

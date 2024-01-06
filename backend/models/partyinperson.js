@@ -1,14 +1,61 @@
-// models/Form.js
 const mongoose = require('mongoose');
 
-const FormSchema = new mongoose.Schema({
-  plaintiffData: Object,
-  defendantData: Object,
-  caseDetailsData: Object,
-  documentsData: Object,
-  paymentData: Object,
+const caseSchema = new mongoose.Schema({
+  plaintiffDetails: {
+    fullName: String,
+    gender: String,
+    dateOfBirth: Date,
+    caste: String,
+    age: Number,
+    relation: String,
+    partyEmailAddresses: [String],
+    partyPhoneNumbers: [String],
+    partyAddresses: [String],
+    pinCode: String,
+    occupation: String,
+    state: String,
+    district: String,
+    taluka: String,
+    village: String,
+  },
+  defendantDetails: {
+    fullName: String,
+    gender: String,
+    dateOfBirth: Date,
+    caste: String,
+    age: Number,
+    relation: String,
+    partyEmailAddresses: [String],
+    partyPhoneNumbers: [String],
+    partyAddresses: [String],
+    pinCode: String,
+    occupation: String,
+    state: String,
+    district: String,
+    taluka: String,
+    village: String,
+  },
+  caseDetails: {
+    caseNumber: String,
+    caseType: String,
+    courtName: String,
+    hearingDate: Date,
+    // Add other case-related fields
+  },
+  documents: [
+    {
+      title: String,
+      fileUrl: String,
+      // Add other document-related fields
+    },
+  ],
+  paymentDetails: {
+    amount: Number,
+    paymentMethod: String,
+    // Add other payment-related fields
+  },
 });
 
-const Form = mongoose.model('Form', FormSchema);
+const Case = mongoose.model('filedcase', caseSchema);
 
-module.exports = Form;
+module.exports = Case;

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import CaseDetailsForm from './caseandcourtdetails';
 
-
-const DefendantForm = () => {
-  const [defendantFormData, setDefendantFormData] = useState({
+const DefendantDetailsForm = ({ onChange, onNext, onBack }) => {
+  const [defendantData, setDefendantData] = useState({
     fullName: '',
     gender: '',
     dateOfBirth: '',
@@ -17,31 +15,29 @@ const DefendantForm = () => {
     occupation: '',
     state: '',
     district: '',
-    taluka: '',
-    village: '',
-  });
+    taluka: ''
 
-  const [isDefendantFormSubmitted, setDefendantFormSubmitted] = useState(false);
+    // Add more defendant fields as needed
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setDefendantFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setDefendantData({ ...defendantData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setDefendantFormSubmitted(true);
+    onChange(defendantData);
+    // console.log(defendantData);
+    onNext();
   };
 
   return (
     <div className="defendant-form">
       <h2 className="form-section-title">Defendant Details</h2>
-      {isDefendantFormSubmitted ? (
+      {/* {isDefendantFormSubmitted ? (
         <CaseDetailsForm />
-      ) : (
+      ) : ( */}
         <form onSubmit={handleSubmit} className="form-grid">
           {/* Personal Information */}
           <div className="personal-details-section">
@@ -52,7 +48,7 @@ const DefendantForm = () => {
                 <input
                   type="text"
                   name="fullName"
-                  value={defendantFormData.fullName}
+                  value={defendantData.fullName}
                   onChange={handleChange}
                   className="form-input"
                 />
@@ -61,7 +57,7 @@ const DefendantForm = () => {
                 Gender:
                 <select
                   name="gender"
-                  value={defendantFormData.gender}
+                  value={defendantData.gender}
                   onChange={handleChange}
                   className="form-input"
                 >
@@ -76,7 +72,7 @@ const DefendantForm = () => {
                 <input
                   type="date"
                   name="dateOfBirth"
-                  value={defendantFormData.dateOfBirth}
+                  value={defendantData.dateOfBirth}
                   onChange={handleChange}
                   className="form-input"
                 />
@@ -87,7 +83,7 @@ const DefendantForm = () => {
                 Caste:
                 <select
                   name="caste"
-                  value={defendantFormData.caste}
+                  value={defendantData.caste}
                   onChange={handleChange}
                   className="form-input"
                 >
@@ -102,7 +98,7 @@ const DefendantForm = () => {
                 <input
                   type="number"
                   name="age"
-                  value={defendantFormData.age}
+                  value={defendantData.age}
                   onChange={handleChange}
                   className="form-input"
                 />
@@ -111,7 +107,7 @@ const DefendantForm = () => {
                 Relation:
                 <select
                   name="relation"
-                  value={defendantFormData.relation}
+                  value={defendantData.relation}
                   onChange={handleChange}
                   className="form-input"
                 >
@@ -135,7 +131,7 @@ const DefendantForm = () => {
                   <input
                     type="email"
                     name="partyEmailAddresses"
-                    value={defendantFormData.partyEmailAddresses}
+                    value={defendantData.partyEmailAddresses}
                     onChange={handleChange}
                     className="form-input"
                   />
@@ -145,7 +141,7 @@ const DefendantForm = () => {
                   <input
                     type="tel"
                     name="partyPhoneNumbers"
-                    value={defendantFormData.partyPhoneNumbers}
+                    value={defendantData.partyPhoneNumbers}
                     onChange={handleChange}
                     className="form-input"
                   />
@@ -157,7 +153,7 @@ const DefendantForm = () => {
                   <input
                     type="text"
                     name="partyAddresses"
-                    value={defendantFormData.partyAddresses}
+                    value={defendantData.partyAddresses}
                     onChange={handleChange}
                     className="form-input"
                   />
@@ -167,7 +163,7 @@ const DefendantForm = () => {
                   <input
                     type="text"
                     name="pinCode"
-                    value={defendantFormData.pinCode}
+                    value={defendantData.pinCode}
                     onChange={handleChange}
                     className="form-input"
                   />
@@ -177,7 +173,7 @@ const DefendantForm = () => {
                   <input
                     type="text"
                     name="occupation"
-                    value={defendantFormData.occupation}
+                    value={defendantData.occupation}
                     onChange={handleChange}
                     className="form-input"
                   />
@@ -193,7 +189,7 @@ const DefendantForm = () => {
                   State:
                   <select
                     name="state"
-                    value={defendantFormData.state}
+                    value={defendantData.state}
                     onChange={handleChange}
                     className="form-input"
                   >
@@ -207,7 +203,7 @@ const DefendantForm = () => {
                   District:
                   <select
                     name="district"
-                    value={defendantFormData.district}
+                    value={defendantData.district}
                     onChange={handleChange}
                     className="form-input"
                   >
@@ -223,7 +219,7 @@ const DefendantForm = () => {
                   Taluka:
                   <select
                     name="taluka"
-                    value={defendantFormData.taluka}
+                    value={defendantData.taluka}
                     onChange={handleChange}
                     className="form-input"
                   >
@@ -237,7 +233,7 @@ const DefendantForm = () => {
                   Village:
                   <select
                     name="village"
-                    value={defendantFormData.village}
+                    value={defendantData.village}
                     onChange={handleChange}
                     className="form-input"
                   >
@@ -257,9 +253,9 @@ const DefendantForm = () => {
               </button>
             </div>
           </form>
-        )}
+        {/* )} */}
       </div>
     );
   };
 
-export default DefendantForm;
+export default DefendantDetailsForm;
