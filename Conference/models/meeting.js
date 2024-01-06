@@ -6,6 +6,7 @@ const meetingSchema = new mongoose.Schema({
   title: String,
   description: String,
   date: Date,
+  meetingID: String,
 });
 
 const Meeting= mongoose.model('Meeting', meetingSchema);

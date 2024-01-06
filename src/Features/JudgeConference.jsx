@@ -12,17 +12,9 @@ const JudgeConference = () => {
 
   const navigate = useNavigate();
 
-  const generateMeetingID = () => {
-    // Use a secure random number generator or a cryptographic library
-    // to generate a unique and secure meeting ID.
-    return crypto.randomBytes(8).toString('hex');
-  };
-
-
-
   const handleJoinClick = () => {
     // Redirect to Home.js when the Join button is clicked
-    navigate('/homecon/${meetingId}');
+    navigate('/homecon');
   };
   
   const [conferences, setConference] = useState([]);
@@ -58,6 +50,17 @@ const JudgeConference = () => {
     });
   };
 
+  
+const generateMeetingID = () => {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let meetingID = '';
+  for (let i = 0; i < 8; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    meetingID += characters.charAt(randomIndex);
+  }
+  return meetingID;
+};
+
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -66,13 +69,13 @@ const JudgeConference = () => {
         // If in update mode, handle the update logic
         await handleUpdate();
       } else {
-        const newMeetingId = generateMeetingID();
+        const generatedMeetingID = generateMeetingID();
         // If not in update mode, handle the create event logic
         const response = await axios.post('http://localhost:3002/api/conferences', {
           title,
           description,
           date,
-          meetingId: newMeetingId,  
+          meetingID: generatedMeetingID, 
           
         });
   
@@ -147,17 +150,7 @@ const JudgeConference = () => {
       setConference((prevConference) =>
         prevConference.map((conference) =>
           conference._id === updateConferenceId
-            ? { ...conference, title, description, date
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            ? { ...conference, title, description, dat
             }
             : conference
         )
@@ -272,6 +265,7 @@ const JudgeConference = () => {
                   <strong className="event-list-item-title">{conference.title}</strong> -{' '}
                   <span className="event-list-item-description">{conference.description}</span> -{' '}
                   <span className="event-list-item-date">{conference.date}</span>
+                  <span className="event-list-item-meetingID">{conference.meetingID}</span>
                 </div>
                 <div className="event-buttons">
                 <button
