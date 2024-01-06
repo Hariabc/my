@@ -1,6 +1,17 @@
 const mongoose = require('mongoose');
 
 const caseSchema = new mongoose.Schema({
+  // CNR: {
+  //   type: String,
+  //   required: true,
+  //   unique:true
+  // },
+  filecasetype: {
+    type: String,
+    enum: ['partyinperson', 'privateAdvocate', 'publicAdvocate'],
+    default: 'partyinperson',
+    required:true
+  },
   plaintiffDetails: {
     fullName: String,
     gender: String,
@@ -8,10 +19,10 @@ const caseSchema = new mongoose.Schema({
     caste: String,
     age: Number,
     relation: String,
-    partyEmailAddresses: [String],
-    partyPhoneNumbers: [String],
-    partyAddresses: [String],
-    pinCode: String,
+    partyName: String,
+    partyAddresses: String,
+    partyPhoneNumbers: String,
+    partyEmailAddresses: String,
     occupation: String,
     state: String,
     district: String,
@@ -25,10 +36,10 @@ const caseSchema = new mongoose.Schema({
     caste: String,
     age: Number,
     relation: String,
-    partyEmailAddresses: [String],
-    partyPhoneNumbers: [String],
-    partyAddresses: [String],
-    pinCode: String,
+    partyName: String,
+    partyAddresses: String,
+    partyPhoneNumbers: String,
+    partyEmailAddresses: String,
     occupation: String,
     state: String,
     district: String,
@@ -36,26 +47,32 @@ const caseSchema = new mongoose.Schema({
     village: String,
   },
   caseDetails: {
-    caseNumber: String,
     caseType: String,
+    title: String,
+    caseSummary: String,
+    causeOfAction: String,
+    reliefSought: String,
+    dateOfCauseOfAction: Date,
+    courtType: String,
+    courtState: String,
+    courtDistrict: String,
     courtName: String,
-    hearingDate: Date,
-    // Add other case-related fields
+    caseCategory: String,
   },
-  documents: [
-    {
-      title: String,
-      fileUrl: String,
-      // Add other document-related fields
-    },
+  documents: [{
+    document1: String, // Store URL or file path
+    document2: String,
+  }// Store URL or file path
+    // Add more document fields as needed
   ],
   paymentDetails: {
-    amount: Number,
     paymentMethod: String,
-    // Add other payment-related fields
+    cardNumber: String,
+    expiryDate: String,
+    cvv: String,
   },
 });
 
-const Case = mongoose.model('filedcase', caseSchema);
+const Case = mongoose.model('Filedcase', caseSchema);
 
 module.exports = Case;

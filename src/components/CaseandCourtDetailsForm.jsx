@@ -47,9 +47,9 @@ const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
         <h2 className="form-section-title">Case Details</h2>
         {/* {isCaseDetailsFormSubmitted ? (
           // Render defendant form if plaintiff form is submitted
-          <DocumentsForm />
-        ) : ( */}
-          // Render plaintiff form if it's not submitted
+        //   <DocumentsForm />
+        // ) : ( */}
+        {/* //   // Render plaintiff form if it's not submitted */}
           <form onSubmit={handleNext} className="form-grid">
             {/* Case Details Fields */}
             <div className="case-details-section">
