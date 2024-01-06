@@ -36,7 +36,8 @@
     "session": "^0.1.0",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
-    "vite-plugin-node": "^3.1.0"
+    "vite-plugin-node": "^3.1.0",
+    "zego-zim-web": "^2.13.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
