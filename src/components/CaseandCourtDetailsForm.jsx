@@ -25,11 +25,18 @@ const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
     setCaseDetails({ ...caseDetails, [name]: value });
   };
 
-  const handleNext = () => {
+  const handleNext = (e) => {
+    // e.preventDefault();
     onChange(caseDetails);
+    // onNext()
     console.log(caseDetails)
   };
-
+  const handleCourtSelect = (selectedCourtDetails) => {
+    setCaseDetails((prevData) => ({
+      ...prevData,
+      ...selectedCourtDetails
+    }));
+  };
   const handleBack = () => {
     onBack();
   };
