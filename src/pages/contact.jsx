@@ -1,6 +1,7 @@
 // ContactUs.js
 import React, { useState } from 'react';
 import './ContactUs.css'; // Make sure the CSS file path is correct
+import contact from "../assets/contact-bg.avif"
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -24,11 +25,12 @@ const ContactUs = () => {
   };
 
   return (
+    <>
+    <div className="title">
+    <h1>Contact us</h1>
+    </div>
     <section className='contact-section'>
       <div className='container'>
-        <div className='title'>
-          <h1>Contact Us</h1>
-        </div>
         <div className='box'>
           <div className='contact form'>
             <h1 className='contact-form'>Contact Form</h1>
@@ -82,8 +84,12 @@ const ContactUs = () => {
             ></iframe>
           </div>
         </div>
+        <div className="contact-image">
+          <img src={contact} alt="" />
+        </div>
       </div>
     </section>
+    </>
   );
 };
 

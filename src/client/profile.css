@@ -1,7 +1,8 @@
-/* Profile.css */
+
 .profile-container {
     max-width: 600px;
-    margin: 0 auto;
+    margin:auto;
+    margin-top: 100px;
     padding: 20px;
     border: 1px solid #ddd; /* Add a border to the profile container */
   }

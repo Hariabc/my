@@ -27,10 +27,15 @@ import PubAdvReg from "./components/publicadvreg.jsx";
 import JudgeReg from "./components/Judgereg.jsx"
 import LoginPage from "./pages/login.jsx"
 import ScrollAnimation from './components/ScrollAnimation.jsx';
+import Apps from './Chat/Chat.jsx';
 // import MyChatComponent from './components/Framer.jsx';
+import { AuthProvider } from './AuthContext'; // assuming you have AuthContext set up
+import ProtectedRoute from './PrivateRoute'; // create this component
+
 const App = () => {
   return (
     <Router>
+      <AuthProvider>
       <Routes>
       <Route path='' element={<Layout/>}>
             <Route index element={<Home />}/>
@@ -50,13 +55,14 @@ const App = () => {
           <Route path='/sendingfiles' element={<FileUploader/>}/>
           <Route path='/fileacase' element={<CaseFilingForm/>}/>
           <Route path='/fileacasemain' element={<FileACaseMin/>}/>
-          <Route path='/profile' element={<Profile/>}/>
+          <Route path='/profile' element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
           <Route path='/addusers' element={<AddUsers/>}/>
           <Route path="/advocate/register/complete/:token" element={<PubAdvReg />} />
           <Route path="/judge/register/complete/:token" element={<JudgeReg/>} />
-          <Route path='/framer' element={<ScrollAnimation/>}/> 
+          <Route path='/framer' element={<Apps/>}/> 
         </Route>
       </Routes>
+      </AuthProvider>
     </Router>
   );
 };
