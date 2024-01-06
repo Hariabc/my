@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const caseSchema = new mongoose.Schema({
-  // CNR: {
-  //   type: String,
-  //   required: true,
-  //   unique:true
-  // },
+  caseNumber: {
+    type: String,
+    required: true,
+    unique:true
+  },
   filecasetype: {
     type: String,
     enum: ['partyinperson', 'privateAdvocate', 'publicAdvocate'],
