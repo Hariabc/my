@@ -1,7 +1,7 @@
 import React, { useState,useEffect} from 'react';
-import PlaintiffDetailsForm from '../components/PlaintiffDetailsForm';
-import DefendantDetailsForm from '../components/DefendantDetailsForm';
-import CaseAndCourtDetailsForm from '../components/CaseandCourtDetailsForm';
+import PlaintiffDetailsForm from '../components/PlantiffDetailsForm';
+import DefendantDetailsForm from '../components/DefendentDetails';
+import CaseAndCourtDetailsForm from '../components/CaseandCourtFormDetails';
 import DocumentUploadForm from '../components/DocumentUploadForm';
 import PaymentDetailsForm from '../components/PaymentDetailsForm';
 import './PartyInPerson.css'

@@ -38,6 +38,8 @@ const App = () => {
           <Route path="/advocatedashboard" element={<AdvocateDashboard />} />
           <Route path="/judgedashboard" element={<JudgeDashboard />} />
           <Route path="/admindashboard" element={<COADashboard />} />
+          <Route path="client/fileacase" element={<FilecaseOptions />} />
+
         </Route>
       </Routes>
     </Router>

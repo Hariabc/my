@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Dropdown from './Dropdown';
+import Dropdown from './Dropdown'
 import StateDistrictSelector from './Dropdown2';
 const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
   const [caseDetails, setCaseDetails] = useState({
