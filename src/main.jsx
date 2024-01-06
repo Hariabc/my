@@ -15,6 +15,7 @@ import ClientForm from './REGISTER/Client-register';
 import AdvocateForm from './REGISTER/Advocate-register';
 import SetPassword from './components/Setpassword';
 import Advpassword from "./components/privateAdvpassword";
+import FilecaseOptions from './client_dashboard_features/casefilingopt'
 
 const App = () => {
   return (
