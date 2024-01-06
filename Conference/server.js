@@ -26,24 +26,45 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
+
+const Meeting = require('./models/meeting');
+
 // Create Event Schema
 const meetingSchema = new mongoose.Schema({
   title: String,
   description: String,
   date: Date,
+  meetingID: String,
 });
 
-const Meeting = mongoose.model('Meeting', meetingSchema);
+// Create Meeting model
+const MeetingModel = mongoose.model('Meeting', meetingSchema);
 
-// API Endpoint to Create an Event
+// API Endpoint to Create a Meeting
 app.post('/api/conferences', async (req, res) => {
   try {
-    const newMeeting = await Meeting.create(req.body);
+    // Generate meetingID
+    const generatedMeetingID = generateMeetingID();
+    
+    // Create a new meeting with meetingID
+    const newMeeting = await Meeting.create({
+      title: req.body.title,
+      description: req.body.description,
+      date: req.body.date,
+      meetingID: generatedMeetingID,
+    });
+
     res.status(201).json(newMeeting);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
+
+
+
+
+
+
 
 // API Endpoint to Get All Events
 app.get('/api/conferences', async (req, res) => {
