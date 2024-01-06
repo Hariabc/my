@@ -9,6 +9,7 @@ const caoRouters = require("./routers/caoRouters")
 const courtRouters = require(".//routers/court")
 const judgeRouters = require("./routers/judge")
 // const partyinperson=require('./routers/Partinperson')
+const PartyinpersonRouter = require("./routers/PartyInPerson")
 
 app.use(cors({
     origin: 'http://localhost:5173', // Change this to your React app's URL
@@ -23,7 +24,7 @@ app.use("/court", courtRouters)
 app.use("/cao", caoRouters)
 app.use("/advocate", AdvocateRouters)
 app.use("/judge", judgeRouters);
-app.use("/file",partyinperson)
+app.use("/file",PartyinpersonRouter)
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/eportalDB', {
