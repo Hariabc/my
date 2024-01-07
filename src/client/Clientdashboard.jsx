@@ -73,7 +73,7 @@ const linksData = [
   { path: "/payment", label: "Payments", image: payment },
   { path: "/advocatelist", label: "Private Advocate List", image: advocatelist },
   { path: "/cause-list", label: "Cause List", image: causelist },
-  { path: "/case-details", label: "My Cases", image: casedetails},
+  { path: "/mycases", label: "My Cases", image: casedetails},
   { path: "/scheduling-calendar", label: "Scheduling Calendar", image: scheduling},
   { path: "/case-analytics", label: "Case Analytics", image: caseanalytics },
   { path: "/case-tracking", label: "Case Tracking", image: casetracking,}
@@ -84,7 +84,6 @@ const COAdashboard = () => {
   const [showAnswers, setShowAnswers] = useState({});
   const [userData, setUserData] = useState({});
 
-  // Frontend code making the API request
 useEffect(() => {
   const fetchUserData = async () => {
     try {
