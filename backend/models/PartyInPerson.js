@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 
 const caseSchema = new mongoose.Schema({
+
   caseNumber: {
     type: String,
     required: true,
-    unique:true
+    unique: true
   },
+  
   filecasetype: {
     type: String,
     enum: ['partyinperson', 'privateAdvocate', 'publicAdvocate'],
@@ -53,6 +55,11 @@ const caseSchema = new mongoose.Schema({
     causeOfAction: String,
     reliefSought: String,
     dateOfCauseOfAction: Date,
+    state: String,
+    district: String,
+    taluka: String,
+    village: String,
+    courtType: String,
     courtType: String,
     courtState: String,
     courtDistrict: String,
@@ -72,6 +79,7 @@ const caseSchema = new mongoose.Schema({
     cvv: String,
   },
 });
+
 
 const Case = mongoose.model('Filedcase', caseSchema);
 

@@ -20,6 +20,7 @@ import { IoNotifications } from "react-icons/io5";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
+
 const FAQ_DATA = [
   {
     question: 'Q: How do I track the progress of my case?',
@@ -66,13 +67,13 @@ const FAQ_DATA = [
 
 
 const linksData = [
-  { path: "/file-a-case", label: "File a Case", image: casefile },
+  { path: "/fileacase", label: "File a Case", image: casefile },
   { path: "/pre-trial", label: "Pre Trial", image: confrence },
   { path: "/sendingfiles", label: "File Sharing", image: document },
   { path: "/payment", label: "Payments", image: payment },
   { path: "/advocatelist", label: "Private Advocate List", image: advocatelist },
   { path: "/cause-list", label: "Cause List", image: causelist },
-  { path: "/case-details", label: "Case Details", image: casedetails},
+  { path: "/case-details", label: "My Cases", image: casedetails},
   { path: "/scheduling-calendar", label: "Scheduling Calendar", image: scheduling},
   { path: "/case-analytics", label: "Case Analytics", image: caseanalytics },
   { path: "/case-tracking", label: "Case Tracking", image: casetracking,}
@@ -138,7 +139,7 @@ useEffect(() => {
       <div className="client-body">
         <div className="dashboard-boxes">
           {linksData.map((link, index) => (
-            <Link key={index} to={link.path} className="dashboard-box">
+            <Link key={index} to={`/client${link.path}`} className="dashboard-box">
               {link.image && <img src={link.image} />}
               <h3 style={{color:"black"}}>{link.label}</h3>
             </Link>

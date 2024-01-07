@@ -6,7 +6,8 @@ import DocumentUploadForm from '../components/DocumentsUploadForm';
 import PaymentDetailsForm from '../components/PaymentDetailsForm';
 import './PartyInPerson.css'
 import axios from 'axios';
-
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom'
 const CaseFilingForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [plaintiffDetails, setPlaintiffDetails] = useState({});
@@ -14,10 +15,25 @@ const CaseFilingForm = () => {
   const [caseDetails, setCaseAndCourtDetails] = useState({});
   const [documents, setDocumentDetails] = useState({});
   const [paymentDetails, setPaymentDetails] = useState({});
+  const [user, setUser] = useState({});
+
   
   const scrollToTop = () => {
     window.scrollTo(0, 0);
   };
+ 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/client/user', { withCredentials: true });
+       setUser(response.data.user); // Assuming the response includes user data
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
 
   useEffect(() => {
     scrollToTop(); // Scroll to the top when the component mounts or updates
@@ -47,24 +63,39 @@ const CaseFilingForm = () => {
     setPaymentDetails(data);
     handleSubmit(data);
   };
+  const navigate = useNavigate()
 
   const handleSubmit = async (paymentDetailsData) => {
+    const id= user._id
     try {
       const allFormData = {
+       id,
         plaintiffDetails,
         defendantDetails,
         caseDetails,
         documents,
-        paymentDetails: paymentDetailsData, // Pass the paymentDetailsData received as an argument
+        paymentDetails: paymentDetailsData,
       };
+        // ...
+        const response = await axios.post('http://localhost:5000/file/case', allFormData);
+        const caseNumber = response.data.caseNumber;
   
-      await axios.post('http://localhost:5000/file/case', allFormData);
-      console.log('Data sent successfully!', allFormData);
-      // Optionally reset form state or navigate somewhere else
-    } catch (error) {
-      console.error('Error sending data:', error);
-    }
-  };
+        toast.success(`Case filed successfully. Case number: ${caseNumber}`, {
+          autoClose: 4000,
+        });
+  
+        console.log('Data sent successfully!', allFormData);
+        
+        // Redirect after a delay of 3 seconds (3000 milliseconds)
+        setTimeout(() => {
+          navigate('/clientdashboard');
+        }, 3000); // 3 seconds delay
+      } catch (error) {
+        console.error('Error sending data:', error);
+      }
+    };
+  
+
 
   return (
     <div className="case-filing-form">
@@ -86,5 +117,6 @@ const CaseFilingForm = () => {
     </div>
   );
 };
+
 
 export default CaseFilingForm;

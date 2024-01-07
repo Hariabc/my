@@ -1,47 +1,47 @@
+const mongoose = require('mongoose');
 const express = require('express');
-const Case = require("../models/partyinperson")
+const Case = require('../models/PartyInPerson'); 
 const router = express.Router();
+router.use(express.json());
+const User= require("../models/client")
 
-const app = express();
-app.use(express.json());
+function generateCaseNumber() {
+  const timestamp = Date.now().toString(); // Current timestamp
+  const alphanumeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; // Alphanumeric characters
+  let caseNumber = timestamp; // Initialize with timestamp
 
-function generateUniqueCNR() {
-  const alphanumeric = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  let caseNumber = '';
-
-  for (let i = 0; i < 16; i++) {
-    const randomIndex = crypto.randomInt(0, alphanumeric.length);
+  // Append random alphanumeric characters until the case number length reaches 16
+  while (caseNumber.length < 16) {
+    const randomIndex = Math.floor(Math.random() * alphanumeric.length);
     caseNumber += alphanumeric.charAt(randomIndex);
   }
 
-  return caseNumber;
+  return caseNumber.slice(0, 16); // Return only the first 16 characters
 }
 
 router.post('/case', async (req, res) => {
   try {
-    const { plaintiffDetails, defendantDetails, caseDetails, documents, paymentDetails } = req.body;
-
-    // Assume courtName is retrieved from somewhere (e.g., user input, stored value, etc.)
-    // const courtName = 'YourCourtName'; // Replace with your court name
-
-    // Generate CNR number based on court name and date
-    const cnrNumber = generateUniqueCNR();
-
-    // Create a new Case document using the Case model and CNR number
-    const newCase = new Case({
+    const { plaintiffDetails, defendantDetails, caseDetails, documents, paymentDetails,id  } = req.body;
+      const newCase = new Case({
+      caseNumber: generateCaseNumber(), 
       plaintiffDetails,
       defendantDetails,
       caseDetails,
       documents,
       paymentDetails,
-      caseNumber:cnrNumber, // Add CNR number to the Case document
     });
 
-    // Save the new Case document to the database
     await newCase.save();
 
-    // Send the CNR number in the response
-    res.status(201).json({ message: 'Case details saved successfully', cnrNumber });
+    const user = await User.findById(id); // Assuming userId is passed in the request body
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    user.cases.push(newCase._id); // Add the new case ID to the user's 'cases' array
+    await user.save(); // Save the updated user with the new case
+
+    res.status(201).json({ message: 'Case details saved successfully', caseNumber: newCase.caseNumber });
   } catch (error) {
     res.status(500).json({ message: 'Error saving case details', error: error.message });
   }

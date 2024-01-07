@@ -42,7 +42,7 @@ const clientSchema = new mongoose.Schema({
   },
   cases: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Case'
+    ref: 'Filedcase'
   }],
 
   gender: {
@@ -61,6 +61,5 @@ const clientSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // Create a model based on the schema
-const User = mongoose.model('User', clientSchema);
+module.exports= mongoose.model('User', clientSchema);
 
-module.exports = User;

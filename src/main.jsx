@@ -46,7 +46,7 @@ const App = () => {
           <Route path='/sendingfiles' element={<FileUploader />} />
           <Route path="/advocate/register/complete/:token" element={<PubAdvReg />} />
           <Route path="/judge/register/complete/:token" element={<JudgeReg />} />
-          <Route path="/fileacase" element={<Casefileopt/>} />
+          <Route path="client/fileacase" element={<Casefileopt/>} />
           
           
         </Route>
