@@ -38,8 +38,8 @@ router.post('/case', async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    user.cases.push(newCase._id); // Add the new case ID to the user's 'cases' array
-    await user.save(); // Save the updated user with the new case
+    user.cases.push(newCase._id); 
+    await user.save(); 
 
     res.status(201).json({ message: 'Case details saved successfully', caseNumber: newCase.caseNumber });
   } catch (error) {

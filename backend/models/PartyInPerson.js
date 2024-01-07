@@ -7,6 +7,13 @@ const caseSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  progress: {
+    type: String,
+    enum: ['pending', "sent to Court Admin","Approved by Court Admin","Rejected by Court Admin",'inProgress', 'completed'],
+    default: 'pending',
+    required: true,
+  },
+
   
   filecasetype: {
     type: String,
