@@ -8,7 +8,7 @@ const AdvocateRouters = require("./routers/advocate")
 const caoRouters = require("./routers/caoRouters")
 const courtRouters = require(".//routers/court")
 const judgeRouters = require("./routers/judge")
-const PartyinpersonRouter = require("./routers/Partyinperson")
+const PartyinpersonRouter = require("./routers/PartyInPerson")
 
 app.use(cors({
     origin: 'http://localhost:5173', // Change this to your React app's URL

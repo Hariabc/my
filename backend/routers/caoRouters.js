@@ -1,7 +1,8 @@
 const express = require('express');
+const authMiddleware = require("../middleware/adminAuthMiddleware")
+
 const CourtAdmin = require('../models/cao');
 const Court = require("../models/court")
-const authMiddleware = require("../middleware/adminAuthMiddleware")
 const jwt = require("jsonwebtoken")
 const cookie=require("cookie-parser")
 
@@ -97,7 +98,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-router.get('/user', authMiddleware, (req, res) => {
+router.get('/user',authMiddleware, (req, res) => {
   try {
       const userData = req.user;
       res.status(200).json({ user: userData });
@@ -107,4 +108,30 @@ router.get('/user', authMiddleware, (req, res) => {
   }
 });
 
+// Assuming you have necessary imports and setup for models and express
+
+// Fetch filed cases for the logged-in court admin
+router.get('/mycases', authMiddleware, async (req, res) => {
+  try {
+    const courtAdminId = req.user._id; // Retrieve court admin ID from authenticated user
+
+    // Find the court admin by ID and populate the associated court cases
+    const courtAdmin = await CourtAdmin.findById(courtAdminId).populate('courtCases');
+
+    if (!courtAdmin) {
+      return res.status(404).json({ message: 'Court admin not found' });
+    }
+
+    res.status(200).json({ courtCases: courtAdmin.courtCases });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching court cases', error: error.message });
+  }
+});
+
+// module.exports = router;
+
 module.exports = router;
+
+
+
+// module.exports = router;

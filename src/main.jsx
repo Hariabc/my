@@ -22,6 +22,7 @@ import JudgeReg from "./components/Judgereg.jsx"
 import Casefileopt from "./client_dashboard/CaseFileOpt.jsx"
 import ClientCases from './client_dashboard/casedetails.jsx'
 import IndividualCasesID from './client_dashboard/individulcases.jsx'
+import Mycases from './Admin_dashboard_components/Mycases.jsx'
 const App = () => {
   return (
     <Router>
@@ -49,7 +50,9 @@ const App = () => {
           <Route path="/judge/register/complete/:token" element={<JudgeReg />} />
           <Route path="/client/fileacase" element={<Casefileopt />} />
           <Route path="/client/mycases" element={<ClientCases/>} />
-          <Route path="/client/mycases/:caseId" element={<IndividualCasesID/>} />
+          <Route path="/client/mycases/:caseId" element={<IndividualCasesID />} />
+          <Route path="/cao/mycases" element={<Mycases/>} />
+          
           
           
           

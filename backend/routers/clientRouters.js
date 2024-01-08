@@ -193,7 +193,7 @@ router.get('/user', authMiddleware, (req, res) => {
 // Define a route to fetch cases for the logged-in user
 router.get('/mycases', authMiddleware,async (req, res) => {
   try {
-    const userId = req.user.id; // Assuming you have the logged-in user's ID in req.user.id
+    const userId = req.user._id; // Assuming you have the logged-in user's ID in req.user.id
     const user = await User.findById(userId).populate('cases'); // Populate the 'cases' field for the user
 
     res.json({ cases: user.cases }); // Send the populated cases data to the frontend

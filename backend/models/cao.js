@@ -30,16 +30,16 @@ const courtAdminSchema = new mongoose.Schema({
   },
   courtAdminId: {
     type: String,
-    required:true
+    required: true
   },
   role: {
     type: String,
     default: 'Court Administrative Officer',
   },
-  courtCases: {
+  courtCases: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Filedcase',
-  },
+  }],
   court: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Court',
