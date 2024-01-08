@@ -106,6 +106,9 @@ const ClientForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const { username,firstName } = formData;
+
+
     if (validateForm()) {
       try {
         const response = await axios.post('http://localhost:5000/client/register', formData);
@@ -114,8 +117,8 @@ const ClientForm = () => {
           toast.success('Link has been sent to your mail to set password'); // Success message
           // Handle success (redirect, display a success message, etc.)
           const userResponse = await axios.post('https://api-EAD127B3-C2FC-47A7-B744-D1F2DE076DB5.sendbird.com/v3/users', {
-          user_id: 'hariprasad',
-          nickname: 'abc',
+          user_id: username,
+          nickname: username,
           profile_url: 'https://example.com/profile-image.jpg'
         },{headers: {
           'Content-Type': 'application/json',

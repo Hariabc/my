@@ -23,6 +23,7 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import { IoMdChatbubbles } from 'react-icons/io';
 import Chat from '../Chat/Chat';
+import { MdOutlineClose } from "react-icons/md";
 const FAQ_DATA = [
   {
     question: 'Q: How do I track the progress of my case?',
@@ -251,10 +252,10 @@ const COAdashboard = () => {
           <span><h2>Client Dashboard</h2></span>
         </div>
         <div className="logo-profile">
-          <IoIosArrowDropdownCircle />
-          <span><h2 onClick={handleProfileClick}>{userData ? userData.firstName : 'No username available'}</h2></span>
+          <span style={{color:"black"}}><h2 onClick={handleProfileClick}>{userData ? userData.firstName : 'No username available'}</h2></span>
           <img src={client} alt="ggg" onClick={handleProfileClick} />
           <IoNotifications size={32} style={{ paddingLeft: '10px' }} />
+          <button className="logout">Logout</button>
         </div>
       </div>
 
@@ -322,7 +323,7 @@ const COAdashboard = () => {
         contentLabel="Chat Modal"
       >
         <div className="chat-component">
-          <button onClick={closeModal}>Close Chat</button>
+          <MdOutlineClose onClick={closeModal} size={30} style={{marginLeft:'97%'}}>Close Chat</MdOutlineClose>
           <Chat />
         </div>
       </Modal>
