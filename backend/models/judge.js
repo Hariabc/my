@@ -44,6 +44,10 @@ const judgeSchema = new mongoose.Schema({
     courtAdminId: {
         type: String,
         required:true
+  },
+  courtAdminId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref:'CourtAdmin'
     },
     cases: [
       {
