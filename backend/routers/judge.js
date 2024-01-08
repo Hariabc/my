@@ -6,9 +6,9 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const authMiddleware = require("../middleware/judgeAuthMiddleware")
 const cookie = require("cookie-parser")
-
+const Admin = require("../models/cao")
 router.use(cookie())
-
+const aauthMiddleware=require('../middleware/adminAuthMiddleware')
 const sendSetPasswordEmail = async (email, token, firstName) => {
   const transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -39,40 +39,43 @@ const sendSetPasswordEmail = async (email, token, firstName) => {
   }
 };
 
-router.post('/register', async (req, res) => {
+router.post('/register',async (req, res) => {
   try {
-    const { email } = req.body;
+    const { courtAdminId, email, firstname,username, lastname,gender, education, } = req.body;
 
-    const existingJudge = await Judge.findOne({email});
+    // Check if the provided email already exists for any judge
+    const existingJudgeByEmail = await Judge.findOne({ email });
 
-    if (existingJudge) {
-      return res.status(400).json({ error: 'Email already exists.' });
+    if (existingJudgeByEmail) {
+      return res.status(400).json({ message: 'Email already exists for another Judge.' });
     }
 
-    const token = Math.random().toString(36).substr(2, 10);
+    const courtAdmin = await Admin.findOne({ courtAdminId });
 
-    const { firstname, lastname, gender, education, courtAdminId } = req.body;
-    const judge = new Judge({
+    if (!courtAdmin) {
+      return res.status(400).json({ message: 'Invalid Court Admin ID' });
+    }
+    const token = Math.random().toString(36).substr(2, 10);
+    const newJudge = new Judge({
+      courtAdmin: courtAdmin._id,
       firstname,
       lastname,
-      name: `${firstname} ${lastname}`,
-      email,
+      name:`${firstname} ${lastname}`,
       gender,
+      password_token:token,
+      email,
       education,
-      courtAdminId
+      username
     });
-    judge.password_token = token;
-    await judge.save();
 
-    await sendSetPasswordEmail(judge.email, token,judge.firstname);
+    await newJudge.save();
 
-    res.status(200).json({
-      message: 'Judge registered by court admin successfully. Please check your email to complete the registration.',
-    });
-  } catch (error) {
-    res.status(500).json({
-      error
-    })
+    courtAdmin.judges.push(newJudge._id);
+    await courtAdmin.save();
+    await sendSetPasswordEmail(email, newJudge.password_token, firstname);
+    res.status(201).json({ message: 'Judge registered successfully', data: newJudge });
+  } catch (err) {
+    res.status(500).json({ message: 'Error registering Judge', error: err.message });
   }
 });
 
