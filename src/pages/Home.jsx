@@ -6,11 +6,13 @@ import ServicePage from './service'
 import { Link } from 'react-router-dom'
 import { Navbar } from '../components/Navbar'
 import { Link as Abc} from "react-scroll";
+import Footer from '../components/Footer'
 export default function Home() {
   return (
     <>
-    <Navbar/>
     <div className="about">
+    <Navbar/>
+     <div className="main-about"> 
     <h1 style={{color:"white"}}>Bringing Efficiency to <span className='justice'>JUSTICE</span></h1>
     <hr className="horizontal-line" />
     <p>Our court website is here to make life easier for clients, judges, and advocates. With user-friendly features, we simplify processes, foster collaboration, and enhance the overall efficiency of legal work. Experience a smoother journey in the pursuit of justice with us.</p>
@@ -19,8 +21,10 @@ export default function Home() {
       <FaArrowRight className="arrow-icon" />
     </button>
     </div>
+    </div>
     <ServicePage/>
     <ContactUs/>
+    <Footer/>
     </>
   )
 }

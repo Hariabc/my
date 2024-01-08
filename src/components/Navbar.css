@@ -30,7 +30,8 @@ nav a {
 .main-nav {
   display: flex;
   justify-content: space-between;
-  background-color:#35363A;
+  /* background-color:#35363A; */
+  /* background-color:#1A2238; */
   align-items: center;
   padding-left: 20px;
   padding-right: 20px;
@@ -50,9 +51,9 @@ nav a {
 
 /* Style for the logo */
 .logo {
-  font-size: 24px;
+  font-size: 30px;
   font-weight: bold;
-  margin: 0;
+  margin-left: 90px;
   color: #fff;
 }
 

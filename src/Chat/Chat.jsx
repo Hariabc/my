@@ -1,14 +1,13 @@
 import React from "react";
 import { App as SendbirdApp } from "sendbird-uikit";
 import "sendbird-uikit/dist/index.css";
-export default function Apps() {    
+export default function Chat() {    
     const APP_ID = "EAD127B3-C2FC-47A7-B744-D1F2DE076DB5";
-	const USER_ID = "prasad";
+	const USER_ID = "Hari";
 return (
     <div className="App" style={{
         height:"100vh"
     }}>
-        <h1>Hello CodeSandbox</h1>
         <SendbirdApp appId={APP_ID} userId={USER_ID} />
     </div>
 );

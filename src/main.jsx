@@ -6,8 +6,6 @@ import ClientDashboard from './client/Clientdashboard';
 import AdvocateDashboard from './advocate/AdvocateDashboard';
 import JudgeDashboard from './judge/Judgedashboard';
 import COADashboard from './coa/COAdashboard';
-import Services from './pages/service';
-import Contact from './pages/contact';
 import ClientForm from './REGISTER/Client-register';
 import AdvocateForm from './REGISTER/Advocate-register';
 import SetPassword from './components/Setpassword';
@@ -19,18 +17,13 @@ import CaseFilingForm from './dashborad-components/FileACase.jsx';
 import FileACaseMin from './dashborad-components/FileACaseMin.jsx';
 import "./index.css"
 import Layout from './components/Layout.jsx';
-import SenderComponent from './dashborad-components/Notification/Sender.jsx';
-import ReceiverComponent from './dashborad-components/Notification/Reciever.jsx';
 import AddUsers from './dashborad-components/AddUsers.jsx';
 import Profile from './client/Profile.jsx';
 import PubAdvReg from "./components/publicadvreg.jsx";
 import JudgeReg from "./components/Judgereg.jsx"
 import LoginPage from "./pages/login.jsx"
-import ScrollAnimation from './components/ScrollAnimation.jsx';
-import Apps from './Chat/Chat.jsx';
-// import MyChatComponent from './components/Framer.jsx';
 import { AuthProvider } from './AuthContext'; // assuming you have AuthContext set up
-import ProtectedRoute from './PrivateRoute'; // create this component
+import Chat from './Chat/Chat.jsx';
 
 const App = () => {
   return (
@@ -55,11 +48,11 @@ const App = () => {
           <Route path='/sendingfiles' element={<FileUploader/>}/>
           <Route path='/fileacase' element={<CaseFilingForm/>}/>
           <Route path='/fileacasemain' element={<FileACaseMin/>}/>
-          <Route path='/profile' element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
+          <Route path='/profile' element={<Profile/>}/>
           <Route path='/addusers' element={<AddUsers/>}/>
           <Route path="/advocate/register/complete/:token" element={<PubAdvReg />} />
           <Route path="/judge/register/complete/:token" element={<JudgeReg/>} />
-          <Route path='/framer' element={<Apps/>}/> 
+          <Route path='/chat' element={<Chat/>}/> 
         </Route>
       </Routes>
       </AuthProvider>

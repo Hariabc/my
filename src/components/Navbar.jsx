@@ -13,16 +13,24 @@ export const Navbar = () => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+  const inlineStyles = {
+    backdropFilter: 'blur(0px) saturate(180%)',
+    WebkitBackdropFilter: 'blur(0px) saturate(180%)',
+    backgroundColor: 'rgba(109, 98, 98, 0)',
+    borderRadius: '12px',
+    border: '1px solid rgba(209, 213, 219, 0.3)',
+  };
 
   return (
     <>
-      <nav className={`main-nav ${isMobileMenuOpen ? "mobile-menu-open" : ""}`}>
+      <nav className={`main-nav ${isMobileMenuOpen ? "mobile-menu-open" : ""}`} style={inlineStyles}>
         <div className="logo-container">
           <span className="logo">E-PORTAL</span>
           <div className="mobile-icon" onClick={toggleMobileMenu}>
             <MdMenu size={28} />
           </div>
         </div>
+        <div>
         <ul className={isMobileMenuOpen ? "open" : ""}>
           <li>
             <Link to="top" spy={true} smooth={true} offset={50} duration={500}>
@@ -46,6 +54,7 @@ export const Navbar = () => {
             </UnScrollLink>
           </li>
         </ul>
+        </div>
       </nav>
     </>
   );

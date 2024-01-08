@@ -16,7 +16,7 @@ const ServicePage = () => {
     <div className="services" >
        <>
   <div className="service-header">
-      <h1>Our Services</h1>
+      <h1 className='hover'>Our Services</h1>
       <hr className="servicehr" />
   </div>
   <div className="service-main">

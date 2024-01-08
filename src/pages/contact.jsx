@@ -30,7 +30,7 @@ const ContactUs = () => {
     <h1>Contact us</h1>
     </div>
     <section className='contact-section'>
-      <div className='container'>
+      <div className='conatct-container'>
         <div className='box'>
           <div className='contact form'>
             <h1 className='contact-form'>Contact Form</h1>
@@ -84,9 +84,7 @@ const ContactUs = () => {
             ></iframe>
           </div>
         </div>
-        <div className="contact-image">
-          <img src={contact} alt="" />
-        </div>
+        
       </div>
     </section>
     </>

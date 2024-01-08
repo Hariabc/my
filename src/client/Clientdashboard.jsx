@@ -1,7 +1,7 @@
 // COAdashboard.js
 import React from 'react';
 import { motion } from 'framer-motion';
-
+import Modal from 'react-modal'
 import "./clientdashboard.css";
 import client from "../assets/client.png";
 import { Link ,useNavigate} from 'react-router-dom';
@@ -21,7 +21,8 @@ import {FaMinus, FaPlus} from "react-icons/fa"
 import { IoNotifications } from "react-icons/io5";
 import { useState, useEffect } from "react";
 import axios from 'axios';
-
+import { IoMdChatbubbles } from 'react-icons/io';
+import Chat from '../Chat/Chat';
 const FAQ_DATA = [
   {
     question: 'Q: How do I track the progress of my case?',
@@ -185,24 +186,32 @@ const linksData = [
 // export default COAdashboard;
 
 
-
 const COAdashboard = () => {
   const [showAnswers, setShowAnswers] = useState({});
   const [userData, setUserData] = useState({});
+  const [showChat, setShowChat] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const handleChatButtonClick = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setShowChat(false);
+  };
 
   const navigate = useNavigate();
 
   const handleProfileClick = () => {
-    // Assuming '/profile' is the path you want to navigate to
     navigate('/profile');
   };
-
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get('http://localhost:5000/client/user', { withCredentials: true });
-        setUserData(response.data.user); // Assuming the response includes user data
+        setUserData(response.data.user);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -218,6 +227,14 @@ const COAdashboard = () => {
     }));
   };
 
+  const handleMouseEnter = () => {
+    setShowChatButton(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowChatButton(false);
+  };
+
   return (
     <motion.div
       className="client-dashboard"
@@ -225,6 +242,8 @@ const COAdashboard = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5 }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div className='admin'>
         <div className="logo-admin">
@@ -289,6 +308,26 @@ const COAdashboard = () => {
           </div>
         ))}
       </motion.div>
+      <div>
+      <div className={`chat-button ${showChat ? 'show' : ''}`}>
+        <button className='chat-btn' onClick={handleChatButtonClick}>
+          <IoMdChatbubbles className="chat-icon" size={20} />
+          Chat
+        </button>
+      </div>
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Chat Modal"
+      >
+        <div className="chat-component">
+          <button onClick={closeModal}>Close Chat</button>
+          <Chat />
+        </div>
+      </Modal>
+    </div>
+      
     </motion.div>
   );
 };
