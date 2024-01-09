@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import './Addreg.css';
+import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function AddUsers() {
   const [showJudgesForm, setShowJudgesForm] = useState(false);
@@ -33,53 +37,89 @@ export default function AddUsers() {
   );
 }
 
-
 function LawyersForm() {
-  const [formData, setFormData] = useState({
-    username: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumber: '',
-    gender: '',
-    licenseNumber: '',
-    educationQualifications: '',
-    jurisdiction: '',
-    barAssociation: '',
-    yearsOfPractice: '',
-    practiceArea: '',
-    courtAdminId: '',
-    isPrivateAdvocate: false,
-    isAppointedByCourtAdmin: true,
-  });
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
-  };
-
-  return (
-    <div className="lawyers-form">
-        <h2 style={{marginBottom:"0", paddingBottom:"0"}}>
-            Public Advocate Registration
+    const [formData, setFormData] = useState({
+      username: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      phoneNumber: '',
+      gender: '',
+      licenseNumber: '',
+      educationQualifications: '',
+      jurisdiction: '',
+      barAssociation: '',
+      yearsOfPractice: '',
+      practiceArea: '',
+      courtAdminId: '',
+      isPrivateAdvocate: false,
+      isAppointedByCourtAdmin: true,
+    });
+  
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    };
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+  
+      try {
+        // Send form data to the backend endpoint
+        const response = await axios.post('http://localhost:5000/advocate/public/register', formData);
+  
+        // Handle success: show a success message, reset form, etc.
+        console.log('Public advocate registered:', response.data);
+        alert('Public advocate registered successfully!');
+  
+        // Reset the form fields
+        setFormData({
+          username: '',
+          firstName: '',
+          lastName: '',
+          email: '',
+          phoneNumber: '',
+          gender: '',
+          licenseNumber: '',
+          educationQualifications: '',
+          jurisdiction: '',
+          barAssociation: '',
+          yearsOfPractice: '',
+          practiceArea: '',
+          courtAdminId: '',
+          isPrivateAdvocate: false,
+          isAppointedByCourtAdmin: true,
+        });
+      } catch (error) {
+        // Handle error: show error message, log the error, etc.
+        console.error('Error registering public advocate:', error);
+        // alert('Failed to register public advocate. Please try again.');
+      }
+    };
+  
+    return (
+      <div className="lawyers-form">
+        <h2 style={{ marginBottom: "0", paddingBottom: "0" }}>
+          Public Advocate Registration
         </h2>
-      <form className="lawyers-form-container">
-        <div className="form-group">
-          <label htmlFor="username" className="form-label">
-            Judge Registration
-          </label>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            className="form-input"
-          />
-        </div>
-        <div className="form-group">
+        <form className="lawyers-form-container" onSubmit={handleSubmit}>
+          {/* Form fields and labels */}
+          <div className="form-group">
+            <label htmlFor="username" className="form-label">
+              Username:
+            </label>
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              className="form-input"
+            />
+          </div>
+          <div className="form-group">
           <label htmlFor="firstName" className="form-label">
             First Name:
           </label>
@@ -128,15 +168,21 @@ function LawyersForm() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="gender" className="form-label">
-            Gender:
-          </label>
-          <select name="gender" value={formData.gender} onChange={handleChange} className="form-select">
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
+  <label htmlFor="gender" className="form-label">
+    Gender:
+  </label>
+  <select
+    name="gender"
+    value={formData.gender}
+    onChange={handleChange}
+    className="form-select"
+  >
+    <option value="">Select Gender</option>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+    <option value="other">Other</option>
+  </select>
+</div>
         <div className="form-group">
           <label htmlFor="licenseNumber" className="form-label">
             License Number:
@@ -220,13 +266,15 @@ function LawyersForm() {
             className="form-input"
           />
         </div>
-        <button type="submit" className="submit-button">
-          Submit
-        </button>
-      </form>
-    </div>
-  );
-}
+          <button type="submit" className="submit-button">
+            Submit
+          </button>
+        </form>
+      </div>
+    );
+  }
+  
+  
 
 
 function JudgesForm() {
@@ -234,6 +282,7 @@ function JudgesForm() {
     firstname: '',
     lastname: '',
     email: '',
+    username:'',
     gender: '',
     education: '',
     courtAdminId: '',
@@ -247,23 +296,42 @@ function JudgesForm() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can perform actions with the form data, e.g., send it to the server
-    console.log('Form submitted:', formData);
-    // Reset the form fields
-    setFormData({
-      firstname: '',
-      lastname: '',
-      email: '',
-      gender: '',
-      education: '',
-      courtAdminId: '',
-    });
+  
+    try {
+      const response = await axios.post('http://localhost:5000/judge/register', formData);
+      console.log('Response:', response);
+  
+      if (response && response.data) {
+        console.log('Judge registered:', response.data);
+        toast.success('Judge registered successfully');
+        setFormData({
+          firstname: '',
+          lastname: '',
+          email: '',
+          username:'',
+          gender: '',
+          education: '',
+          courtAdminId: '',
+        });
+        // Handle success - show a success message or redirect to another page
+      } else {
+        console.error('Unexpected response:', response);
+        // Handle unexpected response format or status
+      }
+    } catch (error) {
+      console.error('Error registering judge:', error.response ? error.response.data : error.message);
+      toast.error('Error registering judge');
+      // Handle error - show an error message or alert
+    }
   };
+  
+  
 
   return (
-    <div className="judges-form">
+      <div className="judges-form">
+          <ToastContainer/>
       <h2 style={{ marginBottom: "0", paddingBottom: "0" }}>
         Judges Form
       </h2>
@@ -303,22 +371,36 @@ function JudgesForm() {
             onChange={handleChange}
             className="form-input"
           />
+              </div>
+              <div className="form-group">
+          <label htmlFor="username" className="form-label">
+            Username:
+          </label>
+          <input
+            type="text"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            className="form-input"
+          />
         </div>
         <div className="form-group">
-          <label htmlFor="gender" className="form-label">
-            Gender:
-          </label>
-          <select
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-            className="form-select"
-          >
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
+  <label htmlFor="gender" className="form-label">
+    Gender:
+  </label>
+  <select
+    name="gender"
+    value={formData.gender}
+    onChange={handleChange}
+    className="form-select"
+  >
+    <option value="">Select Gender</option>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+    <option value="other">Other</option>
+  </select>
+</div>
+
         <div className="form-group">
           <label htmlFor="education" className="form-label">
             Education:
