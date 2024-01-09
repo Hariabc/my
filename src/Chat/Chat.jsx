@@ -1,4 +1,5 @@
 import React from "react";
+import "./chat.css"
 import { useState,useEffect } from "react";
 import { App as SendbirdApp } from "sendbird-uikit";
 import "sendbird-uikit/dist/index.css";

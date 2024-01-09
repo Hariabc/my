@@ -24,6 +24,7 @@ import JudgeReg from "./components/Judgereg.jsx"
 import LoginPage from "./pages/login.jsx"
 import { AuthProvider } from './AuthContext'; // assuming you have AuthContext set up
 import Chat from './Chat/Chat.jsx';
+import Apps from './Temp.jsx';
 
 const App = () => {
   return (
@@ -53,6 +54,7 @@ const App = () => {
           <Route path="/advocate/register/complete/:token" element={<PubAdvReg />} />
           <Route path="/judge/register/complete/:token" element={<JudgeReg/>} />
           <Route path='/chat' element={<Chat/>}/> 
+          <Route path='/temp' element={<Apps/>}/> 
         </Route>
       </Routes>
       </AuthProvider>

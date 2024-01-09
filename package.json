@@ -31,7 +31,7 @@
     "react-scroll": "^1.9.0",
     "react-toastify": "^9.1.3",
     "router": "^1.3.8",
-    "sendbird-uikit": "^2.7.2",
+    "sendbird-uikit": "^1.0.7",
     "session": "^0.1.0",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",

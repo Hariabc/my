@@ -4,13 +4,14 @@
   align-items: center;
   padding: 20px;
   font-family: 'Arial', sans-serif;
-  background-color: #91b3ce;
+  /* background-color: #91b3ce; */
+  background-color: white;
 }
 .admin {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color:#f2f2f5;
+  background-color:#2929db;
   padding: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width:100%;
