@@ -1,10 +1,11 @@
 // AdminDashboard.js
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import "./coadashboard.css"; // Add your CSS file for styling
 import adminIcon from "../assets/admin.png"; // Add your admin icon image
 import { Link } from 'react-router-dom';
 import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { FaPlus } from "react-icons/fa"
+import axios from "axios"
 
 import addlawyers from "../assets/admindashboard/Admin Pics/Adding Govt Lawyers.jpg"
 import assignjudge from "../assets/admindashboard/Admin Pics/Assign Judges Advocates.jpg"
@@ -21,6 +22,7 @@ import videoconfrence from "../assets/admindashboard/Admin Pics/video conference
 
 const AdminDashboard = () => {
   const [showAnswers, setShowAnswers] = useState({});
+  const [userData, setuserData] = useState({});
 
   // Function to toggle answer visibility
   const toggleAnswer = (questionId) => {
@@ -29,6 +31,18 @@ const AdminDashboard = () => {
       [questionId]: !prev[questionId],
     }));
   };
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/cao/user', { withCredentials: true });
+        setuserData(response.data.user); // Assuming the response includes user data
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
 
   const linksData = [
     { path: "/receive-filed-cases", label: "Receive Filed Cases", image: recievecases},
@@ -37,7 +51,7 @@ const AdminDashboard = () => {
     { path: "/update-cause-list", label: "Updating Cause List", image: updatecauselist},
     { path: "/scheduling-calendar", label: "Scheduling Calendar", image: scheduling },
     { path: "/case-analytics", label: "Cases Analytics", image: caseanalytics },
-    { path: "/add-lawyers-judges", label: "Adding Lawyers", image: addlawyers },
+    { path: "/add-advocates-judges", label: "Register Public advocates and Judges", image: addlawyers },
     { path: "/post-updates-news", label: "Posting Updates News", image: news },
     { path: "/send-notifications", label: "Notifications", image: notifications },
     { path: "/case-profile-management", label: "Case Management", image: resources },
@@ -56,7 +70,7 @@ const AdminDashboard = () => {
 
         <div className="logo-profile">
           <IoIosArrowDropdownCircle />
-          <span><h2>Username</h2></span>
+          <span><h2>{userData.firstName }</h2></span>
           <img src={adminIcon} alt="Admin" />
         </div>
       </div>
@@ -65,7 +79,7 @@ const AdminDashboard = () => {
       <div className="admin-body">
         <div className="admin-dashboard-boxes">
           {linksData.map((link, index) => (
-            <Link key={index} to={link.path} className="dashboard-box">
+            <Link key={index} to={`/admin${link.path}`} className="dashboard-box">
               {link.image && <img src={link.image} alt={link.label} />}
               <h3 style={{color:"black"}}>{link.label}</h3>
             </Link>

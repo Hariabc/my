@@ -83,7 +83,6 @@ body {
 /* ... (previous CSS styles remain unchanged) */
 
 .form-button {
-  width: fit-content; /* Adjust the width as needed */
   margin-top: 20px;
   background-color: #2ecc71;
   color: white;
@@ -104,11 +103,10 @@ body {
 /* ... (other styles remain the same) */
 .error-message {
   color: red; /* Text color for the error message */
-  font-size: 0.85rem; /* Font size */
-  margin-top: 0.1rem; /* Spacing from the input field */
+  font-size: 0.80rem; /* Font size */
 }
 .register {
-  position: absolute;
+  position:absolute;
   left: 45%;
   top:78%;
    /* Add margin at the top if needed */

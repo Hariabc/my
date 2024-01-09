@@ -5,6 +5,7 @@ nav {
   text-transform: uppercase;
   text-align: center;
   font-weight: 600;
+  position: absolute;
 }
 
 nav * {
@@ -29,7 +30,8 @@ nav a {
 .main-nav {
   display: flex;
   justify-content: space-between;
-  background-color:#35363A;
+  /* background-color:#35363A; */
+  /* background-color:#1A2238; */
   align-items: center;
   padding-left: 20px;
   padding-right: 20px;
@@ -38,6 +40,7 @@ nav a {
   line-height: 20px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   z-index: 1000;
+  position: relative;
 }
 
 /* Style for the logo container */
@@ -48,9 +51,9 @@ nav a {
 
 /* Style for the logo */
 .logo {
-  font-size: 24px;
+  font-size: 30px;
   font-weight: bold;
-  margin: 0;
+  margin-left: 90px;
   color: #fff;
 }
 

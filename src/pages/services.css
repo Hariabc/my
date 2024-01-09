@@ -1,40 +1,107 @@
-/* AboutUs.css */
+/* services.css */
 
-.about-us-container {
+.service-header {
   text-align: center;
-  margin: 20px;
+  color: #fff;
+  padding-top: 60px;
+  padding-bottom: 10px;
 }
 
-.service-section {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
-}
-
-.service-category {
-  width: 22%;
-  border: 1px solid #ddd;
+.service-main {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+  justify-content: space-evenly;
   padding: 20px;
-  margin: 10px;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
+  height: 100vh;
 }
 
-.service-category h3 {
-  color: #333;
+.service {
+  margin: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.service-category p {
+.service h2 {
+  color: #003838;
+  margin-bottom: 10px;
+}
+
+.service p {
   color: #555;
+  text-align: center;
+  line-height: 1.4;
 }
 
-.service-category ul {
-  list-style-type: none;
-  padding: 0;
+/* Uncomment the following if you decide to use a background image */
+/*
+.service-main {
+  background-image: url("your-image-url");
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+}
+*/
+.servicehr {
+  border: 10;
+  width: 140px;
+  height: 4px;
+  background-color: #7a7a74;
+  margin: 15px auto; /* Auto margin for horizontal centering */
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+}
+/* .hover::before {  
+  transform: scaleX(0);
+  transform-origin: bottom right;
 }
 
-.service-category li {
-  margin-bottom: 8px;
+.hover:hover::before {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
 
-/* Add more styles as needed */
+.hover::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  inset: 0 0 0 0;
+  background: hsl(200 100% 80%);
+  z-index: -1;
+  transition: transform .3s ease;
+}
+
+.hover{
+  position: relative;
+} */
+
+.hover {
+  position: relative;
+  display: inline-block; /* Ensure that the hover effect only covers the text size */
+}
+
+.hover::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  inset: 0 0 0 0;
+  background: hsl(63, 87%, 68%);
+  z-index: -1;
+  transition: transform 0.3s ease;
+  transform: scaleX(0); /* Initial state - hidden */
+  transform-origin: bottom left;
+}
+
+.hover:hover::before {
+  transform: scaleX(1); /* Hover state - visible */
+  transform-origin: bottom left;
+  border-radius: 3px;
+  padding: 20px;
+}
