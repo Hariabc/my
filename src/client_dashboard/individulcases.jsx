@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import jsPDF from 'jspdf';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import './Individualcases.css'
-
 const CaseDetails = () => {
   const { caseId } = useParams();
   const [caseDetails, setCaseDetails] = useState(null);
-
   useEffect(() => {
     const fetchCaseDetails = async () => {
       try {
@@ -16,9 +15,36 @@ const CaseDetails = () => {
         console.error('Error fetching case details:', error);
       }
     };
-
+    
     fetchCaseDetails();
   }, [caseId]);
+  const DetailsToPDF = async () => {
+    const pdf = new jsPDF();
+    pdf.setFont('helvetica', 'bold');
+    pdf.setFontSize(20);
+    pdf.text('Plantiff Details:', 30, 20);
+    pdf.setFontSize(14);
+    Object.entries(caseDetails.plaintiffDetails).forEach(([key, value], index) => {
+      pdf.text(`${key}: ${value}`, 30, 45 + index * 15);
+    });
+    pdf.addPage();
+    pdf.setFont('helvetica', 'bold');
+    pdf.setFontSize(20);
+    pdf.text('Defendant Details:', 30, 20);
+    pdf.setFontSize(14);
+    Object.entries(caseDetails.defendantDetails).forEach(([key, value], index) => {
+      pdf.text(`${key}: ${value}`, 30, 45 + index * 15);
+    });
+    pdf.addPage();
+    pdf.setFont('helvetica', 'bold');
+    pdf.setFontSize(20);
+    pdf.text('Case Details:', 30, 20);
+    pdf.setFontSize(14);
+    Object.entries(caseDetails.caseDetails).forEach(([key, value], index) => {
+      pdf.text(`${key}: ${value}`, 30, 45 + index * 15);
+    });
+    pdf.save('form-details.pdf');
+  };
   return (
     <div className="container">
       <h3 className="title">Case Details</h3>
@@ -80,6 +106,9 @@ const CaseDetails = () => {
             <p key={index}>Document {index + 1}: {document}</p>
           ))}
           Display other document details */}
+          <div className="printButton-div">
+            <button className="printButton" onClick={DetailsToPDF}><i style={{"position": "relative", "bottom": "3px", "left": "5px"}}>Print</i></button>
+          </div>
         </div>
       ) : (
         <p className="loading">Loading...</p>
