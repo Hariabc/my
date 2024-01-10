@@ -1,11 +1,20 @@
 const mongoose = require('mongoose');
 
 const caseSchema = new mongoose.Schema({
-  // CNR: {
-  //   type: String,
-  //   required: true,
-  //   unique:true
-  // },
+
+  caseNumber: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  progress: {
+    type: String,
+    enum: ['pending', "sent to Court Admin","Approved by Court Admin","Rejected by Court Admin",'inProgress', 'completed'],
+    default: 'pending',
+    required: true,
+  },
+
+  
   filecasetype: {
     type: String,
     enum: ['partyinperson', 'privateAdvocate', 'publicAdvocate'],
@@ -53,6 +62,11 @@ const caseSchema = new mongoose.Schema({
     causeOfAction: String,
     reliefSought: String,
     dateOfCauseOfAction: Date,
+    state: String,
+    district: String,
+    taluka: String,
+    village: String,
+    courtType: String,
     courtType: String,
     courtState: String,
     courtDistrict: String,
@@ -72,6 +86,7 @@ const caseSchema = new mongoose.Schema({
     cvv: String,
   },
 });
+
 
 const Case = mongoose.model('Filedcase', caseSchema);
 

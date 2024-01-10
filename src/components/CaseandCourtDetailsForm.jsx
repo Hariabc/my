@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Dropdown from './Dropdown';
+import StateDistrictSelector from './Dropdown2';
 const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
   const [caseDetails, setCaseDetails] = useState({
     caseType: '',
@@ -19,7 +20,13 @@ const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
     caseCategory: ''
     // Add other case details
   });
+  const handleStateSelect = (selectedState) => {
+    setCaseDetails({ ...caseDetails, state: selectedState });
+  };
 
+  const handleDistrictSelect = (selectedDistrict) => {
+    setCaseDetails({ ...caseDetails, district: selectedDistrict });
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCaseDetails({ ...caseDetails, [name]: value });
@@ -37,6 +44,7 @@ const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
       ...selectedCourtDetails
     }));
   };
+  
   const handleBack = () => {
     onBack();
   };
@@ -124,26 +132,10 @@ const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
               <h3 className="section-title">Dispute Arising Out Of</h3>
               <div className="grid-half">
                 {/* Dispute Arising Out Of Fields */}
-                <label className="form-label">
-                  State:
-                  <input
-                    type="text"
-                    name="state"
-                    value={caseDetails.state}
-                    onChange={handleChange}
-                    className="form-input"
-                  />
-                </label>
-                <label className="form-label">
-                  District:
-                  <input
-                    type="text"
-                    name="district"
-                    value={caseDetails.district}
-                    onChange={handleChange}
-                    className="form-input"
-                  />
-                </label>
+                <StateDistrictSelector
+            onSelectState={handleStateSelect}
+            onSelectDistrict={handleDistrictSelect}
+          />
                 <label className="form-label">
                   Taluka:
                   <input
@@ -182,4 +174,4 @@ const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
     );
 };
   
-export default CaseAndCourtDetailsForm;
+export default CaseAndCourtDetailsForm;  
