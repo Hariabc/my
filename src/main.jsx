@@ -25,7 +25,6 @@ import AdvocateConference from './Features/AdvocateConference.jsx';
 import CaseTracking from './dashborad-components/CaseTracking.jsx';
 import "./index.css"
 import Layout from './components/Layout.jsx';
-import AddUsers from './dashborad-components/AddUsers.jsx';
 import Profile from './client/Profile.jsx';
 import PubAdvReg from "./components/publicadvreg.jsx";
 import JudgeReg from "./components/Judgereg.jsx"
