@@ -8,6 +8,10 @@ const AdvocateRouters = require("./routers/advocate")
 const caoRouters = require("./routers/caoRouters")
 const courtRouters = require(".//routers/court")
 const judgeRouters=require("./routers/judge")
+const AdvRouters = require("./routers/privateAdvocate")
+const caoRouters = require("./routers/caoRouters")
+const partyinperson=require("./routers/partyinperson")
+// const { Court, CourtAdmin } = require("./models/cao")
 
 app.use(cors({
     origin: 'http://localhost:5173', // Change this to your React app's URL
@@ -17,6 +21,7 @@ app.use(cors({
 
 const port = process.env.PORT || 5000;
 app.use(express.json());
+
 app.use("/client", clientRouters)
 app.use("/court", courtRouters)
 app.use("/cao", caoRouters)
@@ -35,10 +40,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/eportalDB', {
 .catch((err) => {
     console.error("Error connecting to MongoDB:", err.message)
 })
-// app.use("/client", clientRouters)
-// app.use("/advocate", AdvRouters);
-// app.use("/cao",caoRouters)
-// const { Court, CourtAdmin } = require('./models/cao'); // Import the models
+app.use("/client", clientRouters)
+app.use("/advocate", AdvRouters);
+app.use("/cao",caoRouters)
+const { Court, CourtAdmin } = require('./models/cao');
+// Import the models
+app.use("/file",partyinperson)
 
 // // Suppose you have the ObjectId of an existing Court document
 // const courtId = '658855903eb9ee3ac6cefad2'; // Replace with your valid Court ObjectId

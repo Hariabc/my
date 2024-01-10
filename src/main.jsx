@@ -12,9 +12,17 @@ import SetPassword from './components/Setpassword';
 import Advpassword from "./components/privateAdvpassword.jsx";
 import PaymentComponent from './dashborad-components/payment.jsx'
 import AdvocateList from './dashborad-components/AdvoacateList.jsx'
-import FileUploader from './dashborad-components/Sendingfiles.jsx'
+import FileUploader from './dashborad-components/Sendingfiles.jsx';
+import EventForm from './Features/EventForm.jsx';
+import VideoConference from './Features/Video_Conference/VideoConference.jsx';
+import JudgeConference from './Features/JudgeConference.jsx';
+import Conference from './Features/Video_Conference/Conference.jsx';
 import CaseFilingForm from './dashborad-components/FileACase.jsx';
 import FileACaseMin from './dashborad-components/FileACaseMin.jsx';
+import HomeCon from './Features/Video_Conference/homeCon.jsx';
+import Room from './Features/Video_Conference/Room.jsx';
+import AdvocateConference from './Features/AdvocateConference.jsx';
+import CaseTracking from './dashborad-components/CaseTracking.jsx';
 import "./index.css"
 import Layout from './components/Layout.jsx';
 import AddUsers from './dashborad-components/AddUsers.jsx';
@@ -55,6 +63,15 @@ const App = () => {
           <Route path="/judge/register/complete/:token" element={<JudgeReg/>} />
           <Route path='/chat' element={<Chat/>}/> 
           <Route path='/temp' element={<Apps/>}/> 
+          <Route path='/casefilingform' element={<CaseFilingForm/>}/>
+          <Route path='/fileacase' element={<FileACaseMin/>}/>
+          <Route path='/pre-trial' element={<VideoConference/>}/>
+          <Route path='/schedule-pre-trial' element={<JudgeConference/>}/>
+          <Route path='/scheduling-calendar' element={<EventForm/>}/>
+          <Route path="/homecon" element={<HomeCon/>}/>
+          <Route path='/room/:roomID' element={<Room/>}/>
+          <Route path='pre-trial-conferencing' element={<AdvocateConference/>}/>
+          <Route path='/case-tracking' element={<CaseTracking/>}/>
         </Route>
       </Routes>
       </AuthProvider>
@@ -68,3 +85,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <App />
   </React.StrictMode>
 );
+
+

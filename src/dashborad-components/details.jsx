@@ -1,13 +1,7 @@
-// PrivateAdvocate.js
-
 import React, { useState } from 'react';
-import AdvocateList from './AdvoacateList';
+import './partyinperson.css';
 
-
-import './privateadvocate.css';
-
-
-const PrivateAdvocate = () => {
+const PartyInPersonForm = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     gender: '',
@@ -29,6 +23,10 @@ const PrivateAdvocate = () => {
     courtDivision: '',
     caseCategory: '',
     filingFee: '',
+    // New fields for Contact Details
+    partyEmailAddresses: '',
+    partyPhoneNumbers: '',
+    partyAddresses: '',
     pinCode: '',
     occupation: '',
     state:'',
@@ -805,7 +803,7 @@ const DocumentsForm = () => {
       <h2 className="form-section-title">Documents Uploading</h2>
       {isDocumentsFormSubmitted ? (
         // Render case details form if defendant form is submitted
-        <ChooseAdvocate />
+        <CourtFeePaymentForm />
       ) : (
         // Render defendant form if it's not submitted
 
@@ -836,81 +834,75 @@ const DocumentsForm = () => {
   );
 };
 
-const ChooseAdvocate = () => {
-  const [chosenAdvocate, setChosenAdvocate] = useState(null);
-  const [clientAdvocates, setClientAdvocates] = useState([]);
-  const [isChooseAdvocateSubmitted, setChooseAdvocateSubmitted] = useState(false);
+const CourtFeePaymentForm = () => {
+  const [paymentFormData, setPaymentFormData] = useState({
+    paymentMethod: '',
+    cardNumber: '',
+    expiryDate: '',
+    cvv: '',
+  });
 
-  const privateAdvocates = [
-    { id: 1, name: 'John Doe', specialization: 'Family Law' },
-    { id: 2, name: 'Jane Doe', specialization: 'Criminal Law' },
-    // Add more private advocates as needed
-  ];
+  const [isCourtFeePaymentFormSubmitted, setCourtFeePaymentFormSubmitted] = useState(false);
 
-  const handleChooseAdvocate = (advocate) => {
-    setChosenAdvocate(advocate);
-    setChooseAdvocateSubmitted(true);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPaymentFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  const handleAddAdvocate = () => {
-    setClientAdvocates((prevAdvocates) => [...prevAdvocates, chosenAdvocate]);
-    setChosenAdvocate(null);
-    setChooseAdvocateSubmitted(false);
-  };
-
-  const handleRemoveAdvocate = () => {
-    setChosenAdvocate(null);
-    setChooseAdvocateSubmitted(false);
-  };
-
-  const handleSendRequest = () => {
-    // Implement logic to send request with selected advocates
-    console.log('Sending request with advocates:', clientAdvocates);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Add logic to handle payment submission, e.g., send to server
+    console.log('Payment submitted:', paymentFormData);
+    // You may want to redirect or show a success message after submission
+    setCourtFeePaymentFormSubmitted(true);
   };
 
   return (
-    <div className="chooseadvocate-form">
-      <h2 className="form-section-title">Choosing Advocate</h2>
-
-      {/* Use the new component */}
-      <AdvocateList privateAdvocates={privateAdvocates} onChooseAdvocate={handleChooseAdvocate} />
-
-      <div className="client-advocates-section">
-        <h3 className="section-title">Your Advocates</h3>
-        <ul>
-          {clientAdvocates.map((advocate, index) => (
-            <li key={index}>
-              <p>Name: {advocate.name}</p>
-              <p>Specialization: {advocate.specialization}</p>
-              {/* Add more advocate details as needed */}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="submit-section">
-        {!chosenAdvocate ? (
-          <button
-            type="button"
-            onClick={() => handleAddAdvocate(chosenAdvocate)}
-            className="submit-button"
-          >
-            Add Advocate
+    <div className="court-fee-payment-form">
+      <h2 className="form-section-title">Court Fee Payment</h2>
+      
+      <form onSubmit={handleSubmit} className="form-grid">
+        <div className='court-fee-section'>
+          <h3 className='section-title' >Make Payment</h3>
+          <div className='grid-half'>
+        <label className="form-label">
+          Payment Method:
+          <select name="paymentMethod" onChange={handleChange} className="form-input">
+            <option value="">Select Payment Method</option>
+            <option value="creditCard">Credit Card</option>
+            <option value="debitCard">Debit Card</option>
+            <option value="netBanking">Net Banking</option>
+          </select>
+        </label>
+        <label className="form-label">
+          Card Number:
+          <input type="text" name="cardNumber" onChange={handleChange} className="form-input" />
+        </label>
+        <label className="form-label">
+          Expiry Date:
+          <input type="text" name="expiryDate" onChange={handleChange} className="form-input" />
+        </label>
+        <label className="form-label">
+          CVV:
+          <input type="text" name="cvv" onChange={handleChange} className="form-input" />
+        </label>
+        </div>
+        </div>
+        {/* Submit Button for Court Fee Payment Form */}
+        <div className="submit-section">
+          <button type="submit" className="submit-button">
+            Submit Payment
           </button>
-        ) : (
-          <button type="button" onClick={handleRemoveAdvocate} className="submit-button">
-            Remove Advocate
-          </button>
-        )}
-
-        {clientAdvocates.length > 0 && (
-          <button type="button" onClick={handleSendRequest} className="submit-button">
-            Send Request
-          </button>
-        )}
-      </div>
+        </div>
+      </form>
     </div>
   );
 };
 
-export default PrivateAdvocate;
+
+
+
+export default PartyInPersonForm;

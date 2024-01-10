@@ -1,0 +1,21 @@
+/* VideoConference.css */
+
+/* Style for the message when there are no scheduled conferences */
+.message-container {
+    text-align: center;
+    margin: 20px;
+    padding: 10px;
+    background-color: #f8d7da; /* Use your preferred background color */
+    color: #721c24; /* Use your preferred text color */
+    border: 1px solid #f5c6cb; /* Use your preferred border color */
+    border-radius: 5px;
+  }
+  
+  /* Style for the welcome message */
+  .welcome-message {
+    text-align: center;
+    margin: 20px;
+    font-size: 24px; /* Use your preferred font size */
+    color: #007bff; /* Use your preferred text color */
+  }
+  

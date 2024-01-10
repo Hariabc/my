@@ -1,0 +1,66 @@
+/* VideoConference.css */
+
+.video-conference-container {
+  margin: 20px;
+}
+
+.video-conference-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.conference-list {
+  list-style: none;
+  padding: 0;
+}
+
+.conference-list-item {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.conference-details {
+  flex: 2;
+}
+
+.conference-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.conference-description {
+  font-size: 1rem;
+  color: #555;
+}
+
+.conference-date {
+  font-size: 1rem;
+  color: #888;
+}
+
+.conference-buttons {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.join-button {
+  background-color: #3498db;
+  color: white;
+  font-weight: bold;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-out;
+}
+
+.join-button:hover {
+  background-color: #2980b9;
+}
