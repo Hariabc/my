@@ -38,7 +38,7 @@ const meetingSchema = new mongoose.Schema({
 });
 
 // Create Meeting model
-const MeetingModel = mongoose.model('Meeting', meetingSchema);
+// const MeetingModel = mongoose.model('Meeting', meetingSchema);
 
 // API Endpoint to Create a Meeting
 app.post('/api/conferences', async (req, res) => {
