@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import StateDistrictSelector from './Dropdown2';
 const DefendantDetailsForm = ({ onChange, onNext, onBack }) => {
   const [defendantData, setDefendantData] = useState({
     fullName: '',
@@ -31,6 +31,15 @@ const DefendantDetailsForm = ({ onChange, onNext, onBack }) => {
     // console.log(defendantData);
     onNext();
   };
+
+  const handleStateSelect = (selectedState) => {
+    setDefendantData({ ...defendantData, state: selectedState });
+  };
+
+  const handleDistrictSelect = (selectedDistrict) => {
+    setDefendantData({ ...defendantData, district: selectedDistrict });
+  };
+
 
   return (
     <div className="defendant-form">
@@ -185,34 +194,10 @@ const DefendantDetailsForm = ({ onChange, onNext, onBack }) => {
             <div className="state-details-section">
               <h3 className="section-title">State Details</h3>
               <div className="grid-half">
-                <label className="form-label">
-                  State:
-                  <select
-                    name="state"
-                    value={defendantData.state}
-                    onChange={handleChange}
-                    className="form-input"
-                  >
-                    <option value="">Select State</option>
-                    <option value="state1">State 1</option>
-                    <option value="state2">State 2</option>
-                    {/* Add more options as needed */}
-                  </select>
-                </label>
-                <label className="form-label">
-                  District:
-                  <select
-                    name="district"
-                    value={defendantData.district}
-                    onChange={handleChange}
-                    className="form-input"
-                  >
-                    <option value="">Select District</option>
-                    <option value="district1">District 1</option>
-                    <option value="district2">District 2</option>
-                    {/* Add more options as needed */}
-                  </select>
-                </label>
+              <StateDistrictSelector
+            onSelectState={handleStateSelect}
+            onSelectDistrict={handleDistrictSelect}
+          />
               </div>
               <div className="grid-half">
                 <label className="form-label">

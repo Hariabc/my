@@ -1,0 +1,33 @@
+.container {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  font-size: 18px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.details {
+  margin-bottom: 20px;
+}
+
+.details p {
+  margin: 5px 0;
+}
+
+.loading {
+  font-size: 18px;
+  text-align: center;
+  margin-top: 50px;
+}

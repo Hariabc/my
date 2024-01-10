@@ -45,13 +45,13 @@ const AdminDashboard = () => {
   }, []);
 
   const linksData = [
-    { path: "/receive-filed-cases", label: "Receive Filed Cases", image: recievecases},
+    { path: "/mycases", label: "Receive Filed Cases", image: recievecases},
     { path: "/assign-judge-lawyer", label: "Assigging judges", image: assignjudge },
     { path: "/documentation", label: "Documentation", image: Documentation },
     { path: "/update-cause-list", label: "Updating Cause List", image: updatecauselist},
     { path: "/scheduling-calendar", label: "Scheduling Calendar", image: scheduling },
     { path: "/case-analytics", label: "Cases Analytics", image: caseanalytics },
-    { path: "/add-advocates-judges", label: "Register Public advocates and Judges", image: addlawyers },
+    { path: "/addjudge-publicadv", label: "Register Public advocates and Judges", image: addlawyers },
     { path: "/post-updates-news", label: "Posting Updates News", image: news },
     { path: "/send-notifications", label: "Notifications", image: notifications },
     { path: "/case-profile-management", label: "Case Management", image: resources },
@@ -79,7 +79,7 @@ const AdminDashboard = () => {
       <div className="admin-body">
         <div className="admin-dashboard-boxes">
           {linksData.map((link, index) => (
-            <Link key={index} to={`/admin${link.path}`} className="dashboard-box">
+            <Link key={index} to={`/cao${link.path}`} className="dashboard-box">
               {link.image && <img src={link.image} alt={link.label} />}
               <h3 style={{color:"black"}}>{link.label}</h3>
             </Link>

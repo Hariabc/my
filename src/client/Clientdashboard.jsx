@@ -24,6 +24,8 @@ import axios from 'axios';
 import { IoMdChatbubbles } from 'react-icons/io';
 import Chat from '../Chat/Chat';
 import { MdOutlineClose } from "react-icons/md";
+
+
 const FAQ_DATA = [
   {
     question: 'Q: How do I track the progress of my case?',
@@ -74,33 +76,23 @@ const linksData = [
   { path: "/payment", label: "Payments", image: payment },
   { path: "/advocatelist", label: "Private Advocate List", image: advocatelist },
   { path: "/cause-list", label: "Cause List", image: causelist },
-  { path: "/case-details", label: "Case Details", image: casedetails},
+  { path: "/mycases", label: "My Cases", image: casedetails},
   { path: "/scheduling-calendar", label: "Scheduling Calendar", image: scheduling},
   { path: "/case-analytics", label: "Case Analytics", image: caseanalytics },
   { path: "/case-tracking", label: "Case Tracking", image: casetracking,}
 
 ];
 
-
 const COAdashboard = () => {
   const [showAnswers, setShowAnswers] = useState({});
   const [userData, setUserData] = useState({});
+  const [showChatButton, setShowChatButton] = useState(false);
   const [showChat, setShowChat] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleChatButtonClick = () => {
     setModalIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalIsOpen(false);
-    setShowChat(false);
-  };
-
-  const navigate = useNavigate();
-
-  const handleProfileClick = () => {
-    navigate('/profile');
+    setShowChat(true);
   };
 
   useEffect(() => {
@@ -129,6 +121,17 @@ const COAdashboard = () => {
 
   const handleMouseLeave = () => {
     setShowChatButton(false);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setShowChat(false);
+  };
+
+  const navigate = useNavigate();
+
+  const handleProfileClick = () => {
+    navigate('/profile');
   };
 
   return (
@@ -169,8 +172,8 @@ const COAdashboard = () => {
           transition={{ duration: 0.5, delay: 0.4 }}
         >
           {linksData.map((link, index) => (
-            <Link key={index} to={link.path} className="dashboard-box">
-              {link.image && <motion.img src={link.image} />}
+            <Link key={index} to={`/client${link.path}`} className="dashboard-box">
+              {link.image && <img src={link.image} alt={link.label} />}
               <h3 style={{ color: "black" }}>{link.label}</h3>
             </Link>
           ))}
@@ -204,8 +207,8 @@ const COAdashboard = () => {
           </div>
         ))}
       </motion.div>
-      <div>
-      <div className={`chat-button ${showChat ? 'show' : ''}`}>
+
+      <div className={`chat-button ${showChatButton ? 'show' : ''}`}>
         <button className='chat-btn' onClick={handleChatButtonClick}>
           <IoMdChatbubbles className="chat-icon" size={20} />
           Chat
@@ -218,16 +221,12 @@ const COAdashboard = () => {
         contentLabel="Chat Modal"
       >
         <div className="chat-component">
-          <MdOutlineClose onClick={closeModal} size={30} style={{marginLeft:'97%'}}>Close Chat</MdOutlineClose>
+          <MdOutlineClose onClick={closeModal} size={30} style={{ marginLeft: '97%' }}>Close Chat</MdOutlineClose>
           <Chat />
         </div>
       </Modal>
-    </div>
-      
     </motion.div>
   );
 };
 
 export default COAdashboard;
-
-

@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require("../models/cao");
+
 const authenticateToken = async (req, res, next) => {
     try {
         const token = req.cookies.jwtoken; // Ensure this matches the cookie name
@@ -24,4 +25,3 @@ const authenticateToken = async (req, res, next) => {
 };
 
 module.exports = authenticateToken;
-

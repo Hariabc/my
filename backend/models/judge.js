@@ -9,7 +9,7 @@ const judgeSchema = new mongoose.Schema({
       type: String,
       required: true
   },
-  name: {
+   name: {
     type: String,
     required: true
     },
@@ -30,7 +30,7 @@ const judgeSchema = new mongoose.Schema({
     },
     gender: {
       type: String,
-      enum: ['Male', 'Female', 'Other'],
+      enum: ['male', 'female', 'other'],
       required: true
     },
     education: {
@@ -41,9 +41,9 @@ const judgeSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Court'
     },
-    courtAdminId: {
-        type: String,
-        required:true
+  courtAdmin: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref:'CourtAdmin'
     },
     cases: [
       {

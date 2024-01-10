@@ -1,4 +1,3 @@
-// Dropdown.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -97,5 +96,4 @@ const Dropdown = ({ onSelectCourt }) => {
     </div>
   );
 };
-
 export default Dropdown;

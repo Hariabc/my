@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import './toast.css'
+
 
 const PaymentDetailsForm = ({ onChange }) => {
   const [paymentDetails, setPaymentDetails] = useState({
@@ -9,6 +12,9 @@ const PaymentDetailsForm = ({ onChange }) => {
     saveCardDetails: false,
   });
 
+  
+
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setPaymentDetails((prevPaymentDetails) => ({
@@ -25,6 +31,7 @@ const PaymentDetailsForm = ({ onChange }) => {
 
   return (
     <div className="court-fee-payment-form">
+      <ToastContainer/>
       <h2 className="form-section-title">Court Fee Payment</h2>
 
       <form onSubmit={handleNext} className="form-grid" method='POST'>

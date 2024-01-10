@@ -34,6 +34,11 @@ import { AuthProvider } from './AuthContext'; // assuming you have AuthContext s
 import Chat from './Chat/Chat.jsx';
 import Apps from './Temp.jsx';
 
+import Casefileopt from "./client_dashboard/CaseFileOpt.jsx"
+import ClientCases from './client_dashboard/casedetails.jsx'
+import IndividualCasesID from './client_dashboard/individulcases.jsx'
+import Mycases from './Admin_dashboard_components/Mycases.jsx'
+import AddUsers from './Admin_dashboard_components/publicadv_judgeregister.jsx'
 const App = () => {
   return (
     <Router>
@@ -72,6 +77,17 @@ const App = () => {
           <Route path='/room/:roomID' element={<Room/>}/>
           <Route path='pre-trial-conferencing' element={<AdvocateConference/>}/>
           <Route path='/case-tracking' element={<CaseTracking/>}/>
+          <Route path="/judge/register/complete/:token" element={<JudgeReg />} />
+          <Route path="/client/fileacase" element={<Casefileopt />} />
+          <Route path="/client/mycases" element={<ClientCases/>} />
+          <Route path="/client/mycases/:caseId" element={<IndividualCasesID />} />
+          <Route path="/cao/mycases" element={<Mycases />} />
+          <Route path="/cao/addjudge-publicadv" element={<AddUsers/>} />
+          
+          
+          
+          
+          
         </Route>
       </Routes>
       </AuthProvider>

@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 const authMiddleware = require("../middleware/advAuthMiddleware");
 const session = require('express-session');
 const cookie = require("cookie-parser")
+const CourtAdmin=require('../models/cao')
 // router.use(
 //   session({
 //     secret: 'thisisasecretkeyforthisproject',
@@ -103,12 +104,18 @@ const sendSetPasswordEmail = async (email, token, firstName) => {
 // Route for public advocate registration
 router.post('/public/register', async (req, res) => {
   try {
-    const { email } = req.body;
+    const { email, courtAdminId } = req.body;
 
     const existingAdvocate = await Advocate.findOne({ email });
 
     if (existingAdvocate) {
       return res.status(400).json({ error: 'Email already exists.' });
+    }
+
+    const courtAdmin = await CourtAdmin.findOne({ courtAdminId });
+
+    if (!courtAdmin) {
+      return res.status(400).json({ error: 'Invalid Court Admin ID' });
     }
 
     const token = Math.random().toString(36).substr(2, 10);
@@ -126,24 +133,32 @@ router.post('/public/register', async (req, res) => {
       barAssociation: req.body.barAssociation,
       yearsOfPractice: req.body.yearsOfPractice,
       practiceArea: req.body.practiceArea,
-      courtAdminId:req.body.courtAdminId,
+      courtAdminId:courtAdmin._id,
       isPrivateAdvocate: false,
       isAppointedByCourtAdmin: true,
     });
+
     publicAdvocate.password_token = token;
     await publicAdvocate.save();
 
-    await sendSetPasswordEmail(publicAdvocate.email, token,publicAdvocate.firstName);
+    // Save Public Advocate ID in Court Admin's array
+    courtAdmin.Publicadvocates.push(publicAdvocate._id);
+    await courtAdmin.save();
+
+    // Save Court Admin's ID in Public Advocate's field
+    // publicAdvocate.courtAdminMail = courtAdmin.email;
+    // await publicAdvocate.save();
+
+    await sendSetPasswordEmail(publicAdvocate.email, token, publicAdvocate.firstName);
 
     res.status(200).json({
       message: 'Public advocate registered by court admin successfully. Please check your email to complete the registration.',
     });
   } catch (error) {
-    res.status(500).json({
-      error
-    });
+    res.status(500).json({ error:error.message });
   }
 });
+
 
 // Complete the registration for a public advocate
 router.post('/register/complete/:token', async (req, res) => {
@@ -170,7 +185,7 @@ router.post('/register/complete/:token', async (req, res) => {
     return res.status(200).json({ message: 'Registration completed successfully.' });
   } catch (err) {
     // Handle errors
-    return res.status(500).json({ error: 'An error occurred while completing the registration.', message: err.message });
+    return res.status(500).json({ error: 'An error occurred while completing the registration.', message: err });
   }
 });
 
