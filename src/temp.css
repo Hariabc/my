@@ -72,7 +72,7 @@
   }
 .dashborad-element-container {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr; /* Adjust the column width as needed */
+  grid-template-rows: 1fr 1fr; /* Adjust the column width as needed */
   gap: 20px; /* Adjust the gap between grid items as needed */
 }
 
@@ -81,6 +81,28 @@
 }
 
 .selected-component-container {
-  grid-column: 2 / span 1; /* Adjust the column span for the selected component container */
+  grid-column: 2 / span 1; 
+  margin: 30px;/* Adjust the column span for the selected component container */
 }
 
+.dashboard-boxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr; 
+}
+
+.dashboard-box {
+  text-align: center;
+  text-decoration: none;
+  color: #000;
+  border-radius: 8px;
+  width:auto;
+}
+
+.dashboard-box:hover {
+  transform: scale(1.05);
+}
+
+.dashboard-box img {
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
