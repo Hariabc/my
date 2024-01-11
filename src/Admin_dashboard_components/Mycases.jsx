@@ -1,12 +1,17 @@
+// AdminDashboard.js
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Mycases.css'; // Import your CSS file
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const AdminDashboard = () => {
   const [cases, setCases] = useState([]);
   const [filteredCases, setFilteredCases] = useState([]);
   const [filterType, setFilterType] = useState('');
   const [selectedCase, setSelectedCase] = useState(null);
+  const [approveOptionsVisible, setApproveOptionsVisible] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,8 +40,10 @@ const AdminDashboard = () => {
   };
 
   const handleApprove = (caseId) => {
-    // Handle approve action
-    console.log(`Approved case with ID: ${caseId}`);
+    // Set state to show approve options modal
+    setApproveOptionsVisible(true);
+    // Set the selected case
+    setSelectedCase(cases.find((caseItem) => caseItem._id === caseId));
   };
 
   const handleReject = (caseId) => {
@@ -48,8 +55,33 @@ const AdminDashboard = () => {
     setSelectedCase(caseItem);
   };
 
-  const closeCaseDetailsModal = () => {
+  const handleAssignJudge = () => {
+    // Handle assign judge action
+    console.log(`Assigned Judge for case with ID: ${selectedCase._id}`);
+    // Add logic or API calls for assigning a judge
+
+    // Close the modal
+    setApproveOptionsVisible(false);
+  };
+
+  const handleAssignPublicAdvocate = () => {
+    // Handle assign public advocate action
+    console.log(`Assigned Public Advocate for case with ID: ${selectedCase._id}`);
+    // Add logic or API calls for assigning a public advocate
+
+    // Close the modal
+    setApproveOptionsVisible(false);
+  };
+
+  const closeApproveOptionsModal = () => {
+    // Close the modal without taking any action
+    setApproveOptionsVisible(false);
     setSelectedCase(null);
+  };
+
+  const closeCaseDetailsModal = () => {
+  setApproveOptionsVisible(false);
+   setSelectedCase(null);
   };
 
   return (
@@ -99,60 +131,76 @@ const AdminDashboard = () => {
         </table>
       </div>
 
-      {/* // ... (previous code) */}
-
-{selectedCase && (
-  <div className="overlay">
-    <div className="modal">
-      <div className="modal-content">
-        {/* <h2>Case Details</h2> */}
-
-        {/* Plaintiff Details Section */}
-        <div className="section">
+      {selectedCase && (
+        <div className="overlay">
+          <div className="modal">
+            <div className="modal-content">
+              {/* Case Details Sections and other details... */}
+              <div className="section">
           <h3>Plaintiff Details</h3>
           <p>Name: {selectedCase.plaintiffDetails.fullName}</p>
                 <p>Gender: {selectedCase.plaintiffDetails.gender}</p>
                 <p>Age: {selectedCase.plaintiffDetails.age}</p>
+                <p>Email Address: {selectedCase.plaintiffDetails.partyEmailAddresses}</p>
+                <p>Phone Number: {selectedCase.plaintiffDetails.partyPhoneNumbers}</p>
+                <p>Relation: {selectedCase.plaintiffDetails.relation}</p>
                 <p>Address: {selectedCase.plaintiffDetails.partyAddress}</p>
-                <p>Gender: {selectedCase.plaintiffDetails.gender}</p>
-                <p>Gender: {selectedCase.plaintiffDetails.gender}</p>
-                <p>Gender: {selectedCase.plaintiffDetails.gender}</p>
-                <p>Gender: {selectedCase.plaintiffDetails.gender}</p>
-          {/* Add more plaintiff details as needed */}
+                <p>State: {selectedCase.plaintiffDetails.state}</p>
+                <p>District: {selectedCase.plaintiffDetails.district}</p>
+         
         </div>
-
-        {/* Defendant Details Section */}
         <div className="section">
           <h3>Defendant Details</h3>
           <p>Name: {selectedCase.defendantDetails.fullName}</p>
-          <p>Gender: {selectedCase.defendantDetails.gender}</p>
-          {/* Add more defendant details as needed */}
-        </div>
-
-        {/* Case Details Section */}
-        <div className="section">
+                <p>Gender: {selectedCase.defendantDetails.gender}</p>
+                <p>Age: {selectedCase.defendantDetails.age}</p>
+                <p>Email Address: {selectedCase.defendantDetails.partyEmailAddresses}</p>
+                <p>Phone Number: {selectedCase.defendantDetails.partyPhoneNumbers}</p>
+                <p>Relation: {selectedCase.defendantDetails.relation}</p>
+                <p>Address: {selectedCase.defendantDetails.partyAddress}</p>
+                <p>State: {selectedCase.defendantDetails.state}</p>
+                <p>District: {selectedCase.defendantDetails.district}</p>
+              </div> 
+              <div className="section">
           <h3>Case Details</h3>
-          <p>Case Type: {selectedCase.filecasetype}</p>
-          <p>Title: {selectedCase.caseTitle}</p>
-          <p>Case Summary: {selectedCase.caseSummary}</p>
-          {/* Add more case details as needed */}
-        </div>
-
-        {/* Payment Details Section */}
-        <div className="section">
+          <p>Case : {selectedCase.filecasetype}</p>
+                <p>Title: {selectedCase.caseDetails.title}</p>
+                <p>Case-Type : {selectedCase.caseDetails.caseType}</p>
+                <p>Case-Summary : {selectedCase.caseDetails.caseSummary}</p>
+                <p>Cause of Action : {selectedCase.caseDetails.causeOfAction}</p>
+                <p>Date of cause of action: {selectedCase.caseDetails.dateOfCauseOfAction}</p>
+                <p>Relief-Sought: {selectedCase.caseDetails.reliefSought}</p>
+                <p>Court State : {selectedCase.caseDetails.courtState}</p>
+                <p>Court District : {selectedCase.caseDetails.courtDistrict}</p>
+                <p>Court Name : {selectedCase.caseDetails.courtName}</p>
+              </div>
+              <div className="section">
           <h3>Payment Details</h3>
           <p>Payment Method: {selectedCase.paymentDetails.paymentMethod}</p>
-          {/* Add more payment details as needed */}
+              </div>
+              {approveOptionsVisible && (
+                <div className="overlay">
+                  <div className="modal">
+                    <div className="modal-content">
+                      <h2>Approve Options</h2>
+                      <p>Choose an option to proceed:</p>
+                      <button onClick={handleAssignJudge} className='assign-btn'>Approve for Assigning Judge</button>
+                      <button onClick={handleAssignPublicAdvocate} className='assign-btn'>Approve for Assigning Public Advocate</button>
+                      <button onClick={closeApproveOptionsModal} className='close-btn'>
+                        <FontAwesomeIcon icon={faTimes} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <button className="close-btn" onClick={closeCaseDetailsModal}>
+                <FontAwesomeIcon icon={faTimes} />
+              </button>
+            </div>
+          </div>
         </div>
-
-        <button onClick={closeCaseDetailsModal}>Close</button>
-      </div>
-    </div>
-  </div>
-)}
-
-{/* // ... (remaining code) */}
-
+      )}
     </div>
   );
 };
