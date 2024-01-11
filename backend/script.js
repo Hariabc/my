@@ -9,6 +9,8 @@ const caoRouters = require("./routers/caoRouters")
 const courtRouters = require(".//routers/court")
 const judgeRouters = require("./routers/judge")
 const PartyinpersonRouter = require("./routers/PartyInPerson")
+// const { MongoClient, ServerApiVersion } = require('mongodb');
+
 
 app.use(cors({
     origin: 'http://localhost:5173', // Change this to your React app's URL
@@ -26,7 +28,25 @@ app.use("/judge", judgeRouters);
 app.use("/file",PartyinpersonRouter)
 
 
-mongoose.connect('mongodb://127.0.0.1:27017/eportalDB', {
+// MongoDB connection URI with authentication credentials
+const uri = "mongodb+srv://kasojusaiteja10:NScp7nXc2sFJU9wG@cluster0.0wflstm.mongodb.net/eportalDB?retryWrites=true&w=majority";
+
+// Create a new MongoClient
+// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// async function run() {
+//   try {
+//     await client.connect();
+//     console.log("Connected to MongoDB!");
+//   } catch (error) {
+//     console.error("Error connecting to MongoDB:", error);
+//   } finally {
+//     await client.close();
+//   }
+// }
+
+// run().catch(console.error);
+mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -36,6 +56,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/eportalDB', {
 .catch((err) => {
     console.error("Error connecting to MongoDB:", err.message)
 })
+
+
 // app.use("/client", clientRouters)
 // app.use("/advocate", AdvRouters);
 // app.use("/cao",caoRouters)
