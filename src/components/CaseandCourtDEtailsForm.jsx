@@ -69,12 +69,14 @@ const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
                     name="caseType"
                     value={caseDetails.caseType}
                     onChange={handleChange}
+                    required
                     className="form-input"
                   >
                     <option value="">Select Case Type</option>
                     <option value="civil">Civil</option>
                     <option value="criminal">Criminal</option>
                     {/* Add more options as needed */}
+                    
                   </select>
                 </label>
                 <label className="form-label">
@@ -84,6 +86,7 @@ const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
                     name="title"
                     value={caseDetails.title}
                     onChange={handleChange}
+                    required
                     className="form-input"
                   />
                 </label>
@@ -93,6 +96,7 @@ const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
                     name="caseSummary"
                     value={caseDetails.caseSummary}
                     onChange={handleChange}
+                    required
                     className="form-input"
                   />
                 </label>
@@ -103,6 +107,7 @@ const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
                     name="causeOfAction"
                     value={caseDetails.causeOfAction}
                     onChange={handleChange}
+                    required
                     className="form-input"
                   />
                 </label>
@@ -113,6 +118,7 @@ const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
                     name="reliefSought"
                     value={caseDetails.reliefSought}
                     onChange={handleChange}
+                    required
                     className="form-input"
                   />
                 </label>
@@ -123,6 +129,7 @@ const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
                     name="dateOfCauseOfAction"
                     value={caseDetails.dateOfCauseOfAction}
                     onChange={handleChange}
+                    required
                     className="form-input"
                   />
                 </label>
@@ -143,6 +150,7 @@ const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
                     name="taluka"
                     value={caseDetails.taluka}
                     onChange={handleChange}
+                    required
                     className="form-input"
                   />
                 </label>
@@ -153,6 +161,7 @@ const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
                     name="village"
                     value={caseDetails.village}
                     onChange={handleChange}
+                    required
                     className="form-input"
                   />
                 </label>

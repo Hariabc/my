@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import StateDistrictSelector from './Dropdown2';
+import "./PlantiffDetailsForm.css";
+
+
+
+
 const PlaintiffDetailsForm = ({ onChange, onNext }) => {
   const [plaintiffData, setPlaintiffData] = useState({
     fullName: '',
@@ -20,17 +25,15 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
     // Add more plaintiff fields as needed
   });
 
+  const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
+  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setPlaintiffData({ ...plaintiffData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onChange(plaintiffData);
-    console.log(plaintiffData)
-    onNext();
-  };
+  
   const handleStateSelect = (selectedState) => {
     setPlaintiffData({ ...plaintiffData, state: selectedState });
   };
@@ -38,6 +41,25 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
   const handleDistrictSelect = (selectedDistrict) => {
     setPlaintiffData({ ...plaintiffData, district: selectedDistrict });
   };
+
+  
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Display confirmation modal
+    setConfirmationModalOpen(true);
+  };
+
+  const handleConfirmation = (confirmed) => {
+    setConfirmationModalOpen(false);
+    if (confirmed) {
+      // If confirmed, proceed to the next step
+      onChange(plaintiffData);
+      onNext();
+    }
+  };
+
+  
   return (
     <div className="plaintiff-form" onSubmit={handleSubmit}>
       <h2 className="form-section-title">Plaintiff Details</h2>
@@ -53,6 +75,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="fullName"
                   value={plaintiffData.fullName}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
               </label>
@@ -62,6 +85,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="gender"
                   value={plaintiffData.gender}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 >
                   <option value="">Select Gender</option>
@@ -77,6 +101,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="dateOfBirth"
                   value={plaintiffData.dateOfBirth}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
               </label>
@@ -89,6 +114,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="caste"
                   value={plaintiffData.caste}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 >
                   <option value="">Select Caste</option>
@@ -105,6 +131,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="age"
                   value={plaintiffData.age}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
               </label>
@@ -114,6 +141,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="relation"
                   value={plaintiffData.relation}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 >
                   <option value="">Select Relation</option>
@@ -138,6 +166,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="partyEmailAddresses"
                   value={plaintiffData.partyEmailAddresses}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
               </label>
@@ -148,6 +177,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="partyPhoneNumbers"
                   value={plaintiffData.partyPhoneNumbers}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
               </label>
@@ -160,6 +190,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="partyAddresses"
                   value={plaintiffData.partyAddresses}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
               </label>
@@ -170,6 +201,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="pinCode"
                   value={plaintiffData.pinCode}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
               </label>
@@ -180,6 +212,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="occupation"
                   value={plaintiffData.occupation}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
               </label>
@@ -203,6 +236,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="taluka"
                   value={plaintiffData.taluka}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 >
                   <option value="">Select Taluka</option>
@@ -217,6 +251,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="village"
                   value={plaintiffData.village}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 >
                   <option value="">Select Village</option>
@@ -235,8 +270,17 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
             </button>
           </div>
         </form>
-      {/* )} */}
-    </div>
+
+        {/* Confirmation Modal */}
+      {confirmationModalOpen && (
+        <div className="confirmation-modal">
+          <p>Are you sure you want to submit the details?</p>
+          <button onClick={() => handleConfirmation(true)}>Yes</button>
+          <button onClick={() => handleConfirmation(false)}>No</button>
+        </div>
+      )}
+   </div>
+        
   );
 };
 
