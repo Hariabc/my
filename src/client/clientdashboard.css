@@ -141,3 +141,164 @@
   right: 19px;
 }
  */
+
+
+ /* temp.css */
+
+.dashboard-container {
+  display: flex;
+}
+
+.sidebar {
+  height: 100vh;
+  width: 60px;
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.sidebar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 20px; /* Adjust as needed */
+}
+
+.main-content {
+  flex: 1;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #ffffff;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.notification-icon {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.notification-badge {
+  background-color: red;
+  color: #fff;
+  border-radius: 50%;
+  padding: 5px;
+  margin-left: 5px;
+}
+
+.dashboard-heading {
+  font-size: 24px;
+  margin-bottom: 20px; /* Adjust as needed */
+}
+
+.updates {
+  height: 40vh;
+  width: 25vw;
+  background-color: #f4f5f7;
+  color:black;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+.dashborad-element-container {
+display: grid;
+grid-template-rows: 1fr 1fr; /* Adjust the column width as needed */
+gap: 20px; /* Adjust the gap between grid items as needed */
+}
+
+.selected-component-container {
+grid-column: 2 / span 1; 
+margin: 30px;/* Adjust the column span for the selected component container */
+}
+
+.briefcase-dashboard {
+display: grid;
+grid-template-rows: 1fr 1fr 1fr ; 
+}
+
+.dashboard-box {
+text-align: center;
+text-decoration: none;
+color: #000;
+border-radius: 8px;
+width:auto;
+}
+
+.dashboard-box:hover {
+transform: scale(1.05);
+}
+
+.dashboard-box img {
+border-radius: 8px;
+margin-bottom: 10px;
+}
+
+
+/* Add this to your external CSS file or style block */
+
+.briefcase-dashboard {
+margin: 20px;
+}
+
+.dashboard-box {
+width: 200px;
+margin: 10px;
+padding: 15px;
+border: 1px solid #ddd;
+border-radius: 8px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+transition: transform 0.3s ease-in-out;
+background-color: #fff;
+text-align: center;
+color: #333;
+text-decoration: none;
+}
+
+.dashboard-box:hover {
+transform: scale(1.05);
+}
+
+.dashboard-box img {
+max-width: 100%;
+height: auto;
+border-radius: 8px;
+margin-bottom: 10px;
+}
+
+.dashboard-box h3 {
+font-size: 16px;
+margin: 0;
+}
+
+.home-dashboard{
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+margin: 0 0;
+background-color: #f6f6fc;
+height: 100vh;
+}
+.cases{
+grid-column: span 2;
+}
+.dashboard-box{
+border-top: 3px solid blueviolet;
+}
+.dashboard-image{
+float: right;
+}
+.dashboard-box img{
+float: right;
+}

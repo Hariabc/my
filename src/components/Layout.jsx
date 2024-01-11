@@ -22,6 +22,7 @@ export default function Layout() {
           height: 4,
           transformOrigin: '0% 0%',
           backgroundColor: 'black',
+          zIndex:"9999"
         }}
       ></motion.div>
     {/* <Navbar/> */}

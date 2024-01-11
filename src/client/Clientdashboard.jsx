@@ -1,12 +1,25 @@
-// COAdashboard.js
-import React from 'react';
+import React, { useState } from 'react';
+import './clientdashboard.css';
+import {
+  IoHomeSharp,
+  IoBriefcaseSharp,
+  IoPersonSharp,
+  IoLogOutSharp,
+  IoChatbubblesSharp,
+  IoSettingsSharp,
+  IoHelpCircleSharp,
+} from 'react-icons/io5';
+import { IoNotificationsOutline } from 'react-icons/io5';
+import client from '../assets/client.png';
+import Chat from '../Chat/Chat';
+import Profile from '../client/Profile';
+import { FaMinus, FaPlus } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-import Modal from 'react-modal'
-import "./clientdashboard.css";
-import client from "../assets/client.png";
-import { Link ,useNavigate} from 'react-router-dom';
-import { IoIosArrowDropdownCircle } from "react-icons/io";
-import { CgProfile } from "react-icons/cg";
+import { Link } from 'react-router-dom';  // Import Link from react-router-dom
+import { useEffect } from "react";
+import axios from 'axios';
+
+
 import casefile from "../assets/DASHBOARDS/File a case.jpg";
 import confrence from "../assets/DASHBOARDS/video conference.jpg";
 import payment from "../assets/DASHBOARDS/payments.jpg";
@@ -17,14 +30,8 @@ import causelist from "../assets/DASHBOARDS/Cause List.jpg";
 import scheduling from "../assets/DASHBOARDS/Scheduling calender.jpg";
 import caseanalytics from "../assets/DASHBOARDS/case analytics.jpg";
 import advocatelist from "../assets/DASHBOARDS/Advocate list.jpg";
-import {FaMinus, FaPlus} from "react-icons/fa"
-import { IoNotifications } from "react-icons/io5";
-import { useState, useEffect } from "react";
-import axios from 'axios';
-import { IoMdChatbubbles } from 'react-icons/io';
-import Chat from '../Chat/Chat';
-import { MdOutlineClose } from "react-icons/md";
-
+import MyCases from '../client_dashboard/casedetails';
+import EventForm from '../Features/EventForm';
 
 const FAQ_DATA = [
   {
@@ -66,33 +73,35 @@ const FAQ_DATA = [
   {
     question: 'Q: Is there a chat app for communication with the legal team?',
     answer: 'A: Yes, you can use the integrated chat app in the "Chat App" section to communicate with your legal team, ask questions, and receive timely responses.',
-
-  }]
-
-const linksData = [
-  { path: "/fileacase", label: "File a Case", image: casefile },
-  { path: "/pre-trial", label: "Pre Trial", image: confrence },
-  { path: "/sendingfiles", label: "File Sharing", image: document },
-  { path: "/payment", label: "Payments", image: payment },
-  { path: "/advocatelist", label: "Private Advocate List", image: advocatelist },
-  { path: "/cause-list", label: "Cause List", image: causelist },
-  { path: "/mycases", label: "My Cases", image: casedetails},
-  { path: "/scheduling-calendar", label: "Scheduling Calendar", image: scheduling},
-  { path: "/case-analytics", label: "Case Analytics", image: caseanalytics },
-  { path: "/case-tracking", label: "Case Tracking", image: casetracking,}
-
+  },
 ];
 
-const COAdashboard = () => {
-  const [showAnswers, setShowAnswers] = useState({});
+const ClientDashboard = () => {
+  const [notifications, setNotifications] = useState(0);
+  const [selectedComponent, setSelectedComponent] = useState(null);
   const [userData, setUserData] = useState({});
-  const [showChatButton, setShowChatButton] = useState(false);
-  const [showChat, setShowChat] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleChatButtonClick = () => {
-    setModalIsOpen(true);
-    setShowChat(true);
+    setSelectedComponent(<Chat />);
+  };
+
+  const handleProfileClick = () => {
+    setSelectedComponent(<Profile />);
+  };
+
+  const handleHomeClick = () => {
+    setSelectedComponent(<HomeDashboard />);
+  };
+
+  const handleFaqClick = () => {
+    setSelectedComponent(<RenderFaq/>);
+  };
+  const handleBriefcaseClick = () => {
+    setSelectedComponent(<BriefcaseDashboard />);
+  };
+
+  const closeComponents = () => {
+    setSelectedComponent(null);
   };
 
   useEffect(() => {
@@ -100,6 +109,7 @@ const COAdashboard = () => {
       try {
         const response = await axios.get('http://localhost:5000/client/user', { withCredentials: true });
         setUserData(response.data.user);
+        setSelectedComponent(<BriefcaseDashboard />);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -108,6 +118,101 @@ const COAdashboard = () => {
     fetchUserData();
   }, []);
 
+  return (
+    <div className="dashboard-container">
+      <div className="sidebar">
+        <img
+          src={client}
+          alt=""
+          style={{
+            width: '50px',
+            height: '50px',
+            marginBottom: '100px',
+          }}
+        />
+        <IoHomeSharp
+          size={35}
+          color="#fff"
+          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          onClick={handleHomeClick}
+        />
+        <IoBriefcaseSharp
+          size={35}
+          color="#fff"
+          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          onClick={handleBriefcaseClick}
+        />
+        <IoPersonSharp
+          size={40}
+          color="#fff"
+          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          onClick={handleProfileClick}
+        />
+        <IoLogOutSharp size={35} color="#fff" style={{ paddingTop: '5px' }} />
+        <IoChatbubblesSharp
+          size={40}
+          color="#fff"
+          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          onClick={handleChatButtonClick}
+        />
+        <IoSettingsSharp size={35} color="#fff" style={{ paddingTop: '5px' }} />
+        <IoHelpCircleSharp
+          size={40}
+          color="#fff"
+          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          onClick={handleFaqClick}
+        />
+      </div>
+
+      <div className="main-content">
+        <div className="header">
+          <div className="user-info">
+            <div className="user-name">{userData ? userData.firstName : 'No username available'}</div>
+          </div>
+          <div className="notification-icon" onClick={() => setNotifications(notifications + 1)}>
+            {notifications > 0 && <span className="notification-badge">{notifications}</span>}
+            <IoNotificationsOutline size={30} />
+            <div className="logout-button" style={{paddingLeft:"20px"}}> 
+            <button>Logout</button>
+          </div>
+          </div>
+        </div>
+        <div className="dashboard-element-container">
+          <div className="selected-component-container">
+            {selectedComponent && <div className="selected-component">{selectedComponent}</div>}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ClientDashboard;
+
+const HomeDashboard = () => {
+  return (
+    <div className="home-dashboard">
+      <div className="cases">
+        <MyCases/>
+      </div>
+      <div className="updates">
+        <h3>Updates</h3>
+        <p className='temp-p'>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae justo non tellus
+          laoreet tincidunt. Donec et felis ligula. Integer sed sagittis odio, eu rhoncus libero.
+          Sed elementum augue vitae mauris ultricies, eu auctor nisl venenatis. Nullam quis semper
+          libero, vel scelerisque justo. Curabitur tristique, ex vitae accumsan interdum, justo
+          nisi scelerisque velit, a cursus urna ligula id purus. In tincidunt erat nec dolor
+          accumsan, eu sagittis ligula tempus.
+        </p>
+      </div>
+      {/* Add more components as needed */}
+    </div>
+  );
+};
+
+const RenderFaq = () => {
+  const [showAnswers, setShowAnswers] = useState({});
   const toggleAnswer = (questionId) => {
     setShowAnswers((prev) => ({
       ...prev,
@@ -115,118 +220,79 @@ const COAdashboard = () => {
     }));
   };
 
-  const handleMouseEnter = () => {
-    setShowChatButton(true);
-  };
-
-  const handleMouseLeave = () => {
-    setShowChatButton(false);
-  };
-
-  const closeModal = () => {
-    setModalIsOpen(false);
-    setShowChat(false);
-  };
-
-  const navigate = useNavigate();
-
-  const handleProfileClick = () => {
-    navigate('/profile');
-  };
-
   return (
     <motion.div
-      className="client-dashboard"
-      initial={{ opacity: 0, y: 10 }}
+      className="faq-box"
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.5 }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      transition={{ duration: 0.5, delay: 0.6 }}
     >
-      <div className='admin'>
-        <div className="logo-admin">
-          <img src={client} alt="ggg" />
-          <span><h2>Client Dashboard</h2></span>
-        </div>
-        <div className="logo-profile">
-          <span style={{color:"black"}}><h2 onClick={handleProfileClick}>{userData ? userData.firstName : 'No username available'}</h2></span>
-          <img src={client} alt="ggg" onClick={handleProfileClick} />
-          <IoNotifications size={32} style={{ paddingLeft: '10px' }} />
-          <button className="logout">Logout</button>
-        </div>
-      </div>
-
-      <motion.div
-        className="client-body"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        <motion.div
-          className="dashboard-boxes"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+      <h3>Frequently Asked Questions</h3>
+      {FAQ_DATA.map((faq, index) => (
+        <div
+          className={`faq-item ${showAnswers[`question${index + 3}`] ? 'active' : ''}`}
+          key={index}
         >
-          {linksData.map((link, index) => (
-            <Link key={index} to={`/client${link.path}`} className="dashboard-box">
-              {link.image && <img src={link.image} alt={link.label} />}
-              <h3 style={{ color: "black" }}>{link.label}</h3>
-            </Link>
-          ))}
-        </motion.div>
-      </motion.div>
-
-      <motion.div
-        className="faq-box"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
-      >
-        <h3>Frequently Asked Questions</h3>
-        {FAQ_DATA.map((faq, index) => (
-          <div
-            className={`faq-item ${showAnswers[`question${index + 3}`] ? 'active' : ''}`}
-            key={index}
-          >
-            <div className="faq-question" onClick={() => toggleAnswer(`question${index + 3}`)}>
-              <h4>{faq.question}</h4>
-              {showAnswers[`question${index + 3}`] ? (
-                <FaMinus className="icon" onClick={() => toggleAnswer(`question${index + 3}`)} style={{color:"black"}} />
-              ) : (
-                <FaPlus className="icon" onClick={() => toggleAnswer(`question${index + 3}`)} style={{color:"black"}} />
-              )}
-            </div>
-            {showAnswers[`question${index + 3}`] && (
-              <p>{faq.answer}</p>
+          <div className="faq-question" onClick={() => toggleAnswer(`question${index + 3}`)}>
+            <h4>{faq.question}</h4>
+            {showAnswers[`question${index + 3}`] ? (
+              <FaMinus
+                className="icon"
+                onClick={() => toggleAnswer(`question${index + 3}`)}
+                style={{ color: 'black' }}
+              />
+            ) : (
+              <FaPlus
+                className="icon"
+                onClick={() => toggleAnswer(`question${index + 3}`)}
+                style={{ color: 'black' }}
+              />
             )}
           </div>
-        ))}
-      </motion.div>
-
-      <div className={`chat-button ${showChatButton ? 'show' : ''}`}>
-        <button className='chat-btn' onClick={handleChatButtonClick}>
-          <IoMdChatbubbles className="chat-icon" size={20} />
-          Chat
-        </button>
-      </div>
-
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Chat Modal"
-      >
-        <div className="chat-component">
-          <MdOutlineClose onClick={closeModal} size={30} style={{ marginLeft: '97%' }}>Close Chat</MdOutlineClose>
-          <Chat />
+          {showAnswers[`question${index + 3}`] && <p>{faq.answer}</p>}
         </div>
-      </Modal>
+      ))}
     </motion.div>
   );
 };
 
-export default COAdashboard;
+
+
+const BriefcaseDashboard = () => {
+  const linksDataBriefcase = [
+    { path: "/fileacasemain", label: "File a Case", image: casefile },
+    { path: "/pre-trial", label: "Pre Trial", image: confrence },
+    { path: "/sendingfiles", label: "File Sharing", image: document },
+    { path: "/payment", label: "Payments", image: payment },
+    { path: "/advocatelist", label: "Private Advocate List", image: advocatelist },
+    { path: "/cause-list", label: "Cause List", image: causelist },
+    { path: "/client/mycases", label: "Case Details", image: casedetails },
+    { path: "/scheduling-calendar", label: "Scheduling Calendar", image: scheduling },
+    { path: "/case-analytics", label: "Case Analytics", image: caseanalytics },
+    { path: "/case-tracking", label: "Case Tracking", image: casetracking },
+  ];
+
+  return (
+    <div className="briefcase-dashboard">
+      <div className="z">
+      <motion.div
+        className="dashboard-boxes"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+      >
+        {linksDataBriefcase.map((link, index) => (
+          <Link key={index} to={link.path} className="dashboard-box">
+            {link.image && <motion.img src={link.image} alt={link.label} className='dashboard-image'/>} {/* Added alt attribute */}
+            <h3 style={{ color: 'black' }}>{link.label}</h3>
+          </Link>
+        ))}
+      </motion.div>
+      </div>
+    </div>
+  );
+};
+
+
