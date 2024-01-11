@@ -99,22 +99,62 @@ const AdminDashboard = () => {
         </table>
       </div>
 
-      {selectedCase && (
-        <div className="modal">
-          <div className="modal-content">
-          <h2>Case Details</h2>
-        <p>Case Title: {selectedCase.caseTitle}</p>
-        <p>Case Number: {selectedCase.caseNumber}</p>
-        <p>Case Type: {selectedCase.filecasetype}</p>
-        <p>Case Status: {selectedCase.caseStatus}</p>
-        <p>Case Description: {selectedCase.caseDescription}</p>
+      {/* // ... (previous code) */}
+
+{selectedCase && (
+  <div className="overlay">
+    <div className="modal">
+      <div className="modal-content">
+        {/* <h2>Case Details</h2> */}
+
+        {/* Plaintiff Details Section */}
+        <div className="section">
+          <h3>Plaintiff Details</h3>
+          <p>Name: {selectedCase.plaintiffDetails.fullName}</p>
+                <p>Gender: {selectedCase.plaintiffDetails.gender}</p>
+                <p>Age: {selectedCase.plaintiffDetails.age}</p>
+                <p>Address: {selectedCase.plaintiffDetails.partyAddress}</p>
+                <p>Gender: {selectedCase.plaintiffDetails.gender}</p>
+                <p>Gender: {selectedCase.plaintiffDetails.gender}</p>
+                <p>Gender: {selectedCase.plaintiffDetails.gender}</p>
+                <p>Gender: {selectedCase.plaintiffDetails.gender}</p>
+          {/* Add more plaintiff details as needed */}
+        </div>
+
+        {/* Defendant Details Section */}
+        <div className="section">
+          <h3>Defendant Details</h3>
+          <p>Name: {selectedCase.defendantDetails.fullName}</p>
+          <p>Gender: {selectedCase.defendantDetails.gender}</p>
+          {/* Add more defendant details as needed */}
+        </div>
+
+        {/* Case Details Section */}
+        <div className="section">
+          <h3>Case Details</h3>
+          <p>Case Type: {selectedCase.filecasetype}</p>
+          <p>Title: {selectedCase.caseTitle}</p>
+          <p>Case Summary: {selectedCase.caseSummary}</p>
+          {/* Add more case details as needed */}
+        </div>
+
+        {/* Payment Details Section */}
+        <div className="section">
+          <h3>Payment Details</h3>
+          <p>Payment Method: {selectedCase.paymentDetails.paymentMethod}</p>
+          {/* Add more payment details as needed */}
+        </div>
+
         <button onClick={closeCaseDetailsModal}>Close</button>
       </div>
     </div>
-  )}
+  </div>
+)}
 
-</div>
-);
+{/* // ... (remaining code) */}
+
+    </div>
+  );
 };
 
 export default AdminDashboard;
