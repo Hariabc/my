@@ -28,6 +28,8 @@ import causelist from "./assets/DASHBOARDS/Cause List.jpg";
 import scheduling from "./assets/DASHBOARDS/Scheduling calender.jpg";
 import caseanalytics from "./assets/DASHBOARDS/case analytics.jpg";
 import advocatelist from "./assets/DASHBOARDS/Advocate list.jpg";
+import MyCases from './client_dashboard/casedetails';
+import EventForm from './Features/EventForm';
 
 const FAQ_DATA = [
   {
@@ -145,7 +147,7 @@ const Apps = () => {
         />
       </div>
 
-      <div className="main-content" onClick={closeComponents}>
+      <div className="main-content">
         <div className="header">
           <div className="user-info">
             <div className="user-name">John Doe</div>
@@ -153,6 +155,9 @@ const Apps = () => {
           <div className="notification-icon" onClick={() => setNotifications(notifications + 1)}>
             {notifications > 0 && <span className="notification-badge">{notifications}</span>}
             <IoNotificationsOutline size={30} />
+            <div className="logout-button" style={{paddingLeft:"20px"}}> 
+            <button>Logout</button>
+          </div>
           </div>
         </div>
         <div className="dashboard-element-container">
@@ -170,9 +175,12 @@ export default Apps;
 const HomeDashboard = () => {
   return (
     <div className="home-dashboard">
+      <div className="cases">
+        <MyCases/>
+      </div>
       <div className="updates">
         <h3>Updates</h3>
-        <p>
+        <p className='temp-p'>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae justo non tellus
           laoreet tincidunt. Donec et felis ligula. Integer sed sagittis odio, eu rhoncus libero.
           Sed elementum augue vitae mauris ultricies, eu auctor nisl venenatis. Nullam quis semper
@@ -250,6 +258,7 @@ const BriefcaseDashboard = () => {
 
   return (
     <div className="briefcase-dashboard">
+      <div className="z">
       <motion.div
         className="dashboard-boxes"
         initial={{ opacity: 0, y: 20 }}
@@ -259,11 +268,14 @@ const BriefcaseDashboard = () => {
       >
         {linksDataBriefcase.map((link, index) => (
           <Link key={index} to={link.path} className="dashboard-box">
-            {link.image && <motion.img src={link.image} alt={link.label} />} {/* Added alt attribute */}
+            {link.image && <motion.img src={link.image} alt={link.label} className='dashboard-image'/>} {/* Added alt attribute */}
             <h3 style={{ color: 'black' }}>{link.label}</h3>
           </Link>
         ))}
       </motion.div>
+      </div>
     </div>
   );
 };
+
+

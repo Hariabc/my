@@ -25,7 +25,8 @@ export const Navbar = () => {
     <>
       <nav className={`main-nav ${isMobileMenuOpen ? "mobile-menu-open" : ""}`} style={inlineStyles}>
         <div className="logo-container">
-          <span className="logo">E-PORTAL</span>
+          <span className="logo">E-PORTAL.</span>
+          <aside></aside>
           <div className="mobile-icon" onClick={toggleMobileMenu}>
             <MdMenu size={28} />
           </div>

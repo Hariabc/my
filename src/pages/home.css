@@ -24,7 +24,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  height: 100vh; 
+  margin: auto auto;
+  margin-top: 15%;
 }
 
 .about h1 {
@@ -95,7 +96,21 @@
     font-weight: bold;
     text-align: center;
     font-size: 35px;
-    color:#4AD7D1
-    ;
-
+    color:#A0BFE0;
 }
+
+
+
+.main-p {
+  font-size: 1.5em;
+  line-height: 1.6;
+  color: #555;
+  max-width: 800px;
+  margin: 0 auto 30px;
+}
+
+.highlight-text {
+  color:#A0BFE0; /* Green color for emphasis */
+  font-weight: bold;
+}
+

@@ -4,7 +4,7 @@ import './Footer.css';
 function Footer() {
   return (
     <footer className="footer">
-      <div className="container">
+      <div className="footer-container">
         <div className="row">
           <div className="footer-col">
             <h1>E-PORTAL</h1>

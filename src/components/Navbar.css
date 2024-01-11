@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,600');
 /* Navigation Styles */
+@import url("https://fonts.googleapis.com/css2?family=salsa&display=swap");
 nav {
   font-family: 'Titillium Web';
   text-transform: uppercase;
@@ -51,10 +52,34 @@ nav a {
 
 /* Style for the logo */
 .logo {
-  font-size: 30px;
-  font-weight: bold;
+  font-size: 40px;
+  font-weight:400;
   margin-left: 90px;
-  color: #fff;
+  color:rgb(160, 191, 224);
+  font-family:'Jua';
+}
+
+
+aside {
+  background: repeating-linear-gradient(
+    35deg,
+    hsl(343 100% 50%) 0px 2px,
+    hsl(23 100% 50%) 0px 4px
+  );
+  mix-blend-mode: multiply;
+  animation: none 40000ms infinite linear;
+}
+@keyframes move {
+  100% {
+    transform: translate(41px, 0px);
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
 }
 
 /* Style for the navigation links */
@@ -146,7 +171,7 @@ nav a {
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  border: 2px solid #0192f2;
+  border: 2px solid rgb(160, 191, 224);
   border-radius: 5px;
   color: #3498db;
   transition: background-color 0.3s, color 0.3s;

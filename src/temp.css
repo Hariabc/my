@@ -59,9 +59,6 @@
   }
   
   .updates {
-    position: absolute;
-    top: 80px;
-    right: 15px;
     height: 40vh;
     width: 25vw;
     background-color: #f4f5f7;
@@ -69,6 +66,7 @@
     padding: 30px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
   }
 .dashborad-element-container {
   display: grid;
@@ -76,18 +74,14 @@
   gap: 20px; /* Adjust the gap between grid items as needed */
 }
 
-.updates {
-  grid-column: 1 / span 1; /* Adjust the column span for the updates section */
-}
-
 .selected-component-container {
   grid-column: 2 / span 1; 
   margin: 30px;/* Adjust the column span for the selected component container */
 }
 
-.dashboard-boxes {
+.briefcase-dashboard {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr; 
+  grid-template-rows: 1fr 1fr 1fr ; 
 }
 
 .dashboard-box {
@@ -105,4 +99,61 @@
 .dashboard-box img {
   border-radius: 8px;
   margin-bottom: 10px;
+}
+ 
+
+/* Add this to your external CSS file or style block */
+
+.briefcase-dashboard {
+  margin: 20px;
+}
+
+.dashboard-box {
+  width: 200px;
+  margin: 10px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  background-color: #fff;
+  text-align: center;
+  color: #333;
+  text-decoration: none;
+}
+
+.dashboard-box:hover {
+  transform: scale(1.05);
+}
+
+.dashboard-box img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.dashboard-box h3 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.home-dashboard{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 0 0;
+  background-color: #f6f6fc;
+  height: 100vh;
+}
+.cases{
+  grid-column: span 2;
+}
+.dashboard-box{
+  border-top: 3px solid blueviolet;
+}
+.dashboard-image{
+  float: right;
+}
+.dashboard-box img{
+  float: right;
 }
