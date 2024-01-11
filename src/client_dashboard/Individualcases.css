@@ -1,33 +1,81 @@
+/* CSS */
+body {
+  background-color: #fffcfc; /* Background color for the entire page */
+}
+
 .container {
-  font-family: Arial, sans-serif;
-  margin: 20px;
+  max-width:100%;
+  margin: 20px auto;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color: #ffffff; /* Background color inside the container */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle box shadow */
 }
 
-.title {
-  font-size: 24px;
-  margin-bottom: 15px;
-}
-
-.subtitle {
-  font-size: 18px;
-  margin-top: 15px;
-  margin-bottom: 10px;
-}
-
-.details {
+.case-info {
+  text-align: center;
+  background-color: #dceafa; /* Background color for Case Details and Case ID */
+  color: #fff; /* Text color for Case Details and Case ID */
+  padding: 15px;
+  border-radius: 10px;
   margin-bottom: 20px;
 }
 
-.details p {
-  margin: 5px 0;
+.title {
+  margin: 0;
+  font-size: 24px; /* Adjust the font size for the title */
 }
 
-.loading {
-  font-size: 18px;
-  text-align: center;
-  margin-top: 50px;
+.subtitle {
+  background-color: #5ec9ea;
+  color: #0d0000;
+  padding: 8px;
+  margin-top: 15px;
+}
+
+.details-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.boxA,
+.boxB {
+  width: 48%;
+  background-color: #f1f4f5; /* Background color inside the boxes */
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  
+  
+}
+
+.boxC,
+.boxD {
+  width: 100%;
+  background-color: #ecf0f1; /* Background color inside the boxes */
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.details p {
+  margin: 13px 0;
+  font-style: normal;
+  font-weight: bold;
+  
+  text-align: left;
+  
+}
+
+.boxCaseDetails {
+  margin-bottom: 15px;
+}
+
+.boxCaseDetails h5 {
+  background-color: #5365c8;
+  color: #fff;
+  padding: 8px;
 }

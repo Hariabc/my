@@ -73,7 +73,7 @@ function LawyersForm() {
   
         // Handle success: show a success message, reset form, etc.
         console.log('Public advocate registered:', response.data);
-        alert('Public advocate registered successfully!');
+        // alert('Public advocate registered successfully!');
   
         // Reset the form fields
         setFormData({
@@ -274,9 +274,6 @@ function LawyersForm() {
     );
   }
   
-  
-
-
 function JudgesForm() {
   const [formData, setFormData] = useState({
     firstname: '',
