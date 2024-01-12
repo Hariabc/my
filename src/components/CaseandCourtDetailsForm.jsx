@@ -3,6 +3,8 @@ import Dropdown from './Dropdown';
 import StateDistrictSelector from './Dropdown2';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+
+
 const CaseAndCourtDetailsForm = ({ onChange, onNext }) => {
   const [caseDetails, setCaseDetails] = useState({
     caseType: '',
