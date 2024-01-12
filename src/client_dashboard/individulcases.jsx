@@ -3,6 +3,7 @@ import jsPDF from 'jspdf';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import './Individualcases.css'
+
 const CaseDetails = () => {
   const { caseId } = useParams();
   const [caseDetails, setCaseDetails] = useState(null);
@@ -46,12 +47,13 @@ const CaseDetails = () => {
     pdf.save('form-details.pdf');
   };
   return (
-    <div className="container">
+    <div className="ind-container">
       <h3 className="title">Case Details</h3>
       {caseDetails ? (
         <div>
           <h4 className="subtitle">Case ID: {caseDetails._id}</h4>
           <h5 className="subtitle">Plaintiff Details</h5>
+          <hr />
           <div className="details">
                       <p>Name: {caseDetails.plaintiffDetails.fullName}</p>
                       <p>Gender: {caseDetails.plaintiffDetails.gender}</p>
@@ -66,6 +68,7 @@ const CaseDetails = () => {
             {/* Display other plaintiff details */}
           </div>
           <h5 className="subtitle">Defendant Details</h5>
+          <hr />
           <div className="details">
             <p>Name: {caseDetails.defendantDetails.fullName}</p>
                       <p>Gender: {caseDetails.defendantDetails.gender}</p>
@@ -80,6 +83,7 @@ const CaseDetails = () => {
             {/* Display other defendant details */}
           </div>
           <h5 className="subtitle">Case Details</h5>
+          <hr />
           <div className="details">
             <p>Case Type: {caseDetails.caseDetails.caseType}</p>
                       <p>Title: {caseDetails.caseDetails.title}</p>
@@ -94,6 +98,7 @@ const CaseDetails = () => {
             {/* Display other case details */}
           </div>
           <h5 className="subtitle">Payment Details</h5>
+          <hr />
           <div className="details">
                       <p>Payment Method: {caseDetails.paymentDetails.paymentMethod}</p>
                       {/* <p>Payment Method: {caseDetails.paymentDetails.paymentMethod}</p>

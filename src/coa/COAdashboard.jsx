@@ -7,6 +7,16 @@ import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { FaPlus } from "react-icons/fa"
 import axios from "axios"
 
+import {
+  IoHomeSharp,
+  IoBriefcaseSharp,
+  IoPersonSharp,
+  IoLogOutSharp,
+  IoChatbubblesSharp,
+  IoSettingsSharp,
+  IoHelpCircleSharp,
+} from 'react-icons/io5';
+import { IoNotificationsOutline } from 'react-icons/io5';
 import addlawyers from "../assets/admindashboard/Admin Pics/Adding Govt Lawyers.jpg"
 import assignjudge from "../assets/admindashboard/Admin Pics/Assign Judges Advocates.jpg"
 import caseanalytics from "../assets/admindashboard/Admin Pics/case analytics.jpg"
@@ -24,6 +34,31 @@ const AdminDashboard = () => {
   const [showAnswers, setShowAnswers] = useState({});
   const [userData, setuserData] = useState({});
 
+
+  const [selectedComponent, setSelectedComponent] = useState(null);
+
+  const handleChatButtonClick = () => {
+    setSelectedComponent(<Chat />);
+  };
+
+  const handleProfileClick = () => {
+    setSelectedComponent(<Profile />);
+  };
+
+  const handleHomeClick = () => {
+    setSelectedComponent(<HomeDashboard />);
+  };
+
+  const handleFaqClick = () => {
+    setSelectedComponent(<RenderFaq/>);
+  };
+  const handleBriefcaseClick = () => {
+    setSelectedComponent(<BriefcaseDashboard />);
+  };
+
+  const closeComponents = () => {
+    setSelectedComponent(null);
+  };
   // Function to toggle answer visibility
   const toggleAnswer = (questionId) => {
     setShowAnswers((prev) => ({
@@ -58,41 +93,71 @@ const AdminDashboard = () => {
     { path: "/pre-trial-conferencing", label: "Pre-trial", image: videoconfrence },
     // ... add more links as needed
   ];
+return (
+  <div className="dashboard-container">
+    <div className="sidebar">
+      <img
+        src={adminIcon}
+        alt=""
+        style={{
+          width: '50px',
+          height: '50px',
+          marginBottom: '100px',
+        }}
+      />
+      <IoHomeSharp
+        size={35}
+        color="#fff"
+        style={{ paddingTop: '5px', cursor: 'pointer' }}
+        onClick={handleHomeClick}
+      />
+      <IoBriefcaseSharp
+        size={35}
+        color="#fff"
+        style={{ paddingTop: '5px', cursor: 'pointer' }}
+        onClick={handleBriefcaseClick}
+      />
+      <IoPersonSharp
+        size={40}
+        color="#fff"
+        style={{ paddingTop: '5px', cursor: 'pointer' }}
+        onClick={handleProfileClick}
+      />
+      <IoLogOutSharp size={35} color="#fff" style={{ paddingTop: '5px' }} />
+      <IoChatbubblesSharp
+        size={40}
+        color="#fff"
+        style={{ paddingTop: '5px', cursor: 'pointer' }}
+        onClick={handleChatButtonClick}
+      />
+      <IoSettingsSharp size={35} color="#fff" style={{ paddingTop: '5px' }} />
+      <IoHelpCircleSharp
+        size={40}
+        color="#fff"
+        style={{ paddingTop: '5px', cursor: 'pointer' }}
+        onClick={handleFaqClick}
+      />
+    </div>
 
-  return (
-    <div className="admin-dashboard">
-      {/* Admin Header */}
-      <div className='admin'>
-      <div className="logo-admin">
-          <img src={adminIcon} alt="ggg" />
-          <span><h2>Admin Dashboard</h2></span>
-      </div>
-
-        <div className="logo-profile">
-          <IoIosArrowDropdownCircle />
-          <span><h2>{userData.firstName }</h2></span>
-          <img src={adminIcon} alt="Admin" />
+    <div className="main-content">
+      <div className="header">
+        <div className="user-info">
+          <div className="user-name">{userData ? userData.firstName : 'No username available'}</div>
+        </div>
+        <div className="notification-icon">
+          <IoNotificationsOutline size={30} />
+          <div className="logout-button" style={{paddingLeft:"20px"}}> 
+          <button>Logout</button>
+        </div>
         </div>
       </div>
-
-      {/* Admin Body */}
-      <div className="admin-body">
-        <div className="admin-dashboard-boxes">
-          {linksData.map((link, index) => (
-            <Link key={index} to={`/cao${link.path}`} className="dashboard-box">
-              {link.image && <img src={link.image} alt={link.label} />}
-              <h3 style={{color:"black"}}>{link.label}</h3>
-            </Link>
-          ))}
+      <div className="dashboard-element-container">
+        <div className="selected-component-container">
+          {selectedComponent && <div className="selected-component">{selectedComponent}</div>}
         </div>
-      </div>
-
-      {/* Admin FAQ Section */}
-      <div className="faq-box">
-        {/* Add FAQs related to admin features if needed */}
       </div>
     </div>
-  );
-};
-
+  </div>
+);
+      }
 export default AdminDashboard;

@@ -77,7 +77,6 @@ const FAQ_DATA = [
 ];
 
 const ClientDashboard = () => {
-  const [notifications, setNotifications] = useState(0);
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [userData, setUserData] = useState({});
 
@@ -169,8 +168,7 @@ const ClientDashboard = () => {
           <div className="user-info">
             <div className="user-name">{userData ? userData.firstName : 'No username available'}</div>
           </div>
-          <div className="notification-icon" onClick={() => setNotifications(notifications + 1)}>
-            {notifications > 0 && <span className="notification-badge">{notifications}</span>}
+          <div className="notification-icon">
             <IoNotificationsOutline size={30} />
             <div className="logout-button" style={{paddingLeft:"20px"}}> 
             <button>Logout</button>
