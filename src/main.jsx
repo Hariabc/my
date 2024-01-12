@@ -83,10 +83,6 @@ const App = () => {
           <Route path="/cao/mycases" element={<Mycases />} />
           <Route path="/cao/addjudge-publicadv" element={<AddUsers/>} />
           
-          
-          
-          
-          
         </Route>
       </Routes>
       </AuthProvider>
