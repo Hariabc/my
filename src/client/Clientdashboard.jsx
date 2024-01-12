@@ -259,7 +259,7 @@ const RenderFaq = () => {
 
 const BriefcaseDashboard = () => {
   const linksDataBriefcase = [
-    { path: "/fileacasemain", label: "File a Case", image: casefile },
+    { path: "/client/fileacase", label: "File a Case", image: casefile },
     { path: "/pre-trial", label: "Pre Trial", image: confrence },
     { path: "/sendingfiles", label: "File Sharing", image: document },
     { path: "/payment", label: "Payments", image: payment },

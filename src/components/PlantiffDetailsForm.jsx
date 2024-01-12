@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import StateDistrictSelector from './Dropdown2';
+
+
+
 const PlaintiffDetailsForm = ({ onChange, onNext }) => {
   const [plaintiffData, setPlaintiffData] = useState({
     fullName: '',
@@ -53,6 +56,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="fullName"
                   value={plaintiffData.fullName}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
               </label>
@@ -62,6 +66,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="gender"
                   value={plaintiffData.gender}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 >
                   <option value="">Select Gender</option>
@@ -77,6 +82,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="dateOfBirth"
                   value={plaintiffData.dateOfBirth}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
               </label>
@@ -89,6 +95,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="caste"
                   value={plaintiffData.caste}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 >
                   <option value="">Select Caste</option>
@@ -105,6 +112,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="age"
                   value={plaintiffData.age}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
               </label>
@@ -114,6 +122,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="relation"
                   value={plaintiffData.relation}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 >
                   <option value="">Select Relation</option>
@@ -138,6 +147,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="partyEmailAddresses"
                   value={plaintiffData.partyEmailAddresses}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
               </label>
@@ -148,6 +158,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="partyPhoneNumbers"
                   value={plaintiffData.partyPhoneNumbers}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
               </label>
@@ -160,6 +171,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="partyAddresses"
                   value={plaintiffData.partyAddresses}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
               </label>
@@ -170,6 +182,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="pinCode"
                   value={plaintiffData.pinCode}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
               </label>
@@ -180,6 +193,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="occupation"
                   value={plaintiffData.occupation}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
               </label>
@@ -203,6 +217,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="taluka"
                   value={plaintiffData.taluka}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 >
                   <option value="">Select Taluka</option>
@@ -217,6 +232,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
                   name="village"
                   value={plaintiffData.village}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 >
                   <option value="">Select Village</option>
