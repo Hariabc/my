@@ -31,7 +31,7 @@ const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
     const { name, value } = e.target;
     setCaseDetails({ ...caseDetails, [name]: value });
   };
-  
+
   const handleNext = (e) => {
     // e.preventDefault();
     onChange(caseDetails);
@@ -44,7 +44,7 @@ const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
       ...selectedCourtDetails
     }));
   };
-
+  
   const handleBack = () => {
     onBack();
   };
