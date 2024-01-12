@@ -55,22 +55,44 @@ const AdminDashboard = () => {
     setSelectedCase(caseItem);
   };
 
-  const handleAssignJudge = () => {
-    // Handle assign judge action
-    console.log(`Assigned Judge for case with ID: ${selectedCase._id}`);
-    // Add logic or API calls for assigning a judge
+  const handleAssignJudge = async () => {
+    try {
+      // Make a POST request to your backend endpoint for assigning a judge
+      const response = await axios.post('http://localhost:5000/cao/approve-for-assigning-judge', {
+        caseId: selectedCase._id,
+        // Add any other data you want to send to the server
+      },{ withCredentials: true });
 
-    // Close the modal
-    setApproveOptionsVisible(false);
+      // Handle the response as needed
+      console.log('Response from server:', response.data);
+
+      // Close the modal
+      setApproveOptionsVisible(false);
+    } catch (error) {
+      console.error('Error assigning judge:', error);
+      // Handle error as needed
+    }
   };
 
-  const handleAssignPublicAdvocate = () => {
-    // Handle assign public advocate action
-    console.log(`Assigned Public Advocate for case with ID: ${selectedCase._id}`);
-    // Add logic or API calls for assigning a public advocate
 
-    // Close the modal
-    setApproveOptionsVisible(false);
+  const handleAssignPublicAdvocate = async () => {
+    // Handle assign public advocate action
+    try {
+      // Make a POST request to your backend endpoint for assigning a judge
+      const response = await axios.post('http://localhost:5000/cao/approve-for-assigning-advocate', {
+        caseId: selectedCase._id,
+        // Add any other data you want to send to the server
+      },{ withCredentials: true });
+
+      // Handle the response as needed
+      console.log('Response from server:', response.data);
+
+      // Close the modal
+      setApproveOptionsVisible(false);
+    } catch (error) {
+      console.error('Error assigning judge:', error);
+      // Handle error as needed
+    };
   };
 
   const closeApproveOptionsModal = () => {
