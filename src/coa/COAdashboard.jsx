@@ -33,6 +33,15 @@ import {motion} from "framer-motion"
 // Replace with the correct path
 import Chat from '../Chat/Chat'; // Replace with the correct path
 import Profile from '../client/Profile'; // Replace with the correct path
+import MyCases from '../Admin_dashboard_components/Mycases';
+
+
+import { FiHome } from "react-icons/fi";
+import { RiMenu2Fill } from "react-icons/ri";
+import { CgProfile } from "react-icons/cg";
+import { BsChatDots } from "react-icons/bs";
+import { MdHelpOutline } from "react-icons/md";
+
 
 const AdminDashboard = () => {
   const [showAnswers, setShowAnswers] = useState({});
@@ -52,9 +61,6 @@ const AdminDashboard = () => {
     setSelectedComponent(<HomeDashboard />);
   };
 
-  const handleFaqClick = () => {
-    setSelectedComponent(<RenderFaq />);
-  };
   const handleBriefcaseClick = () => {
     setSelectedComponent(<BriefcaseDashboard />);
   };
@@ -85,7 +91,6 @@ const AdminDashboard = () => {
 
     fetchUserData();
   }, []);
-
   return (
     <div className="dashboard-container">
       <div className="sidebar">
@@ -98,64 +103,53 @@ const AdminDashboard = () => {
             marginBottom: '100px',
           }}
         />
-        <IoHomeSharp
-          size={35}
+        <FiHome
+          size={45}
           color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          style={{ paddingTop: '15px', cursor: 'pointer' }}
           onClick={handleHomeClick}
         />
-        <IoBriefcaseSharp
-          size={35}
+        <RiMenu2Fill
+          size={45}
           color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          style={{ paddingTop: '15px', cursor: 'pointer' }}
           onClick={handleBriefcaseClick}
         />
-        <IoPersonSharp
-          size={40}
+        <CgProfile
+          size={45}
           color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          style={{ paddingTop: '15px', cursor: 'pointer' }}
           onClick={handleProfileClick}
         />
-        <IoLogOutSharp size={35} color="#fff" style={{ paddingTop: '5px' }} />
-        <IoChatbubblesSharp
-          size={40}
+        <BsChatDots
+          size={45}
           color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          style={{ paddingTop: '15px', cursor: 'pointer' }}
           onClick={handleChatButtonClick}
-        />
-        <IoSettingsSharp size={35} color="#fff" style={{ paddingTop: '5px' }} />
-        <IoHelpCircleSharp
-          size={40}
-          color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
-          onClick={handleFaqClick}
         />
       </div>
 
       <div className="main-content">
         <div className="header">
           <div className="user-info">
-            <div className="user-name">
-              {userData ? userData.firstName : 'No username available'}
-            </div>
+            <div className="user-name">{userData ? userData.firstName : 'No username available'}</div>
           </div>
           <div className="notification-icon">
             <IoNotificationsOutline size={30} />
-            <div className="logout-button" style={{ paddingLeft: '20px' }}>
-              <button>Logout</button>
-            </div>
+            <div className="logout-button" style={{paddingLeft:"20px"}}> 
+            <button>Logout</button>
+          </div>
           </div>
         </div>
         <div className="dashboard-element-container">
           <div className="selected-component-container">
-            {selectedComponent && (
-              <div className="selected-component">{selectedComponent}</div>
-            )}
+            {selectedComponent && <div className="selected-component">{selectedComponent}</div>}
           </div>
         </div>
       </div>
     </div>
   );
+  
 };
 
 export default AdminDashboard;
@@ -200,3 +194,24 @@ const BriefcaseDashboard = () => {
   );
 };
 
+const HomeDashboard = () => {
+  return (
+    <div className="home-dashboard" style={{height:"85vh"}}>
+      <div className="cases">
+        <MyCases/>
+      </div>
+      <div className="updates">
+        <h3>Updates</h3>
+        <p className='temp-p'>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae justo non tellus
+          laoreet tincidunt. Donec et felis ligula. Integer sed sagittis odio, eu rhoncus libero.
+          Sed elementum augue vitae mauris ultricies, eu auctor nisl venenatis. Nullam quis semper
+          libero, vel scelerisque justo. Curabitur tristique, ex vitae accumsan interdum, justo
+          nisi scelerisque velit, a cursus urna ligula id purus. In tincidunt erat nec dolor
+          accumsan, eu sagittis ligula tempus.
+        </p>
+      </div>
+      {/* Add more components as needed */}
+    </div>
+  );
+};

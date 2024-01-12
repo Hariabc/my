@@ -52,6 +52,9 @@ const AdminDashboard = () => {
     setSelectedCase(null);
   };
 
+  // Calculate total cases count
+  const totalCasesCount = cases.length;
+
   return (
     <div className="container">
       <h1>Admin Dashboard - Pending Cases</h1>
@@ -65,6 +68,9 @@ const AdminDashboard = () => {
         </select>
       </div>
       <div>
+        <div className="total-cases">
+             <h2>Total Cases: {totalCasesCount}</h2>
+        </div>
         <h2>Filtered Cases:</h2>
         <table>
           <thead>
@@ -100,21 +106,17 @@ const AdminDashboard = () => {
       </div>
 
       {selectedCase && (
-        <div className="modal">
-          <div className="modal-content">
-          <h2>Case Details</h2>
-        <p>Case Title: {selectedCase.caseTitle}</p>
-        <p>Case Number: {selectedCase.caseNumber}</p>
-        <p>Case Type: {selectedCase.filecasetype}</p>
-        <p>Case Status: {selectedCase.caseStatus}</p>
-        <p>Case Description: {selectedCase.caseDescription}</p>
-        <button onClick={closeCaseDetailsModal}>Close</button>
-      </div>
+        <div className="overlay">
+          <div className="modal">
+            <div className="modal-content">
+              {/* Your modal content here */}
+              <button onClick={closeCaseDetailsModal}>Close</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
-  )}
-
-</div>
-);
+  );
 };
 
 export default AdminDashboard;
