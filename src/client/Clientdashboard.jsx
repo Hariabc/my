@@ -32,6 +32,12 @@ import caseanalytics from "../assets/DASHBOARDS/case analytics.jpg";
 import advocatelist from "../assets/DASHBOARDS/Advocate list.jpg";
 import MyCases from '../client_dashboard/casedetails';
 import EventForm from '../Features/EventForm';
+import { FiHome } from "react-icons/fi";
+import { RiMenu2Fill } from "react-icons/ri";
+import { CgProfile } from "react-icons/cg";
+import { BsChatDots } from "react-icons/bs";
+import { MdHelpOutline } from "react-icons/md";
+
 
 const FAQ_DATA = [
   {
@@ -129,36 +135,34 @@ const ClientDashboard = () => {
             marginBottom: '100px',
           }}
         />
-        <IoHomeSharp
-          size={35}
+        <FiHome
+          size={45}
           color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          style={{ paddingTop: '15px', cursor: 'pointer' }}
           onClick={handleHomeClick}
         />
-        <IoBriefcaseSharp
-          size={35}
+        <RiMenu2Fill
+          size={45}
           color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          style={{ paddingTop: '15px', cursor: 'pointer' }}
           onClick={handleBriefcaseClick}
         />
-        <IoPersonSharp
-          size={40}
+        <CgProfile
+          size={45}
           color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          style={{ paddingTop: '15px', cursor: 'pointer' }}
           onClick={handleProfileClick}
         />
-        <IoLogOutSharp size={35} color="#fff" style={{ paddingTop: '5px' }} />
-        <IoChatbubblesSharp
-          size={40}
+        <BsChatDots
+          size={45}
           color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          style={{ paddingTop: '15px', cursor: 'pointer' }}
           onClick={handleChatButtonClick}
         />
-        <IoSettingsSharp size={35} color="#fff" style={{ paddingTop: '5px' }} />
-        <IoHelpCircleSharp
-          size={40}
+        <MdHelpOutline
+          size={45}
           color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          style={{ paddingTop: '15px', cursor: 'pointer' }}
           onClick={handleFaqClick}
         />
       </div>
@@ -189,7 +193,7 @@ export default ClientDashboard;
 
 const HomeDashboard = () => {
   return (
-    <div className="home-dashboard">
+    <div className="home-dashboard" style={{height:"85vh"}}>
       <div className="cases">
         <MyCases/>
       </div>
@@ -226,7 +230,7 @@ const RenderFaq = () => {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5, delay: 0.6 }}
     >
-      <h3>Frequently Asked Questions</h3>
+      <h3 style={{color:"black",paddingBottom:"12px"}}>Frequently Asked Questions</h3>
       {FAQ_DATA.map((faq, index) => (
         <div
           className={`faq-item ${showAnswers[`question${index + 3}`] ? 'active' : ''}`}
@@ -272,7 +276,7 @@ const BriefcaseDashboard = () => {
   ];
 
   return (
-    <div className="briefcase-dashboard">
+    <div className="briefcase-dashboard" style={{height:"100vh"}}>
       <div className="z">
       <motion.div
         className="dashboard-boxes"
@@ -282,7 +286,7 @@ const BriefcaseDashboard = () => {
         transition={{ duration: 0.5, delay: 0.4 }}
       >
         {linksDataBriefcase.map((link, index) => (
-          <Link key={index} to={link.path} className="dashboard-box">
+          <Link key={index} to={link.path} className="dashboard-box" style={{borderTop: "3px solid blueviolet"}}>
             {link.image && <motion.img src={link.image} alt={link.label} className='dashboard-image'/>} {/* Added alt attribute */}
             <h3 style={{ color: 'black' }}>{link.label}</h3>
           </Link>
