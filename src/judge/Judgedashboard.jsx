@@ -16,6 +16,13 @@ import casetracking from "../assets/DASHBOARDS/Case tracking.jpg";
 import caseanalytics from "../assets/DASHBOARDS/case analytics.jpg";
 import advocateImage from "../assets/advocate.png";  // Import the appropriate advocate image
 import "./judgedashboard.css";
+
+
+import { FiHome } from "react-icons/fi";
+import { RiMenu2Fill } from "react-icons/ri";
+import { CgProfile } from "react-icons/cg";
+import { BsChatDots } from "react-icons/bs";
+
 const JudgeDashboard = () => {
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [userData, setUserData] = useState({});
@@ -33,9 +40,8 @@ const JudgeDashboard = () => {
   };
 
   const handleFaqClick = () => {
-    setSelectedComponent(<RenderFaq />);
+    setSelectedComponent(<RenderFaq/>);
   };
-
   const handleBriefcaseClick = () => {
     setSelectedComponent(<BriefcaseDashboard />);
   };
@@ -47,7 +53,7 @@ const JudgeDashboard = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/judge/user', { withCredentials: true });
+        const response = await axios.get('http://localhost:5000/client/user', { withCredentials: true });
         setUserData(response.data.user);
         setSelectedComponent(<BriefcaseDashboard />);
       } catch (error) {
@@ -70,37 +76,29 @@ const JudgeDashboard = () => {
             marginBottom: '100px',
           }}
         />
-        <IoHomeSharp
-          size={35}
+        <FiHome
+          size={45}
           color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          style={{ paddingTop: '15px', cursor: 'pointer' }}
           onClick={handleHomeClick}
         />
-        <IoBriefcaseSharp
-          size={35}
+        <RiMenu2Fill
+          size={45}
           color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          style={{ paddingTop: '15px', cursor: 'pointer' }}
           onClick={handleBriefcaseClick}
         />
-        <IoPersonSharp
-          size={40}
+        <CgProfile
+          size={45}
           color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          style={{ paddingTop: '15px', cursor: 'pointer' }}
           onClick={handleProfileClick}
         />
-        <IoLogOutSharp size={35} color="#fff" style={{ paddingTop: '5px' }} />
-        <IoChatbubblesSharp
-          size={40}
+        <BsChatDots
+          size={45}
           color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          style={{ paddingTop: '15px', cursor: 'pointer' }}
           onClick={handleChatButtonClick}
-        />
-        <IoSettingsSharp size={35} color="#fff" style={{ paddingTop: '5px' }} />
-        <IoHelpCircleSharp
-          size={40}
-          color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
-          onClick={handleFaqClick}
         />
       </div>
 
@@ -111,9 +109,9 @@ const JudgeDashboard = () => {
           </div>
           <div className="notification-icon">
             <IoNotificationsOutline size={30} />
-            <div className="logout-button" style={{ paddingLeft: "20px" }}>
-              <button>Logout</button>
-            </div>
+            <div className="logout-button" style={{paddingLeft:"20px"}}> 
+            <button>Logout</button>
+          </div>
           </div>
         </div>
         <div className="dashboard-element-container">
@@ -150,7 +148,7 @@ const BriefcaseDashboard = () => {
         transition={{ duration: 0.5, delay: 0.4 }}
       >
         {linksDataBriefcase.map((link, index) => (
-          <Link key={index} to={link.path} className="dashboard-box">
+          <Link key={index} to={link.path} className="dashboard-box" style={{borderTop: "3px solid blueviolet"}}>
             {link.image && <motion.img src={link.image} alt={link.label} className='dashboard-image' />} {/* Added alt attribute */}
             <h3 style={{ color: 'black' }}>{link.label}</h3>
           </Link>

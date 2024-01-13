@@ -182,7 +182,7 @@ const BriefcaseDashboard = () => {
           transition={{ duration: 0.5, delay: 0.4 }}
         >
           {linksDataBriefcase.map((link, index) => (
-            <Link key={index} to={link.path} className="dashboard-box">
+            <Link key={index} to={link.path} className="dashboard-box" style={{borderTop: "3px solid blueviolet"}}>
               {link.image && <motion.img src={link.image} alt={link.label} className="dashboard-image" />}{' '}
               {/* Added alt attribute */}
               <h3 style={{ color: 'black' }}>{link.label}</h3>
