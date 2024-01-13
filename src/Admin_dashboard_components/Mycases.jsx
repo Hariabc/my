@@ -1,5 +1,3 @@
-// AdminDashboard.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Mycases.css'; // Import your CSS file
@@ -12,6 +10,8 @@ const AdminDashboard = () => {
   const [filterType, setFilterType] = useState('');
   const [selectedCase, setSelectedCase] = useState(null);
   const [approveOptionsVisible, setApproveOptionsVisible] = useState(false);
+  const [user, setUser] = useState({});
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,6 +26,21 @@ const AdminDashboard = () => {
     fetchData();
   }, []);
 
+  
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/cao/user', { withCredentials: true });
+       setUser(response.data.user); // Assuming the response includes user data
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
+
+
   const handleFilterChange = (e) => {
     const selectedType = e.target.value;
 
@@ -39,6 +54,7 @@ const AdminDashboard = () => {
     setFilterType(selectedType);
   };
 
+
   const handleApprove = (caseId) => {
     // Set state to show approve options modal
     setApproveOptionsVisible(true);
@@ -46,54 +62,88 @@ const AdminDashboard = () => {
     setSelectedCase(cases.find((caseItem) => caseItem._id === caseId));
   };
 
+
   const handleReject = (caseId) => {
     // Handle reject action
     console.log(`Rejected case with ID: ${caseId}`);
   };
 
+
   const openCaseDetailsModal = (caseItem) => {
     setSelectedCase(caseItem);
   };
 
+
   const handleAssignJudge = async () => {
     try {
-      // Make a POST request to your backend endpoint for assigning a judge
-      const response = await axios.post('http://localhost:5000/cao/approve-for-assigning-judge', {
+      // Step 1: Make a request to your backend to assign a judge to the selected case
+      const assignJudgeResponse = await axios.post('http://localhost:5000/cao/cases', {
         caseId: selectedCase._id,
-        // Add any other data you want to send to the server
-      },{ withCredentials: true });
-
-      // Handle the response as needed
-      console.log('Response from server:', response.data);
-
+        approvalType: 'judge', // Add this property to specify the approval type
+      }, { withCredentials: true });
+  
+      // Handle the response from the '/cases' endpoint
+      console.log('Assign Judge Response:', assignJudgeResponse.data);
+  
+      // Step 2: Make a request to approve the case for assigning a judge
+      const adminId = user._id;
+      const approveResponse = await axios.post(
+        `http://localhost:5000/cao/approve-case/${adminId}/${selectedCase._id}/judge`,
+        {},
+        { withCredentials: true }
+      );
+  
+      console.log('Approve Response (Assigning Judge):', approveResponse.data);
+  
+      // Remove the approved case from the list
+      const updatedCases = cases.filter((caseItem) => caseItem._id !== selectedCase._id);
+      setCases(updatedCases);
+      setFilteredCases(updatedCases);
+  
       // Close the modal
       setApproveOptionsVisible(false);
     } catch (error) {
-      console.error('Error assigning judge:', error);
-      // Handle error as needed
+      console.error('Error assigning judge or approving:', error);
+      // Handle the error as needed
     }
   };
-
+  
 
   const handleAssignPublicAdvocate = async () => {
-    // Handle assign public advocate action
     try {
-      // Make a POST request to your backend endpoint for assigning a judge
-      const response = await axios.post('http://localhost:5000/cao/approve-for-assigning-advocate', {
+      // Step 1: Make a request to your backend to assign a public advocate to the selected case
+      const assignAdvocateResponse = await axios.post('http://localhost:5000/cao/cases', {
         caseId: selectedCase._id,
-        // Add any other data you want to send to the server
-      },{ withCredentials: true });
-
-      // Handle the response as needed
-      console.log('Response from server:', response.data);
-
+        approvalType: 'advocate', // Update to 'advocate' to match the backend logic
+      }, { withCredentials: true });
+  
+      // Handle the response from the '/cases' endpoint
+      console.log('Assign Advocate Response:', assignAdvocateResponse.data);
+  
+      // Step 2: Make a request to approve the case for assigning a public advocate
+      const adminId = user._id;
+      const approveResponse = await axios.post(
+        `http://localhost:5000/cao/approve-case/${adminId}/${selectedCase._id}/advocate`,
+        {},
+        { withCredentials: true }
+      );
+  
+      console.log('Approve Response (Assigning Public Advocate):', approveResponse.data);
+  
+      // Remove the approved case from the list
+      const updatedCases = cases.filter((caseItem) => caseItem._id !== selectedCase._id);
+      setCases(updatedCases);
+      setFilteredCases(updatedCases);
+  
       // Close the modal
       setApproveOptionsVisible(false);
     } catch (error) {
-      console.error('Error assigning judge:', error);
-      // Handle error as needed
-    };
+      console.error('Error assigning public advocate or approving:', error);
+      // Handle the error as needed
+    }
   };
+  
+
 
   const closeApproveOptionsModal = () => {
     // Close the modal without taking any action
@@ -101,10 +151,12 @@ const AdminDashboard = () => {
     setSelectedCase(null);
   };
 
+
   const closeCaseDetailsModal = () => {
   setApproveOptionsVisible(false);
    setSelectedCase(null);
   };
+
 
   return (
     <div className="container">

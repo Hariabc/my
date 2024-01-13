@@ -46,7 +46,7 @@ const AdminDashboard = () => {
 
   const linksData = [
     { path: "/mycases", label: "Receive Filed Cases", image: recievecases},
-    { path: "/assign-judge-lawyer", label: "Assigging judges", image: assignjudge },
+    { path: "/judge-assign", label: "Assigging judges", image: assignjudge },
     { path: "/documentation", label: "Documentation", image: Documentation },
     { path: "/update-cause-list", label: "Updating Cause List", image: updatecauselist},
     { path: "/scheduling-calendar", label: "Scheduling Calendar", image: scheduling },
