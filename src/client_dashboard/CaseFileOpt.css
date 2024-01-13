@@ -1,0 +1,37 @@
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    max-width: 97%;
+    margin: 0 auto;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f0f0f0; /* Change to your desired color */
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  button {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .content-container {
+    margin-top: 20px;
+    width: 100%; /* Adjust the width as needed */
+  }
+  
+  .active {
+    background-color: #4CAF50; /* Add your desired highlight color */
+    color: #fff; /* Text color for the highlighted button */
+  }

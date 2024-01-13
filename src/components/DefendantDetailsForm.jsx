@@ -28,7 +28,7 @@ const DefendantDetailsForm = ({ onChange, onNext, onBack }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onChange(defendantData);
-    // console.log(defendantData);
+    console.log(defendantData);
     onNext();
   };
 
@@ -59,6 +59,7 @@ const DefendantDetailsForm = ({ onChange, onNext, onBack }) => {
                   name="fullName"
                   value={defendantData.fullName}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
               </label>
@@ -83,6 +84,7 @@ const DefendantDetailsForm = ({ onChange, onNext, onBack }) => {
                   name="dateOfBirth"
                   value={defendantData.dateOfBirth}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
               </label>
@@ -109,6 +111,7 @@ const DefendantDetailsForm = ({ onChange, onNext, onBack }) => {
                   name="age"
                   value={defendantData.age}
                   onChange={handleChange}
+                  required
                   className="form-input"
                 />
               </label>
@@ -142,6 +145,7 @@ const DefendantDetailsForm = ({ onChange, onNext, onBack }) => {
                     name="partyEmailAddresses"
                     value={defendantData.partyEmailAddresses}
                     onChange={handleChange}
+                    required
                     className="form-input"
                   />
                 </label>
@@ -152,6 +156,7 @@ const DefendantDetailsForm = ({ onChange, onNext, onBack }) => {
                     name="partyPhoneNumbers"
                     value={defendantData.partyPhoneNumbers}
                     onChange={handleChange}
+                    required
                     className="form-input"
                   />
                 </label>
@@ -164,6 +169,7 @@ const DefendantDetailsForm = ({ onChange, onNext, onBack }) => {
                     name="partyAddresses"
                     value={defendantData.partyAddresses}
                     onChange={handleChange}
+                    required
                     className="form-input"
                   />
                 </label>
@@ -174,6 +180,7 @@ const DefendantDetailsForm = ({ onChange, onNext, onBack }) => {
                     name="pinCode"
                     value={defendantData.pinCode}
                     onChange={handleChange}
+                    required
                     className="form-input"
                   />
                 </label>
@@ -184,6 +191,7 @@ const DefendantDetailsForm = ({ onChange, onNext, onBack }) => {
                     name="occupation"
                     value={defendantData.occupation}
                     onChange={handleChange}
+                    required
                     className="form-input"
                   />
                 </label>
