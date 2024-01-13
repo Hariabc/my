@@ -164,7 +164,7 @@ const BriefcaseDashboard = () => {
     { path: '/scheduling-calendar', label: 'Scheduling Calendar', image: scheduling },
     { path: '/case-analytics', label: 'Cases Analytics', image: caseanalytics },
     { path: '/cao/addjudge-publicadv', label: 'Register Public advocates and Judges', image: addlawyers },
-    { path: '/post-updates-news', label: 'Posting Updates News', image: news },
+    { path: '/news', label: 'Posting Updates News', image: news },
     { path: '/send-notifications', label: 'Notifications', image: notifications },
     { path: '/case-profile-management', label: 'Case Management', image: resources },
     { path: '/pre-trial-conferencing', label: 'Pre-trial', image: videoconfrence },
@@ -196,9 +196,12 @@ const BriefcaseDashboard = () => {
 
 const HomeDashboard = () => {
   return (
-    <div className="home-dashboard" style={{height:"85vh"}}>
+    <div className="home-dashboard" style={{maxHeight:"110vh"}}>
       <div className="cases">
         <MyCases/>
+      </div>
+      <div className="news">
+        <News/>
       </div>
       <div className="updates">
         <h3>Updates</h3>
