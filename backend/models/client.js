@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 // User Schema
 const clientSchema = new mongoose.Schema({
@@ -62,4 +61,3 @@ const clientSchema = new mongoose.Schema({
 
 // Create a model based on the schema
 module.exports= mongoose.model('User', clientSchema);
-
