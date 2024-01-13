@@ -1,5 +1,7 @@
 /* temp.css */
-
+*{
+  box-sizing: border-box;
+}
 .dashboard-container {
   display: flex;
   height:100%;
@@ -7,7 +9,7 @@
 }
 
 .sidebar {
-  height:100vh;
+  height: auto;
   width: 60px;
   background-color: #333;
   color: #fff;
@@ -20,6 +22,7 @@
   0px 4px 8px rgba(48, 105, 251, 0.5), 
   0px 8px 16px rgba(48, 105, 251, 0.5);
   z-index: 999;
+  box-sizing: border-box;
 }
 
 .sidebar img {
@@ -66,14 +69,12 @@
 }
 
 .updates {
-  height: 40vh;
   width: 25vw;
   background-color: #f4f5f7;
   color:black;
   padding: 30px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
 }
 .dashborad-element-container {
 display: grid;
@@ -150,7 +151,7 @@ display: grid;
 grid-template-columns: 1fr 1fr 1fr;
 margin: 0 0;
 background-color: #f6f6fc;
-height: 100vh;
+height: 90vh;
 }
 .cases{
 grid-column: span 2;
@@ -161,4 +162,14 @@ grid-column: span 2;
 
 .faq-box{
   margin-left: 20%;
+}
+
+.news{
+  width: 25vw;
+  background-color: #f4f5f7;
+  color:black;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
 }

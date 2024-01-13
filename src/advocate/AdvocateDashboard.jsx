@@ -2,15 +2,7 @@ import React, { useState, useEffect } from 'react';
 import advocateImage from "../assets/advocate.png";
 import axios from "axios";
 import { Link } from 'react-router-dom';
-import {
-  IoHomeSharp,
-  IoBriefcaseSharp, 
-  IoPersonSharp, 
-  IoLogOutSharp, 
-  IoChatbubblesSharp, 
-  IoSettingsSharp, 
-  IoHelpCircleSharp, 
-  IoNotificationsOutline } from "react-icons/io5";
+import { IoNotificationsOutline } from "react-icons/io5";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { motion } from 'framer-motion';
 import Chat from '../Chat/Chat';
@@ -27,6 +19,14 @@ import scheduling from "../assets/DASHBOARDS/Scheduling calender.jpg";
 import caseanalytics from "../assets/DASHBOARDS/case analytics.jpg";
 import advocatelist from "../assets/DASHBOARDS/Advocate list.jpg";
 import client from "../assets/client.png";
+
+
+
+import { FiHome } from "react-icons/fi";
+import { RiMenu2Fill } from "react-icons/ri";
+import { CgProfile } from "react-icons/cg";
+import { BsChatDots } from "react-icons/bs";
+
 
 const FAQ_DATA = [
   {
@@ -56,7 +56,7 @@ const linksData = [
   { path: "/case-tracking", label: "Case Tracking", image: casetracking },
 ];
 
-const AdvocateDashboard = () => {
+const AdvocateDashboard= () => {
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [userData, setUserData] = useState({});
 
@@ -73,9 +73,8 @@ const AdvocateDashboard = () => {
   };
 
   const handleFaqClick = () => {
-    setSelectedComponent(<RenderFaq />);
+    setSelectedComponent(<RenderFaq/>);
   };
-
   const handleBriefcaseClick = () => {
     setSelectedComponent(<BriefcaseDashboard />);
   };
@@ -87,7 +86,7 @@ const AdvocateDashboard = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/advocate/user', { withCredentials: true });
+        const response = await axios.get('http://localhost:5000/client/user', { withCredentials: true });
         setUserData(response.data.user);
         setSelectedComponent(<BriefcaseDashboard />);
       } catch (error) {
@@ -110,37 +109,29 @@ const AdvocateDashboard = () => {
             marginBottom: '100px',
           }}
         />
-        <IoHomeSharp
-          size={35}
+        <FiHome
+          size={45}
           color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          style={{ paddingTop: '15px', cursor: 'pointer' }}
           onClick={handleHomeClick}
         />
-        <IoBriefcaseSharp
-          size={35}
+        <RiMenu2Fill
+          size={45}
           color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          style={{ paddingTop: '15px', cursor: 'pointer' }}
           onClick={handleBriefcaseClick}
         />
-        <IoPersonSharp
-          size={40}
+        <CgProfile
+          size={45}
           color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          style={{ paddingTop: '15px', cursor: 'pointer' }}
           onClick={handleProfileClick}
         />
-        <IoLogOutSharp size={35} color="#fff" style={{ paddingTop: '5px' }} />
-        <IoChatbubblesSharp
-          size={40}
+        <BsChatDots
+          size={45}
           color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
+          style={{ paddingTop: '15px', cursor: 'pointer' }}
           onClick={handleChatButtonClick}
-        />
-        <IoSettingsSharp size={35} color="#fff" style={{ paddingTop: '5px' }} />
-        <IoHelpCircleSharp
-          size={40}
-          color="#fff"
-          style={{ paddingTop: '5px', cursor: 'pointer' }}
-          onClick={handleFaqClick}
         />
       </div>
 
@@ -151,9 +142,9 @@ const AdvocateDashboard = () => {
           </div>
           <div className="notification-icon">
             <IoNotificationsOutline size={30} />
-            <div className="logout-button" style={{ paddingLeft: "20px" }}>
-              <button>Logout</button>
-            </div>
+            <div className="logout-button" style={{paddingLeft:"20px"}}> 
+            <button>Logout</button>
+          </div>
           </div>
         </div>
         <div className="dashboard-element-container">
@@ -165,7 +156,6 @@ const AdvocateDashboard = () => {
     </div>
   );
 };
-
 const HomeDashboard = () => {
   return (
     <div className="home-dashboard">
@@ -209,7 +199,7 @@ const BriefcaseDashboard = () => {
         transition={{ duration: 0.5, delay: 0.4 }}
       >
         {linksDataBriefcase.map((link, index) => (
-          <Link key={index} to={link.path} className="dashboard-box">
+          <Link key={index} to={link.path} className="dashboard-box" style={{borderTop: "3px solid blueviolet"}}>
             {link.image && <motion.img src={link.image} alt={link.label} className='dashboard-image' />} {/* Added alt attribute */}
             <h3 style={{ color: 'black' }}>{link.label}</h3>
           </Link>

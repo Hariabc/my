@@ -109,9 +109,9 @@ const LoginPage = () => {
       </div>
       {selectedUser && (
         <div className="login-form">
-          <h2>Login as {users.find((user) => user.id === selectedUser).name}</h2>
+          <h2 style={{paddingBottom:"5px",fontWeight:"unset",textAlign:"center"}} >Login as {users.find((user) => user.id === selectedUser).name}</h2>
           <form onSubmit={handleLogin}>
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="email" style={{fontSize:"20px"}}>Email:</label>
             <input
               type="text"
               id="email"
@@ -121,7 +121,7 @@ const LoginPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password" style={{fontSize:"20px"}}>Password:</label>
             <input
               type="password"
               id="password"
@@ -131,9 +131,9 @@ const LoginPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button type="submit">Login</button>
+            <button type="submit" style={{backgroundColor:"#28da8a",color:"black",fontWeight:"600",fontSize:"20px"}}>Login</button>
             <p className='Register'>
-              Don't have an account?<span><Link to={`/${selectedUser}/register`} style={{ textDecoration: "none" }}>Register</Link></span>
+              Don't have an account?<span><Link to={`/${selectedUser}/register`} style={{ textDecoration: "none" ,paddingLeft:"7px",color:"blue"}}>Register</Link></span>
             </p>
           </form>
         </div>
