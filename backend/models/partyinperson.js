@@ -87,5 +87,7 @@ const caseSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Filedcase', caseSchema);
 
+const Case = mongoose.model('Filedcase', caseSchema);
+
+module.exports = Case;
