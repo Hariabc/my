@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const express = require('express');
-const Case = require('../models/partyinperson'); 
+const Case = require('../models/PartyInPerson'); 
 const router = express.Router();
 router.use(express.json());
 const User = require("../models/client")
