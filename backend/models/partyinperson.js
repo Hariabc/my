@@ -13,9 +13,7 @@ const caseSchema = new mongoose.Schema({
     default: 'pending',
     required: true,
   },
-
-  
-  filecasetype: {
+filecasetype: {
     type: String,
     enum: ['partyinperson', 'privateAdvocate', 'publicAdvocate'],
     default: 'partyinperson',
@@ -88,6 +86,5 @@ const caseSchema = new mongoose.Schema({
 });
 
 
-const Case = mongoose.model('Filedcase', caseSchema);
+module.exports = mongoose.model('Filedcase', caseSchema);
 
-module.exports = Case;
