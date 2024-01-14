@@ -1,41 +1,76 @@
-/* Add this CSS to your stylesheet or component */
-ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  li {
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    overflow: hidden;
-    transition: box-shadow 0.3s ease-in-out;
-  }
-  
-  li:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
-  
-  .case-details {
-    padding: 20px;
-  }
-  
-  strong {
-    margin-right: 5px;
-  }
-  
-  button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    cursor: pointer;
-    border: none;
-    display: block;
-    margin: 10px auto;
-    transition: background-color 0.3s ease-in-out;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
+/* components/AssignJudgeDashboard.css */
+
+.assign-judge-dashboard {
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+}
+
+.case-list {
+  list-style: none;
+  padding: 0;
+}
+
+.case-box {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+
+.case-details {
+  margin-bottom: 10px;
+}
+
+.assign-button-container {
+  text-align: center;
+}
+
+.assign-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Modal styling */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ddd;
+  z-index: 1000;
+  border-radius: 8px;
+}
+
+.modal h2 {
+  margin-bottom: 15px;
+}
+
+.judge-list {
+  list-style: none;
+  padding: 0;
+}
+
+.judge-item {
+  margin-bottom: 10px;
+}
+
+.judge-radio {
+  margin-right: 5px;
+}
+
+.modal-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Add more styles as needed */
