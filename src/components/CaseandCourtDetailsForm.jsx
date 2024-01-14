@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import Dropdown from './Dropdown';
 import StateDistrictSelector from './Dropdown2';
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
-
-
-const CaseAndCourtDetailsForm = ({ onChange, onNext }) => {
+const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
   const [caseDetails, setCaseDetails] = useState({
     caseType: '',
     title: '',
@@ -36,11 +32,11 @@ const CaseAndCourtDetailsForm = ({ onChange, onNext }) => {
     setCaseDetails({ ...caseDetails, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      showConfirmation();
-    }
+  const handleNext = (e) => {
+    // e.preventDefault();
+    onChange(caseDetails);
+    // onNext()
+    console.log(caseDetails)
   };
   const handleCourtSelect = (selectedCourtDetails) => {
     setCaseDetails((prevData) => ({
@@ -48,43 +44,9 @@ const CaseAndCourtDetailsForm = ({ onChange, onNext }) => {
       ...selectedCourtDetails
     }));
   };
-
-  const validateForm = () => {
-    // Perform custom validations here
-    if (!caseDetails.caseType) {
-      alert('Please select a case type.');
-      return false;
-    }
-
-    if (!caseDetails.title.trim()) {
-      alert('Please enter a title for the case.');
-      return false;
-    }
-
-    // Add more custom validations for other fields as needed
-
-    return true;
-  };
-
-
-  const showConfirmation = () => {
-    confirmAlert({
-      title: 'Confirm Submission',
-      message: 'Are you sure you want to submit the form?',
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => {
-            onChange(caseDetails);
-            onNext();
-          },
-        },
-        {
-          label: 'No',
-          onClick: () => {},
-        },
-      ],
-    });
+  
+  const handleBack = () => {
+    onBack();
   };
 
 
@@ -96,7 +58,7 @@ const CaseAndCourtDetailsForm = ({ onChange, onNext }) => {
         //   <DocumentsForm />
         // ) : ( */}
         {/* //   // Render plaintiff form if it's not submitted */}
-          <form onSubmit={handleSubmit} className="form-grid">
+          <form onSubmit={handleNext} className="form-grid">
             {/* Case Details Fields */}
             <div className="case-details-section">
               <h3 className="section-title"> Case Details </h3>
@@ -107,7 +69,6 @@ const CaseAndCourtDetailsForm = ({ onChange, onNext }) => {
                     name="caseType"
                     value={caseDetails.caseType}
                     onChange={handleChange}
-                    required
                     className="form-input"
                   >
                     <option value="">Select Case Type</option>
@@ -123,7 +84,6 @@ const CaseAndCourtDetailsForm = ({ onChange, onNext }) => {
                     name="title"
                     value={caseDetails.title}
                     onChange={handleChange}
-                    required
                     className="form-input"
                   />
                 </label>
@@ -133,7 +93,6 @@ const CaseAndCourtDetailsForm = ({ onChange, onNext }) => {
                     name="caseSummary"
                     value={caseDetails.caseSummary}
                     onChange={handleChange}
-                    required
                     className="form-input"
                   />
                 </label>
@@ -144,7 +103,6 @@ const CaseAndCourtDetailsForm = ({ onChange, onNext }) => {
                     name="causeOfAction"
                     value={caseDetails.causeOfAction}
                     onChange={handleChange}
-                    required
                     className="form-input"
                   />
                 </label>
@@ -155,7 +113,6 @@ const CaseAndCourtDetailsForm = ({ onChange, onNext }) => {
                     name="reliefSought"
                     value={caseDetails.reliefSought}
                     onChange={handleChange}
-                    required
                     className="form-input"
                   />
                 </label>
@@ -166,7 +123,6 @@ const CaseAndCourtDetailsForm = ({ onChange, onNext }) => {
                     name="dateOfCauseOfAction"
                     value={caseDetails.dateOfCauseOfAction}
                     onChange={handleChange}
-                    required
                     className="form-input"
                   />
                 </label>
@@ -187,7 +143,6 @@ const CaseAndCourtDetailsForm = ({ onChange, onNext }) => {
                     name="taluka"
                     value={caseDetails.taluka}
                     onChange={handleChange}
-                    required
                     className="form-input"
                   />
                 </label>
@@ -198,7 +153,6 @@ const CaseAndCourtDetailsForm = ({ onChange, onNext }) => {
                     name="village"
                     value={caseDetails.village}
                     onChange={handleChange}
-                    required
                     className="form-input"
                   />
                 </label>
@@ -220,4 +174,4 @@ const CaseAndCourtDetailsForm = ({ onChange, onNext }) => {
     );
 };
   
-export default CaseAndCourtDetailsForm;
+export default CaseAndCourtDetailsForm;  
