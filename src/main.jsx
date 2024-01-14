@@ -90,6 +90,7 @@ const App = () => {
           <Route path="/cao/addjudge-publicadv" element={<AddUsers/>} />
           <Route path="/client/cause-list" element={<Causelist />} />
           <Route path="/cao/judge-assign" element={<Judgeassign/>} />
+          <Route path='/cao/scheduling-calendar' element={<EventForm/>}/>
         </Route>
       </Routes>
       </AuthProvider>

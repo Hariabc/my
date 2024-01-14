@@ -10,14 +10,13 @@ const EventForm = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
-  const [visibleToOthers, setVisibleToOthers] = useState(false);
   const [updateMode, setUpdateMode] = useState(false);
   const [updateEventId, setUpdateEventId] = useState('');
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/events');
+        const response = await axios.get('http://localhost:5000/api/events'); 
         setEvents(response.data);
       } catch (error) {
         console.error('Error fetching events:', error.message);
@@ -46,12 +45,12 @@ const EventForm = () => {
         await handleUpdate();
       } else {
         // If not in update mode, handle the create event logic
-        const response = await axios.post('http://localhost:3000/api/events', {
+        const response = await axios.post('http://localhost:5000/api/events', {
           title,
           description,
-          date,
+          date,  
           createdBy: 'Judge',
-          visibleToOthers,
+
         });
   
         console.log('Event created:', response.data);
@@ -63,7 +62,6 @@ const EventForm = () => {
         setTitle('');
         setDescription('');
         setDate('');
-        setVisibleToOthers(false);
          // Show a custom-styled pop-up for event creation
          showCustomToast('Event created successfully!', 'success');
     }
@@ -79,7 +77,7 @@ const EventForm = () => {
 
   const handleDelete = async (eventId) => {
     try {
-      await axios.delete(`http://localhost:3000/api/events/${eventId}`);
+      await axios.delete(`http://localhost:5000/api/events/${eventId}`);
       setEvents(events.filter((event) => event._id !== eventId));
     } catch (error) {
       console.error('Error deleting event:', error.message);
@@ -94,7 +92,7 @@ const EventForm = () => {
       setTitle(eventToUpdate.title);
       setDescription(eventToUpdate.description);
       setDate(eventToUpdate.date);
-      setVisibleToOthers(eventToUpdate.visibleToOthers);
+
   
       setUpdateMode(true);
       setUpdateEventId(eventId);
@@ -105,24 +103,25 @@ const EventForm = () => {
     setTitle('');
     setDescription('');
     setDate('');
-    setVisibleToOthers(false);
     setUpdateMode(false);
     setUpdateEventId('');
   };
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`http://localhost:3000/api/events/${updateEventId}`, {
+      await axios.put(`http://localhost:5000/api/events/${updateEventId}`, {
         title,
         description,
         date,
-        visibleToOthers,
-      });
+      
+      }
+      
+      );
 
       setEvents((prevEvents) =>
         prevEvents.map((event) =>
           event._id === updateEventId
-            ? { ...event, title, description, date, visibleToOthers }
+            ? { ...event, title, description, date }
             : event
         )
       );
@@ -130,7 +129,6 @@ const EventForm = () => {
       setTitle('');
       setDescription('');
       setDate('');
-      setVisibleToOthers(false);
       setUpdateMode(false);
       setUpdateEventId('');
      

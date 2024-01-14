@@ -10,6 +10,7 @@ const courtRouters = require(".//routers/court")
 const judgeRouters = require("./routers/judge")
 const PartyinpersonRouter = require("./routers/partyinperson")
 const ConferenceRouter = require("./routers/meetingRoutes")
+const eventRoutes = require("./routers/eventRoutes")
 // const { MongoClient, ServerApiVersion } = require('mongodb');
 
 
@@ -27,7 +28,8 @@ app.use("/cao", caoRouters)
 app.use("/advocate", AdvocateRouters)
 app.use("/judge", judgeRouters);
 app.use("/file",PartyinpersonRouter)
-app.use("/meeting",ConferenceRouter)
+app.use("/conferences",ConferenceRouter)
+app.use('/api/events', eventRoutes)
 
 
 // MongoDB connection URI with authentication credentials
