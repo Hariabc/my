@@ -1,4 +1,3 @@
-// components/AssignJudgeDashboard.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './judge_assign.css';
@@ -106,28 +105,30 @@ const AssignJudgeDashboard = () => {
 
       {/* Modal for selecting a judge */}
       {isModalOpen && (
-        <div className="modal">
-          <h2>Select a Judge</h2>
-          <div className="select-container">
-            <label>Select a Judge:</label>
-            <select onChange={(e) => setSelectedJudge(e.target.value)} className="judge-dropdown">
-              <option value="" disabled selected>
-                Choose a Judge
-              </option>
-              {registeredJudges.map((judge) => (
-                <option key={judge._id} value={judge._id}>
-                  {judge.name}
+        <div className="overlay">
+          <div className="box">
+            <h2>Select a Judge</h2>
+            <div className="select-container">
+              <label>Select a Judge:</label>
+              <select onChange={(e) => setSelectedJudge(e.target.value)} className="judge-dropdown">
+                <option value="" disabled selected>
+                  Choose a Judge
                 </option>
-              ))}
-            </select>
-          </div>
-          <div className="modal-buttons">
-            <button onClick={handleJudgeSelection} className="modal-button">
-              Assign Judge
-            </button>
-            <button onClick={handleCloseModal} className="modal-button">
-              Close
-            </button>
+                {registeredJudges.map((judge) => (
+                  <option key={judge._id} value={judge._id}>
+                    {judge.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="modal-buttons">
+              <button onClick={handleJudgeSelection} className="modal-button">
+                Assign Judge
+              </button>
+              <button onClick={handleCloseModal} className="close-button">
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}
