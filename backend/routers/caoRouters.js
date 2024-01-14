@@ -86,7 +86,7 @@ router.post('/login', async (req, res) => {
     res.cookie("jwtoken", token, {
       httpOnly: true,
       secure: true,
-      maxAge: 500000
+      maxAge: 78378397387
     });
     // Passwords match - successful login
       res.status(200).json({ message: 'Login successful' });

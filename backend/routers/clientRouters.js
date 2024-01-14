@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken")
 const cookie = require('cookie-parser')
 const User=require("../models/client")
 const authMiddleware = require("../middleware/clientAuthMiddleware")
-const Case= require('../models/PartyInPerson')
+const Case= require('../models/partyinperson')
 router.use(cookie());
 // router.use(
 //   session({

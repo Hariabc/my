@@ -16,4 +16,3 @@ const courtSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Court', courtSchema);
-
