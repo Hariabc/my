@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const express = require('express');
+const Case = require('../models/PartyInPerson'); 
 const router = express.Router();
 router.use(express.json());
 const User = require("../models/client")
 const Court = require('../models/court')
-const CourtAdmin = require('../models/cao')
-const Case = require('../models/partyinperson')
+const CourtAdmin=require('../models/cao')
 
 function generateCaseNumber() {
   const timestamp = Date.now().toString(); // Current timestamp

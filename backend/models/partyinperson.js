@@ -9,7 +9,9 @@ const caseSchema = new mongoose.Schema({
   },
   progress: {
     type: String,
-    // required: true,
+    enum: ['pending', "sent to Court Admin","Approved by Court Admin","Rejected by Court Admin",'inProgress', 'completed'],
+    default: 'pending',
+    required: true,
   },
 
   
@@ -35,14 +37,6 @@ const caseSchema = new mongoose.Schema({
     district: String,
     taluka: String,
     village: String,
-   
-  },
-  plaintiffAdvocate: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Advocate',
-    required: function () {
-      return ['privateAdvocate', 'publicAdvocate'].includes(this.filecasetype);
-    }
   },
   defendantDetails: {
     fullName: String,
@@ -60,15 +54,6 @@ const caseSchema = new mongoose.Schema({
     district: String,
     taluka: String,
     village: String,
-    
-   
-  },
-  defendantAdvocate: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Advocate',
-    required: function () {
-      return ['privateAdvocate', 'publicAdvocate'].includes(this.filecasetype);
-    }
   },
   caseDetails: {
     caseType: String,
@@ -94,8 +79,6 @@ const caseSchema = new mongoose.Schema({
   }// Store URL or file path
     // Add more document fields as needed
   ],
- 
-  
   paymentDetails: {
     paymentMethod: String,
     cardNumber: String,
@@ -105,5 +88,6 @@ const caseSchema = new mongoose.Schema({
 });
 
 
-module.exports = mongoose.model('Filedcase', caseSchema);
+const Case = mongoose.model('Filedcase', caseSchema);
 
+module.exports = Case;
