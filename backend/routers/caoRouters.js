@@ -241,5 +241,60 @@ router.post('/cases', authMiddleware, async (req, res) => {
   }
 });
 
+router.get('/registered-judges', authMiddleware,async (req, res) => {
+  try {
+    // Assuming you have a middleware to authenticate the admin and attach user data to req.user
+    const adminId = req.user._id;
+
+    // Find the court admin by ID
+    const admin = await CourtAdmin.findById(adminId).populate('judges');
+
+    if (!admin) {
+      return res.status(404).json({ message: 'Admin not found' });
+    }
+
+    // Access the list of registered judges directly from the admin object
+    const registeredJudges = admin.judges;
+
+    res.json({ registeredJudges });
+  } catch (error) {
+    console.error('Error fetching registered judges:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+router.post('/assign-judge/:judgeId/:filedcaseId', async (req, res) => {
+  try {
+    // Extract judgeId, filedcaseId, and courtCaseId from request parameters
+    const { judgeId, filedcaseId } = req.params;
+  // console.log(judgeId,filedcaseId)
+    // Find the judge, filedcase, and courtCase based on their IDs
+    const judge = await Judge.findById(judgeId);
+    const filedcase = await Filedcase.findById(filedcaseId);
+    const courtCase = await Case.findOne({ caseDetails: filedcase._id });
+    // console.log(courtCase)
+
+    // Check if the judge, filedcase, or courtCase is not found
+    if (!judge || !filedcase || !courtCase) {
+      return res.status(404).json({ message: 'Judge, Filedcase, or CourtCase not found' });
+    }
+
+    // Add the filedcase to the judge's cases array
+    judge.cases.push(filedcase);
+    await judge.save();
+
+    // Associate the judge with the CourtCase
+    courtCase.judge = judge;
+    await courtCase.save();
+
+    // Respond with a success message
+    res.json({ message: 'Judge assigned to Filedcase and associated with CourtCase successfully' });
+  } catch (error) {
+    // Handle errors and respond with an internal server error
+    console.error('Error assigning judge:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
 
 module.exports = router;

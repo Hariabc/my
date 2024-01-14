@@ -1,17 +1,20 @@
+// components/AssignJudgeDashboard.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './judge_assign.css'
 
 const AssignJudgeDashboard = () => {
   const [judgeApprovedCases, setJudgeApprovedCases] = useState([]);
+  const [registeredJudges, setRegisteredJudges] = useState([]);
+  const [selectedCase, setSelectedCase] = useState(null);
+  const [selectedJudge, setSelectedJudge] = useState(null);
 
   useEffect(() => {
     const fetchJudgeApprovedCases = async () => {
       try {
         const response = await axios.get('http://localhost:5000/cao/judgeapproved-cases', {
-          withCredentials: true, // Include this if you are using cookies for authentication
+          withCredentials: true,
         });
-       setJudgeApprovedCases(response.data.judgeApprovedCases);
+        setJudgeApprovedCases(response.data.judgeApprovedCases);
       } catch (error) {
         console.error('Error fetching judge-approved cases:', error);
       }
@@ -22,11 +25,33 @@ const AssignJudgeDashboard = () => {
 
   const handleAssignJudge = async (caseId) => {
     try {
-      // Add your logic to assign a judge for the selected case
-      console.log(`Assigning judge for case with ID: ${caseId}`);
+      // Fetch the list of registered judges for the admin
+      const response = await axios.get(`http://localhost:5000/cao/registered-judges`, {
+        withCredentials: true,
+      });
+      setRegisteredJudges(response.data.registeredJudges);
+
+      // Set the selected case
+      setSelectedCase(caseId);
     } catch (error) {
-      console.error('Error assigning judge:', error);
-    }0
+      console.error('Error fetching registered judges:', error);
+    }
+  };
+
+  const handleJudgeSelection = async () => {
+    if (selectedJudge) {
+      try {
+        // Assign the selected judge to the case
+        await axios.post(`http://localhost:5000/cao/assign-judge/${selectedJudge._id}/${selectedCase}`, {
+          withCredentials: true,
+        });
+        console.log(`Assigned judge for case with ID: ${selectedCase} to Judge ID: ${selectedJudge._id}`);
+      } catch (error) {
+        console.error('Error assigning judge:', error);
+      }
+    } else {
+      console.log('No judge selected. Please choose a judge.');
+    }
   };
 
   return (
@@ -38,25 +63,14 @@ const AssignJudgeDashboard = () => {
         <ul>
           {judgeApprovedCases.map((caseItem) => (
             <li key={caseItem._id}>
-                  {/* Display case details */}
-                  <div>
+              {/* Display case details */}
+              <div>
                 <strong>Case Number:</strong> {caseItem.caseNumber}
               </div>
               <div>
                 <strong>Case Title:</strong> {caseItem.caseDetails.title}
-                  </div>
-                  <div>
-                <strong>Case Type:</strong> {caseItem.caseDetails.caseType}
               </div>
-              <div>
-                <strong>Plaintiff Name:</strong> {caseItem.plaintiffDetails.fullName}
-              </div>
-              <div>
-                <strong>Defendant Name:</strong> {caseItem.defendantDetails.fullname}
-                  </div>
-                  <div>
-                <strong>Court Name:</strong> {caseItem.caseDetails.courtName}
-              </div>
+              {/* Additional case details... */}
               {/* Assign Judge button */}
               <button onClick={() => handleAssignJudge(caseItem._id)}>
                 Assign Judge for the Case
@@ -65,6 +79,27 @@ const AssignJudgeDashboard = () => {
           ))}
         </ul>
       </div>
+
+      {/* Modal for selecting a judge */}
+      {selectedCase && (
+        <div className="modal">
+          <h2>Select a Judge</h2>
+          <ul>
+            {registeredJudges.map((judge) => (
+              <li key={judge._id}>
+                <input
+                  type="radio"
+                  name="judge"
+                  value={judge._id}
+                  onChange={() => setSelectedJudge(judge)}
+                />
+                <label>{judge.name}</label>
+              </li>
+            ))}
+          </ul>
+          <button onClick={handleJudgeSelection}>Assign Judge</button>
+        </div>
+      )}
     </div>
   );
 };
