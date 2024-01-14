@@ -3,7 +3,7 @@ import jsPDF from 'jspdf';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import './Individualcases.css'
-import printIcon from 'C:\\Users\\saite\\Desktop\\abc\\my\\src\\assets\\download_icon.png'
+// import printIcon from 'C:\\Users\\saite\\Desktop\\abc\\my\\src\\assets\\download_icon.png'
 const CaseDetails = () => {
   const { caseId } = useParams();
   const [caseDetails, setCaseDetails] = useState(null);
