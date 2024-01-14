@@ -70,8 +70,7 @@ const AssignJudgeDashboard = () => {
               <div>
                 <strong>Case Title:</strong> {caseItem.caseDetails.title}
               </div>
-              {/* Additional case details... */}
-              {/* Assign Judge button */}
+              
               <button onClick={() => handleAssignJudge(caseItem._id)}>
                 Assign Judge for the Case
               </button>
