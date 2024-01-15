@@ -38,6 +38,7 @@ import ClientCases from './client_dashboard/casedetails.jsx'
 import IndividualCasesID from './client_dashboard/individulcases.jsx'
 import Mycases from './Admin_dashboard_components/Mycases.jsx'
 import AddUsers from './Admin_dashboard_components/publicadv_judgeregister.jsx'
+import ErrorPage from './pages/ErrorPage.jsx';
 import Causelist from './client_dashboard/Cause_list.jsx'
 import Judgeassign from './Admin_dashboard_components/judge_assign.jsx'
 import Services from './pages/service';
@@ -92,6 +93,7 @@ const App = () => {
           <Route path="/client/scheduling-event" element={<ClientEventForm/>}/>
           <Route path="/cao/mycases" element={<Mycases />} />
           <Route path="/cao/addjudge-publicadv" element={<AddUsers/>} />
+          <Route  path="*" element={<ErrorPage/>}/>
           <Route path="/client/cause-list" element={<Causelist />} />
           <Route path="/cao/judge-assign" element={<Judgeassign/>} />
           <Route path='/cao/scheduling-event' element={<AdminEventForm/>}/>

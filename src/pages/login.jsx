@@ -8,7 +8,7 @@ import judge from "../assets/judge.png";
 import axios from "axios";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import login from "../assets/DASHBOARDS/login-img.png"
 const LoginPage = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [email, setEmail] = useState('');
@@ -94,6 +94,9 @@ const LoginPage = () => {
 
   return (
     <div className="login-container">
+      <div className="image">
+        <img src={login} alt="" style={{position:"absolute",left:"10%",top:"10%",right:"20%"}}/>
+      </div>
       <ToastContainer />
       <div className="user-selection">
         {users.map((user) => (
