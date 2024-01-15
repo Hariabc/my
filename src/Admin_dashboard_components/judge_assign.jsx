@@ -104,34 +104,38 @@ const AssignJudgeDashboard = () => {
       </div>
 
       {/* Modal for selecting a judge */}
-      {isModalOpen && (
-        <div className="overlay">
-          <div className="box">
-            <h2>Select a Judge</h2>
-            <div className="select-container">
-              <label>Select a Judge:</label>
-              <select onChange={(e) => setSelectedJudge(e.target.value)} className="judge-dropdown">
-                <option value="" disabled selected>
-                  Choose a Judge
-                </option>
-                {registeredJudges.map((judge) => (
-                  <option key={judge._id} value={judge._id}>
-                    {judge.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="modal-buttons">
-              <button onClick={handleJudgeSelection} className="modal-button">
-                Assign Judge
-              </button>
-              <button onClick={handleCloseModal} className="close-button">
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      // ... (previous code)
+
+{/* Modal for selecting a judge */}
+{isModalOpen && (
+  <div className="overlay">
+    <div className="box">
+      <h2>Select a Judge</h2>
+      <div className="select-container">
+        <label>Select a Judge:</label>
+        <select onChange={(e) => setSelectedJudge(e.target.value)} className="judge-dropdown">
+          <option value="" disabled selected>
+            Choose a Judge
+          </option>
+          {registeredJudges.map((judge) => (
+            <option key={judge._id} value={judge._id}>
+              {judge.name} - {judge.gender}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="modal-buttons">
+        <button onClick={handleJudgeSelection} className="modal-button">
+          Assign Judge
+        </button>
+        <button onClick={handleCloseModal} className="close-button">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };

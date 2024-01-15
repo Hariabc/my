@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken")
 const cookie = require("cookie-parser")
 const Filedcase=require('../models/partyinperson')
 const { Case, Hearing, Order } = require('../models/courtcase');
+const court = require('../models/court');
 
 const router = express.Router();
 router.use(cookie())
@@ -289,6 +290,7 @@ router.post('/assign-judge/:judgeId/:filedcaseId', async (req, res) => {
 
     // Associate the judge with the CourtCase
     courtCase.judge = judge;
+    courtCase.caseStatus='caseAssignedToAJudge'
     await courtCase.save();
 
     // Respond with a success message
