@@ -7,9 +7,11 @@ const jwt = require("jsonwebtoken")
 const cookie = require("cookie-parser")
 const Filedcase=require('../models/partyinperson')
 const { Case, Hearing, Order } = require('../models/courtcase');
+const court = require('../models/court');
 
 const router = express.Router();
 router.use(cookie())
+
 // Register a new court admin
 router.post('/register', async (req, res) => {
   const { firstName,
@@ -87,7 +89,7 @@ router.post('/login', async (req, res) => {
     res.cookie("jwtoken", token, {
       httpOnly: true,
       secure: true,
-      maxAge: 78378397387
+      maxAge: 1000000
     });
     // Passwords match - successful login
       res.status(200).json({ message: 'Login successful' });
@@ -263,16 +265,17 @@ router.get('/registered-judges', authMiddleware,async (req, res) => {
   }
 });
 
-router.post('/assign-judge/:judgeId/:filedcaseId', async (req, res) => {
+router.post('/assign-judge/:judgeId/:filedcaseId', authMiddleware, async (req, res) => {
   try {
-    // Extract judgeId, filedcaseId, and courtCaseId from request parameters
+    // Extract judgeId, filedcaseId from request parameters
     const { judgeId, filedcaseId } = req.params;
+    const adminId = req.user._id;
 
     // Find the judge, filedcase, and courtCase based on their IDs
     const judge = await Judge.findById(judgeId);
     const filedcase = await Filedcase.findById(filedcaseId);
     const courtCase = await Case.findOne({ caseDetails: filedcase._id });
-
+  // console.log(judgeId,filedcase,courtCase)?
     // Check if the judge, filedcase, or courtCase is not found
     if (!judge || !filedcase || !courtCase) {
       return res.status(404).json({ message: 'Judge, Filedcase, or CourtCase not found' });
@@ -287,8 +290,16 @@ router.post('/assign-judge/:judgeId/:filedcaseId', async (req, res) => {
     judge.cases.push(filedcase);
     await judge.save();
 
+    // Remove the filedcase from judgeapprovedcases array
+    // Add the filedcase to judgeAssignedCases array
+    await CourtAdmin.findByIdAndUpdate(adminId, {
+      $pull: { judgeapprovedcases: filedcaseId },
+      $push: { judgeAssignedCases: filedcaseId },
+    });
+
     // Associate the judge with the CourtCase
     courtCase.judge = judge;
+    courtCase.caseStatus = 'caseAssignedToAJudge';
     await courtCase.save();
 
     // Respond with a success message
@@ -299,6 +310,8 @@ router.post('/assign-judge/:judgeId/:filedcaseId', async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
+
 
 
 

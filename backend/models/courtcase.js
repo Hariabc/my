@@ -18,6 +18,8 @@ const caseSchema = new mongoose.Schema({
       'sentToCourtAdmin',
       'approvedByCourtAdminForAssigningJudge',
       'approvedByCourtAdminForAssigningPublicAdvocate',
+      'caseAssignedToAJudge',
+      'caseAssignedToAPublicAdvocate',
       'rejectedByCourtAdmin',
       'preTrial',
       'inProgress',

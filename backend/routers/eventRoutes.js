@@ -2,11 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const Event = require('../models/event');
-const authMiddleware = require('../middleware/clientAuthMiddleware');
-// const authenticateToken = require('./clientAuthMiddleware');
-
-// // Routes that require authentication
-// router.use(authenticateToken);
+const authenticateToken = require('../middleware/adminAuthMiddleware');
 
 
 
