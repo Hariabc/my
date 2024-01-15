@@ -13,7 +13,7 @@ import Advpassword from "./components/privateAdvpassword.jsx";
 import PaymentComponent from './dashborad-components/payment.jsx'
 import AdvocateList from './dashborad-components/AdvoacateList.jsx'
 import FileUploader from './dashborad-components/Sendingfiles.jsx';
-import EventForm from './Features/EventForm.jsx';
+
 import VideoConference from './Features/Video_Conference/VideoConference.jsx';
 import JudgeConference from './Features/JudgeConference.jsx';
 import Conference from './Features/Video_Conference/Conference.jsx';
@@ -43,6 +43,9 @@ import Causelist from './client_dashboard/Cause_list.jsx'
 import Judgeassign from './Admin_dashboard_components/judge_assign.jsx'
 import Services from './pages/service';
 import Contact from './pages/contact';
+import ClientEventForm from './client_dashboard/ClientEventForm.jsx';
+import AdminEventForm from './Admin_dashboard_components/AdminEventForm.jsx';
+import JudgeEventForm from './judge/JudgeEventForm.jsx';
 const App = () => {
   return (
     <Router>
@@ -78,21 +81,23 @@ const App = () => {
           <Route path='/fileacase' element={<FileACaseMin/>}/>
           <Route path='/pre-trial' element={<VideoConference/>}/>
           <Route path='/schedule-pre-trial' element={<JudgeConference/>}/>
-          <Route path='/scheduling-calendar' element={<EventForm/>}/>
           <Route path="/homecon" element={<HomeCon/>}/>
           <Route path='/room/:roomID' element={<Room/>}/>
           <Route path='pre-trial-conferencing' element={<AdvocateConference/>}/>
           <Route path='/case-tracking' element={<CaseTracking/>}/>
           <Route path="/judge/register/complete/:token" element={<JudgeReg />} />
+          <Route path='/judge/scheduling-event' element={<JudgeEventForm/>}/>
           <Route path="/client/fileacase" element={<Casefileopt />} />
           <Route path="/client/mycases" element={<ClientCases/>} />
           <Route path="/client/mycases/:caseId" element={<IndividualCasesID />} />
+          <Route path="/client/scheduling-event" element={<ClientEventForm/>}/>
           <Route path="/cao/mycases" element={<Mycases />} />
           <Route path="/cao/addjudge-publicadv" element={<AddUsers/>} />
           <Route  path="*" element={<ErrorPage/>}/>
           <Route path="/client/cause-list" element={<Causelist />} />
           <Route path="/cao/judge-assign" element={<Judgeassign/>} />
-          <Route path='/cao/scheduling-calendar' element={<EventForm/>}/>
+          <Route path='/cao/scheduling-event' element={<AdminEventForm/>}/>
+
         </Route>
       </Routes>
       </AuthProvider>

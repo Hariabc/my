@@ -32,7 +32,7 @@ import scheduling from "../assets/DASHBOARDS/Scheduling calender.jpg";
 import caseanalytics from "../assets/DASHBOARDS/case analytics.jpg";
 import advocatelist from "../assets/DASHBOARDS/Advocate list.jpg";
 import MyCases from '../client_dashboard/casedetails';
-import EventForm from '../Features/EventForm';
+
 import { FiHome } from "react-icons/fi";
 import { RiMenu2Fill } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
@@ -294,7 +294,7 @@ const BriefcaseDashboard = () => {
     { path: "/advocatelist", label: "Private Advocate List", image: advocatelist },
     { path: "/cause-list", label: "Cause List", image: causelist },
     { path: "/client/mycases", label: "Case Details", image: casedetails },
-    { path: "/scheduling-calendar", label: "Scheduling Calendar", image: scheduling },
+    { path: "/client/scheduling-event", label: "Scheduling Calendar", image: scheduling },
     { path: "/case-analytics", label: "Case Analytics", image: caseanalytics },
     { path: "/case-tracking", label: "Case Tracking", image: casetracking },
   ];

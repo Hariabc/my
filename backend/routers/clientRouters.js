@@ -294,7 +294,7 @@ router.delete('/delete/:eventId', authMiddleware, async (req, res) => {
     const { eventId } = req.params;
     const userId = req.user._id;
 
-    const deletedEvent = await Event.findOneAndDelete({ _id: eventId, createdBy: userId });
+    const deletedEvent = await Event.findOneAndDelete({ _id: eventId, user: userId });
 
     if (!deletedEvent) {
       return res.status(404).json({ error: 'Event not found or unauthorized' });

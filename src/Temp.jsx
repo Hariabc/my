@@ -29,7 +29,7 @@ import scheduling from "./assets/DASHBOARDS/Scheduling calender.jpg";
 import caseanalytics from "./assets/DASHBOARDS/case analytics.jpg";
 import advocatelist from "./assets/DASHBOARDS/Advocate list.jpg";
 import MyCases from './client_dashboard/casedetails';
-import EventForm from './Features/EventForm';
+
 
 const FAQ_DATA = [
   {

@@ -112,7 +112,7 @@ const CaseDetails = () => {
               </div>
               
               <div className="printButton-div">
-            <button className="printButton" onClick={DetailsToPDF}><img style={{"width": "20px", "borderRadius": "50%"}} src={printIcon}/><i style={{"position": "relative", "bottom": "3px", "left": "5px"}}>Print</i></button>
+            <button className="printButton" onClick={DetailsToPDF}><img style={{"width": "20px", "borderRadius": "50%"}} /><i style={{"position": "relative", "bottom": "3px", "left": "5px"}}>Print</i></button>
           </div>
         </div>
             
