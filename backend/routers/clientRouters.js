@@ -223,18 +223,23 @@ router.post('/case-tracking', async (req, res) => {
   try {
     const { courtState, courtDistrict, courtName, searchType, searchValue } = req.body;
 
-    // Check court details
-    // const courtDetails = await Court.findOne({
-    //   courtState,
-    //   courtDistrict,caseDetails.
-    //   courtName
-    // }).exec();
+    // Check court details and populate 'caseDetails' field
+    const populatedCourtDetails = await Case.findOne({
+      'caseDetails.caseDetails.courtState': courtState,
+      'caseDetails.caseDetails.courtDistrict': courtDistrict,
+      'caseDetails.caseDetails.courtName': courtName
+    })
+      .populate('caseDetails') // Populate 'caseDetails' field
+      .populate('hearings')
+      .populate('orders')
+      .populate('courtAdmin')
+      .exec();
 
-    // if (!courtDetails) {
-    //   return res.status(404).json({ error: 'Court not found' });
-    // }
+    if (!populatedCourtDetails) {
+      return res.status(404).json({ error: 'Court not found' });
+    }
 
-    // If court is found, now check the case details based on the provided search type and value
+    // Now check the case details based on the provided search type and value
     let caseDetails;
 
     switch (searchType) {
@@ -278,8 +283,7 @@ router.post('/case-tracking', async (req, res) => {
         caseDetails = await Case.findOne({
           'caseDetails.caseDetails.courtState': courtState,
           'caseDetails.caseDetails.courtDistrict': courtDistrict,
-          'caseDetails.caseDetails.courtName': courtName,
-          'caseDetails.caseDetails.courtName': searchValue
+          'caseDetails.caseDetails.courtName': courtName
         })
           .populate('hearings')
           .populate('orders')
@@ -300,6 +304,7 @@ router.post('/case-tracking', async (req, res) => {
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 
 

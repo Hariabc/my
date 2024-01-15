@@ -22,7 +22,7 @@ import FileACaseMin from './dashborad-components/FileACaseMin.jsx';
 import HomeCon from './Features/Video_Conference/homeCon.jsx';
 import Room from './Features/Video_Conference/Room.jsx';
 import AdvocateConference from './Features/AdvocateConference.jsx';
-import CaseTracking from './dashborad-components/CaseTracking.jsx';
+import CaseTracking from './client_dashboard/CaseTracking.jsx';
 import "./index.css"
 import Layout from './components/Layout.jsx';
 import Profile from './client/Profile.jsx';

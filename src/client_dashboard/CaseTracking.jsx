@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './CaseTracking.css';
 import StateDistrictSelector from '../components/Dropdown2';
 import Dropdown from '../components/Dropdown';
+import axios from 'axios';
 
 const CaseTracking = () => {
   const [trackingOption, setTrackingOption] = useState('');
@@ -56,17 +57,17 @@ const CaseTracking = () => {
 
   const handleSearch = async () => {
     try {
-      console.log('Selected State:', selectedState);
-      console.log('Selected District:', selectedDistrict);
-      console.log('Selected Court:', selectedCourt);
+      console.log('Selected State:', selectedCourt.courtState);
+      console.log('Selected District:', selectedCourt.courtDistrict);
+      console.log('Selected Court:', selectedCourt.courtName);
       console.log('Tracking Option:', trackingOption);
       console.log('Search Value:', searchValue);
   
       // Send Axios request to the backend
       const response = await axios.post('http://localhost:5000/client/case-tracking', {
-        courtState: selectedState,
-        courtDistrict: selectedDistrict,
-        courtName: selectedCourt,
+        courtState: selectedCourt.courtState,
+        courtDistrict: selectedCourt.courtDistrict,
+        courtName: selectedCourt.courtName,
         searchType: trackingOption,
         searchValue: searchValue, // Keep the original searchValue without converting to uppercase
       });
