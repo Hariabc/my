@@ -131,7 +131,7 @@ const BriefcaseDashboard = () => {
   const linksDataBriefcase = [
   { path: "/schedule-pre-trial", label: "Pre Trial", image: confrence },
   { path: "/documentation", label: "Documentation", image: document },
-  { path: "/calendar-scheduling", label: "Calendar Scheduling", image: scheduling },
+  { path: "/scheduling-calendar", label: "Calendar Scheduling", image: scheduling },
   { path: "/my-cases", label: "My Cases", image: casedetails },
   { path: "/cause-list", label: "Cause List", image: causelist },
   { path: "/Judge-case-tracking", label: "Case Tracking", image: casetracking },

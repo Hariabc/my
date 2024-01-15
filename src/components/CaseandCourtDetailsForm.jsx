@@ -135,6 +135,7 @@ const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
                 <StateDistrictSelector
             onSelectState={handleStateSelect}
             onSelectDistrict={handleDistrictSelect}
+            isRequired={true}
           />
                 <label className="form-label">
                   Taluka:
@@ -160,7 +161,7 @@ const CaseAndCourtDetailsForm = ({ onChange, onBack }) => {
             </div>
             <div className="court-details-section">
               <h3 className="section-title">Court Details</h3>
-              <Dropdown onSelectCourt={handleCourtSelect} />
+              <Dropdown onSelectCourt={handleCourtSelect} isRequired={true}  />
             </div>
             {/* Submit Button for Defendant Form */}
             <div className="submit-section">

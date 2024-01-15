@@ -12,9 +12,9 @@ const JudgeConference = () => {
 
   const navigate = useNavigate();
 
-  const handleJoinClick = () => {
+  const handleJoinClick = (conferenceId) => {
     // Redirect to Home.js when the Join button is clicked
-    navigate('/homecon');
+    navigate(`/homecon/${conferenceId}`);
   };
   
   const [conferences, setConference] = useState([]);
