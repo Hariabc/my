@@ -292,6 +292,7 @@ const DefendantDetailsForm = ({ onChange, onNext }) => {
               <StateDistrictSelector
             onSelectState={handleStateSelect}
             onSelectDistrict={handleDistrictSelect}
+            isRequired={true} 
           />
               </div>
               <div className="grid-half">

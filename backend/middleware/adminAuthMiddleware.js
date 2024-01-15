@@ -4,7 +4,7 @@ const User = require("../models/cao");
 const authenticateToken = async (req, res, next) => {
     try {
         const token = req.cookies.jwtoken; // Ensure this matches the cookie name
-
+        // console.log(token)
         if (!token) {
             return res.status(401).json({ error: 'Token not provided' });
         }

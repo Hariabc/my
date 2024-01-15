@@ -125,8 +125,8 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
     setPlaintiffData({ ...plaintiffData, district: selectedDistrict });
   };
   return (
-    <div className="plaintiff-form" onSubmit={handleSubmit}>
-      <h2 className="form-section-title">Plaintiff Details</h2>
+    <div className="plaintiff-form" onSubmit={handleSubmit}>  <br></br>
+      <h2 className="form-section-title">PLANTIFF DETAILS</h2>
         <form  className="form-grid" onSubmit={handleSubmit}>
           {/* Personal Information */}
           <div className="personal-details-section">
@@ -291,6 +291,7 @@ const PlaintiffDetailsForm = ({ onChange, onNext }) => {
             <StateDistrictSelector
             onSelectState={handleStateSelect}
             onSelectDistrict={handleDistrictSelect}
+            isRequired={true} 
           />
             </div>
             <div className="grid-half">

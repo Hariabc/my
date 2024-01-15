@@ -1,14 +1,17 @@
 const express = require('express');
 const authMiddleware = require("../middleware/adminAuthMiddleware")
-
+const Judge = require('../models/judge');
 const CourtAdmin = require('../models/cao');
 const Court = require("../models/court")
 const jwt = require("jsonwebtoken")
-const cookie=require("cookie-parser")
-
+const cookie = require("cookie-parser")
+const Filedcase=require('../models/partyinperson')
+const { Case, Hearing, Order } = require('../models/courtcase');
+const court = require('../models/court');
 
 const router = express.Router();
 router.use(cookie())
+
 // Register a new court admin
 router.post('/register', async (req, res) => {
   const { firstName,
@@ -86,7 +89,7 @@ router.post('/login', async (req, res) => {
     res.cookie("jwtoken", token, {
       httpOnly: true,
       secure: true,
-      maxAge: 78378397387
+      maxAge: 1000000
     });
     // Passwords match - successful login
       res.status(200).json({ message: 'Login successful' });
@@ -108,13 +111,10 @@ router.get('/user',authMiddleware, (req, res) => {
   }
 });
 
-// Assuming you have necessary imports and setup for models and express
-
-// Fetch filed cases for the logged-in court admin
 router.get('/mycases', authMiddleware, async (req, res) => {
   try {
     const courtAdminId = req.user._id; // Retrieve court admin ID from authenticated user
-
+    // console.log(courtAdminId)
     // Find the court admin by ID and populate the associated court cases
     const courtAdmin = await CourtAdmin.findById(courtAdminId).populate('courtCases');
 
@@ -128,10 +128,191 @@ router.get('/mycases', authMiddleware, async (req, res) => {
   }
 });
 
-// module.exports = router;
+// Assuming you have a route like '/approve-for-assigning-judge'
+router.post('/approve-case/:adminId/:caseId/:approvalType', async (req, res) => {
+  try {
+    const { adminId, caseId, approvalType } = req.params;
+
+    // Find the CourtAdmin by ID
+    const courtAdmin = await CourtAdmin.findById(adminId);
+
+    if (!courtAdmin) {
+      return res.status(404).json({ error: 'CourtAdmin not found' });
+    }
+
+    // Find the Filedcase by ID
+    const filedCase = await Filedcase.findById(caseId);
+
+    if (!filedCase) {
+      return res.status(404).json({ error: 'Filedcase not found' });
+    }
+
+    // Update the appropriate array based on the approval type
+    if (approvalType === 'judge') {
+      courtAdmin.judgeapprovedcases.push(filedCase);
+    } else if (approvalType === 'advocate') {
+      courtAdmin.publicadvocateapprovedcases.push(filedCase);
+    } else {
+      return res.status(400).json({ error: 'Invalid approval type' });
+    }
+
+    // Remove the case from the original array (courtCases)
+    const index = courtAdmin.courtCases.indexOf(caseId);
+    courtAdmin.courtCases.splice(index, 1);
+
+    // Save the changes
+    await courtAdmin.save();
+
+    return res.status(200).json({ message: 'Case approved successfully' });
+  } catch (error) {
+    console.error('Error approving case:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+router.get('/judgeapproved-cases', authMiddleware,async (req, res) => {
+  try {
+    // Assuming you have a middleware to authenticate the court admin and attach user data to req.user
+    const courtAdminId = req.user._id;
+
+    // Find the court admin by ID and populate the judge-approved cases
+    const courtAdmin = await CourtAdmin.findById(courtAdminId).populate('judgeapprovedcases');
+
+    if (!courtAdmin) {
+      return res.status(404).json({ message: 'Court Admin not found' });
+    }
+
+    // Extract the judge-approved cases
+    const judgeApprovedCases = courtAdmin.judgeapprovedcases;
+
+    res.json({ judgeApprovedCases });
+  } catch (error) {
+    console.error('Error fetching judge-approved cases:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+router.post('/cases', authMiddleware, async (req, res) => {
+  try {
+    const { caseId, approvalType } = req.body;
+    const courtAdminId = req.user._id;
+
+    // Find the filed case by ID
+    const filedCase = await Filedcase.findById(caseId);
+
+    if (!filedCase) {
+      return res.status(404).json({ success: false, message: 'Filedcase not found' });
+    }
+
+    const assignJudgePromise = (async () => {
+      if (approvalType === 'judge') {
+        const newCase = new Case({
+          caseNumber: filedCase.caseNumber,
+          caseType: filedCase.filecasetype,
+          caseStatus: 'approvedByCourtAdminForAssigningJudge',
+          caseDetails: filedCase._id,
+          courtAdmin: courtAdminId,
+        });
+        await newCase.save();
+        return { success: true, message: 'Case approved for assigning judge', case: newCase };
+      }
+    })();
+
+    const assignAdvocatePromise = (async () => {
+      if (approvalType === 'advocate') {
+        const newCase = new Case({
+          caseNumber: filedCase.caseNumber,
+          caseType: filedCase.filecasetype,
+          caseStatus: 'approvedByCourtAdminForAssigningPublicAdvocate',
+          caseDetails: filedCase._id,
+          courtAdmin: courtAdminId,
+        });
+        await newCase.save();
+        return { success: true, message: 'Case approved for assigning Public Advocate', case: newCase };
+      }
+    })();
+
+    const [assignJudgeResult, assignAdvocateResult] = await Promise.all([assignJudgePromise, assignAdvocatePromise]);
+
+    // Respond with a success message and updated case details
+    res.json({ success: true, message: `Case assigned for ${approvalType}`, assignJudgeResult, assignAdvocateResult });
+  } catch (error) {
+    console.error('Error assigning case:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
+
+router.get('/registered-judges', authMiddleware,async (req, res) => {
+  try {
+    // Assuming you have a middleware to authenticate the admin and attach user data to req.user
+    const adminId = req.user._id;
+
+    // Find the court admin by ID
+    const admin = await CourtAdmin.findById(adminId).populate('judges');
+
+    if (!admin) {
+      return res.status(404).json({ message: 'Admin not found' });
+    }
+
+    // Access the list of registered judges directly from the admin object
+    const registeredJudges = admin.judges;
+
+    res.json({ registeredJudges });
+  } catch (error) {
+    console.error('Error fetching registered judges:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+router.post('/assign-judge/:judgeId/:filedcaseId', authMiddleware, async (req, res) => {
+  try {
+    // Extract judgeId, filedcaseId from request parameters
+    const { judgeId, filedcaseId } = req.params;
+    const adminId = req.user._id;
+
+    // Find the judge, filedcase, and courtCase based on their IDs
+    const judge = await Judge.findById(judgeId);
+    const filedcase = await Filedcase.findById(filedcaseId);
+    const courtCase = await Case.findOne({ caseDetails: filedcase._id });
+  // console.log(judgeId,filedcase,courtCase)?
+    // Check if the judge, filedcase, or courtCase is not found
+    if (!judge || !filedcase || !courtCase) {
+      return res.status(404).json({ message: 'Judge, Filedcase, or CourtCase not found' });
+    }
+
+    // Check if the case is already assigned to a judge
+    if (courtCase.judge) {
+      return res.status(400).json({ message: 'Case is already assigned to a judge' });
+    }
+
+    // Add the filedcase to the judge's cases array
+    judge.cases.push(filedcase);
+    await judge.save();
+
+    // Remove the filedcase from judgeapprovedcases array
+    // Add the filedcase to judgeAssignedCases array
+    await CourtAdmin.findByIdAndUpdate(adminId, {
+      $pull: { judgeapprovedcases: filedcaseId },
+      $push: { judgeAssignedCases: filedcaseId },
+    });
+
+    // Associate the judge with the CourtCase
+    courtCase.judge = judge;
+    courtCase.caseStatus = 'caseAssignedToAJudge';
+    await courtCase.save();
+
+    // Respond with a success message
+    res.json({ message: 'Judge assigned to Filedcase and associated with CourtCase successfully' });
+  } catch (error) {
+    // Handle errors and respond with an internal server error
+    console.error('Error assigning judge:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
+
+
 
 module.exports = router;
-
-
-
-// module.exports = router;

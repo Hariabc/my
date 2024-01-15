@@ -12,12 +12,16 @@ const JudgeConference = () => {
 
   const navigate = useNavigate();
 
-  const handleJoinClick = () => {
+  const handleJoinClick = (conferenceId) => {
     // Redirect to Home.js when the Join button is clicked
-    navigate('/homecon');
+    navigate(`/homecon/${conferenceId}`);
   };
   
   const [conferences, setConference] = useState([]);
+  const [caseNumber, setCaseNumber] = useState('');
+  const [plaintiffName, setPlaintiffName] = useState('');
+  const [defendantName, setDefendantName] = useState('');
+  const [advocateName, setAdvocateName] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
@@ -28,7 +32,7 @@ const JudgeConference = () => {
   useEffect(() => {
     const fetchScheduledConferences = async () => {
       try {
-        const response = await axios.get('http://localhost:3002/api/conferences');
+        const response = await axios.get('http://localhost:5000/api/conferences');
         setConference(response.data);
       } catch (error) {
         console.error('Error fetching scheduled conferences:', error);
@@ -71,8 +75,12 @@ const generateMeetingID = () => {
       } else {
         const generatedMeetingID = generateMeetingID();
         // If not in update mode, handle the create event logic
-        const response = await axios.post('http://localhost:3002/api/conferences', {
-          title,
+        const response = await axios.post('http://localhost:5000/api/conferences', {
+          caseNumber,
+          plaintiffName,
+          defendantName,
+          advocateName,  
+        title,
           description,
           date,
           meetingID: generatedMeetingID, 
@@ -85,6 +93,10 @@ const generateMeetingID = () => {
         setConference([...conferences, response.data]);
   
         // Reset form fields
+        setCaseNumber('');
+        setPlaintiffName('');
+        setDefendantName('');
+        setAdvocateName('');
         setTitle('');
         setDescription('');
         setDate('');
@@ -104,7 +116,7 @@ const generateMeetingID = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3002/api/conferences/${id}`);
+      await axios.delete(`http://localhost:5000/api/conferences/${id}`);
       setConference(
         conferences.filter((conference) => conference._id !== id)
       );
@@ -140,7 +152,7 @@ const generateMeetingID = () => {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`http://localhost:3002/api/conferences/${updateConferenceId}`, {
+      await axios.put(`http://localhost:5000/api/conferences/${updateConferenceId}`, {
         title,
         description,
         date,
@@ -150,7 +162,7 @@ const generateMeetingID = () => {
       setConference((prevConference) =>
         prevConference.map((conference) =>
           conference._id === updateConferenceId
-            ? { ...conference, title, description, dat
+            ? { ...conference, title, description, date
             }
             : conference
         )
@@ -171,6 +183,28 @@ const generateMeetingID = () => {
       console.error('Error updating conference:', error.message);
       // Add logic to handle errors
     }
+  };
+
+  const fetchCaseDetails = async (caseNumber) => {
+    try {
+      // Make a request to fetch case details based on the case number
+      const response = await axios.get(`http://localhost:5000/api/cases/${caseNumber}`);
+
+      // Update state with the fetched details
+      setPlaintiffName(response.data.plaintiffName);
+      setDefendantName(response.data.defendantName);
+      setAdvocateName(response.data.advocateName);
+    } catch (error) {
+      console.error('Error fetching case details:', error);
+    }
+  };
+
+  const handleCaseNumberChange = async (e) => {
+    const enteredCaseNumber = e.target.value;
+    setCaseNumber(enteredCaseNumber);
+
+    // Fetch case details when the case number changes
+    await fetchCaseDetails(enteredCaseNumber);
   };
 
 
@@ -201,7 +235,55 @@ const generateMeetingID = () => {
       {/* Schedule a new conference */}
       <div className="event-container">
       <form onSubmit={handleSubmit} className="event-form">
-        <div className="input-box">
+      <div className="input-box">
+            <label className="event-form-label">
+              Case Number:
+              <input
+                type="text"
+                value={caseNumber}
+                onChange={handleCaseNumberChange}
+                required
+                className="event-form-input"
+              />
+            </label>
+            <br />
+
+            <label className="event-form-label">
+              Plaintiff Name:
+              <input
+                type="text"
+                value={plaintiffName}
+                onChange={(e) => setPlaintiffName(e.target.value)}
+                required
+                className="event-form-input"
+              />
+            </label>
+            <br />
+
+            <label className="event-form-label">
+              Defendant Name:
+              <input
+                type="text"
+                value={defendantName}
+                onChange={(e) => setDefendantName(e.target.value)}
+                required
+                className="event-form-input"
+              />
+            </label>
+            <br />
+
+            <label className="event-form-label">
+              Advocate Name:
+              <input
+                type="text"
+                value={advocateName}
+                onChange={(e) => setAdvocateName(e.target.value)}
+                required
+                className="event-form-input"
+              />
+            </label>
+            <br />
+        
           <label className="event-form-label">
             Title:
             <input

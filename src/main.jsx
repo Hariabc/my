@@ -39,6 +39,10 @@ import IndividualCasesID from './client_dashboard/individulcases.jsx'
 import Mycases from './Admin_dashboard_components/Mycases.jsx'
 import AddUsers from './Admin_dashboard_components/publicadv_judgeregister.jsx'
 import ErrorPage from './pages/ErrorPage.jsx';
+import Causelist from './client_dashboard/Cause_list.jsx'
+import Judgeassign from './Admin_dashboard_components/judge_assign.jsx'
+import Services from './pages/service';
+import Contact from './pages/contact';
 const App = () => {
   return (
     <Router>
@@ -47,6 +51,8 @@ const App = () => {
       <Route path='' element={<Layout/>}>
             <Route index element={<Home />}/>
             <Route path="/Login" element={<LoginPage />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/client/register" element={<ClientForm />} />
             <Route path="/advocate/register" element={<AdvocateForm />} />
             <Route path="/client/set-password/:token" element={<SetPassword />} />
@@ -84,6 +90,9 @@ const App = () => {
           <Route path="/cao/mycases" element={<Mycases />} />
           <Route path="/cao/addjudge-publicadv" element={<AddUsers/>} />
           <Route  path="*" element={<ErrorPage/>}/>
+          <Route path="/client/cause-list" element={<Causelist />} />
+          <Route path="/cao/judge-assign" element={<Judgeassign/>} />
+          <Route path='/cao/scheduling-calendar' element={<EventForm/>}/>
         </Route>
       </Routes>
       </AuthProvider>

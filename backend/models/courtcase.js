@@ -1,41 +1,111 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
 
-const caseSchema = new Schema({
-  category: { type: String, required: true },
-  type: { type: String, required: true },
-  judge: { type: Schema.Types.ObjectId, ref: 'Judge' },
-  client: { type: Schema.Types.ObjectId, ref: 'Client' }, // Reference to the client who filed the case
-  advocate: { type: Schema.Types.ObjectId, ref: 'Advocate' },
-  hearingDate: { type: Date, required: true },
-  status: {
+const caseSchema = new mongoose.Schema({
+  caseNumber: {
     type: String,
-    enum: ['pending', 'in_progress', 'adjourned', 'resolved', 'cancelled'],
-    default: 'pending',
+    unique: true,
+    required: true
   },
-  hearingLocation: { type: String },
-  documents: [{ type: Schema.Types.ObjectId, ref: 'Document' }],
-  caseHistory: [
-    {
-      event: { type: String, required: true },
-      date: { type: Date, default: Date.now },
-      details: { type: String },
-    },
-  ],
-  notes: { type: String },
-  createdAt: { type: Date, default: Date.now },
-  respondents: [
-    {
-      respondentType: { type: String, required: true },
-      name: { type: String, required: true },
-      contact: {
-        phone: { type: String },
-        email: { type: String },
-        address: { type: String },
-      },
-    },
-  ],
+  caseType: {
+    type: String,
+    enum: ['partyinperson', 'publicAdvocate', 'privateAdvocate'],
+    required: true
+  },
+  caseStatus: {
+    type: String,
+    enum: [
+      'pending',
+      'sentToCourtAdmin',
+      'approvedByCourtAdminForAssigningJudge',
+      'approvedByCourtAdminForAssigningPublicAdvocate',
+      'caseAssignedToAJudge',
+      'caseAssignedToAPublicAdvocate',
+      'rejectedByCourtAdmin',
+      'preTrial',
+      'inProgress',
+      'completed'
+    ],
+    required: true
+  },
+  caseDetails: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Filedcase',
+  },
+ 
+  courtAdmin: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'CourtAdmin',
+    // required: true
+  },
+  judge: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Judge',
+    // required: true
+  },
+
+  hearings: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Hearing'
+  }],
+  orders: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Order'
+  }]
+});
+
+const hearingSchema = new mongoose.Schema({
+  hearingId: {
+    type: Number,
+    unique: true,
+    required: true
+  },
+  hearingDate: {
+    type: Date,
+    required: true
+  },
+  hearingTime: {
+    type: String,
+    required: true
+  },
+  hearingMode: {
+    type: String,
+    enum: ['physical', 'virtual'],
+    required: true
+  },
+  hearingStatus: {
+    type: String,
+    enum: ['scheduled', 'inProgress', 'completed', 'adjourned', 'cancelled'],
+    required: true
+  },
+  hearingNotes: {
+    type: String,
+    required: true
+  }
+});
+
+const orderSchema = new mongoose.Schema({
+  orderId: {
+    type: Number,
+    unique: true,
+    required: true
+  },
+  orderType: {
+    type: String,
+    enum: ['courtDecision', 'ruling', 'judgment', 'dismissal', 'settlement'],
+    required: true
+  },
+  orderContent: {
+    type: String,
+    required: true
+  },
+  orderDate: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 const Case = mongoose.model('Case', caseSchema);
-module.exports = Case;
+const Hearing = mongoose.model('Hearing', hearingSchema);
+const Order = mongoose.model('Order', orderSchema);
+
+module.exports = { Case, Hearing, Order };
