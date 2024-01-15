@@ -89,7 +89,7 @@ router.post('/login', async (req, res) => {
     res.cookie("jwtoken", token, {
       httpOnly: true,
       secure: true,
-      maxAge: 78378397387
+      maxAge: 1000000
     });
     // Passwords match - successful login
       res.status(200).json({ message: 'Login successful' });
@@ -265,18 +265,17 @@ router.get('/registered-judges', authMiddleware,async (req, res) => {
   }
 });
 
-router.post('/assign-judge/:judgeId/:filedcaseId', authMiddleware,async (req, res) => {
+router.post('/assign-judge/:judgeId/:filedcaseId', authMiddleware, async (req, res) => {
   try {
     // Extract judgeId, filedcaseId from request parameters
     const { judgeId, filedcaseId } = req.params;
-    const courtAdminId = req.user;
-    // console.log(courtAdminId)
+    const adminId = req.user._id;
 
     // Find the judge, filedcase, and courtCase based on their IDs
     const judge = await Judge.findById(judgeId);
     const filedcase = await Filedcase.findById(filedcaseId);
     const courtCase = await Case.findOne({ caseDetails: filedcase._id });
-
+  // console.log(judgeId,filedcase,courtCase)?
     // Check if the judge, filedcase, or courtCase is not found
     if (!judge || !filedcase || !courtCase) {
       return res.status(404).json({ message: 'Judge, Filedcase, or CourtCase not found' });
@@ -292,8 +291,8 @@ router.post('/assign-judge/:judgeId/:filedcaseId', authMiddleware,async (req, re
     await judge.save();
 
     // Remove the filedcase from judgeapprovedcases array
-    // Replace 'currentCourtAdminId' with the actual ID of the current Court Admin
-    await CourtAdmin.findByIdAndUpdate('currentCourtAdminId', {
+    // Add the filedcase to judgeAssignedCases array
+    await CourtAdmin.findByIdAndUpdate(adminId, {
       $pull: { judgeapprovedcases: filedcaseId },
       $push: { judgeAssignedCases: filedcaseId },
     });
@@ -311,6 +310,7 @@ router.post('/assign-judge/:judgeId/:filedcaseId', authMiddleware,async (req, re
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
 
 
 

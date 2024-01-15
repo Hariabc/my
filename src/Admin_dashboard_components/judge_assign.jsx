@@ -7,6 +7,7 @@ const AssignJudgeDashboard = () => {
   const [registeredJudges, setRegisteredJudges] = useState([]);
   const [selectedCase, setSelectedCase] = useState(null);
   const [selectedJudge, setSelectedJudge] = useState(null);
+  const [assignedCases, setAssignedCases] = useState([]); // New state to keep track of assigned cases
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -24,40 +25,52 @@ const AssignJudgeDashboard = () => {
     fetchJudgeApprovedCases();
   }, []);
 
+  useEffect(() => {
+    // Fetch the list of registered judges for the admin
+    const fetchRegisteredJudges = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/cao/registered-judges', {
+          withCredentials: true,
+        });
+        setRegisteredJudges(response.data.registeredJudges);
+      } catch (error) {
+        console.error('Error fetching registered judges:', error);
+      }
+    };
+
+    fetchRegisteredJudges();
+  }, []);
+
   const handleAssignJudge = async (caseId) => {
     try {
-      // Fetch the list of registered judges for the admin
-      const response = await axios.get(`http://localhost:5000/cao/registered-judges`, {
-        withCredentials: true,
-      });
-      setRegisteredJudges(response.data.registeredJudges);
+      // Assign the selected judge to the case
+      await axios.post(
+        `http://localhost:5000/cao/assign-judge/${selectedJudge}/${caseId}`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(`Assigned judge for case with ID: ${caseId} to Judge ID: ${selectedJudge._id}`);
 
-      // Set the selected case
-      setSelectedCase(caseId);
-      // Open the modal
-      setIsModalOpen(true);
+      // Update the assigned cases state
+      setAssignedCases((prevAssignedCases) => [...prevAssignedCases, caseId]);
     } catch (error) {
-      console.error('Error fetching registered judges:', error);
+      console.error('Error assigning judge:', error);
+    } finally {
+      // Close the modal after assignment
+      setIsModalOpen(false);
     }
   };
 
-  const handleJudgeSelection = async () => {
-    if (selectedJudge) {
-      try {
-        // Assign the selected judge to the case
-        await axios.post(`http://localhost:5000/cao/assign-judge/${selectedJudge}/${selectedCase}`, {
-          withCredentials: true,
-        });
-        console.log(`Assigned judge for case with ID: ${selectedCase} to Judge ID: ${selectedJudge._id}`);
-      } catch (error) {
-        console.error('Error assigning judge:', error);
-      } finally {
-        // Close the modal after assignment
-        setIsModalOpen(false);
-      }
-    } else {
-      console.log('No judge selected. Please choose a judge.');
-    }
+  const filteredJudgeApprovedCases = judgeApprovedCases.filter(
+    (caseItem) => !assignedCases.includes(caseItem._id)
+  );
+
+  const handleAssignJudgeClick = (caseId) => {
+    setSelectedCase(caseId);
+    // Open the modal
+    setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
@@ -72,7 +85,7 @@ const AssignJudgeDashboard = () => {
       <div>
         <h2>Judge Approved Cases</h2>
         <ul className="case-list">
-          {judgeApprovedCases.map((caseItem) => (
+          {filteredJudgeApprovedCases.map((caseItem) => (
             <li key={caseItem._id} className="case-box">
               {/* Display case details */}
               <div className="case-details">
@@ -94,7 +107,10 @@ const AssignJudgeDashboard = () => {
                 <strong>Court Name:</strong> {caseItem.caseDetails.courtName}
               </div>
               <div className="assign-button-container">
-                <button onClick={() => handleAssignJudge(caseItem._id)} className="assign-button">
+                <button
+                  onClick={() => handleAssignJudgeClick(caseItem._id)}
+                  className="assign-button"
+                >
                   Assign Judge for the Case
                 </button>
               </div>
@@ -103,38 +119,38 @@ const AssignJudgeDashboard = () => {
         </ul>
       </div>
 
-      
-
-{/* Modal for selecting a judge */}
-{isModalOpen && (
-  <div className="overlay">
-    <div className="box">
-      <h2>Select a Judge</h2>
-      <div className="select-container">
-        <label>Select a Judge:</label>
-        <select onChange={(e) => setSelectedJudge(e.target.value)} className="judge-dropdown">
-          <option value="" disabled selected>
-            Choose a Judge
-          </option>
-          {registeredJudges.map((judge) => (
-            <option key={judge._id} value={judge._id}>
-              {judge.name} - {judge.gender}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="modal-buttons">
-        <button onClick={handleJudgeSelection} className="modal-button">
-          Assign Judge
-        </button>
-        <button onClick={handleCloseModal} className="close-button">
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-)}
-
+      {/* Modal for selecting a judge */}
+      {isModalOpen && (
+        <div className="overlay">
+          <div className="box">
+            <h2>Select a Judge</h2>
+            <div className="select-container">
+              <label>Select a Judge:</label>
+              <select
+                onChange={(e) => setSelectedJudge(e.target.value)}
+                className="judge-dropdown"
+              >
+                <option value="" disabled selected>
+                  Choose a Judge
+                </option>
+                {registeredJudges.map((judge) => (
+                  <option key={judge._id} value={judge._id}>
+                    {judge.name} - {judge.gender}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="modal-buttons">
+              <button onClick={() => handleAssignJudge(selectedCase)} className="modal-button">
+                Assign Judge
+              </button>
+              <button onClick={handleCloseModal} className="close-button">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

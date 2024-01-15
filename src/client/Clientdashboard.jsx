@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './clientdashboard.css';
 import {
   IoHomeSharp,
@@ -85,6 +86,7 @@ const FAQ_DATA = [
 const ClientDashboard = () => {
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [userData, setUserData] = useState({});
+  const navigate = useNavigate();
 
   const handleChatButtonClick = () => {
     setSelectedComponent(<Chat />);
@@ -107,6 +109,19 @@ const ClientDashboard = () => {
 
   const closeComponents = () => {
     setSelectedComponent(null);
+  };
+
+  const handleLogout = async () => {
+    try {
+      // Make a request to the logout endpoint
+      await axios.post('http://localhost:5000/client/logout', null, {
+        withCredentials: true,
+      });
+      navigate("/login")
+      
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   };
 
   useEffect(() => {
@@ -175,7 +190,7 @@ const ClientDashboard = () => {
           <div className="notification-icon">
             <IoNotificationsOutline size={30} />
             <div className="logout-button" style={{paddingLeft:"20px"}}> 
-            <button>Logout</button>
+            <button onClick={handleLogout}>Logout</button>
           </div>
           </div>
         </div>
