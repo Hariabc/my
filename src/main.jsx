@@ -84,7 +84,7 @@ const App = () => {
           <Route path="/homecon" element={<HomeCon/>}/>
           <Route path='/room/:roomID' element={<Room/>}/>
           <Route path='pre-trial-conferencing' element={<AdvocateConference/>}/>
-          <Route path='/case-tracking' element={<CaseTracking/>}/>
+          <Route path='client/case-tracking' element={<CaseTracking/>}/>
           <Route path="/judge/register/complete/:token" element={<JudgeReg />} />
           <Route path='/judge/scheduling-event' element={<JudgeEventForm/>}/>
           <Route path="/client/fileacase" element={<Casefileopt />} />

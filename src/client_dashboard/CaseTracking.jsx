@@ -61,15 +61,31 @@ const CaseTracking = () => {
       console.log('Selected Court:', selectedCourt);
       console.log('Tracking Option:', trackingOption);
       console.log('Search Value:', searchValue);
-
-      const capitalizedSearchValue = searchValue.toUpperCase();
-      const status = await getCaseStatus(trackingOption, capitalizedSearchValue);
-      setCaseStatus(status);
+  
+      // Send Axios request to the backend
+      const response = await axios.post('http://localhost:5000/client/case-tracking', {
+        courtState: selectedState,
+        courtDistrict: selectedDistrict,
+        courtName: selectedCourt,
+        searchType: trackingOption,
+        searchValue: searchValue, // Keep the original searchValue without converting to uppercase
+      });
+  
+      // Handle the response from the backend
+      console.log(response.data)
+  
+      if (error) {
+        console.error('Error fetching case status:', error);
+        // Handle error, e.g., display an error message to the user
+      } else {
+        // Update the case status state with the received data
+        console.log(caseDetails);
+      }
     } catch (error) {
       console.error('Error fetching case status:', error);
     }
   };
-
+  
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
     setSearchValue(inputValue.toUpperCase());
