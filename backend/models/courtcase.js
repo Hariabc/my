@@ -25,6 +25,7 @@ const caseSchema = new mongoose.Schema({
       'inProgress',
       'completed'
     ],
+    default:"pending",
     required: true
   },
   caseDetails: {
