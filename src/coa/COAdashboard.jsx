@@ -49,7 +49,7 @@ const AdminDashboard = () => {
     { path: "/judge-assign", label: "Assigging judges", image: assignjudge },
     { path: "/documentation", label: "Documentation", image: Documentation },
     { path: "/update-cause-list", label: "Updating Cause List", image: updatecauselist},
-    { path: "/scheduling-calendar", label: "Scheduling Calendar", image: scheduling },
+    { path: "/scheduling-event", label: "Scheduling Calendar", image: scheduling },
     { path: "/case-analytics", label: "Cases Analytics", image: caseanalytics },
     { path: "/addjudge-publicadv", label: "Register Public advocates and Judges", image: addlawyers },
     { path: "/post-updates-news", label: "Posting Updates News", image: news },

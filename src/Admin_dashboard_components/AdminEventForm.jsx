@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './EventForm.css';
+import "./EventForm.css";
 
-const EventForm = () => {
+const AdminEventForm = () => {
   const [events, setEvents] = useState([]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -15,7 +15,7 @@ const EventForm = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/client/my-events', {
+        const response = await axios.get('http://localhost:5000/cao/my-events', {
           withCredentials: true,
         });
         setEvents(response.data);
@@ -47,7 +47,7 @@ const EventForm = () => {
         await handleUpdate();
       } else {
         // If not in update mode, handle the create event logic
-        const response = await axios.post('http://localhost:5000/client/create', {
+        const response = await axios.post('http://localhost:5000/cao/create', {
           title,
           description,
           date,
@@ -76,7 +76,7 @@ const EventForm = () => {
 
   const handleDelete = async (eventId) => {
     try {
-      await axios.delete(`http://localhost:5000/client/delete/${eventId}`);
+      await axios.delete(`http://localhost:5000/cao/delete/${eventId}`, { withCredentials: true });
       setEvents(events.filter((event) => event._id !== eventId));
        // Show a custom-styled pop-up for event deletion
        showCustomToast('Event deleted successfully!', 'success');
@@ -109,10 +109,12 @@ const EventForm = () => {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`http://localhost:5000/client/update/${updateEventId}`, {
+      await axios.put(`http://localhost:5000/cao/update/${updateEventId}`, {
         title,
         description,
         date,
+      },{
+        withCredentials: true, // Ensure credentials are sent
       });
 
       setEvents((prevEvents) =>
@@ -248,4 +250,4 @@ const EventForm = () => {
   );
 };
 
-export default EventForm;
+export default AdminEventForm;

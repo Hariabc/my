@@ -3,7 +3,7 @@ import jsPDF from 'jspdf';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import './Individualcases.css'
-import printIcon from 'C:\\Users\\saite\\Desktop\\abc\\my\\src\\assets\\download_icon.png'
+// import printIcon from 'C:\\Users\\saite\\Desktop\\abc\\my\\src\\assets\\download_icon.png'
 const CaseDetails = () => {
   const { caseId } = useParams();
   const [caseDetails, setCaseDetails] = useState(null);
@@ -113,7 +113,7 @@ const CaseDetails = () => {
               </div>
               
               <div className="printButton-div">
-            <button className="printButton" onClick={DetailsToPDF}><img style={{"width": "20px", "borderRadius": "50%"}} src={printIcon}/><i style={{"position": "relative", "bottom": "3px", "left": "5px"}}>Print</i></button>
+            <button className="printButton" onClick={DetailsToPDF}><img style={{"width": "20px", "borderRadius": "50%"}} /><i style={{"position": "relative", "bottom": "3px", "left": "5px"}}>Print</i></button>
           </div>
         </div>
             
