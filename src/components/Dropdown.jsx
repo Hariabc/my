@@ -63,8 +63,8 @@ const Dropdown = ({ onSelectCourt }) => {
   };
 
   return (
-    <div>
-      <label htmlFor="states">Select State:</label>
+    <div style={{display:'flex',flexDirection:"column"}}>
+      <label htmlFor="states" style={{marginRight:"80%",paddingBottom:"7px",width:"100px"}}>Select State:</label>
       <select id="states" onChange={handleStateChange}>
         <option value="">Select a state</option>
         {states.map((state) => (
@@ -74,7 +74,7 @@ const Dropdown = ({ onSelectCourt }) => {
         ))}
       </select>
 
-      <label htmlFor="districts">Select District:</label>
+      <label htmlFor="districts" style={{marginRight:"80%",padding:"7px 0",width:"100px"}}>Select District:</label>
       <select id="districts" onChange={handleDistrictChange}>
         <option value="">Select a district</option>
         {districts.map((district) => (
@@ -84,7 +84,7 @@ const Dropdown = ({ onSelectCourt }) => {
         ))}
       </select>
 
-      <label htmlFor="courts">Select Court:</label>
+      <label htmlFor="courts" style={{marginRight:"80%",padding:"7px 0",width:"100px"}}>Select Court:</label>
       <select id="courts" onChange={handleCourtChange}>
         <option value="">Select a court</option>
         {courts.map((court) => (

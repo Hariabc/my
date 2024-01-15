@@ -92,7 +92,7 @@ const AdminDashboard = () => {
     fetchUserData();
   }, []);
   return (
-    <div className="dashboard-container">
+    <div className="dashboard-container" style={{height:"auto"}}>
       <div className="sidebar">
         <img
           src={adminIcon}
@@ -141,7 +141,7 @@ const AdminDashboard = () => {
           </div>
           </div>
         </div>
-        <div className="dashboard-element-container">
+        <div className="dashboard-element-container" style={{height:"100vh"}}>
           <div className="selected-component-container">
             {selectedComponent && <div className="selected-component">{selectedComponent}</div>}
           </div>

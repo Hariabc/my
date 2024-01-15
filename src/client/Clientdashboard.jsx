@@ -83,28 +83,33 @@ const FAQ_DATA = [
 ];
 
 const ClientDashboard = () => {
-  const [selectedComponent, setSelectedComponent] = useState(null);
+  const [selectedComponent, setSelectedComponent] = useState(<BriefcaseDashboard/>);
   const [userData, setUserData] = useState({});
-
+  const [activeIcon, setActiveIcon] = useState('briefcase'); // Add state for active icon
   const handleChatButtonClick = () => {
     setSelectedComponent(<Chat />);
+    setActiveIcon('chat');
   };
 
   const handleProfileClick = () => {
     setSelectedComponent(<Profile />);
+    setActiveIcon('profile');
   };
 
   const handleHomeClick = () => {
     setSelectedComponent(<HomeDashboard />);
+    setActiveIcon('home');
   };
 
   const handleFaqClick = () => {
-    setSelectedComponent(<RenderFaq/>);
-  };
-  const handleBriefcaseClick = () => {
-    setSelectedComponent(<BriefcaseDashboard />);
+    setSelectedComponent(<RenderFaq />);
+    setActiveIcon('faq');
   };
 
+  const handleBriefcaseClick = () => {
+    setSelectedComponent(<BriefcaseDashboard />);
+    setActiveIcon('briefcase');
+  };
   const closeComponents = () => {
     setSelectedComponent(null);
   };
@@ -139,41 +144,44 @@ const ClientDashboard = () => {
           size={45}
           color="#fff"
           style={{ paddingTop: '15px', cursor: 'pointer' }}
+          className={activeIcon === 'home' ? 'active' : ''}
           onClick={handleHomeClick}
         />
         <RiMenu2Fill
           size={45}
           color="#fff"
           style={{ paddingTop: '15px', cursor: 'pointer' }}
+          className={activeIcon === 'briefcase' ? 'active' : ''}
           onClick={handleBriefcaseClick}
-        />
+          />
         <CgProfile
           size={45}
           color="#fff"
           style={{ paddingTop: '15px', cursor: 'pointer' }}
+          className={activeIcon === 'profile' ? 'active' : ''}
           onClick={handleProfileClick}
-        />
+          />
         <BsChatDots
           size={45}
           color="#fff"
           style={{ paddingTop: '15px', cursor: 'pointer' }}
-          onClick={handleChatButtonClick}
-        />
+          className={activeIcon === 'chat' ? 'active' : ''}
+          onClick={handleChatButtonClick}        />
         <MdHelpOutline
           size={45}
           color="#fff"
           style={{ paddingTop: '15px', cursor: 'pointer' }}
-          onClick={handleFaqClick}
-        />
+          className={activeIcon === 'faq' ? 'active' : ''}
+          onClick={handleFaqClick}        />
       </div>
 
       <div className="main-content">
         <div className="header">
           <div className="user-info">
-            <div className="user-name">{userData ? userData.firstName : 'No username available'}</div>
+            <div className="user-name" style={{color:'white',marginLeft:"20px"}}>{userData ? userData.firstName : 'No username available'}</div>
           </div>
           <div className="notification-icon">
-            <IoNotificationsOutline size={30} />
+            <IoNotificationsOutline size={30} style={{color:'white'}} />
             <div className="logout-button" style={{paddingLeft:"20px"}}> 
             <button>Logout</button>
           </div>
