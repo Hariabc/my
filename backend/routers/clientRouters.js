@@ -10,6 +10,7 @@ const cookie = require('cookie-parser')
 const User=require("../models/client")
 const authMiddleware = require("../middleware/clientAuthMiddleware")
 const Case= require('../models/partyinperson')
+const Event = require('../models/event')
 router.use(cookie());
 // router.use(
 //   session({
@@ -216,5 +217,82 @@ router.get('/mycases/:caseId',authMiddleware, async (req, res) => {
     res.status(500).json({ message: 'Error fetching case details', error: error.message });
   }
 });
+
+
+// Add this route in your router file (e.g., routes/client.js)
+router.get('/my-events', authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const events = await Event.find({ user: userId }); // Assuming you have a createdBy field in your Event model
+    res.json(events);
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    res.status(500).json({ error: 'Failed to fetch events' });
+  }
+});
+
+// Add this route in your router file (e.g., routes/client.js)
+router.post('/create', authMiddleware, async (req, res) => {
+  try {
+    const { title, description, date } = req.body;
+    const userId = req.user._id;
+
+    const newEvent = new Event({
+      title,
+      description,
+      date,
+      user: userId,
+    });
+
+    await newEvent.save();
+
+    res.status(201).json(newEvent);
+  } catch (error) {
+    console.error('Error creating event:', error);
+    res.status(500).json({ error: 'Failed to create event' });
+  }
+});
+// Add this route in your router file (e.g., routes/client.js)
+router.put('/update/:eventId', authMiddleware, async (req, res) => {
+  try {
+    const { title, description, date } = req.body;
+    const { eventId } = req.params;
+    const userId = req.user._id;
+
+    const updatedEvent = await Event.findOneAndUpdate(
+      { _id: eventId, user: userId },
+      { title, description, date },
+      { new: true }
+    );
+
+    if (!updatedEvent) {
+      return res.status(404).json({ error: 'Event not found or unauthorized' });
+    }
+
+    res.status(200).json(updatedEvent);
+  } catch (error) {
+    console.error('Error updating event:', error);
+    res.status(500).json({ error: 'Failed to update event' });
+  }
+});
+// Add this route in your router file (e.g., routes/client.js)
+router.delete('/delete/:eventId', authMiddleware, async (req, res) => {
+  try {
+    const { eventId } = req.params;
+    const userId = req.user._id;
+
+    const deletedEvent = await Event.findOneAndDelete({ _id: eventId, createdBy: userId });
+
+    if (!deletedEvent) {
+      return res.status(404).json({ error: 'Event not found or unauthorized' });
+    }
+
+    res.status(200).json({ message: 'Event deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting event:', error);
+    res.status(500).json({ error: 'Failed to delete event' });
+  }
+});
+
 
 module.exports = router;

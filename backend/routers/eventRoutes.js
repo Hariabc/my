@@ -2,78 +2,85 @@
 const express = require('express');
 const router = express.Router();
 const Event = require('../models/event');
-const authenticateToken = require('../middlewares/clientAuthMiddleware');
+const authMiddleware = require('../middleware/clientAuthMiddleware');
+// const authenticateToken = require('./clientAuthMiddleware');
+
+// // Routes that require authentication
+// router.use(authenticateToken);
 
 
 
 // Get all events
-router.get('/' , authenticateToken, async (req, res) => {
+router.get('/my-events' , authMiddleware, async (req, res) => {
+  console.log('Request to /my-events received');
   try {
-    const events = await Event.find({ createdBy: req.user._id });
-    res.json(events);
+    const userId = req.user._id;
+
+    const events = await Event.find({ user: userId });
+
+    res.status(200).json({ events });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.status(500).json({ error: 'Server Error' });
   }
 });
 
+
 // Create a new event
-router.post('/',authenticateToken,  async (req, res) => {
+router.post('/create',authMiddleware,  async (req, res) => {
+  try{
+    const {title , description , date}  = req.body;
+    const user = req.user._id;
+  
   const event = new Event({
-    title: req.body.title,
-    description: req.body.description,
-    date: req.body.date,
-    createdBy: req.user._id,
+    title,
+    description,
+    date,
+    user,
     
   });
 
-  try {
-    const newEvent = await event.save();
-    res.status(201).json(newEvent);
+  await event.save();
+  res.status(201).json({event});
   } catch (error) {
-    console.error('Error creating event:', error);
-    res.status(400).json({ message: error.message });
+    console.error(error);
+    res.status(500).json({ error:"Server Error" });
   }
 });
 
 
 // Update an event
-router.put('/:eventId', authenticateToken, async (req, res) => {
-  const { eventId } = req.params;
-
+router.put('/update/:id', authMiddleware, async (req, res) => {
   try {
+    const eventId = req.params.id;
+    const { title, description, date } = req.body;
+
     const updatedEvent = await Event.findByIdAndUpdate(
       eventId,
-      {
-        title: req.body.title,
-        description: req.body.description,
-        date: req.body.date,
-        createdBy: req.user._id,
-        
-      },
+      { title, description, date },
       { new: true }
     );
 
-    res.json(updatedEvent);
+    res.status(200).json({ event: updatedEvent });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    console.error(error);
+    res.status(500).json({ error: 'Server Error' });
   }
 });
 
 
+
 // Delete an event
-router.delete('/:eventId',authenticateToken,  async (req, res) => {
-  const { eventId } = req.params;
-
+router.delete('/delete/:id',authMiddleware,  async (req, res) => {
   try {
-    const deletedEvent = await Event.findByIdAndDelete(eventId);
+    const eventId = req.params.id;
 
-    if (!deletedEvent) {
-      return res.status(404).json({ message: 'Event not found' });
-    }
+    await Event.findByIdAndDelete(eventId);
 
-    res.json({ message: 'Event deleted successfully', deletedEvent });
+    res.status(200).json({ message: 'Event deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    res.status(500).json({ error: 'Server Error' });
   }
 });
 

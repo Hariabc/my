@@ -29,7 +29,7 @@ app.use("/advocate", AdvocateRouters)
 app.use("/judge", judgeRouters);
 app.use("/file",PartyinpersonRouter)
 app.use("/conferences",ConferenceRouter)
-app.use('/api/events', eventRoutes)
+app.use("/api/events", eventRoutes)
 
 
 // MongoDB connection URI with authentication credentials
