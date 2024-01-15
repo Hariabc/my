@@ -60,7 +60,8 @@ nav a {
   font-size: 40px;
   font-weight:400;
   margin-left: 90px;
-  color:rgb(160, 191, 224);
+  /* color:rgb(160, 191, 224); */
+  color: #BFCDE0;
   font-family:'Jua';
 }
 
@@ -182,3 +183,35 @@ aside {
   transition: background-color 0.3s, color 0.3s;
 }
 
+.h::after { 
+  content: "";
+  position: absolute;
+  height: 2px;
+  background-color: #f69ec4;
+  width: 0;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) all;
+}
+
+.h:hover { color: rgb(246, 158, 196); }
+.h:hover::after { width: 100%; }
+/* .login-button:hover{
+  box-shadow: inset 0 -60px 0  rgb(246, 158, 196), 0 4px 0  rgb(246, 158, 196);
+  z-index: 99999;
+} */
+.login-button {
+  text-decoration: none;
+  box-shadow: inset 0 -4px 0  rgb(246, 158, 196), 0 4px 0  rgb(246, 158, 196);
+  transition: box-shadow 0.3s;
+  color: inherit;
+  overflow: hidden;
+  padding-top: none;
+  padding-bottom: 8px;
+  margin-bottom: none;
+  border-radius: 20px;
+  padding-left: 10px;
+  padding-right: 20px;
+  z-index: 999;
+}
