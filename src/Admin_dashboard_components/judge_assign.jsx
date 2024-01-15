@@ -103,8 +103,7 @@ const AssignJudgeDashboard = () => {
         </ul>
       </div>
 
-      {/* Modal for selecting a judge */}
-      // ... (previous code)
+      
 
 {/* Modal for selecting a judge */}
 {isModalOpen && (

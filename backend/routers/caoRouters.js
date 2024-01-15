@@ -11,6 +11,7 @@ const court = require('../models/court');
 
 const router = express.Router();
 router.use(cookie())
+
 // Register a new court admin
 router.post('/register', async (req, res) => {
   const { firstName,
@@ -264,10 +265,12 @@ router.get('/registered-judges', authMiddleware,async (req, res) => {
   }
 });
 
-router.post('/assign-judge/:judgeId/:filedcaseId', async (req, res) => {
+router.post('/assign-judge/:judgeId/:filedcaseId', authMiddleware,async (req, res) => {
   try {
-    // Extract judgeId, filedcaseId, and courtCaseId from request parameters
+    // Extract judgeId, filedcaseId from request parameters
     const { judgeId, filedcaseId } = req.params;
+    const courtAdminId = req.user;
+    // console.log(courtAdminId)
 
     // Find the judge, filedcase, and courtCase based on their IDs
     const judge = await Judge.findById(judgeId);
@@ -288,9 +291,16 @@ router.post('/assign-judge/:judgeId/:filedcaseId', async (req, res) => {
     judge.cases.push(filedcase);
     await judge.save();
 
+    // Remove the filedcase from judgeapprovedcases array
+    // Replace 'currentCourtAdminId' with the actual ID of the current Court Admin
+    await CourtAdmin.findByIdAndUpdate('currentCourtAdminId', {
+      $pull: { judgeapprovedcases: filedcaseId },
+      $push: { judgeAssignedCases: filedcaseId },
+    });
+
     // Associate the judge with the CourtCase
     courtCase.judge = judge;
-    courtCase.caseStatus='caseAssignedToAJudge'
+    courtCase.caseStatus = 'caseAssignedToAJudge';
     await courtCase.save();
 
     // Respond with a success message
@@ -301,6 +311,7 @@ router.post('/assign-judge/:judgeId/:filedcaseId', async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
 
 
 
