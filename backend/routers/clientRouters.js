@@ -9,8 +9,9 @@ const jwt = require("jsonwebtoken")
 const cookie = require('cookie-parser')
 const User=require("../models/client")
 const authMiddleware = require("../middleware/clientAuthMiddleware")
-const Case= require('../models/partyinperson')
+const Filedcase= require('../models/partyinperson')
 const Event = require('../models/event')
+const { Case, Hearing, Order }= require('../models/courtcase')
 router.use(cookie());
 // router.use(
 //   session({
@@ -207,7 +208,7 @@ router.get('/mycases/:caseId',authMiddleware, async (req, res) => {
   try {
     const caseId = req.params.caseId;
     // Fetch case details from the database based on the caseId
-    const caseDetails = await Case.findById(caseId); // Replace with your database model and query logic
+    const caseDetails = await Filedcase.findById(caseId); // Replace with your database model and query logic
     if (!caseDetails) {
       return res.status(404).json({ message: 'Case not found' });
     }
@@ -217,6 +218,95 @@ router.get('/mycases/:caseId',authMiddleware, async (req, res) => {
     res.status(500).json({ message: 'Error fetching case details', error: error.message });
   }
 });
+
+router.post('/case-tracking', async (req, res) => {
+  try {
+    const { courtState, courtDistrict, courtName, searchType, searchValue } = req.body;
+
+    // Check court details and populate 'caseDetails' field
+    const populatedCourtDetails = await Case.findOne({
+      'caseDetails.caseDetails.courtState': courtState,
+      'caseDetails.caseDetails.courtDistrict': courtDistrict,
+      'caseDetails.caseDetails.courtName': courtName
+    })
+      .populate('caseDetails') // Populate 'caseDetails' field
+      .populate('hearings')
+      .populate('orders')
+      .populate('courtAdmin')
+      .exec();
+
+    if (!populatedCourtDetails) {
+      return res.status(404).json({ error: 'Court not found' });
+    }
+
+    // Now check the case details based on the provided search type and value
+    let caseDetails;
+
+    switch (searchType) {
+      case 'cnr':
+        caseDetails = await Case.findOne({
+          'caseDetails.caseDetails.courtState': courtState,
+          'caseDetails.caseDetails.courtDistrict': courtDistrict,
+          'caseDetails.caseDetails.courtName': courtName,
+          'caseDetails.caseNumber': searchValue
+        })
+          .populate('hearings')
+          .populate('orders')
+          .populate('courtAdmin')
+          .exec();
+        break;
+      case 'partyName':
+        caseDetails = await Case.findOne({
+          'caseDetails.caseDetails.courtState': courtState,
+          'caseDetails.caseDetails.courtDistrict': courtDistrict,
+          'caseDetails.caseDetails.courtName': courtName,
+          'caseDetails.plaintiffDetails.fullName': searchValue
+        })
+          .populate('hearings')
+          .populate('orders')
+          .populate('courtAdmin')
+          .exec();
+        break;
+      case 'advocateName':
+        caseDetails = await Case.findOne({
+          'caseDetails.caseDetails.courtState': courtState,
+          'caseDetails.caseDetails.courtDistrict': courtDistrict,
+          'caseDetails.caseDetails.courtName': courtName,
+          'caseDetails.advocateName': searchValue
+        })
+          .populate('hearings')
+          .populate('orders')
+          .populate('courtAdmin')
+          .exec();
+        break;
+      case 'courtName':
+        caseDetails = await Case.findOne({
+          'caseDetails.caseDetails.courtState': courtState,
+          'caseDetails.caseDetails.courtDistrict': courtDistrict,
+          'caseDetails.caseDetails.courtName': courtName
+        })
+          .populate('hearings')
+          .populate('orders')
+          .populate('courtAdmin')
+          .exec();
+        break;
+      default:
+        return res.status(400).json({ error: 'Invalid search type' });
+    }
+
+    if (!caseDetails) {
+      return res.status(404).json({ error: 'Case not found' });
+    }
+
+    return res.status(200).json({ caseDetails });
+  } catch (error) {
+    console.error('Error tracking case:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
 
 
 router.post('/logout', (req, res) => {

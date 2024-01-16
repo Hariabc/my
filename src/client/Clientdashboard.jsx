@@ -287,14 +287,14 @@ const RenderFaq = () => {
 
 const BriefcaseDashboard = () => {
   const linksDataBriefcase = [
-    { path: "/client/fileacase", label: "File a Case", image: casefile },
+    { path: "/fileacase", label: "File a Case", image: casefile },
     { path: "/pre-trial", label: "Pre Trial", image: confrence },
     { path: "/sendingfiles", label: "File Sharing", image: document },
     { path: "/payment", label: "Payments", image: payment },
     { path: "/advocatelist", label: "Private Advocate List", image: advocatelist },
     { path: "/cause-list", label: "Cause List", image: causelist },
-    { path: "/client/mycases", label: "Case Details", image: casedetails },
-    { path: "/client/scheduling-event", label: "Scheduling Calendar", image: scheduling },
+    { path: "/mycases", label: "Case Details", image: casedetails },
+    { path: "/scheduling-event", label: "Scheduling Calendar", image: scheduling },
     { path: "/case-analytics", label: "Case Analytics", image: caseanalytics },
     { path: "/case-tracking", label: "Case Tracking", image: casetracking },
   ];
