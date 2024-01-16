@@ -46,6 +46,8 @@ import Contact from './pages/contact';
 import ClientEventForm from './client_dashboard/ClientEventForm.jsx';
 import AdminEventForm from './Admin_dashboard_components/AdminEventForm.jsx';
 import JudgeEventForm from './judge/JudgeEventForm.jsx';
+import JudgeMyCases from './judge/JudgeMyCases.jsx';
+import JudgeCaseDetails from './judge/JudgeIndividualCases.jsx';
 const App = () => {
   return (
     <Router>
@@ -87,6 +89,8 @@ const App = () => {
           <Route path='client/case-tracking' element={<CaseTracking/>}/>
           <Route path="/judge/register/complete/:token" element={<JudgeReg />} />
           <Route path='/judge/scheduling-event' element={<JudgeEventForm/>}/>
+          <Route path='/judge/my-cases' element={<JudgeMyCases/>}/>
+          <Route path="/judge/my-cases/:caseId" element={<JudgeCaseDetails />} />
           <Route path="/client/fileacase" element={<Casefileopt />} />
           <Route path="/client/mycases" element={<ClientCases/>} />
           <Route path="/client/mycases/:caseId" element={<IndividualCasesID />} />
@@ -97,7 +101,6 @@ const App = () => {
           <Route path="/client/cause-list" element={<Causelist />} />
           <Route path="/cao/judge-assign" element={<Judgeassign/>} />
           <Route path='/cao/scheduling-event' element={<AdminEventForm/>}/>
-
         </Route>
       </Routes>
       </AuthProvider>

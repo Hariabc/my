@@ -1,13 +1,17 @@
   const express = require('express');
   const router = express.Router();
   const nodemailer = require('nodemailer');
-  const Judge = require('../models/judge');
+  
   const bcrypt = require("bcrypt")
   const jwt = require("jsonwebtoken")
   const authMiddleware = require("../middleware/judgeAuthMiddleware")
   const cookie = require("cookie-parser")
   const Admin = require("../models/cao")
   const Event = require('../models/event')
+  const JudgeConference = require('../models/meeting');
+  const { Case, Hearing, Order } = require("./models/courtcase"); // Import the Case model
+  const Judge = require('../models/judge');
+
   router.use(cookie())
 
   const sendSetPasswordEmail = async (email, token, firstName) => {
@@ -242,5 +246,111 @@
       res.status(500).json({ message: 'Internal server error' });
     }
   });
+
+  router.get('/my-conferences', authMiddleware, async (req, res) => {
+    try {
+      const judgeId = req.user._id;
+  
+      // Assuming you have a judge field in your Conference model
+      const conferences = await JudgeConference.find({ judge: judgeId });
+  
+      res.json(conferences);
+    } catch (error) {
+      console.error('Error fetching conferences:', error);
+      res.status(500).json({ error: 'Failed to fetch conferences' });
+    }
+  });
+
+  router.post('/create-conference', authMiddleware, async (req, res) => {
+    try {
+      const { caseNumber, plaintiffName, defendantName, advocateName, title, description, date } = req.body;
+      const newConference = new JudgeConference({
+        caseNumber,
+        plaintiffName,
+        defendantName,
+        advocateName,
+        title,
+        description,
+        date,
+      });
+  
+      await newConference.save();
+  
+      res.status(201).json({ message: 'Conference created successfully', data: newConference });
+    } catch (error) {
+      console.error('Error creating conference:', error);
+      res.status(500).json({ error: 'Failed to create conference' });
+    }
+  });
+  
+  // Update an existing conference
+  router.put('/update-conference/:conferenceId', authMiddleware, async (req, res) => {
+    try {
+      const { caseNumber, plaintiffName, defendantName, advocateName, title, description, date } = req.body;
+      const { conferenceId } = req.params;
+  
+      const updatedConference = await JudgeConference.findOneAndUpdate(
+        { _id: conferenceId },
+        { caseNumber, plaintiffName, defendantName, advocateName, title, description, date },
+        { new: true }
+      );
+  
+      if (!updatedConference) {
+        return res.status(404).json({ error: 'Conference not found' });
+      }
+  
+      res.status(200).json({ message: 'Conference updated successfully', data: updatedConference });
+    } catch (error) {
+      console.error('Error updating conference:', error);
+      res.status(500).json({ error: 'Failed to update conference' });
+    }
+  });
+  
+  // Delete a conference
+  router.delete('/delete-conference/:conferenceId', authMiddleware, async (req, res) => {
+    try {
+      const { conferenceId } = req.params;
+  
+      const deletedConference = await JudgeConference.findOneAndDelete({ _id: conferenceId });
+  
+      if (!deletedConference) {
+        return res.status(404).json({ error: 'Conference not found' });
+      }
+  
+      res.status(200).json({ message: 'Conference deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting conference:', error);
+      res.status(500).json({ error: 'Failed to delete conference' });
+    }
+  });
+  
+
+  router.get('/my-cases', authMiddleware, async (req, res) => {
+    try {
+      const judgeId = req.user._id; // Assuming you have the logged-in user's ID in req.user.id
+      const judge = await Judge.findById(judgeId).populate('cases'); // Populate the 'cases' field for the user
+  
+      res.json({ cases: judge.cases }); // Send the populated cases data to the frontend
+    } catch (error) {
+      res.status(500).json({ error: 'Error fetching cases' });
+    }
+});
+
+router.get('/my-cases/:caseId',authMiddleware, async (req, res) => {
+  try {
+    const caseId = req.params.caseId;
+    // Fetch case details from the database based on the caseId
+    const caseDetails = await Case.findById(caseId); // Replace with your database model and query logic
+    if (!caseDetails) {
+      return res.status(404).json({ message: 'Case not found' });
+    }
+    res.status(200).json({ caseDetails });
+  } catch (error) {
+    console.error('Error fetching case details:', error);
+    res.status(500).json({ message: 'Error fetching case details', error: error.message });
+  }
+});
+  
+
 
   module.exports = router;

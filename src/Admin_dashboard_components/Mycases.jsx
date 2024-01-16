@@ -261,7 +261,7 @@ const AdminDashboard = () => {
                       <button onClick={handleAssignJudge} className='assign-btn'>Approve for Assigning Judge</button>
                       <button onClick={handleAssignPublicAdvocate} className='assign-btn'>Approve for Assigning Public Advocate</button>
                       <button onClick={closeApproveOptionsModal} className='close-btn'>
-                        <FontAwesomeIcon icon={faTimes} />
+                        {/* <FontAwesomeIcon icon={faTimes} /> */}
                       </button>
                     </div>
                   </div>
@@ -269,7 +269,7 @@ const AdminDashboard = () => {
               )}
 
               <button className="close-btn" onClick={closeCaseDetailsModal}>
-                <FontAwesomeIcon icon={faTimes} />
+                {/* <FontAwesomeIcon icon={faTimes} /> */}
               </button>
             </div>
           </div>

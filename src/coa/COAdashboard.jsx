@@ -161,7 +161,7 @@ const BriefcaseDashboard = () => {
     { path: '/judge-assign', label: 'Assigging judges', image: assignjudge },
     { path: '/documentation', label: 'Documentation', image: Documentation },
     { path: '/update-cause-list', label: 'Updating Cause List', image: updatecauselist },
-    { path: '/scheduling-event', label: 'Scheduling Calendar', image: scheduling },
+    { path: '/cao/scheduling-event', label: 'Scheduling Calendar', image: scheduling },
     { path: '/case-analytics', label: 'Cases Analytics', image: caseanalytics },
     { path: '/cao/addjudge-publicadv', label: 'Register Public advocates and Judges', image: addlawyers },
     { path: '/news', label: 'Posting Updates News', image: news },
