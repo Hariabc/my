@@ -22,7 +22,7 @@ import FileACaseMin from './dashborad-components/FileACaseMin.jsx';
 import HomeCon from './Features/Video_Conference/homeCon.jsx';
 import Room from './Features/Video_Conference/Room.jsx';
 import AdvocateConference from './Features/AdvocateConference.jsx';
-import CaseTracking from './dashborad-components/CaseTracking.jsx';
+import CaseTracking from './client_dashboard/CaseTracking.jsx';
 import "./index.css"
 import Layout from './components/Layout.jsx';
 import Profile from './client/Profile.jsx';
@@ -86,7 +86,7 @@ const App = () => {
           <Route path="/homecon" element={<HomeCon/>}/>
           <Route path='/room/:roomID' element={<Room/>}/>
           <Route path='pre-trial-conferencing' element={<AdvocateConference/>}/>
-          <Route path='/case-tracking' element={<CaseTracking/>}/>
+          <Route path='client/case-tracking' element={<CaseTracking/>}/>
           <Route path="/judge/register/complete/:token" element={<JudgeReg />} />
           <Route path='/judge/scheduling-event' element={<JudgeEventForm/>}/>
           <Route path='/judge/my-cases' element={<JudgeMyCases/>}/>

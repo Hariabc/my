@@ -9,8 +9,10 @@ const jwt = require("jsonwebtoken")
 const cookie = require('cookie-parser')
 const User=require("../models/client")
 const authMiddleware = require("../middleware/clientAuthMiddleware")
-const Case= require('../models/partyinperson')
+const Filedcase= require('../models/partyinperson')
 const Event = require('../models/event')
+const { Case, Hearing, Order } = require('../models/courtcase')
+const autopopulate = require('mongoose-autopopulate');
 router.use(cookie());
 // router.use(
 //   session({
@@ -207,7 +209,7 @@ router.get('/mycases/:caseId',authMiddleware, async (req, res) => {
   try {
     const caseId = req.params.caseId;
     // Fetch case details from the database based on the caseId
-    const caseDetails = await Case.findById(caseId); // Replace with your database model and query logic
+    const caseDetails = await Filedcase.findById(caseId); // Replace with your database model and query logic
     if (!caseDetails) {
       return res.status(404).json({ message: 'Case not found' });
     }
@@ -217,6 +219,43 @@ router.get('/mycases/:caseId',authMiddleware, async (req, res) => {
     res.status(500).json({ message: 'Error fetching case details', error: error.message });
   }
 });
+// const { Case, Hearing, Order } = require('./models');
+
+
+router.post('/case-tracking', async (req, res) => {
+  try {
+    const { searchValue } = req.body;
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+    // First, check the Case model with the associated documents
+    let caseDetails = await Case.findOne({ caseNumber:searchValue })
+      .populate('caseDetails') // Assuming 'caseDetails' is the reference to Filedcase schema
+      .populate('hearings')
+      .populate('orders')
+      .exec();
+
+    if (!caseDetails) {
+      // If not found in the first case, check the second case model
+      caseDetails = await Filedcase.findOne({ caseNumber:searchValue }).exec();
+
+      if (!caseDetails) {
+        return res.status(404).json({ error: 'Case not found' });
+      }
+
+      return res.status(200).json({ caseDetails });
+    }
+
+    return res.status(200).json({ caseDetails });
+  } catch (error) {
+    console.error('Error tracking case:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
+
+
+
 
 
 router.post('/logout', (req, res) => {

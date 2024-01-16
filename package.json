@@ -34,6 +34,7 @@
     "jsonwebtoken": "^9.0.2",
     "jspdf": "^2.5.1",
     "mongoose": "^8.0.3",
+    "mongoose-autopopulate": "^1.1.0",
     "nodemailer": "^6.9.7",
     "nodemon": "^3.0.2",
     "process": "^0.11.10",

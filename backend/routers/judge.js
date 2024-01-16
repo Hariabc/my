@@ -235,6 +235,18 @@
     }
   });
 
+  router.post('/logout', (req, res) => {
+    try {
+      // Clear the JWT token from the cookie
+      res.clearCookie('jwtoken', { httpOnly: true, secure: true });
+  
+      res.status(200).json({ message: 'Logout successful' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
   router.get('/my-conferences', authMiddleware, async (req, res) => {
     try {
       const judgeId = req.user._id;
