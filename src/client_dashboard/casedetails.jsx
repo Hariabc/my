@@ -14,6 +14,7 @@ const MyCases = () => {
     const fetchCases = async () => {
       try {
         const response = await axios.get('http://localhost:5000/client/mycases', { withCredentials: true });
+        console.log('Cases:', response.data);
         setCases(response.data.cases || []);
       } catch (error) {
         console.error('Error fetching cases:', error);

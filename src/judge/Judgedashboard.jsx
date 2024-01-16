@@ -53,7 +53,7 @@ const JudgeDashboard = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/client/user', { withCredentials: true });
+        const response = await axios.get('http://localhost:5000/judge/user', { withCredentials: true });
         setUserData(response.data.user);
         setSelectedComponent(<BriefcaseDashboard />);
       } catch (error) {
@@ -132,7 +132,7 @@ const BriefcaseDashboard = () => {
   { path: "/schedule-pre-trial", label: "Pre Trial", image: confrence },
   { path: "/documentation", label: "Documentation", image: document },
   { path: "/judge/scheduling-event", label: "Calendar Scheduling", image: scheduling },
-  { path: "/my-cases", label: "My Cases", image: casedetails },
+  { path: "/judge/my-cases", label: "My Cases", image: casedetails },
   { path: "/cause-list", label: "Cause List", image: causelist },
   { path: "/Judge-case-tracking", label: "Case Tracking", image: casetracking },
   { path: "/case-notes", label: "Case Notes", image: caseanalytics },
