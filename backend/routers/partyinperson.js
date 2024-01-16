@@ -123,6 +123,11 @@ const generatePDF = (caseDetails) => {
         pdfDoc.text(`${key}: ${caseDetails.defendantDetails[key]}`, { indent: 20 });
       });
 
+      Object.keys(caseDetails.paymentDetails).forEach((key) => {
+        pdfDoc.text(`${key}: ${caseDetails.paymentDetails[key]}`, { indent: 20 });
+      });
+
+
       const pdfFilePath = path.join(__dirname, 'generated-pdf.pdf');
       pdfDoc.pipe(fs.createWriteStream(pdfFilePath));
       pdfDoc.end();
