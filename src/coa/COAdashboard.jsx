@@ -32,7 +32,7 @@ import videoconfrence from '../assets/admindashboard/Admin Pics/video conference
 import {motion} from "framer-motion"
 // Replace with the correct path
 import Chat from '../Chat/Chat'; // Replace with the correct path
-import Profile from '../client/Profile'; // Replace with the correct path
+import Profile from './profile'; // Replace with the correct path
 import MyCases from '../Admin_dashboard_components/Mycases';
 
 

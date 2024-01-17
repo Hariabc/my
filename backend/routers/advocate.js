@@ -63,13 +63,52 @@ router.post('/private/register', async (req, res) => {
 
     await newAdvocate.save();
 
-    await sendSetPasswordEmail(email, token);
+    await sendSetPasswordEmai(email, token);
 
     return res.status(201).json({ message: 'Advocate registered successfully' });
   } catch (err) {
     return res.status(500).json({ error: 'Failed to register advocate', message: err.message });
   }
 });
+
+const sendSetPasswordEmai = async (email, token) => {
+  const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: "ecourtservicehelper@gmail.com",
+      pass: "aryj ahqq wggy bawx"
+    },
+  });
+  const registrationLink = `http://localhost:5173/advocate/register/complete/${token}`;
+  const mailOptions = {
+    from: "ecourtservicehelper@gmail.com",
+    to: email,
+    subject: 'Set Your Password for Court Case Management Portal',
+    html: `
+    <html>
+      <head>
+        <title>Set Your Password</title>
+      </head>
+      <body>
+        <p>Hello,</p>
+        <p>To set your password, please click on the following link:</p>
+        <p><a href="${registrationLink}">Set Password</a></p>
+        <p>If the above link doesn't work, you can copy and paste this URL in your browser:</p>
+        <p>${registrationLink}</p>
+        <p>Thank you!</p>
+      </body>
+    </html>
+  `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log('Email sent for setting password');
+  } catch (error) {
+    console.error('Error occurred while sending email:', error);
+    throw new Error('Failed to send email');
+  }
+};
 
 const sendSetPasswordEmail = async (email, token, firstName) => {
   const transporter = nodemailer.createTransport({

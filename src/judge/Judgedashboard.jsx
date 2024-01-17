@@ -5,7 +5,7 @@ import { Link,useNavigate} from 'react-router-dom';
 import { IoHomeSharp, IoBriefcaseSharp, IoPersonSharp, IoLogOutSharp, IoChatbubblesSharp, IoSettingsSharp, IoHelpCircleSharp, IoNotificationsOutline } from "react-icons/io5";
 import { motion } from 'framer-motion';
 import Chat from '../Chat/Chat';
-import Profile from '../client/Profile';
+import Profile from './Profile';
 import { FaPlus,FaMinus } from 'react-icons/fa';
 import confrence from "../assets/DASHBOARDS/video conference.jpg";
 import document from "../assets/DASHBOARDS/Documentation.jpg";

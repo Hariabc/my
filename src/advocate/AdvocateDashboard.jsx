@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import advocateImage from "../assets/advocate.png";
 import axios from "axios";
-import { Link } from 'react-router-dom';
+import { Link,useNavigate} from 'react-router-dom';
 import { IoNotificationsOutline } from "react-icons/io5";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { motion } from 'framer-motion';
 import Chat from '../Chat/Chat';
-import Profile from '../client/Profile';
+import Profile from './Profile';
 import MyCases from '../client_dashboard/casedetails';
 import casefile from "../assets/DASHBOARDS/File a case.jpg";
 import confrence from "../assets/DASHBOARDS/video conference.jpg";
@@ -59,6 +59,7 @@ const linksData = [
 const AdvocateDashboard= () => {
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [userData, setUserData] = useState({});
+  const navigate = useNavigate();
 
   const handleChatButtonClick = () => {
     setSelectedComponent(<Chat />);
@@ -82,6 +83,20 @@ const AdvocateDashboard= () => {
   const closeComponents = () => {
     setSelectedComponent(null);
   };
+
+  const handleLogout = async () => {
+    try {
+      // Make a request to the logout endpoint
+      await axios.post('http://localhost:5000/client/logout', null, {
+        withCredentials: true,
+      });
+      navigate("/login")
+      
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
+  };
+
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -143,7 +158,7 @@ const AdvocateDashboard= () => {
           <div className="notification-icon">
             <IoNotificationsOutline size={30} />
             <div className="logout-button" style={{paddingLeft:"20px"}}> 
-            <button>Logout</button>
+            <button onClick={handleLogout}>Logout</button>
           </div>
           </div>
         </div>

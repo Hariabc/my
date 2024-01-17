@@ -63,9 +63,6 @@ const advocateSchema = new mongoose.Schema({
     type: Boolean,
     required: true
   },
-  courtAdminMail: {
-    type: String,
-  },
   password_token: {
     type: String,
   },
