@@ -9,12 +9,12 @@ const caseSchema = new mongoose.Schema({
   },
   progress: {
     type: String,
-    enum: ['pending', "sent to Court Admin","Approved by Court Admin","Rejected by Court Admin",'inProgress', 'completed'],
+    enum: ['pending', 'inProgress', 'completed'],
     default: 'pending',
-    required: true,
+    // required: true,
   },
 
-  
+ 
   filecasetype: {
     type: String,
     enum: ['partyinperson', 'privateAdvocate', 'publicAdvocate'],

@@ -46,11 +46,10 @@ const judgeSchema = new mongoose.Schema({
     ref:'CourtAdmin'
     },
     cases: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Case'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Filedcase'
     }],
 }, { timestamps: true });
   
 
-const Judge = mongoose.model('Judge', judgeSchema);
-module.exports = Judge;
+module.exports = mongoose.model('Judge', judgeSchema);

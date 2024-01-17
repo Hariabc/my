@@ -9,7 +9,7 @@
   const Admin = require("../models/cao")
   const Event = require('../models/event')
   const JudgeConference = require('../models/meeting');
-  const { Case, Hearing, Order } = require("./models/courtcase"); // Import the Case model
+  const { Case, Hearing, Order } = require("../models/courtcase"); // Import the Case model
   const Judge = require('../models/judge');
 
   router.use(cookie())
@@ -234,6 +234,25 @@
       res.status(500).json({ error: 'Failed to delete event' });
     }
   });
+
+  router.get('/mycases', authMiddleware, async (req, res) => {
+    const judgeId = req.user._id; // Use req.user._id to get the authenticated judge's ID
+    // console.log(judgeId);
+    try {
+      const judge = await Judge.findById(judgeId).populate('cases');
+  
+      if (!judge) {
+        return res.status(404).json({ message: 'Judge not found' });
+      }
+  
+      res.json(judge.cases);
+    } catch (error) {
+      console.error('Error fetching judge cases:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+  
+  
 
   router.post('/logout', (req, res) => {
     try {

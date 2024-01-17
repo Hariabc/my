@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './coadashboard.css'; // Add your CSS file for styling
 import adminIcon from '../assets/admin.png'; // Add your admin icon image
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { IoIosArrowDropdownCircle } from 'react-icons/io';
 import { FaPlus } from 'react-icons/fa';
 import axios from 'axios';
@@ -46,11 +46,23 @@ import { MdHelpOutline } from "react-icons/md";
 const AdminDashboard = () => {
   const [showAnswers, setShowAnswers] = useState({});
   const [userData, setuserData] = useState({});
-
+  const navigate = useNavigate();
   const [selectedComponent, setSelectedComponent] = useState(null);
 
   const handleChatButtonClick = () => {
     setSelectedComponent(<Chat />);
+  };
+  const handleLogout = async () => {
+    try {
+      // Make a request to the logout endpoint
+      await axios.post('http://localhost:5000/client/logout', null, {
+        withCredentials: true,
+      });
+      navigate("/login")
+      
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   };
 
   const handleProfileClick = () => {
@@ -76,6 +88,7 @@ const AdminDashboard = () => {
       [questionId]: !prev[questionId],
     }));
   };
+
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -137,7 +150,7 @@ const AdminDashboard = () => {
           <div className="notification-icon">
             <IoNotificationsOutline size={30} />
             <div className="logout-button" style={{paddingLeft:"20px"}}> 
-            <button>Logout</button>
+            <button onClick={handleLogout}>Logout</button>
           </div>
           </div>
         </div>
@@ -157,14 +170,14 @@ export default AdminDashboard;
 const BriefcaseDashboard = () => {
   
   const linksDataBriefcase = [
-    { path: '/cao/mycases', label: 'Receive Filed Cases', image: recievecases },
-    { path: 'cao/judge-assign', label: 'Assigging judges', image: assignjudge },
+    { path: '/mycases', label: 'Receive Filed Cases', image: recievecases },
+    { path: '/judge-assign', label: 'Assigging judges', image: assignjudge },
     { path: '/documentation', label: 'Documentation', image: Documentation },
     { path: '/update-cause-list', label: 'Updating Cause List', image: updatecauselist },
-    { path: '/cao/scheduling-event', label: 'Scheduling Calendar', image: scheduling },
+    { path: '/scheduling-event', label: 'Scheduling Calendar', image: scheduling },
     { path: '/case-analytics', label: 'Cases Analytics', image: caseanalytics },
-    { path: '/cao/addjudge-publicadv', label: 'Register Public advocates and Judges', image: addlawyers },
-    { path: '/news', label: 'Posting Updates News', image: news },
+    { path: '/addjudge-publicadv', label: 'Register Public advocates and Judges', image: addlawyers },
+    { path: '/publicAdvocate-assign', label: 'Assigning Public Advocates', image: news },
     { path: '/send-notifications', label: 'Notifications', image: notifications },
     { path: '/case-profile-management', label: 'Case Management', image: resources },
     { path: '/pre-trial-conferencing', label: 'Pre-trial', image: videoconfrence },

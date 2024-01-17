@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import judgeImage from "../assets/judge.png";
 import axios from "axios";
-import { Link } from 'react-router-dom';
+import { Link,useNavigate} from 'react-router-dom';
 import { IoHomeSharp, IoBriefcaseSharp, IoPersonSharp, IoLogOutSharp, IoChatbubblesSharp, IoSettingsSharp, IoHelpCircleSharp, IoNotificationsOutline } from "react-icons/io5";
 import { motion } from 'framer-motion';
 import Chat from '../Chat/Chat';
@@ -26,7 +26,7 @@ import { BsChatDots } from "react-icons/bs";
 const JudgeDashboard = () => {
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [userData, setUserData] = useState({});
-
+  const navigate = useNavigate();
   const handleChatButtonClick = () => {
     setSelectedComponent(<Chat />);
   };
@@ -44,6 +44,18 @@ const JudgeDashboard = () => {
   };
   const handleBriefcaseClick = () => {
     setSelectedComponent(<BriefcaseDashboard />);
+  };
+  const handleLogout = async () => {
+    try {
+      // Make a request to the logout endpoint
+      await axios.post('http://localhost:5000/client/logout', null, {
+        withCredentials: true,
+      });
+      navigate("/login")
+      
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   };
 
   const closeComponents = () => {
@@ -110,7 +122,7 @@ const JudgeDashboard = () => {
           <div className="notification-icon">
             <IoNotificationsOutline size={30} />
             <div className="logout-button" style={{paddingLeft:"20px"}}> 
-            <button>Logout</button>
+            <button onClick={handleLogout}>Logout</button>
           </div>
           </div>
         </div>
