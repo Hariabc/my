@@ -52,5 +52,4 @@ const judgeSchema = new mongoose.Schema({
 }, { timestamps: true });
   
 
-const Judge = mongoose.model('Judge', judgeSchema);
-module.exports = Judge;
+module.exports = mongoose.model('Judge', judgeSchema);

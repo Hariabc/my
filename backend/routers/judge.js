@@ -9,7 +9,7 @@
   const Admin = require("../models/cao")
   const Event = require('../models/event')
   const JudgeConference = require('../models/meeting');
-  const { Case, Hearing, Order } = require("./models/courtcase"); // Import the Case model
+  const { Case, Hearing, Order } = require("../models/courtcase"); // Import the Case model
   const Judge = require('../models/judge');
 
   router.use(cookie())

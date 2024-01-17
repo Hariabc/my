@@ -276,7 +276,7 @@ router.post('/assign-judge/:judgeId/:filedcaseId', authMiddleware, async (req, r
     const judge = await Judge.findById(judgeId);
     const filedcase = await Filedcase.findById(filedcaseId);
     const courtCase = await Case.findOne({ caseDetails: filedcase._id });
-  // console.log(judgeId,filedcase,courtCase)?
+
     // Check if the judge, filedcase, or courtCase is not found
     if (!judge || !filedcase || !courtCase) {
       return res.status(404).json({ message: 'Judge, Filedcase, or CourtCase not found' });
@@ -285,6 +285,11 @@ router.post('/assign-judge/:judgeId/:filedcaseId', authMiddleware, async (req, r
     // Check if the case is already assigned to a judge
     if (courtCase.judge) {
       return res.status(400).json({ message: 'Case is already assigned to a judge' });
+    }
+
+    // Ensure that the judge object has a 'cases' property (initialize it if not present)
+    if (!judge.cases) {
+      judge.cases = [];
     }
 
     // Add the filedcase to the judge's cases array
