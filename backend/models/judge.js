@@ -46,8 +46,8 @@ const judgeSchema = new mongoose.Schema({
     ref:'CourtAdmin'
     },
     cases: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Case'
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Case'
     }],
 }, { timestamps: true });
   

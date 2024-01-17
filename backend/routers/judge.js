@@ -325,32 +325,6 @@
   });
   
 
-  router.get('/my-cases', authMiddleware, async (req, res) => {
-    try {
-      const judgeId = req.user._id; // Assuming you have the logged-in user's ID in req.user.id
-      const judge = await Judge.findById(judgeId).populate('cases'); // Populate the 'cases' field for the user
-  
-      res.json({ cases: judge.cases }); // Send the populated cases data to the frontend
-    } catch (error) {
-      res.status(500).json({ error: 'Error fetching cases' });
-    }
-});
-
-router.get('/my-cases/:caseId',authMiddleware, async (req, res) => {
-  try {
-    const caseId = req.params.caseId;
-    // Fetch case details from the database based on the caseId
-    const caseDetails = await Case.findById(caseId); // Replace with your database model and query logic
-    if (!caseDetails) {
-      return res.status(404).json({ message: 'Case not found' });
-    }
-    res.status(200).json({ caseDetails });
-  } catch (error) {
-    console.error('Error fetching case details:', error);
-    res.status(500).json({ message: 'Error fetching case details', error: error.message });
-  }
-});
-  
 
 
   module.exports = router;

@@ -158,7 +158,7 @@ const BriefcaseDashboard = () => {
   
   const linksDataBriefcase = [
     { path: '/cao/mycases', label: 'Receive Filed Cases', image: recievecases },
-    { path: '/judge-assign', label: 'Assigging judges', image: assignjudge },
+    { path: 'cao/judge-assign', label: 'Assigging judges', image: assignjudge },
     { path: '/documentation', label: 'Documentation', image: Documentation },
     { path: '/update-cause-list', label: 'Updating Cause List', image: updatecauselist },
     { path: '/cao/scheduling-event', label: 'Scheduling Calendar', image: scheduling },
@@ -182,7 +182,7 @@ const BriefcaseDashboard = () => {
           transition={{ duration: 0.5, delay: 0.4 }}
         >
           {linksDataBriefcase.map((link, index) => (
-            <Link key={index} to={`/cao${link.path}`} className="dashboard-box" style={{borderTop: "3px solid blueviolet"}}>
+            <Link key={index} to={`${link.path}`} className="dashboard-box" style={{borderTop: "3px solid blueviolet"}}>
               {link.image && <motion.img src={link.image} alt={link.label} className="dashboard-image" />}{' '}
               {/* Added alt attribute */}
               <h3 style={{ color: 'black' }}>{link.label}</h3>

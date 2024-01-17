@@ -1,67 +1,51 @@
-// JudgeDetails.js
+// MyCases.jsx
 
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import "./JudgeMyCases.css";
 
-const JudgeMyCases = ({ judgeId }) => {
-  const [judge, setJudge] = useState({
-    name: "",
-    cases: [],
-  });
+
+const JudgeMyCases = () => {
+  const [jcases, setCases] = useState([]);
 
   useEffect(() => {
-    const fetchJudgeDetails = async () => {
+    const fetchCases = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/judge/judges/${judgeId}/cases`);
-        setJudge(response.data);
+        // Fetch the Judge's cases including details of Filedcases
+        const response = await axios.get('http://localhost:5000/judge/my-cases', { withCredentials: true });
+        console.log('Cases', response.data);
+
+        // Extract and set Filedcases in state
+        setCases(response.data || []);
       } catch (error) {
-        console.error(error);
+        console.error('Error fetching filedcases:', error);
       }
     };
 
-    fetchJudgeDetails();
-  }, [judgeId]);
+    fetchCases();
+  }, []);
+
+  const viewCaseDetails = (caseId) => {
+    // Navigate to the specific case details page
+    navigate(`/judge/my-cases/${caseId}`);
+  };
 
   return (
-    <div>
-      <h2>Judge Details</h2>
-      <p>Judge Name: {judge.name}</p>
-      <p>Assigned Cases:</p>
-      <ul>
-        {judge.cases.map((assignedCase) => (
-          <li key={assignedCase._id}>
-            <p>Case Number: {assignedCase.caseNumber}</p>
-            <p>Case Type: {assignedCase.caseType}</p>
-            <p>Case Status: {assignedCase.caseStatus}</p>
-
-            <h4>Hearings:</h4>
-            <ul>
-              {assignedCase.hearings.map((hearing) => (
-                <li key={hearing._id}>
-                  <p>Hearing Date: {hearing.hearingDate}</p>
-                  <p>Hearing Time: {hearing.hearingTime}</p>
-                  <p>Hearing Mode: {hearing.hearingMode}</p>
-                  <p>Hearing Status: {hearing.hearingStatus}</p>
-                  <p>Hearing Notes: {hearing.hearingNotes}</p>
-                </li>
-              ))}
-            </ul>
-
-            <h4>Orders:</h4>
-            <ul>
-              {assignedCase.orders.map((order) => (
-                <li key={order._id}>
-                  <p>Order Type: {order.orderType}</p>
-                  <p>Order Content: {order.orderContent}</p>
-                  <p>Order Date: {order.orderDate}</p>
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ul>
+    <div className="cases-container">
+      <h3>My Filed Cases</h3>
+      {jcases.length > 0 ? (
+          <div  className="case-item">
+            <h4>Case ID: {jcases.cases.case.caseDetails.caseNumber}</h4>
+            {/* Display other case details */}
+            <button onClick={() => viewCaseDetails(filedcase._id)}>View Case Details</button>
+          </div>
+      
+      ) : (
+        <p>No filed cases found</p>
+      )}
     </div>
   );
-};
+}; 
 
 export default JudgeMyCases;
