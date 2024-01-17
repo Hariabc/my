@@ -293,7 +293,7 @@ router.post('/assign-judge/:judgeId/:filedcaseId', authMiddleware, async (req, r
     }
 
     // Add the filedcase to the judge's cases array
-    judge.cases.push(filedcase);
+    judge.cases.push(filedcase._id);
     await judge.save();
 
     // Remove the filedcase from judgeapprovedcases array

@@ -1,39 +1,90 @@
-/* MyCases.css */
+/* JudgeMycases.css */
 
-.cases-container {
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    width: 80%;
-    max-width: 800px;
-    background-color: #f7f7f7;
-    font-family: Arial, sans-serif;
-  }
-  
-  h3 {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .case-item {
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 15px;
-    margin-bottom: 15px;
-    background-color: #fff;
-  }
-  
-  .case-item h4 {
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  p {
-    color: #777;
-    font-style: italic;
-    text-align: center;
-  }
-  
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+  max-width: 80%;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #888;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+/* Style the content within each section as needed */
+
+.section h3 {
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.section p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+/* JudgeMycases.css */
+
+.case-list {
+  max-width: 600px; /* Adjust the max-width as needed */
+  margin: 0 auto; /* Center the list horizontally */
+}
+
+.case-item {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.case-item h3 {
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.case-item p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.case-item button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.case-item button:hover {
+  background-color: #45a049;
+}

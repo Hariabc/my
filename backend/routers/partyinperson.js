@@ -139,7 +139,7 @@ const generatePDF = (caseDetails) => {
 };
 
 
-const sendEmailWithAttachment = async (recipientEmail, pdfFilePath) => {
+const sendEmailWithAttachment = async (recipientEmail, pdfFilePath,caseNumber) => {
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
 
@@ -155,7 +155,7 @@ const sendEmailWithAttachment = async (recipientEmail, pdfFilePath) => {
     from: 'ecourtservicehelper@gmail.com',
     to: recipientEmail,
     subject: 'Case Details PDF',
-    text: 'Please find attached PDF with case details.',
+    text: `Case has been filed successfully, Your CaseNumber is ${caseNumber},Download pdf for more details.`,
     attachments: [
       {
         filename: 'case-details.pdf',
@@ -205,7 +205,7 @@ router.post('/case', async (req, res) => {
     courtAdmin.courtCases.push(newCase._id);
     await courtAdmin.save();
     const pdfFilePath = await generatePDF(newCase);
-    await sendEmailWithAttachment(user.email, pdfFilePath);
+    await sendEmailWithAttachment(user.email, pdfFilePath,caseNumber);
     fs.unlinkSync(pdfFilePath);
     res.status(201).json({ message: 'Case details saved successfully', caseNumber: newCase.caseNumber });
   } catch (error) {

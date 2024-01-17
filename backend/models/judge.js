@@ -47,7 +47,7 @@ const judgeSchema = new mongoose.Schema({
     },
     cases: [{
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Case'
+      ref: 'Filedcase'
     }],
 }, { timestamps: true });
   

@@ -177,7 +177,7 @@ const BriefcaseDashboard = () => {
     { path: '/scheduling-event', label: 'Scheduling Calendar', image: scheduling },
     { path: '/case-analytics', label: 'Cases Analytics', image: caseanalytics },
     { path: '/addjudge-publicadv', label: 'Register Public advocates and Judges', image: addlawyers },
-    { path: '/news', label: 'Posting Updates News', image: news },
+    { path: '/publicAdvocate-assign', label: 'Assigning Public Advocates', image: news },
     { path: '/send-notifications', label: 'Notifications', image: notifications },
     { path: '/case-profile-management', label: 'Case Management', image: resources },
     { path: '/pre-trial-conferencing', label: 'Pre-trial', image: videoconfrence },

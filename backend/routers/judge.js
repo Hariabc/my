@@ -235,6 +235,25 @@
     }
   });
 
+  router.get('/mycases', authMiddleware, async (req, res) => {
+    const judgeId = req.user._id; // Use req.user._id to get the authenticated judge's ID
+    // console.log(judgeId);
+    try {
+      const judge = await Judge.findById(judgeId).populate('cases');
+  
+      if (!judge) {
+        return res.status(404).json({ message: 'Judge not found' });
+      }
+  
+      res.json(judge.cases);
+    } catch (error) {
+      console.error('Error fetching judge cases:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+  
+  
+
   router.post('/logout', (req, res) => {
     try {
       // Clear the JWT token from the cookie
