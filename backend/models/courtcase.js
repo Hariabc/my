@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const autopopulate = require('mongoose-autopopulate');
 const caseSchema = new mongoose.Schema({
   caseNumber: {
     type: String,
@@ -31,19 +31,16 @@ const caseSchema = new mongoose.Schema({
   caseDetails: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Filedcase',
+    autopopulate: true,
   },
- 
   courtAdmin: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'CourtAdmin',
-    // required: true
   },
   judge: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Judge',
-    // required: true
   },
-
   hearings: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Hearing'
@@ -52,6 +49,11 @@ const caseSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Order'
   }]
+});
+
+caseSchema.pre('findOne', function (next) {
+  this.populate('caseDetails');
+  next();
 });
 
 const hearingSchema = new mongoose.Schema({
@@ -104,6 +106,8 @@ const orderSchema = new mongoose.Schema({
     default: Date.now
   }
 });
+
+
 
 const Case = mongoose.model('Case', caseSchema);
 const Hearing = mongoose.model('Hearing', hearingSchema);

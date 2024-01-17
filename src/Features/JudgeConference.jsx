@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const JudgeConference = () => {
 
@@ -32,7 +34,9 @@ const JudgeConference = () => {
   useEffect(() => {
     const fetchScheduledConferences = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/conferences');
+        const response = await axios.get('http://localhost:5000/judge/my-conferences', {
+          withCredentials: true,
+        });
         setConference(response.data);
       } catch (error) {
         console.error('Error fetching scheduled conferences:', error);
@@ -54,6 +58,8 @@ const JudgeConference = () => {
     });
   };
 
+
+  
   
 const generateMeetingID = () => {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -73,40 +79,11 @@ const generateMeetingID = () => {
         // If in update mode, handle the update logic
         await handleUpdate();
       } else {
-        const generatedMeetingID = generateMeetingID();
-        // If not in update mode, handle the create event logic
-        const response = await axios.post('http://localhost:5000/api/conferences', {
-          caseNumber,
-          plaintiffName,
-          defendantName,
-          advocateName,  
-        title,
-          description,
-          date,
-          meetingID: generatedMeetingID, 
-          
-        });
+        // If not in update mode, show the confirmation dialog
+        handleConfirmCreate();
+      }
   
-        console.log('Conference created:', response.data);
-  
-        // Update the events list after scheduling a new event
-        setConference([...conferences, response.data]);
-  
-        // Reset form fields
-        setCaseNumber('');
-        setPlaintiffName('');
-        setDefendantName('');
-        setAdvocateName('');
-        setTitle('');
-        setDescription('');
-        setDate('');
         
-         // Show a custom-styled pop-up for event creation
-         showCustomToast('Conference Scheduled successfully!', 'success');
-    }
-        
-      
-  
       // Add logic to handle success, e.g., update dashboard
     } catch (error) {
       console.error('Error handling conference:', error.message);
@@ -114,9 +91,75 @@ const generateMeetingID = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleConfirmCreate = () => {
+    confirmAlert({
+      title: 'Confirmation',
+      message: 'Are you sure you want to create the conference?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: async () => {
+            // If the user clicks "Yes", proceed with creating the conference
+            await handleCreateConference();
+          },
+        },
+        {
+          label: 'No',
+          onClick: () => {
+            // If the user clicks "No", do nothing
+          },
+        },
+      ],
+    });
+  };
+
+  const handleCreateConference = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/conferences/${id}`);
+      const generatedMeetingID = generateMeetingID();
+
+      // If not in update mode, handle the create event logic
+      const response = await axios.post(
+        'http://localhost:5000/judge/create-conference',
+        {
+          caseNumber,
+          plaintiffName,
+          defendantName,
+          advocateName,
+          title,
+          description,
+          date,
+          meetingID: generatedMeetingID,
+        },
+        {
+          withCredentials: true, // Ensure credentials are sent
+        }
+      );
+
+      console.log('Conference created:', response.data);
+
+      // Update the conferences list after scheduling a new conference
+      setConference([...conferences, response.data]);
+
+      // Reset form fields
+      setCaseNumber('');
+      setPlaintiffName('');
+      setDefendantName('');
+      setAdvocateName('');
+      setTitle('');
+      setDescription('');
+      setDate('');
+
+      // Show a custom-styled pop-up for conference creation
+      showCustomToast(`Conference Scheduled successfully! Meeting ID: ${generatedMeetingID}`, 'success');
+    } catch (error) {
+      console.error('Error creating conference:', error.message);
+      // Add logic to handle errors
+    }
+  };
+
+  const handleDelete = async (conferenceId) => {
+    try {
+      await axios.delete(`http://localhost:5000/judge/delete-conference/${conferenceId}`, { withCredentials: true });
       setConference(
         conferences.filter((conference) => conference._id !== id)
       );
@@ -126,7 +169,7 @@ const generateMeetingID = () => {
   };
 
 
-  const handleUpdateClick =  (id) => {
+  const handleUpdateClick =  (conferenceId) => {
     // If not already in update mode, set the form fields and update mode
     if (!updateMode) {
       const conferenceToUpdate = conferences.find((conference) => conference._id === id);
@@ -137,7 +180,7 @@ const generateMeetingID = () => {
     
   
       setUpdateMode(true);
-      setUpdateConferenceId(id);
+      setUpdateConferenceId(conferenceId);
     }
   };
 
@@ -152,12 +195,13 @@ const generateMeetingID = () => {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/conferences/${updateConferenceId}`, {
+      await axios.put(`http://localhost:5000/judge/update-conference/${updateConferenceId}`, {
         title,
         description,
         date,
-        
-      });
+     } ,{
+          withCredentials: true, // Ensure credentials are sent
+        });
 
       setConference((prevConference) =>
         prevConference.map((conference) =>

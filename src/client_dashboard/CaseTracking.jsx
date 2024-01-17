@@ -1,31 +1,19 @@
 import React, { useState } from 'react';
-import './CaseTracking.css';
-import StateDistrictSelector from '../components/Dropdown2';
 import Dropdown from '../components/Dropdown';
 import axios from 'axios';
+import './CaseTracking.css';
 
 const CaseTracking = () => {
-  const [trackingOption, setTrackingOption] = useState('');
+  const [trackingOption, setTrackingOption] = useState('cnr');
   const [searchValue, setSearchValue] = useState('');
-  const [caseStatus, setCaseStatus] = useState('');
-  const [selectedState, setSelectedState] = useState('');
-  const [selectedDistrict, setSelectedDistrict] = useState('');
+  const [caseDetails, setCaseDetails] = useState(null);
   const [selectedCourt, setSelectedCourt] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSearchOptionClick = (option) => {
     setTrackingOption(option);
     setSearchValue('');
-    setCaseStatus('');
-  };
-
-  const handleStateSelect = (state) => {
-    setSelectedState(state);
-    console.log('Selected State:', state);
-  };
-
-  const handleDistrictSelect = (district) => {
-    setSelectedDistrict(district);
-    console.log('Selected District:', district);
+    setCaseDetails(null);
   };
 
   const handleCourtSelect = (court) => {
@@ -33,35 +21,17 @@ const CaseTracking = () => {
     console.log('Selected Court:', court);
   };
 
-  const handleKeyPress = (e) => {
-    const charCode = e.charCode;
-    if (
-      !(
-        (charCode >= 48 && charCode <= 57) ||
-        (charCode >= 65 && charCode <= 90) ||
-        (charCode >= 97 && charCode <= 122)
-      )
-    ) {
-      e.preventDefault();
-    }
-  };
-
-  const getCaseStatus = async (trackingOption, searchValue) => {
-    // Implement your logic to fetch case status based on tracking option and search value
-    // Example: You might make an API call here
-    // const response = await fetch(`/api/caseStatus?trackingOption=${trackingOption}&searchValue=${searchValue}`);
-    // const data = await response.json();
-    // return data.status;
-    // Replace the above lines with your actual logic
-  };
-
   const handleSearch = async () => {
     try {
+      setLoading(true); // Set loading to true
       console.log('Selected State:', selectedCourt.courtState);
       console.log('Selected District:', selectedCourt.courtDistrict);
       console.log('Selected Court:', selectedCourt.courtName);
       console.log('Tracking Option:', trackingOption);
       console.log('Search Value:', searchValue);
+  
+      // Clear previous case details
+      setCaseDetails(null);
   
       // Send Axios request to the backend
       const response = await axios.post('http://localhost:5000/client/case-tracking', {
@@ -73,82 +43,96 @@ const CaseTracking = () => {
       });
   
       // Handle the response from the backend
-      console.log(response.data)
+      console.log(response.data);
   
-      if (error) {
-        console.error('Error fetching case status:', error);
-        // Handle error, e.g., display an error message to the user
+      const { caseDetails } = response.data;
+  
+      if (!caseDetails || !caseDetails.caseNumber) {
+        // Case not found
+        console.log('No case found');
       } else {
-        // Update the case status state with the received data
-        console.log(caseDetails);
+        // Update the case details state with the received data
+        setCaseDetails(caseDetails);
       }
     } catch (error) {
-      console.error('Error fetching case status:', error);
+      console.error('Error fetching case details:', error);
+    } finally {
+      setLoading(false); // Set loading back to false, whether the request was successful or not
     }
   };
   
+
+  
+
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
     setSearchValue(inputValue.toUpperCase());
   };
 
   return (
-    <div className="full-width-container">
-      <div className="tracking-container">
-        <h2 style={{ paddingBottom: 'none' }}>Case Tracking</h2>
+    <div className="container mt-5">
+      <div className="card">
+        <div className="card-body">
+          <h2 className="card-title">Case Tracking</h2>
 
-        <div className="options-container">
-          <div
-            className={`option ${trackingOption === 'cnr' ? 'active' : ''}`}
-            onClick={() => handleSearchOptionClick('cnr')}
-          >
-            CNR Number
+          <div className="btn-group" role="group" aria-label="Tracking Options">
+            <button
+              type="button"
+              className={`btn btn-outline-primary ${trackingOption === 'cnr' ? 'active' : ''}`}
+              onClick={() => handleSearchOptionClick('cnr')}
+            >
+              CNR Number
+            </button>
           </div>
-          <div
-            className={`option ${trackingOption === 'partyName' ? 'active' : ''}`}
-            onClick={() => handleSearchOptionClick('partyName')}
-          >
-            Party Name
-          </div>
-          <div
-            className={`option ${trackingOption === 'advocateName' ? 'active' : ''}`}
-            onClick={() => handleSearchOptionClick('advocateName')}
-          >
-            Advocate Name
-          </div>
-          <div
-            className={`option ${trackingOption === 'courtName' ? 'active' : ''}`}
-            onClick={() => handleSearchOptionClick('courtName')}
-          >
-            Court Name
-          </div>
+
+          {trackingOption && (
+            <div className="mt-3">
+              <Dropdown onSelectCourt={handleCourtSelect} />
+
+              <div className="input-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder={`Enter ${trackingOption === 'cnr' ? 'CNR' : ''}`}
+                  value={searchValue}
+                  onChange={handleInputChange}
+                />
+                <div className="input-group-append">
+                  <button className="btn btn-primary" type="button" onClick={handleSearch}>
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {loading && <p>Loading...</p>}
+
+          {!loading && caseDetails && (
+            <div className="mt-4">
+              <h3 className="mb-3">Case Details:</h3>
+              <div className="card">
+                <div className="card-body">
+                  <p className="card-text">
+                    <strong>Case Number:</strong> {caseDetails.caseNumber}
+                  </p>
+                  <p className="card-text">
+                    <strong>Case Type:</strong> {caseDetails.caseType || caseDetails.filecasetype}
+                  </p>
+                  <p className="card-text">
+                    <strong>Case Status:</strong> {caseDetails.caseStatus || caseDetails.progress}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {!loading && !caseDetails && (
+            <div className="mt-4">
+              <p>No case found.</p>
+            </div>
+          )}
         </div>
-
-        {trackingOption && (
-          <div className="input-container">
-            <Dropdown onSelectCourt={handleCourtSelect} />
-            <input
-              type="text"
-              placeholder={`Enter ${
-                trackingOption === 'cnr'
-                  ? 'CNR'
-                  : trackingOption === 'courtName'
-                  ? 'Court Name'
-                  : trackingOption
-              }`}
-              value={searchValue}
-              onChange={handleInputChange}
-            />
-            <button onClick={handleSearch}>Submit</button>
-          </div>
-        )}
-
-        {caseStatus && (
-          <div className="case-status">
-            <h3>Case Status:</h3>
-            <p>{caseStatus}</p>
-          </div>
-        )}
       </div>
     </div>
   );
