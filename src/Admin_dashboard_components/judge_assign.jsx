@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './judge_assign.css';
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AssignJudgeDashboard = () => {
   const [judgeApprovedCases, setJudgeApprovedCases] = useState([]);
@@ -52,11 +54,23 @@ const AssignJudgeDashboard = () => {
         }
       );
       console.log(`Assigned judge for case with ID: ${caseId} to Judge ID: ${selectedJudge._id}`);
-
+  
       // Update the assigned cases state
       setAssignedCases((prevAssignedCases) => [...prevAssignedCases, caseId]);
+  
+      // Show success toast message
+      toast.success('Judge assigned to the case successfully!', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
     } catch (error) {
       console.error('Error assigning judge:', error);
+  
+      // Show error toast message
+      toast.error('Error assigning judge. Please try again.', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
     } finally {
       // Close the modal after assignment
       setIsModalOpen(false);
@@ -80,6 +94,7 @@ const AssignJudgeDashboard = () => {
 
   return (
     <div className="assign-judge-dashboard">
+      <ToastContainer/>
       <h1>Assign Judge Dashboard</h1>
 
       <div>

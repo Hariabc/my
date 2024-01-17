@@ -3,6 +3,8 @@ import axios from 'axios';
 import './Mycases.css'; // Import your CSS file
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminDashboard = () => {
   const [cases, setCases] = useState([]);
@@ -79,7 +81,7 @@ const AdminDashboard = () => {
       // Step 1: Make a request to your backend to assign a judge to the selected case
       const assignJudgeResponse = await axios.post('http://localhost:5000/cao/cases', {
         caseId: selectedCase._id,
-        approvalType: 'judge', // Add this property to specify the approval type
+        approvalType: 'judge',
       }, { withCredentials: true });
   
       // Handle the response from the '/cases' endpoint
@@ -102,19 +104,29 @@ const AdminDashboard = () => {
   
       // Close the modal
       setApproveOptionsVisible(false);
+  
+      // Show success toast message
+      toast.success('Case approved for assigning Judge', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
     } catch (error) {
-      console.error('Error assigning judge or approving:', error);
-      // Handle the error as needed
+      console.error('Error in case approving for assigning Judge:', error);
+  
+      // Show error toast message
+      toast.error('Error assigning judge or approving. Please try again.', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
     }
   };
-  
 
   const handleAssignPublicAdvocate = async () => {
     try {
       // Step 1: Make a request to your backend to assign a public advocate to the selected case
       const assignAdvocateResponse = await axios.post('http://localhost:5000/cao/cases', {
         caseId: selectedCase._id,
-        approvalType: 'advocate', // Update to 'advocate' to match the backend logic
+        approvalType: 'advocate',
       }, { withCredentials: true });
   
       // Handle the response from the '/cases' endpoint
@@ -137,12 +149,22 @@ const AdminDashboard = () => {
   
       // Close the modal
       setApproveOptionsVisible(false);
+  
+      // Show success toast message
+      toast.success('Case approved for assigning public advocate', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
     } catch (error) {
-      console.error('Error assigning public advocate or approving:', error);
-      // Handle the error as needed
+      console.error('Error in case approving for assigning public advocate', error);
+  
+      // Show error toast message
+      toast.error('Error assigning public advocate or approving. Please try again.', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
     }
   };
-  
 
 
   const closeApproveOptionsModal = () => {
@@ -160,6 +182,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="container">
+      <ToastContainer />
       <h1>Admin Dashboard - Pending Cases</h1>
       <div className="filter-section">
         <label>Filter by Case Type:</label>

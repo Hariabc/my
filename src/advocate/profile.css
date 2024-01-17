@@ -1,55 +1,37 @@
-
-.profile-height{
-  height: 90vh;
-}
+/* Profile.css */
 .profile-container {
-    max-width: 600px;
-    margin:auto;
-    margin-top: 100px;
-    padding: 20px;
-    border: 1px solid #000000;
-    color: #000000;
-  }
-  
-  .profile-header {
-    text-align: center;
-  }
-  
-  .avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-  }
-  
-  .username {
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 20px;
-    color: #000;
-  }
-  
-  .profile-details {
-    font-size: 16px;
-  }
-  
-  /* Add line to the bottom of all paragraphs */
-  .profile-details p {
-    margin-bottom: 10px;
-    position: relative;
-    color: #000;
-    padding-bottom: 6px;
-    font-weight: 500;
-    font-style: normal;
-  }
-  
-  .profile-details p::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: #ddd; /* Color of the line */
-  }
-  
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.profile-header {
+  text-align: center;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: #333;
+}
+
+.profile-details {
+  padding: 20px 0;
+}
+
+p {
+  color: #555;
+  margin: 8px 0;
+}
+
+/* Add additional styles based on your preferences */
