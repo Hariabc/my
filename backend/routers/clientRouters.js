@@ -219,7 +219,7 @@ router.get('/mycases/:caseId',authMiddleware, async (req, res) => {
     res.status(500).json({ message: 'Error fetching case details', error: error.message });
   }
 });
-// const { Case, Hearing, Order } = require('./models');
+
 
 
 router.post('/case-tracking', async (req, res) => {
