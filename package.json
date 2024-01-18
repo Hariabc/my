@@ -16,6 +16,7 @@
     "@fullcalendar/interaction": "^6.1.10",
     "@fullcalendar/react": "^6.1.10",
     "@zegocloud/zego-uikit-prebuilt": "^1.8.15",
+    "autoprefixer": "^10.4.17",
     "axios": "^1.6.2",
     "axois": "^0.0.1-security",
     "bcrypt": "^5.1.1",
@@ -38,6 +39,7 @@
     "nodemailer": "^6.9.7",
     "nodemon": "^3.0.2",
     "pdfkit": "^0.14.0",
+    "postcss": "^8.4.33",
     "process": "^0.11.10",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.0",
@@ -57,6 +59,7 @@
     "socket.io-client": "^4.7.2",
     "stream-chat": "^8.14.4",
     "stream-chat-react": "^11.2.1",
+    "tailwindcss": "^3.4.1",
     "vite-plugin-node": "^3.1.0",
     "zego-zim-web": "^2.13.0"
   },
