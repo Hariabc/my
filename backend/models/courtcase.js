@@ -21,7 +21,7 @@ const caseSchema = new mongoose.Schema({
       'caseAssignedToAJudge',
       'caseAssignedToAPublicAdvocate',
       'rejectedByCourtAdmin',
-      'preTrial',
+      'preTrialconferenceScheduled',
       'inProgress',
       'completed'
     ],

@@ -1,6 +1,6 @@
   const express = require('express');
   const router = express.Router();
-  const nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
   
   const bcrypt = require("bcrypt")
   const jwt = require("jsonwebtoken")
@@ -160,6 +160,35 @@
     }
   });
 
+  router.post('/case-tracking', async (req, res) => {
+    try {
+      const { searchValue } = req.body;
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+      // First, check the Case model with the associated documents
+      let caseDetails = await Case.findOne({ caseNumber:searchValue })
+        .populate('caseDetails') // Assuming 'caseDetails' is the reference to Filedcase schema
+        .populate('hearings')
+        .populate('orders')
+        .exec();
+  
+      if (!caseDetails) {
+        // If not found in the first case, check the second case model
+        caseDetails = await Filedcase.findOne({ caseNumber:searchValue }).exec();
+  
+        if (!caseDetails) {
+          return res.status(404).json({ error: 'Case not found' });
+        }
+  
+        return res.status(200).json({ caseDetails });
+      }
+  
+      return res.status(200).json({ caseDetails });
+    } catch (error) {
+      console.error('Error tracking case:', error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
   // Add this route in your router file (e.g., routes/client.js)
   router.get('/my-events', authMiddleware, async (req, res) => {
     try {
@@ -282,8 +311,10 @@
 
   router.post('/create-conference', authMiddleware, async (req, res) => {
     try {
-      const { caseNumber, plaintiffName, defendantName, advocateName, title, description, date ,meetingID} = req.body;
+      const { caseNumber, plaintiffName, defendantName, advocateName, title, description, date, meetingID } = req.body;
       const userId = req.user._id;
+  
+      // Create a new conference
       const newConference = new JudgeConference({
         caseNumber,
         plaintiffName,
@@ -296,7 +327,11 @@
         user: userId,
       });
   
+      // Save the new conference
       await newConference.save();
+  
+      // Update the case status to "preTrialconferenceScheduled"
+      await Case.findOneAndUpdate({ caseNumber }, { $set: { caseStatus: 'preTrialconferenceScheduled' } });
   
       res.status(201).json({ message: 'Conference created successfully', data: newConference });
     } catch (error) {
@@ -305,29 +340,6 @@
     }
   });
   
-  // Update an existing conference
-  router.put('/update-conference/:conferenceId', authMiddleware, async (req, res) => {
-    try {
-      const { caseNumber,title, description, date } = req.body;
-      const { conferenceId } = req.params;
-      const userId = req.user._id;
-  
-      const updatedConference = await JudgeConference.findOneAndUpdate(
-        { _id: conferenceId , user: userId },
-        { caseNumber,title, description, date },
-        { new: true }
-      );
-  
-      if (!updatedConference) {
-        return res.status(404).json({ error: 'Conference not found' });
-      }
-  
-      res.status(200).json({ message: 'Conference updated successfully', data: updatedConference });
-    } catch (error) {
-      console.error('Error updating conference:', error);
-      res.status(500).json({ error: 'Failed to update conference' });
-    }
-  });
   
   // Delete a conference
   router.delete('/delete-conference/:conferenceId', authMiddleware, async (req, res) => {

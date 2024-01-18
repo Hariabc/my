@@ -48,6 +48,7 @@ import AdminEventForm from './Admin_dashboard_components/AdminEventForm.jsx';
 import JudgeEventForm from './judge/JudgeEventForm.jsx';
 import JudgeMycasesPage from './judge/JudgeMyCases.jsx';
 import JudgeCaseDetails from './judge/JudgeIndividualCases.jsx';
+import JudgeCaseTracking from './judge/CaseTracking.jsx'
 const App = () => {
   return (
     <Router>
@@ -82,7 +83,7 @@ const App = () => {
           <Route path='/casefilingform' element={<CaseFilingForm/>}/>
           <Route path='/fileacase' element={<FileACaseMin/>}/>
           <Route path='/pre-trial' element={<VideoConference/>}/>
-          <Route path='/schedule-pre-trial' element={<JudgeConference/>}/>
+          <Route path='judge/schedule-pre-trial' element={<JudgeConference/>}/>
           <Route path="/homecon/:meetingID" element={<HomeCon/>}/>
           <Route path='/room/:roomID' element={<Room/>}/>
           <Route path='pre-trial-conferencing' element={<AdvocateConference/>}/>
@@ -99,7 +100,9 @@ const App = () => {
           <Route path="/cao/addjudge-publicadv" element={<AddUsers/>} />
           <Route  path="*" element={<ErrorPage/>}/>
           <Route path="/client/cause-list" element={<Causelist />} />
-          <Route path="/cao/judge-assign" element={<Judgeassign/>} />
+            <Route path="/cao/judge-assign" element={<Judgeassign />} />
+          <Route path='judge/case-tracking' element={<JudgeCaseTracking/>}/>
+            
           <Route path='/cao/scheduling-event' element={<AdminEventForm/>}/>
         </Route>
       </Routes>
