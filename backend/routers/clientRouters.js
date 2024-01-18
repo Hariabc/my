@@ -321,7 +321,7 @@ router.put('/update/:eventId', authMiddleware, async (req, res) => {
       return res.status(404).json({ error: 'Event not found or unauthorized' });
     }
 
-    res.status(200).json(updatedEvent);
+    res.status(200).json({ message: 'Conference updated successfully', data:updatedEvent});
   } catch (error) {
     console.error('Error updating event:', error);
     res.status(500).json({ error: 'Failed to update event' });

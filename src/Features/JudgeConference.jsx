@@ -14,9 +14,9 @@ const JudgeConference = () => {
 
   const navigate = useNavigate();
 
-  const handleJoinClick = (conferenceId) => {
+  const handleJoinClick = (meetingID) => {
     // Redirect to Home.js when the Join button is clicked
-    navigate(`/homecon/${conferenceId}`);
+    navigate(`/homecon/${meetingID}`);
   };
   
   const [conferences, setConference] = useState([]);
@@ -161,8 +161,9 @@ const generateMeetingID = () => {
     try {
       await axios.delete(`http://localhost:5000/judge/delete-conference/${conferenceId}`, { withCredentials: true });
       setConference(
-        conferences.filter((conference) => conference._id !== id)
+        conferences.filter((conference) => conference._id !== conferenceId)
       );
+      showCustomToast('Conference deleted successfully!', 'success');
     } catch (error) {
       console.error('Error deleting conference:', error);
     }
@@ -172,8 +173,8 @@ const generateMeetingID = () => {
   const handleUpdateClick =  (conferenceId) => {
     // If not already in update mode, set the form fields and update mode
     if (!updateMode) {
-      const conferenceToUpdate = conferences.find((conference) => conference._id === id);
-  
+      const conferenceToUpdate = conferences.find((conference) => conference._id === conferenceId);
+      setTitle(conferenceToUpdate.caseNumber);
       setTitle(conferenceToUpdate.title);
       setDescription(conferenceToUpdate.description);
       setDate(conferenceToUpdate.date);
@@ -185,6 +186,7 @@ const generateMeetingID = () => {
   };
 
   const handleCancelUpdate = () => {
+    setCaseNumber('');
     setTitle('');
     setDescription('');
     setDate('');
@@ -196,6 +198,7 @@ const generateMeetingID = () => {
   const handleUpdate = async () => {
     try {
       await axios.put(`http://localhost:5000/judge/update-conference/${updateConferenceId}`, {
+        caseNumber,
         title,
         description,
         date,
@@ -206,12 +209,13 @@ const generateMeetingID = () => {
       setConference((prevConference) =>
         prevConference.map((conference) =>
           conference._id === updateConferenceId
-            ? { ...conference, title, description, date
+            ? { ...conference,caseNumber, title, description, date
             }
             : conference
         )
       );
-
+      
+      setCaseNumber('');
       setTitle('');
       setDescription('');
       setDate('');
@@ -229,15 +233,35 @@ const generateMeetingID = () => {
     }
   };
 
-  const fetchCaseDetails = async (caseNumber) => {
+  
+  const [validCaseNumber, setValidCaseNumber] = useState(true);
+  const fetchCaseDetails = async (enteredCaseNumber) => {
     try {
       // Make a request to fetch case details based on the case number
-      const response = await axios.get(`http://localhost:5000/api/cases/${caseNumber}`);
-
-      // Update state with the fetched details
-      setPlaintiffName(response.data.plaintiffName);
-      setDefendantName(response.data.defendantName);
-      setAdvocateName(response.data.advocateName);
+      const response = await axios.get(`http://localhost:5000/judge/mycases`, {
+        withCredentials: true,
+      });
+  
+      // Check if the entered caseNumber exists in the response
+      const caseDetails = response.data.find((caseDetail) => caseDetail.caseNumber === enteredCaseNumber);
+  
+      if (caseDetails) {
+        // Access specific properties of plaintiffDetails and defendantDetails
+        const { fullName: plaintiffFullName } = caseDetails.plaintiffDetails;
+        const { fullName: defendantFullName } = caseDetails.defendantDetails;
+        const { fullName: advocateFullName } = caseDetails.advocateDetails || { fullName: 'None' };
+  
+        setPlaintiffName(plaintiffFullName);
+        setDefendantName(defendantFullName);
+        setAdvocateName(advocateFullName);
+        setValidCaseNumber(true); // Set validCaseNumber to true if the caseNumber is valid
+      } else {
+        // Handle case not found
+        setPlaintiffName('');
+        setDefendantName('');
+        setAdvocateName('None');
+        setValidCaseNumber(false); // Set validCaseNumber to false if the caseNumber is invalid
+      }
     } catch (error) {
       console.error('Error fetching case details:', error);
     }
@@ -250,8 +274,6 @@ const generateMeetingID = () => {
     // Fetch case details when the case number changes
     await fetchCaseDetails(enteredCaseNumber);
   };
-
-
 
 
 
@@ -280,53 +302,55 @@ const generateMeetingID = () => {
       <div className="event-container">
       <form onSubmit={handleSubmit} className="event-form">
       <div className="input-box">
-            <label className="event-form-label">
-              Case Number:
-              <input
-                type="text"
-                value={caseNumber}
-                onChange={handleCaseNumberChange}
-                required
-                className="event-form-input"
-              />
-            </label>
+      <label className={`event-form-label ${validCaseNumber ? '' : 'invalid-case-number'}`}>
+            Case Number:
+            <input
+              type="text"
+              value={caseNumber}
+              onChange={handleCaseNumberChange}
+              required
+              className={`event-form-input ${validCaseNumber ? '' : 'invalid-input'}`}
+            />
+          </label>
             <br />
+            <label className="event-form-label">
+  Plaintiff Name:
+  <input
+    type="text"
+    value={plaintiffName}
+    onChange={(e) => setPlaintiffName(e.target.value)}
+    required
+    className="event-form-input"
+    disabled
+  />
+</label>
+<br />
 
-            <label className="event-form-label">
-              Plaintiff Name:
-              <input
-                type="text"
-                value={plaintiffName}
-                onChange={(e) => setPlaintiffName(e.target.value)}
-                required
-                className="event-form-input"
-              />
-            </label>
-            <br />
+<label className="event-form-label">
+  Defendant Name:
+  <input
+    type="text"
+    value={defendantName}
+    onChange={(e) => setDefendantName(e.target.value)}
+    required
+    className="event-form-input"
+    disabled
+  />
+</label>
+<br />
 
-            <label className="event-form-label">
-              Defendant Name:
-              <input
-                type="text"
-                value={defendantName}
-                onChange={(e) => setDefendantName(e.target.value)}
-                required
-                className="event-form-input"
-              />
-            </label>
-            <br />
-
-            <label className="event-form-label">
-              Advocate Name:
-              <input
-                type="text"
-                value={advocateName}
-                onChange={(e) => setAdvocateName(e.target.value)}
-                required
-                className="event-form-input"
-              />
-            </label>
-            <br />
+<label className="event-form-label">
+  Advocate Name:
+  <input
+    type="text"
+    value={advocateName}
+    onChange={(e) => setAdvocateName(e.target.value)}
+    required
+    className="event-form-input"
+    disabled
+  />
+</label>
+<br />
         
           <label className="event-form-label">
             Title:
@@ -388,15 +412,19 @@ const generateMeetingID = () => {
             {conferences.map((conference) => (
               <li key={conference._id} className="event-list-item">
                 <div className="event-details">
-                  <strong className="event-list-item-title">{conference.title}</strong> -{' '}
-                  <span className="event-list-item-description">{conference.description}</span> -{' '}
-                  <span className="event-list-item-date">{conference.date}</span>
-                  <span className="event-list-item-meetingID">{conference.meetingID}</span>
-                </div>
+        <strong className="event-list-item-title">Case Number:</strong> {conference.caseNumber} <br />
+        <strong className="event-list-item-title">Plaintiff Name:</strong> {conference.plaintiffName} <br />
+        <strong className="event-list-item-title">Defendant Name:</strong> {conference.defendantName} <br />
+        <strong className="event-list-item-title">Advocate Name:</strong> {conference.advocateName} <br />
+        <strong className="event-list-item-title">Title:</strong> {conference.title} <br />
+        <strong className="event-list-item-title">Description:</strong> {conference.description} <br />
+        <strong className="event-list-item-title">Date:</strong> {conference.date} <br />
+        <strong className="event-list-item-title">Meeting ID:</strong> {conference.meetingID} <br />
+      </div>
                 <div className="event-buttons">
                 <button
                     type="button"
-                    onClick={() => handleJoinClick(conference._id)}
+                    onClick={() => handleJoinClick(conference.meetingID)}
                     className="event-list-join-button"
                   >
                     Join

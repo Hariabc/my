@@ -97,6 +97,7 @@ const JudgeMycasesPage = () => {
     const fetchJudgeCases = async () => {
       try {
         const response = await axios.get('http://localhost:5000/judge/mycases', { withCredentials: true });
+        console.log('API Response:', response.data);
         setCases(response.data);
       } catch (error) {
         console.error('Error fetching judge cases:', error);

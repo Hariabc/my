@@ -271,7 +271,7 @@
       const judgeId = req.user._id;
   
       // Assuming you have a judge field in your Conference model
-      const conferences = await JudgeConference.find({ judge: judgeId });
+      const conferences = await JudgeConference.find({ user: judgeId });
   
       res.json(conferences);
     } catch (error) {
@@ -282,7 +282,8 @@
 
   router.post('/create-conference', authMiddleware, async (req, res) => {
     try {
-      const { caseNumber, plaintiffName, defendantName, advocateName, title, description, date } = req.body;
+      const { caseNumber, plaintiffName, defendantName, advocateName, title, description, date ,meetingID} = req.body;
+      const userId = req.user._id;
       const newConference = new JudgeConference({
         caseNumber,
         plaintiffName,
@@ -291,6 +292,8 @@
         title,
         description,
         date,
+        meetingID,
+        user: userId,
       });
   
       await newConference.save();
@@ -305,12 +308,13 @@
   // Update an existing conference
   router.put('/update-conference/:conferenceId', authMiddleware, async (req, res) => {
     try {
-      const { caseNumber, plaintiffName, defendantName, advocateName, title, description, date } = req.body;
+      const { caseNumber,title, description, date } = req.body;
       const { conferenceId } = req.params;
+      const userId = req.user._id;
   
       const updatedConference = await JudgeConference.findOneAndUpdate(
-        { _id: conferenceId },
-        { caseNumber, plaintiffName, defendantName, advocateName, title, description, date },
+        { _id: conferenceId , user: userId },
+        { caseNumber,title, description, date },
         { new: true }
       );
   
@@ -329,8 +333,9 @@
   router.delete('/delete-conference/:conferenceId', authMiddleware, async (req, res) => {
     try {
       const { conferenceId } = req.params;
+      const userId = req.user._id;
   
-      const deletedConference = await JudgeConference.findOneAndDelete({ _id: conferenceId });
+      const deletedConference = await JudgeConference.findOneAndDelete({ _id: conferenceId , user: userId});
   
       if (!deletedConference) {
         return res.status(404).json({ error: 'Conference not found' });

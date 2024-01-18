@@ -46,7 +46,7 @@ import Contact from './pages/contact';
 import ClientEventForm from './client_dashboard/ClientEventForm.jsx';
 import AdminEventForm from './Admin_dashboard_components/AdminEventForm.jsx';
 import JudgeEventForm from './judge/JudgeEventForm.jsx';
-import JudgeMyCases from './judge/JudgeMyCases.jsx';
+import JudgeMycasesPage from './judge/JudgeMyCases.jsx';
 import JudgeCaseDetails from './judge/JudgeIndividualCases.jsx';
 const App = () => {
   return (
@@ -83,13 +83,13 @@ const App = () => {
           <Route path='/fileacase' element={<FileACaseMin/>}/>
           <Route path='/pre-trial' element={<VideoConference/>}/>
           <Route path='/schedule-pre-trial' element={<JudgeConference/>}/>
-          <Route path="/homecon" element={<HomeCon/>}/>
+          <Route path="/homecon/:meetingID" element={<HomeCon/>}/>
           <Route path='/room/:roomID' element={<Room/>}/>
           <Route path='pre-trial-conferencing' element={<AdvocateConference/>}/>
           <Route path='client/case-tracking' element={<CaseTracking/>}/>
           <Route path="/judge/register/complete/:token" element={<JudgeReg />} />
           <Route path='/judge/scheduling-event' element={<JudgeEventForm/>}/>
-          <Route path='/judge/my-cases' element={<JudgeMyCases/>}/>
+          <Route path='/judge/my-cases' element={<JudgeMycasesPage/>}/>
           <Route path="/judge/my-cases/:caseId" element={<JudgeCaseDetails />} />
           <Route path="/client/fileacase" element={<Casefileopt />} />
           <Route path="/client/mycases" element={<ClientCases/>} />
