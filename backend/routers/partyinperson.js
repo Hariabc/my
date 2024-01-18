@@ -43,6 +43,8 @@ const generatePDF = (caseDetails) => {
       Object.keys(caseDetails.defendantDetails).forEach((key) => {
         pdfDoc.text(`${key}: ${caseDetails.defendantDetails[key]}`, { indent: 20 });
       });
+ 
+      pdfDoc.text('\nPayment Details:', { underline: true, margin: [0, 5, 0, 5] });
 
       Object.keys(caseDetails.paymentDetails).forEach((key) => {
         pdfDoc.text(`${key}: ${caseDetails.paymentDetails[key]}`, { indent: 20 });
