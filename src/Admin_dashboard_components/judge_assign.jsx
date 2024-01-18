@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const AssignJudgeDashboard = () => {
   const [judgeApprovedCases, setJudgeApprovedCases] = useState([]);
-  const [registeredJudges, setRegisteredJudges] = useState([]);
+  const [registeredJudges, setRegisteredJudges] = useState([]); 
   const [selectedCase, setSelectedCase] = useState(null);
   const [selectedJudge, setSelectedJudge] = useState(null);
   const [assignedCases, setAssignedCases] = useState([]); // New state to keep track of assigned cases
