@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import jsPDF from 'jspdf';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import './Individualcases.css'
+import './Individualcases.css';
+
 const CaseDetails = () => {
   const { caseId } = useParams();
   const [caseDetails, setCaseDetails] = useState(null);
+
   useEffect(() => {
     const fetchCaseDetails = async () => {
       try {
@@ -15,14 +17,15 @@ const CaseDetails = () => {
         console.error('Error fetching case details:', error);
       }
     };
-    
+
     fetchCaseDetails();
   }, [caseId]);
+
   const DetailsToPDF = async () => {
     const pdf = new jsPDF();
     pdf.setFont('helvetica', 'bold');
     pdf.setFontSize(20);
-    pdf.text('Plantiff Details:', 30, 20);
+    pdf.text('Plaintiff Details:', 30, 20);
     pdf.setFontSize(14);
     Object.entries(caseDetails.plaintiffDetails).forEach(([key, value], index) => {
       pdf.text(`${key}: ${value}`, 30, 45 + index * 15);
@@ -45,25 +48,27 @@ const CaseDetails = () => {
     });
     pdf.save('form-details.pdf');
   };
+
   return (
-    <>
-    <div className="container">
-      <div className="case-info">
-        <h3 className="title">Case Details</h3>
+    <section className="section">
+      <div className="container">
+        <h3 className="title is-3">Case Details</h3>
+
         {caseDetails ? (
           <div>
-          <div className="boxCaseDetails">
-            <h5 className="subtitle">Case ID</h5>
-            <div className="details">
-              <p>{caseDetails._id}</p>
+            <div className="box">
+              <h5 className="subtitle is-5">Case ID</h5>
+              <div className="content">
+                <p>{caseDetails._id}</p>
+              </div>
             </div>
-          </div>
-          
-          <div className="details-container">
-            <div className="boxA">
-              <h5 className="subtitle">Plaintiff Details</h5>
-              <div className="details">
-                <p>Name: {caseDetails.plaintiffDetails.fullName}</p>
+
+            <div className="columns">
+              <div className="column">
+                <div className="box">
+                  <h5 className="subtitle is-5">Plaintiff Details</h5>
+                  <div className="content">
+                  <p>Name: {caseDetails.plaintiffDetails.fullName}</p>
                 <p>Gender: {caseDetails.plaintiffDetails.gender}</p>
                 <p>Age: {caseDetails.plaintiffDetails.Age}</p>
                 <p>Email Address: {caseDetails.plaintiffDetails.partyEmailAddresses}</p>
@@ -71,13 +76,15 @@ const CaseDetails = () => {
                 <p>State: {caseDetails.plaintiffDetails.state}</p>
                 <p>District: {caseDetails.plaintiffDetails.district}</p>
                 <p>Village: {caseDetails.plaintiffDetails.village}</p>
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <div className="boxB">
-              <h5 className="subtitle">Defendant Details</h5>
-              <div className="details">
-                <p>Name: {caseDetails.defendantDetails.fullName}</p>
+              <div className="column">
+                <div className="box">
+                  <h5 className="subtitle is-5">Defendant Details</h5>
+                  <div className="content">
+                  <p>Name: {caseDetails.defendantDetails.fullName}</p>
                 <p>Gender: {caseDetails.defendantDetails.gender}</p>
                 <p>Age: {caseDetails.defendantDetails.age}</p>
                 <p>Email Address: {caseDetails.defendantDetails.partyEmailAddresses}</p>
@@ -85,13 +92,15 @@ const CaseDetails = () => {
                 <p>State: {caseDetails.defendantDetails.state}</p>
                 <p>District: {caseDetails.defendantDetails.district}</p>
                 <p>Village: {caseDetails.defendantDetails.village}</p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="boxC">
-              <h5 className="subtitle">Case Details</h5>
-              <div className="details">
-                <p>Case Type: {caseDetails.caseDetails.caseType}</p>
+            <div className="box">
+              <h5 className="subtitle is-5">Case Details</h5>
+              <div className="content">
+              <p>Case Type: {caseDetails.caseDetails.caseType}</p>
                 <p>Title: {caseDetails.caseDetails.title}</p>
                 <p>Case Summary: {caseDetails.caseDetails.caseSummary}</p>
                 <p>Cause of Action: {caseDetails.caseDetails.causeOfAction}</p>
@@ -103,25 +112,27 @@ const CaseDetails = () => {
               </div>
             </div>
 
-            <div className="boxD">
-              <h5 className="subtitle">Payment Details</h5>
-              <div className="details">
+            <div className="box">
+              <h5 className="subtitle is-5">Payment Details</h5>
+              <div className="content">
                 <p>Payment Method: {caseDetails.paymentDetails.paymentMethod}</p>
               </div>
             </div>
-              </div>
-              
-              <div className="printButton-div">
-            <button className="printButton" onClick={DetailsToPDF}><img style={{"width": "20px", "borderRadius": "50%"}} /><i style={{"position": "relative", "bottom": "3px", "left": "5px"}}>Print</i></button>
+
+            <div className="has-text-centered">
+              <button className="button is-primary" onClick={DetailsToPDF}>
+                <span className="icon">
+                  <i className="fas fa-print"></i>
+                </span>
+                <span>Print</span>
+              </button>
+            </div>
           </div>
-        </div>
-            
         ) : (
           <p className="loading">Loading...</p>
-          )}
+        )}
       </div>
-    </div>
-    </>
+    </section>
   );
 };
 
