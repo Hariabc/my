@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Mycases.css'; // Import your CSS file
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -210,7 +210,7 @@ const AdminDashboard = () => {
             {filteredCases.map((caseItem, index) => (
               <tr key={caseItem._id}>
                 <td>{index + 1}</td>
-                <td>{caseItem.caseDetails.title}</td>
+                <td>{caseItem.caseTitle}</td>
                 <td>{caseItem.caseNumber}</td>
                 <td>
                   <button onClick={() => openCaseDetailsModal(caseItem)}>View Details</button>

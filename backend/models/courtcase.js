@@ -82,7 +82,7 @@ const hearingSchema = new mongoose.Schema({
   },
   hearingNotes: {
     type: String,
-    required: true
+    // required: true
   }
 });
 
