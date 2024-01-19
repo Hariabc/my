@@ -393,6 +393,8 @@ router.delete('/delete/:eventId', authMiddleware, async (req, res) => {
   }
 });
 
+
+
 router.post('/logout', (req, res) => {
   try {
     // Clear the JWT token from the cookie

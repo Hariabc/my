@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './JudgeMyCases.css';
+import { useNavigate } from 'react-router-dom';
 
 const JudgeMyCases = ({ judgeId }) => {
   const [cases, setCases] = useState([]);
   const [selectedCase, setSelectedCase] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchJudgeCases = async () => {
@@ -34,6 +36,7 @@ const JudgeMyCases = ({ judgeId }) => {
   };
 
   const handleSchedulePreTrial = (caseId) => {
+    navigate('/judge/schedule-pre-trial')
     console.log(`Scheduling pre-trial for case ${caseId}`);
   };
 

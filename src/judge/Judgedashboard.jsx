@@ -143,10 +143,10 @@ const BriefcaseDashboard = () => {
   const linksDataBriefcase = [
   { path: "/schedule-pre-trial", label: "Pre Trial", image: confrence },
   { path: "/documentation", label: "Documentation", image: document },
-  { path: "/judge/scheduling-event", label: "Calendar Scheduling", image: scheduling },
-  { path: "/judge/my-cases", label: "My Cases", image: casedetails },
+  { path: "/scheduling-event", label: "Calendar Scheduling", image: scheduling },
+  { path: "/my-cases", label: "My Cases", image: casedetails },
   { path: "/cause-list", label: "Cause List", image: causelist },
-  { path: "/Judge-case-tracking", label: "Case Tracking", image: casetracking },
+  { path: "/case-tracking", label: "Case Tracking", image: casetracking },
   { path: "/case-notes", label: "Case Notes", image: caseanalytics },
 ];
 
@@ -160,7 +160,7 @@ const BriefcaseDashboard = () => {
         transition={{ duration: 0.5, delay: 0.4 }}
       >
         {linksDataBriefcase.map((link, index) => (
-          <Link key={index} to={link.path} className="dashboard-box" style={{borderTop: "3px solid blueviolet"}}>
+          <Link key={index} to={`/judge${link.path}`} className="dashboard-box" style={{borderTop: "3px solid blueviolet"}}>
             {link.image && <motion.img src={link.image} alt={link.label} className='dashboard-image' />} {/* Added alt attribute */}
             <h3 style={{ color: 'black' }}>{link.label}</h3>
           </Link>
