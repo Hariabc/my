@@ -5,7 +5,8 @@ const router = express.Router();
 router.use(express.json());
 const User = require("../models/client")
 const Court = require('../models/court')
-const CourtAdmin=require('../models/cao')
+const CourtAdmin = require('../models/cao')
+const multerUpload = require('../routers/fileStorage'); // Adjust the path based on your file structure
 
 function generateCaseNumber() {
   const timestamp = Date.now().toString(); // Current timestamp
@@ -94,6 +95,8 @@ router.post('/case', async (req, res) => {
     res.status(500).json({ message: 'Error saving case details', error: error.message });
   }
 });
+
+
 
 
 

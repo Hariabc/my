@@ -9,11 +9,13 @@ const caoRouters = require("./routers/caoRouters")
 const courtRouters = require(".//routers/court")
 const judgeRouters = require("./routers/judge")
 const PartyinpersonRouter = require("./routers/partyinperson")
-const ConferenceRouter = require("./routers/meetingRoutes")
+const bodyParser = require('body-parser');
+const cloudinary = require('cloudinary').v2;
+// const ConferenceRouter = require("./routers/meetingRoutes")
 
 // const { MongoClient, ServerApiVersion } = require('mongodb');
 
-
+app.use(bodyParser.json());
 app.use(cors({
     origin: 'http://localhost:5173', // Change this to your React app's URL
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
