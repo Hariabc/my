@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const autopopulate = require('mongoose-autopopulate');
+// const autopopulate = require('mongoose-autopopulate');
 const caseSchema = new mongoose.Schema({
   caseNumber: {
     type: String,
@@ -43,7 +43,7 @@ const caseSchema = new mongoose.Schema({
   },
   hearings: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Hearing'
+    ref: 'JudgeConference'
   }],
   orders: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -51,40 +51,40 @@ const caseSchema = new mongoose.Schema({
   }]
 });
 
-caseSchema.pre('findOne', function (next) {
-  this.populate('caseDetails');
-  next();
-});
+// caseSchema.pre('findOne', function (next) {
+//   this.populate('caseDetails');
+//   next();
+// });
 
-const hearingSchema = new mongoose.Schema({
-  hearingId: {
-    type: Number,
-    unique: true,
-    required: true
-  },
-  hearingDate: {
-    type: Date,
-    required: true
-  },
-  hearingTime: {
-    type: String,
-    required: true
-  },
-  hearingMode: {
-    type: String,
-    enum: ['physical', 'virtual'],
-    required: true
-  },
-  hearingStatus: {
-    type: String,
-    enum: ['scheduled', 'inProgress', 'completed', 'adjourned', 'cancelled'],
-    required: true
-  },
-  hearingNotes: {
-    type: String,
-    // required: true
-  }
-});
+// const hearingSchema = new mongoose.Schema({
+//   hearingId: {
+//     type: Number,
+//     unique: true,
+//     required: true
+//   },
+//   hearingDate: {
+//     type: Date,
+//     required: true
+//   },
+//   // hearingTime: {
+//   //   type: String,
+//   //   required: true
+//   // },
+//   hearingMode: {
+//     type: String,
+//     enum: ['physical', 'virtual'],
+//     required: true
+//   },
+//   hearingStatus: {
+//     type: String,
+//     enum: ['scheduled', 'inProgress', 'completed', 'adjourned', 'cancelled'],
+//     required: true
+//   },
+//   hearingNotes: {
+//     type: String,
+//     // required: true
+//   }
+// });
 
 const orderSchema = new mongoose.Schema({
   orderId: {
@@ -110,7 +110,7 @@ const orderSchema = new mongoose.Schema({
 
 
 const Case = mongoose.model('Case', caseSchema);
-const Hearing = mongoose.model('Hearing', hearingSchema);
+// const Hearing = mongoose.model('Hearing', hearingSchema);
 const Order = mongoose.model('Order', orderSchema);
 
-module.exports = { Case, Hearing, Order };
+module.exports = { Case, Order };
