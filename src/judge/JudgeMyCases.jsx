@@ -83,8 +83,8 @@ const JudgeMyCases = ({ judgeId }) => {
               <td className="py-2 px-4 border-b">
                 <button className={`text-blue-500 ${getStatusColor(caseItem.progress)}`} onClick={() => handleViewDetails(caseItem._id)}>View Case Details</button>
                 <button className={`text-gray-500 ml-2 ${getStatusColor(caseItem.progress)}`} onClick={() => handleViewDocuments(caseItem._id)}>View Documents</button>
-                <button className={`text-green-500 ml-2 ${getStatusColor(caseItem.progress)}`} onClick={() => handleSchedulePreTrial(caseItem._id)}>Schedule Pre-Trial</button>
-                <button className={`text-indigo-500 ml-2 ${getStatusColor(caseItem.progress)}`} onClick={() => handleJudgement(caseItem._id)}>Judgement</button>
+                <button className={`text-green-500 ml-2 ${getStatusColor(caseItem.progress)}`} onClick={() => handleSchedulePreTrial(caseItem._id)}>Schedule Conference</button>
+                <button className={`text-indigo-500 ml-2 ${getStatusColor(caseItem.progress)}`} onClick={() => handleJudgement(caseItem._id)}>Orders</button>
                 {caseItem.progress !== 'Closed' && (
                   <button className={`text-red-500 ml-2`} onClick={() => handleCloseCase(caseItem._id)}>Close</button>
                 )}

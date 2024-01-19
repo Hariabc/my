@@ -324,39 +324,20 @@ const nodemailer = require('nodemailer');
         description,
         date,
         meetingID,
-        conferenceType,
-        user: userId,
+        hearingMode: "virtual",
+        hearingStatus:'scheduled',
+        judge: userId,
       });
   
       // Save the new conference
       await newConference.save();
   
       // Update the case status to "preTrialconferenceScheduled"
-      await Case.findOneAndUpdate({ caseNumber }, { $set: { caseStatus: 'preTrialconferenceScheduled' } });
-
-      const hearingId = Math.floor(Math.random() * 100000);
-
-      const hearingData = {
-        hearingId,
-        hearingDate: new Date(date), // Use the scheduled conference date as the hearing date
-        hearingTime: '', // You might want to set this based on your application logic
-        hearingMode: conferenceType, // Use the scheduled conference type as the hearing mode
-        hearingStatus: 'scheduled',
-        hearingNotes: '', // Leave it blank for now
-      };
-  
-      // Create a new hearing
-      const newHearing = new Hearing(hearingData);
-  
-      // Save the new hearing
-      await newHearing.save();
-  
-      // Associate the hearing with the conference
-      newConference.hearing = newHearing._id;
-  
-      // Save the updated conference with the hearing reference
-      await newConference.save();
-  
+      await Case.findOneAndUpdate({ caseNumber: req.body.caseNumber },
+              {
+                $push: { hearings: newConference._id },
+                $set: { caseStatus: 'preTrialconferenceScheduled' },
+              });
   
       res.status(201).json({ message: 'Conference created successfully', data: newConference });
     } catch (error) {
