@@ -9,8 +9,8 @@ const caseSchema = new mongoose.Schema({
   },
   progress: {
     type: String,
-    enum: ['pending', "sent to Court Admin","Approved by Court Admin","Rejected by Court Admin",'In Progress', 'Completed'],
-    default: 'Pending',
+    enum: ['pending', "sent to Court Admin","Approved by Court Admin","Rejected by Court Admin",'inProgress', 'completed'],
+    default: 'pending',
     required: true,
   },
 
@@ -87,5 +87,7 @@ const caseSchema = new mongoose.Schema({
   },
 });
 
-module.exports  = mongoose.model('Filedcase', caseSchema);
 
+const Case = mongoose.model('Filedcase', caseSchema);
+
+module.exports = Case;
