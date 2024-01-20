@@ -11,6 +11,8 @@ const judgeRouters = require("./routers/judge")
 const PartyinpersonRouter = require("./routers/partyinperson")
 const bodyParser = require('body-parser');
 const cloudinary = require('cloudinary').v2;
+
+
 // const ConferenceRouter = require("./routers/meetingRoutes")
 
 // const { MongoClient, ServerApiVersion } = require('mongodb');
@@ -32,12 +34,12 @@ app.use("/judge", judgeRouters);
 app.use("/file",PartyinpersonRouter)
 // app.use("/conferences",ConferenceRouter)
 
-
-
 // MongoDB connection URI with authentication credentials
+
 const uri = "mongodb+srv://kasojusaiteja10:NScp7nXc2sFJU9wG@cluster0.0wflstm.mongodb.net/eportalDB?retryWrites=true&w=majority";
 
 // Create a new MongoClient
+
 // const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // async function run() {

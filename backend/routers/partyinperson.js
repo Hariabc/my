@@ -6,7 +6,7 @@ router.use(express.json());
 const User = require("../models/client")
 const Court = require('../models/court')
 const CourtAdmin = require('../models/cao')
-const multerUpload = require('../routers/fileStorage'); // Adjust the path based on your file structure
+// const multerUpload = require('../routers/fileStorage'); // Adjust the path based on your file structure
 
 function generateCaseNumber() {
   const timestamp = Date.now().toString(); // Current timestamp
