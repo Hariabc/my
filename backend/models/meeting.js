@@ -34,7 +34,18 @@ const judgeConferenceSchema = new mongoose.Schema({
     required: true,
   },
 
-  user: {
+  hearingMode: {
+    type: String,
+    default:"virtual",
+    required:true
+  },
+  hearingStatus: {
+        type: String,
+        enum: ['scheduled', 'inProgress', 'completed', 'adjourned', 'cancelled'],
+        // required: true
+      },
+
+  judge: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Judge',
     required: true,

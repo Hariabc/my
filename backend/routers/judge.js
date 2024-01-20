@@ -311,7 +311,7 @@ const nodemailer = require('nodemailer');
 
   router.post('/create-conference', authMiddleware, async (req, res) => {
     try {
-      const { caseNumber, plaintiffName, defendantName, advocateName, title, description, date, meetingID } = req.body;
+      const { caseNumber, plaintiffName, defendantName, advocateName, title, description, date, meetingID,conferenceType} = req.body;
       const userId = req.user._id;
   
       // Create a new conference
@@ -324,14 +324,20 @@ const nodemailer = require('nodemailer');
         description,
         date,
         meetingID,
-        user: userId,
+        hearingMode: "virtual",
+        hearingStatus:'scheduled',
+        judge: userId,
       });
   
       // Save the new conference
       await newConference.save();
   
       // Update the case status to "preTrialconferenceScheduled"
-      await Case.findOneAndUpdate({ caseNumber }, { $set: { caseStatus: 'preTrialconferenceScheduled' } });
+      await Case.findOneAndUpdate({ caseNumber: req.body.caseNumber },
+              {
+                $push: { hearings: newConference._id },
+                $set: { caseStatus: 'preTrialconferenceScheduled' },
+              });
   
       res.status(201).json({ message: 'Conference created successfully', data: newConference });
     } catch (error) {

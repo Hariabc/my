@@ -28,7 +28,7 @@ app.use("/cao", caoRouters)
 app.use("/advocate", AdvocateRouters)
 app.use("/judge", judgeRouters);
 app.use("/file",PartyinpersonRouter)
-app.use("/conferences",ConferenceRouter)
+// app.use("/conferences",ConferenceRouter)
 
 
 

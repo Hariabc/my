@@ -55,6 +55,7 @@
     "sendbird": "^3.0.73",
     "sendbird-uikit": "^1.0.7",
     "session": "^0.1.0",
+    "shortid": "^2.2.16",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
     "stream-chat": "^8.14.4",
