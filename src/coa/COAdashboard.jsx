@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './coadashboard.css'; // Add your CSS file for styling
 import adminIcon from '../assets/admin.png'; // Add your admin icon image
-import { Link,useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { IoIosArrowDropdownCircle } from 'react-icons/io';
 import { FaPlus } from 'react-icons/fa';
 import axios from 'axios';
@@ -32,7 +32,7 @@ import videoconfrence from '../assets/admindashboard/Admin Pics/video conference
 import {motion} from "framer-motion"
 // Replace with the correct path
 import Chat from '../Chat/Chat'; // Replace with the correct path
-import Profile from './profile'; // Replace with the correct path
+import Profile from '../client/Profile'; // Replace with the correct path
 import MyCases from '../Admin_dashboard_components/Mycases';
 
 
@@ -46,23 +46,11 @@ import { MdHelpOutline } from "react-icons/md";
 const AdminDashboard = () => {
   const [showAnswers, setShowAnswers] = useState({});
   const [userData, setuserData] = useState({});
-  const navigate = useNavigate();
+
   const [selectedComponent, setSelectedComponent] = useState(null);
 
   const handleChatButtonClick = () => {
     setSelectedComponent(<Chat />);
-  };
-  const handleLogout = async () => {
-    try {
-      // Make a request to the logout endpoint
-      await axios.post('http://localhost:5000/client/logout', null, {
-        withCredentials: true,
-      });
-      navigate("/login")
-      
-    } catch (error) {
-      console.error('Error during logout:', error);
-    }
   };
 
   const handleProfileClick = () => {
@@ -88,7 +76,6 @@ const AdminDashboard = () => {
       [questionId]: !prev[questionId],
     }));
   };
-
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -150,7 +137,7 @@ const AdminDashboard = () => {
           <div className="notification-icon">
             <IoNotificationsOutline size={30} />
             <div className="logout-button" style={{paddingLeft:"20px"}}> 
-            <button onClick={handleLogout}>Logout</button>
+            <button>Logout</button>
           </div>
           </div>
         </div>
@@ -170,14 +157,14 @@ export default AdminDashboard;
 const BriefcaseDashboard = () => {
   
   const linksDataBriefcase = [
-    { path: '/mycases', label: 'Receive Filed Cases', image: recievecases },
+    { path: '/cao/mycases', label: 'Receive Filed Cases', image: recievecases },
     { path: '/judge-assign', label: 'Assigging judges', image: assignjudge },
     { path: '/documentation', label: 'Documentation', image: Documentation },
     { path: '/update-cause-list', label: 'Updating Cause List', image: updatecauselist },
-    { path: '/scheduling-event', label: 'Scheduling Calendar', image: scheduling },
+    { path: '/cao/scheduling-event', label: 'Scheduling Calendar', image: scheduling },
     { path: '/case-analytics', label: 'Cases Analytics', image: caseanalytics },
-    { path: '/addjudge-publicadv', label: 'Register Public advocates and Judges', image: addlawyers },
-    { path: '/publicAdvocate-assign', label: 'Assigning Public Advocates', image: news },
+    { path: '/cao/addjudge-publicadv', label: 'Register Public advocates and Judges', image: addlawyers },
+    { path: '/news', label: 'Posting Updates News', image: news },
     { path: '/send-notifications', label: 'Notifications', image: notifications },
     { path: '/case-profile-management', label: 'Case Management', image: resources },
     { path: '/pre-trial-conferencing', label: 'Pre-trial', image: videoconfrence },
@@ -195,7 +182,7 @@ const BriefcaseDashboard = () => {
           transition={{ duration: 0.5, delay: 0.4 }}
         >
           {linksDataBriefcase.map((link, index) => (
-            <Link key={index}  to={`/cao${link.path}`} className="dashboard-box" style={{borderTop: "3px solid blueviolet"}}>
+            <Link key={index} to={`/cao${link.path}`} className="dashboard-box" style={{borderTop: "3px solid blueviolet"}}>
               {link.image && <motion.img src={link.image} alt={link.label} className="dashboard-image" />}{' '}
               {/* Added alt attribute */}
               <h3 style={{ color: 'black' }}>{link.label}</h3>

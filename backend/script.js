@@ -8,8 +8,7 @@ const AdvocateRouters = require("./routers/advocate")
 const caoRouters = require("./routers/caoRouters")
 const courtRouters = require(".//routers/court")
 const judgeRouters = require("./routers/judge")
-const PartyinpersonRouter = require("./routers/partyinperson")
-const ConferenceRouter = require("./routers/meetingRoutes")
+const PartyinpersonRouter = require("./routers/PartyInPerson")
 
 // const { MongoClient, ServerApiVersion } = require('mongodb');
 
