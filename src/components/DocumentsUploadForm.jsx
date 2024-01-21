@@ -1,9 +1,10 @@
+// DocumentUploadForm.jsx
+
 import React, { useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-
-const DocumentUploadForm = ({ onChange , onNext }) => {
+const DocumentUploadForm = ({ onChange, onNext }) => {
   const [documents, setDocuments] = useState([]);
 
   const handleFileChange = (e) => {
@@ -13,8 +14,7 @@ const DocumentUploadForm = ({ onChange , onNext }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-      showConfirmation();
-    
+    showConfirmation();
   };
 
   const showConfirmation = () => {
@@ -25,8 +25,10 @@ const DocumentUploadForm = ({ onChange , onNext }) => {
         {
           label: 'Yes',
           onClick: () => {
-            onChange(documents);
-            onNext();
+            encodeFilesToBase64(documents, (base64Files) => {
+              onChange(base64Files);
+              onNext();
+            });
           },
         },
         {
@@ -35,6 +37,20 @@ const DocumentUploadForm = ({ onChange , onNext }) => {
         },
       ],
     });
+  };
+
+  const encodeFilesToBase64 = (files, callback) => {
+    const promises = files.map((file) => {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          resolve({ filename: file.name, data: reader.result });
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    Promise.all(promises).then(callback);
   };
 
   return (

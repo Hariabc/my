@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 const express = require('express');
-const Case = require('../models/partyinperson'); 
+const Case = require('../models/partyinperson');
 const router = express.Router();
 router.use(express.json());
 const User = require("../models/client")
 const Court = require('../models/court')
 const CourtAdmin = require('../models/cao')
-// const multerUpload = require('../routers/fileStorage'); // Adjust the path based on your file structure
+
+// Include other necessary modules and functions...
 
 function generateCaseNumber() {
   const timestamp = Date.now().toString(); // Current timestamp
@@ -22,42 +23,11 @@ function generateCaseNumber() {
   return caseNumber.slice(0, 16); // Return only the first 16 characters
 }
 
-// router.post('/case', async (req, res) => {
-//   try {
-//     const { plaintiffDetails, defendantDetails, caseDetails, documents, paymentDetails,id  } = req.body;
-//       const newCase = new Case({
-//       caseNumber: generateCaseNumber(), 
-//       plaintiffDetails,
-//       defendantDetails,
-//       caseDetails,
-//       documents,
-//       paymentDetails,
-//     });
-
-//     await newCase.save();
-
-//     const user = await User.findById(id); // Assuming userId is passed in the request body
-//     if (!user) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
-
-//     user.cases.push(newCase._id); 
-//     await user.save(); 
-
-//     res.status(201).json({ message: 'Case details saved successfully', caseNumber: newCase.caseNumber });
-//   } catch (error) {
-//     res.status(500).json({ message: 'Error saving case details', error: error.message });
-//   }
-// });
-
-
 router.post('/case', async (req, res) => {
-  // console.log(req.body.caseDetails.courtName)
-
   try {
-    const { plaintiffDetails, defendantDetails, caseDetails, documents, paymentDetails,id } = req.body;
+    const { plaintiffDetails, defendantDetails, caseDetails, documents, paymentDetails, id } = req.body;
 
-    const courtName=req.body.caseDetails.courtName; // Assuming courtName and userId are present in caseDetails
+    const courtName = req.body.caseDetails.courtName; // Assuming courtName and userId are present in caseDetails
 
     const court = await Court.findOne({ name: courtName });
     if (!court) {
@@ -65,13 +35,19 @@ router.post('/case', async (req, res) => {
     }
 
     const newCase = new Case({
-            caseNumber: generateCaseNumber(), 
-            plaintiffDetails,
-            defendantDetails,
-            caseDetails,
-            documents,
-            paymentDetails,
-          });
+      caseNumber: generateCaseNumber(),
+      plaintiffDetails,
+      defendantDetails,
+      caseDetails,
+      paymentDetails,
+    });
+
+    // Handle base64-encoded documents
+    newCase.documents = documents.map(document => ({
+      filename: document.filename,
+      data: Buffer.from(document.data, 'base64').toString('utf-8'),
+    }));
+
     await newCase.save();
 
     const user = await User.findById(id);
@@ -89,15 +65,11 @@ router.post('/case', async (req, res) => {
 
     courtAdmin.courtCases.push(newCase._id);
     await courtAdmin.save();
-
+    // console.log(newCase)
     res.status(201).json({ message: 'Case details saved successfully', caseNumber: newCase.caseNumber });
   } catch (error) {
     res.status(500).json({ message: 'Error saving case details', error: error.message });
   }
 });
-
-
-
-
 
 module.exports = router;

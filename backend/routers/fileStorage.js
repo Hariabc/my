@@ -1,21 +1,44 @@
-const cloudinary = require('cloudinary').v2;
-const multer = require('multer');
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
+router.post('/case', async (req, res) => {
+  // console.log(req.body.caseDetails.courtName)
 
-cloudinary.config({
-    cloud_name: 'dm5lybuz2',
-    api_key: '597835382986128',
-    api_secret: '-sBIkEsD5FzXbHqHKZIYFItle6g',
-  });
+  try {
+    const { plaintiffDetails, defendantDetails, caseDetails, documents, paymentDetails,id } = req.body;
 
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: 'images', // Set your desired folder name
-    allowed_formats: ['jpg', 'jpeg', 'png', 'pdf'], // Add your desired allowed formats
-  },
+    const courtName=req.body.caseDetails.courtName; // Assuming courtName and userId are present in caseDetails
+
+    const court = await Court.findOne({ name: courtName });
+    if (!court) {
+      return res.status(404).json({ message: 'Court not found' });
+    }
+
+    const newCase = new Case({
+            caseNumber: generateCaseNumber(),
+            plaintiffDetails,
+            defendantDetails,
+            caseDetails,
+            documents,
+            paymentDetails,
+          });
+    await newCase.save();
+
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    user.cases.push(newCase._id);
+    await user.save();
+
+    const courtAdmin = await CourtAdmin.findOne({ court: court._id });
+    if (!courtAdmin) {
+      return res.status(404).json({ message: 'Court admin not found' });
+    }
+
+    courtAdmin.courtCases.push(newCase._id);
+    await courtAdmin.save();
+
+    res.status(201).json({ message: 'Case details saved successfully', caseNumber: newCase.caseNumber });
+  } catch (error) {
+    res.status(500).json({ message: 'Error saving case details', error: error.message });
+  }
 });
-
-const multerUpload = multer({ storage: storage });
-
-module.exports = multerUpload;

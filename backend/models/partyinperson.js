@@ -75,9 +75,8 @@ const caseSchema = new mongoose.Schema({
   },
   documents: [{
     document_name: String,
-    document_path: String,
-  }
-  ],
+    data: String, // Updated to store base64-encoded content
+  }],
   paymentDetails: {
     paymentMethod: String,
     cardNumber: String,

@@ -85,7 +85,7 @@ const CaseFilingForm = () => {
     { title: 'Case and Court Details' },
     { title: 'Document Upload' },
     { title: 'Payment Details' },
-  ]; 
+  ];
   
   const handleStepChange = (step) => {
     setCurrentStep(step + 1);
@@ -105,6 +105,8 @@ const CaseFilingForm = () => {
 
       // ...
       const response = await axios.post('http://localhost:5000/file/case', allFormData);
+      console.log(allFormData)
+     
       const caseNumber = response.data.caseNumber;
 
       toast.success(`Case filed successfully. Case number: ${caseNumber}`, {
@@ -148,3 +150,4 @@ const CaseFilingForm = () => {
 };
 
 export default CaseFilingForm;
+
