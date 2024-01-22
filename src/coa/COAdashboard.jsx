@@ -157,7 +157,7 @@ export default AdminDashboard;
 const BriefcaseDashboard = () => {
   
   const linksDataBriefcase = [
-    { path: '/cao/mycases', label: 'Receive Filed Cases', image: recievecases },
+    { path: '/mycases', label: 'Receive Filed Cases', image: recievecases },
     { path: '/judge-assign', label: 'Assigging judges', image: assignjudge },
     { path: '/documentation', label: 'Documentation', image: Documentation },
     { path: '/update-cause-list', label: 'Updating Cause List', image: updatecauselist },

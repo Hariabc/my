@@ -5,7 +5,7 @@ import './Mycases.css'; // Import your CSS file
 // import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import DocumentsModal from './documents'
 const AdminDashboard = () => {
   const [cases, setCases] = useState([]);
   const [filteredCases, setFilteredCases] = useState([]);
@@ -13,6 +13,8 @@ const AdminDashboard = () => {
   const [selectedCase, setSelectedCase] = useState(null);
   const [approveOptionsVisible, setApproveOptionsVisible] = useState(false);
   const [user, setUser] = useState({});
+  const [selectedCaseDocuments, setSelectedCaseDocuments] = useState([]);
+  const [documentsModalVisible, setDocumentsModalVisible] = useState(false);
 
 
   useEffect(() => {
@@ -43,6 +45,17 @@ const AdminDashboard = () => {
   }, []);
 
 
+  const viewDocuments = (caseItem) => {
+    setSelectedCase(caseItem);
+    setSelectedCaseDocuments(caseItem.documents);
+    setDocumentsModalVisible(true);
+  };
+
+  const closeDocumentsModal = () => {
+    setDocumentsModalVisible(false);
+    setSelectedCase(null);
+  };
+
   const handleFilterChange = (e) => {
     const selectedType = e.target.value;
 
@@ -65,10 +78,38 @@ const AdminDashboard = () => {
   };
 
 
-  const handleReject = (caseId) => {
-    // Handle reject action
-    console.log(`Rejected case with ID: ${caseId}`);
+  const handleReject = async (caseId) => {
+    try {
+      // Make a request to reject the case
+      await axios.post(`http://localhost:5000/cao/reject-case/${caseId}`, {}, { withCredentials: true });
+  
+      console.log(`Case with ID ${caseId} rejected successfully`);
+  
+      // Update the state to remove the rejected case
+      const updatedCases = cases.filter((caseItem) => caseItem._id !== caseId);
+      setCases(updatedCases);
+      setFilteredCases(updatedCases);
+  
+      // Show a success toast message
+      toast.success('Case rejected successfully', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000, // Close the toast after 3000 milliseconds (3 seconds)
+      });
+  
+      // Close the modal or perform any additional actions if needed
+    } catch (error) {
+      console.error('Error rejecting case:', error);
+  
+      // Show an error toast message
+      toast.error('Error rejecting case. Please try again.', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000,
+      });
+  
+      // Handle error and show a message to the user
+    }
   };
+  
 
 
   const openCaseDetailsModal = (caseItem) => {
@@ -298,6 +339,14 @@ const AdminDashboard = () => {
           </div>
         </div>
       )}
+    
+    {documentsModalVisible && (
+        <DocumentsModal
+          documents={selectedCaseDocuments}
+          onClose={closeDocumentsModal}
+        />
+      )}
+
     </div>
   );
 };

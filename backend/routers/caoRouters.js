@@ -393,6 +393,37 @@ router.delete('/delete/:eventId', authMiddleware, async (req, res) => {
   }
 });
 
+router.post('/reject-case/:caseId', authMiddleware, async (req, res) => {
+  const { caseId } = req.params;
+
+  try {
+    // Find the case by ID and update its status to "Rejected by Court Admin"
+    const rejectedCase = await Filedcase.findByIdAndUpdate(
+      caseId,
+      { $set: { progress: 'Rejected by Court Admin' } },
+      { new: true }
+    );
+
+    // Remove the case from courtCases and add it to rejectedCases
+    const adminId = req.user._id;
+    await CourtAdmin.findByIdAndUpdate(
+      adminId,
+      { $pull: { courtCases: rejectedCase._id } },
+      { new: true }
+    );
+
+    await CourtAdmin.findByIdAndUpdate(
+      adminId,
+      { $push: { rejectedCases: rejectedCase._id } },
+      { new: true }
+    );
+
+    res.status(200).json({ message: 'Case rejected by Court Admin successfully' });
+  } catch (error) {
+    console.error('Error rejecting case by Court Admin:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 
 router.post('/logout', (req, res) => {

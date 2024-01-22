@@ -10,13 +10,12 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom'
 import Stepper from 'react-stepper-horizontal';
 
-
 const CaseFilingForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [plaintiffDetails, setPlaintiffDetails] = useState({});
   const [defendantDetails, setDefendantDetails] = useState({});
   const [caseDetails, setCaseAndCourtDetails] = useState({});
-  const [documents, setDocumentDetails] = useState({});
+  const [downloadURLs, setDownloadURLs] = useState([]);
   const [paymentDetails, setPaymentDetails] = useState({});
   const [user, setUser] = useState({});
 
@@ -41,35 +40,25 @@ const CaseFilingForm = () => {
     scrollToTop(); // Scroll to the top when the component mounts or updates
   }, [currentStep]);
 
-
- 
   const handlePlaintiffChange = (data) => {
-      setPlaintiffDetails(data);
-      setCurrentStep(2);
+    setPlaintiffDetails(data);
+    setCurrentStep(2);
   };
 
-  
-
   const handleDefendantChange = (data) => {
-      setDefendantDetails(data);
-      setCurrentStep(3);
+    setDefendantDetails(data);
+    setCurrentStep(3);
   };
 
   const handleCaseAndCourtChange = (data) => {
-     // Validate plaintiff details before proceeding to the next step
-     
-
-     
-       setCaseAndCourtDetails(data);
-       setCurrentStep(4);
-     
-       // You may display an error message or handle it as needed
-     
+    setCaseAndCourtDetails(data);
+    setCurrentStep(4);
   };
 
-  const handleDocumentUpload = (data) => {
-    setDocumentDetails(data);
-    setCurrentStep(5);
+  const handleDocumentUpload = (data, callback) => {
+    console.log('Download URLs:', data);
+    setDownloadURLs(data);  // Update downloadURLs state
+    callback(); // Call the callback function after updating the state
   };
 
   const handlePaymentChange = (data) => {
@@ -78,7 +67,7 @@ const CaseFilingForm = () => {
   };
 
   const navigate = useNavigate();
- 
+
   const steps = [
     { title: 'Plaintiff Details' },
     { title: 'Defendant Details' },
@@ -86,7 +75,7 @@ const CaseFilingForm = () => {
     { title: 'Document Upload' },
     { title: 'Payment Details' },
   ];
-  
+
   const handleStepChange = (step) => {
     setCurrentStep(step + 1);
   };
@@ -99,14 +88,14 @@ const CaseFilingForm = () => {
         plaintiffDetails,
         defendantDetails,
         caseDetails,
-        documents,
+        downloadURLs,
         paymentDetails: paymentDetailsData,
       };
 
       // ...
       const response = await axios.post('http://localhost:5000/file/case', allFormData);
       console.log(allFormData)
-     
+
       const caseNumber = response.data.caseNumber;
 
       toast.success(`Case filed successfully. Case number: ${caseNumber}`, {
@@ -127,8 +116,6 @@ const CaseFilingForm = () => {
   return (
     <div className="case-filing-form">
       <Stepper steps={steps} activeStep={currentStep - 1} activeColor="#007bff" completeColor="#28a745" size={30} circleFontSize={12} onClick={(step) => handleStepChange(step)} />
-      
-      
 
       {currentStep === 1 && (
         <PlantiffDetailsForm onChange={handlePlaintiffChange} onNext={() => setCurrentStep(2)} />
@@ -140,7 +127,7 @@ const CaseFilingForm = () => {
         <CaseAndCourtDetailsForm onChange={handleCaseAndCourtChange} onNext={() => setCurrentStep(4)} />
       )}
       {currentStep === 4 && (
-        <DocumentUploadForm onChange={handleDocumentUpload} onNext={() => setCurrentStep(5)} />
+        <DocumentUploadForm onChange={(data) => handleDocumentUpload(data, () => setCurrentStep(5))} onNext={() => setCurrentStep(5)} />
       )}
       {currentStep === 5 && (
         <PaymentDetailsForm onChange={handlePaymentChange} />
@@ -150,4 +137,3 @@ const CaseFilingForm = () => {
 };
 
 export default CaseFilingForm;
-

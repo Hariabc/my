@@ -25,9 +25,9 @@ function generateCaseNumber() {
 
 router.post('/case', async (req, res) => {
   try {
-    const { plaintiffDetails, defendantDetails, caseDetails, documents, paymentDetails, id } = req.body;
+    const { plaintiffDetails, defendantDetails, caseDetails, downloadURLs, paymentDetails, id } = req.body;
 
-    const courtName = req.body.caseDetails.courtName; // Assuming courtName and userId are present in caseDetails
+    const courtName = req.body.caseDetails.courtName;
 
     const court = await Court.findOne({ name: courtName });
     if (!court) {
@@ -42,11 +42,10 @@ router.post('/case', async (req, res) => {
       paymentDetails,
     });
 
-    // Handle base64-encoded documents
-    newCase.documents = documents.map(document => ({
-      filename: document.filename,
-      data: Buffer.from(document.data, 'base64').toString('utf-8'),
-    }));
+    newCase.documents = downloadURLs.map(({ filename, url }) => ({ filename, url }));
+
+    await newCase.save();
+
 
     await newCase.save();
 
@@ -65,11 +64,12 @@ router.post('/case', async (req, res) => {
 
     courtAdmin.courtCases.push(newCase._id);
     await courtAdmin.save();
-    // console.log(newCase)
+
     res.status(201).json({ message: 'Case details saved successfully', caseNumber: newCase.caseNumber });
   } catch (error) {
     res.status(500).json({ message: 'Error saving case details', error: error.message });
   }
 });
+
 
 module.exports = router;
