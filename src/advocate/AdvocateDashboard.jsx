@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import advocateImage from "../assets/advocate.png";
 import axios from "axios";
-import { Link,useNavigate} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { IoNotificationsOutline } from "react-icons/io5";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { motion } from 'framer-motion';
-import Chat from '../Chat/Chat';
-import Profile from './Profile';
 import MyCases from '../client_dashboard/casedetails';
 import casefile from "../assets/DASHBOARDS/File a case.jpg";
 import confrence from "../assets/DASHBOARDS/video conference.jpg";
@@ -19,14 +17,16 @@ import scheduling from "../assets/DASHBOARDS/Scheduling calender.jpg";
 import caseanalytics from "../assets/DASHBOARDS/case analytics.jpg";
 import advocatelist from "../assets/DASHBOARDS/Advocate list.jpg";
 import client from "../assets/client.png";
-
-
+import '../client/profile.css';
+import { useNavigate } from 'react-router-dom';
 
 import { FiHome } from "react-icons/fi";
 import { RiMenu2Fill } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 import { BsChatDots } from "react-icons/bs";
-
+import { App as SendbirdApp } from "sendbird-uikit";
+import "sendbird-uikit/dist/index.css";
+import "../Chat/Chat.css"
 
 const FAQ_DATA = [
   {
@@ -44,42 +44,30 @@ const FAQ_DATA = [
   // Add more FAQ items as needed
 ];
 
-const linksData = [
-  { path: "/file-a-case", label: "File a Case", image: casefile },
-  { path: "/documentation", label: "Documentation", image: document },
-  { path: "/payments", label: "Payments", image: payment },
-  { path: "/my-cases", label: "My Cases", image: casedetails },
-  { path: "/cause-list", label: "Cause List", image: causelist },
-  { path: "/scheduling-calendar", label: "Scheduling Calendar", image: scheduling },
-  { path: "/pre-trial-conferencing", label: "Pre Trial", image: confrence },
-  { path: "/case-analytics", label: "Case Analytics", image: caseanalytics },
-  { path: "/case-tracking", label: "Case Tracking", image: casetracking },
-];
-
 const AdvocateDashboard= () => {
-  const [selectedComponent, setSelectedComponent] = useState(null);
+  const [selectedComponent, setSelectedComponent] = useState(<BriefcaseDashboard/>);
   const [userData, setUserData] = useState({});
+  const [activeIcon, setActiveIcon] = useState('briefcase'); // Add state for active icon
   const navigate = useNavigate();
 
   const handleChatButtonClick = () => {
     setSelectedComponent(<Chat />);
+    setActiveIcon('chat');
   };
 
   const handleProfileClick = () => {
     setSelectedComponent(<Profile />);
+    setActiveIcon('profile');
   };
 
   const handleHomeClick = () => {
     setSelectedComponent(<HomeDashboard />);
-  };
-
-  const handleFaqClick = () => {
-    setSelectedComponent(<RenderFaq/>);
+    setActiveIcon('home');
   };
   const handleBriefcaseClick = () => {
     setSelectedComponent(<BriefcaseDashboard />);
+    setActiveIcon('briefcase');
   };
-
   const closeComponents = () => {
     setSelectedComponent(null);
   };
@@ -97,11 +85,10 @@ const AdvocateDashboard= () => {
     }
   };
 
-
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/client/user', { withCredentials: true });
+        const response = await axios.get('http://localhost:5000/advocate/user', { withCredentials: true });
         setUserData(response.data.user);
         setSelectedComponent(<BriefcaseDashboard />);
       } catch (error) {
@@ -128,35 +115,38 @@ const AdvocateDashboard= () => {
           size={45}
           color="#fff"
           style={{ paddingTop: '15px', cursor: 'pointer' }}
+          className={activeIcon === 'home' ? 'active' : ''}
           onClick={handleHomeClick}
         />
         <RiMenu2Fill
           size={45}
           color="#fff"
           style={{ paddingTop: '15px', cursor: 'pointer' }}
+          className={activeIcon === 'briefcase' ? 'active' : ''}
           onClick={handleBriefcaseClick}
-        />
+          />
         <CgProfile
           size={45}
           color="#fff"
           style={{ paddingTop: '15px', cursor: 'pointer' }}
+          className={activeIcon === 'profile' ? 'active' : ''}
           onClick={handleProfileClick}
-        />
+          />
         <BsChatDots
           size={45}
           color="#fff"
           style={{ paddingTop: '15px', cursor: 'pointer' }}
-          onClick={handleChatButtonClick}
-        />
+          className={activeIcon === 'chat' ? 'active' : ''}
+          onClick={handleChatButtonClick}        />
       </div>
 
       <div className="main-content">
         <div className="header">
           <div className="user-info">
-            <div className="user-name">{userData ? userData.firstName : 'No username available'}</div>
+            <div className="user-name" style={{color:'white',marginLeft:"20px"}}>{userData ? userData.username : 'No username available'}</div>
           </div>
           <div className="notification-icon">
-            <IoNotificationsOutline size={30} />
+            <IoNotificationsOutline size={30} style={{color:'white'}} />
             <div className="logout-button" style={{paddingLeft:"20px"}}> 
             <button onClick={handleLogout}>Logout</button>
           </div>
@@ -173,7 +163,7 @@ const AdvocateDashboard= () => {
 };
 const HomeDashboard = () => {
   return (
-    <div className="home-dashboard">
+    <div className="home-dashboard" style={{height:"100vh"}}>
       <div className="cases">
         <MyCases />
       </div>
@@ -205,7 +195,7 @@ const BriefcaseDashboard = () => {
   ];
 
   return (
-    <div className="briefcase-dashboard">
+    <div className="briefcase-dashboard" style={{height:"100vh"}}>
       <motion.div
         className="dashboard-boxes"
         initial={{ opacity: 0, y: 20 }}
@@ -253,3 +243,91 @@ const RenderFaq = () => {
 };
 
 export default AdvocateDashboard;
+
+const Profile=()=> {
+  const [profileData, setProfileData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    gender: '',
+    phoneNumber: '',
+    licenseNumber:'',
+    username: '',
+    educationQualifications:" ",
+    jurisdiction:"" ,
+    barAssociation:' ',
+    yearsOfPractice:' ',
+    practiceArea:' ',
+    isPrivateAdvocate:' ',
+    isAppointedByCourtAdmin:' ',
+  });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/advocate/user', { withCredentials: true });
+        setProfileData(response.data.user);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+
+  return (
+    <div className="profile-height">
+      <div className="profile-container">
+        <div className="profile-header">
+          <img src={advocateImage} alt="User Avatar" className="avatar" />
+          <h2>{profileData.username}</h2>
+        </div>
+        <div className="profile-details">
+          <p>First Name: {profileData.firstName}</p>
+          <p>Last Name: {profileData.lastName}</p>
+          <p>Email: {profileData.email}</p>
+          <p>Username: {profileData.username}</p>
+          <p>Gender: {profileData.gender}</p>
+          <p>Phone: {profileData.phoneNumber}</p>
+          <p>License Number: {profileData.licenseNumber}</p>
+          <p>Education Qualifications: {profileData.educationQualifications}</p>
+          <p>Jurisdiction: {profileData.jurisdiction}</p>
+          <p>Bar Association: {profileData.barAssociation}</p>
+          <p>Years of Practice: {profileData.yearsOfPractice}</p>
+          <p>Practice Area: {profileData.practiceArea}</p>
+          <p>Private Advocate: {profileData.isPrivateAdvocate ? 'Yes' : 'No'}</p>
+          <p>Appointed by Court Admin: {profileData.isAppointedByCourtAdmin ? 'Yes' : 'No'}</p>
+          {/* Add more fields as needed */}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Chat=()=> {    
+  const APP_ID = "EAD127B3-C2FC-47A7-B744-D1F2DE076DB5";
+
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+      const fetchUserData = async () => {
+        try {
+          const response = await axios.get('http://localhost:5000/advocate/user', { withCredentials: true });
+          setUserData(response.data.user);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      };
+  
+      fetchUserData();
+    }, []);
+    
+return (
+  <div className="App" style={{
+      height:"100vh"
+  }}>
+      <SendbirdApp appId={APP_ID} userId={userData.username} />
+  </div>
+);
+}

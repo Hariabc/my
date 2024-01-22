@@ -8,21 +8,7 @@ const AdvocateRouters = require("./routers/advocate")
 const caoRouters = require("./routers/caoRouters")
 const courtRouters = require(".//routers/court")
 const judgeRouters = require("./routers/judge")
-const PartyinpersonRouter = require("./routers/partyinperson")
-// const bodyParser = require('body-parser');
-const cloudinary = require('cloudinary').v2;
-const bodyparser=require("body-parser")
-app.use(bodyparser.urlencoded({ extended: true }));
-app.use(bodyparser.json({ limit: '50mb' }));
-
-// Parse application/x-www-form-urlencoded
-app.use(bodyparser.urlencoded({ limit: '50mb', extended: true }));
-
-
-
-
-
-// const ConferenceRouter = require("./routers/meetingRoutes")
+const PartyinpersonRouter = require("./routers/PartyInPerson")
 
 // const { MongoClient, ServerApiVersion } = require('mongodb');
 
