@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import { FaHome } from "react-icons/fa";
 import { IoIosContact } from "react-icons/io";
 import { MdMenu } from "react-icons/md";
 import "./Navbar.css";
 import { Link } from "react-scroll";
 import { FaArrowRight } from "react-icons/fa6";
 import { Link as UnScrollLink } from "react-router-dom";
-import { GoHome } from "react-icons/go";
-import { HiOutlineHome } from "react-icons/hi";
 import { LuHome } from "react-icons/lu";
 
 export const Navbar = () => {
@@ -29,17 +26,17 @@ export const Navbar = () => {
         <div>
         <ul className={isMobileMenuOpen ? "open" : ""}>
           <li>
-            <Link to="top" spy={true} smooth={true} offset={50} duration={500} className="h">
+            <Link to="home" spy={true} smooth={true} duration={500} className="h">
               <LuHome size={25} style={{ verticalAlign: "sub",paddingRight:"3px" }} /> Home
             </Link>
           </li>
           <li>
-            <Link to="services" spy={true} smooth={true} offset={50} duration={500} className="h">
+            <Link to="services" spy={true} smooth={true} duration={500} className="h">
               Legal Services
             </Link>
           </li>
           <li>
-            <Link to="contact" spy={true} smooth={true} offset={50} duration={500} className="h">
+            <Link to="contact" spy={true} smooth={true} duration={500} className="h">
               Contact Us
             </Link>
           </li>

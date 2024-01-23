@@ -3,19 +3,8 @@ import React, { useState, useEffect } from 'react';
 import './coadashboard.css'; // Add your CSS file for styling
 import adminIcon from '../assets/admin.png'; // Add your admin icon image
 import { Link } from 'react-router-dom';
-import { IoIosArrowDropdownCircle } from 'react-icons/io';
-import { FaPlus } from 'react-icons/fa';
 import axios from 'axios';
 
-import {
-  IoHomeSharp,
-  IoBriefcaseSharp,
-  IoPersonSharp,
-  IoLogOutSharp,
-  IoChatbubblesSharp,
-  IoSettingsSharp,
-  IoHelpCircleSharp,
-} from 'react-icons/io5';
 import { IoNotificationsOutline } from 'react-icons/io5';
 import addlawyers from '../assets/admindashboard/Admin Pics/Adding Govt Lawyers.jpg';
 import assignjudge from '../assets/admindashboard/Admin Pics/Assign Judges Advocates.jpg';
@@ -30,9 +19,7 @@ import updatecauselist from '../assets/admindashboard/Admin Pics/updating causel
 import videoconfrence from '../assets/admindashboard/Admin Pics/video conference.jpg';
 
 import {motion} from "framer-motion"
-// Replace with the correct path
 import Chat from '../Chat/Chat'; // Replace with the correct path
-import Profile from '../client/Profile'; // Replace with the correct path
 import MyCases from '../Admin_dashboard_components/Mycases';
 
 import { useNavigate } from 'react-router-dom';
@@ -41,43 +28,42 @@ import { FiHome } from "react-icons/fi";
 import { RiMenu2Fill } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 import { BsChatDots } from "react-icons/bs";
-import { MdHelpOutline } from "react-icons/md";
 
 
 const AdminDashboard = () => {
-  const [showAnswers, setShowAnswers] = useState({});
-  const [userData, setuserData] = useState({});
+  const [selectedComponent, setSelectedComponent] = useState(<BriefcaseDashboard/>);
+  const [userData, setUserData] = useState({});
+  const [activeIcon, setActiveIcon] = useState('briefcase'); // Add state for active icon
   const navigate = useNavigate();
-
-  const [selectedComponent, setSelectedComponent] = useState(null);
 
   const handleChatButtonClick = () => {
     setSelectedComponent(<Chat />);
+    setActiveIcon('chat');
   };
 
   const handleProfileClick = () => {
     setSelectedComponent(<Profile />);
+    setActiveIcon('profile');
   };
 
   const handleHomeClick = () => {
     setSelectedComponent(<HomeDashboard />);
+    setActiveIcon('home');
+  };
+
+  const handleFaqClick = () => {
+    setSelectedComponent(<RenderFaq />);
+    setActiveIcon('faq');
   };
 
   const handleBriefcaseClick = () => {
     setSelectedComponent(<BriefcaseDashboard />);
+    setActiveIcon('briefcase');
   };
-
   const closeComponents = () => {
     setSelectedComponent(null);
   };
 
-  // Function to toggle answer visibility
-  const toggleAnswer = (questionId) => {
-    setShowAnswers((prev) => ({
-      ...prev,
-      [questionId]: !prev[questionId],
-    }));
-  };
   const handleLogout = async () => {
     try {
       // Make a request to the logout endpoint
@@ -90,13 +76,13 @@ const AdminDashboard = () => {
       console.error('Error during logout:', error);
     }
   };
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/cao/user', {
-          withCredentials: true,
-        });
-        setuserData(response.data.user); // Assuming the response includes user data
+        const response = await axios.get('http://localhost:5000/cao/user', { withCredentials: true });
+        setUserData(response.data.user);
+        setSelectedComponent(<BriefcaseDashboard />);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -104,8 +90,9 @@ const AdminDashboard = () => {
 
     fetchUserData();
   }, []);
+
   return (
-    <div className="dashboard-container" style={{height:"auto"}}>
+    <div className="dashboard-container" style={{minHeight:"100vh"}}>
       <div className="sidebar">
         <img
           src={adminIcon}
@@ -120,41 +107,44 @@ const AdminDashboard = () => {
           size={45}
           color="#fff"
           style={{ paddingTop: '15px', cursor: 'pointer' }}
+          className={activeIcon === 'home' ? 'active' : ''}
           onClick={handleHomeClick}
         />
         <RiMenu2Fill
           size={45}
           color="#fff"
           style={{ paddingTop: '15px', cursor: 'pointer' }}
+          className={activeIcon === 'briefcase' ? 'active' : ''}
           onClick={handleBriefcaseClick}
-        />
+          />
         <CgProfile
           size={45}
           color="#fff"
           style={{ paddingTop: '15px', cursor: 'pointer' }}
+          className={activeIcon === 'profile' ? 'active' : ''}
           onClick={handleProfileClick}
-        />
+          />
         <BsChatDots
           size={45}
           color="#fff"
           style={{ paddingTop: '15px', cursor: 'pointer' }}
-          onClick={handleChatButtonClick}
-        />
+          className={activeIcon === 'chat' ? 'active' : ''}
+          onClick={handleChatButtonClick}        />
       </div>
 
       <div className="main-content">
         <div className="header">
           <div className="user-info">
-            <div className="user-name">{userData ? userData.firstName : 'No username available'}</div>
+            <div className="user-name" style={{color:'white',marginLeft:"20px"}}>{userData ? userData.firstName : 'No username available'}</div>
           </div>
           <div className="notification-icon">
-            <IoNotificationsOutline size={30} />
+            <IoNotificationsOutline size={30} style={{color:'white'}} />
             <div className="logout-button" style={{paddingLeft:"20px"}}> 
-            <button onClick={handleLogout} > Logout</button>
+            <button onClick={handleLogout}>Logout</button>
           </div>
           </div>
         </div>
-        <div className="dashboard-element-container" style={{height:"100vh"}}>
+        <div className="dashboard-element-container">
           <div className="selected-component-container">
             {selectedComponent && <div className="selected-component">{selectedComponent}</div>}
           </div>
@@ -162,7 +152,6 @@ const AdminDashboard = () => {
       </div>
     </div>
   );
-  
 };
 
 export default AdminDashboard;
@@ -185,7 +174,7 @@ const BriefcaseDashboard = () => {
   ];
 
   return (
-    <div className="briefcase-dashboard">
+    <div className="briefcase-dashboard" style={{height:"100vh"}}>
       <div className="z">
         <motion.div
           className="dashboard-boxes"
@@ -209,25 +198,55 @@ const BriefcaseDashboard = () => {
 
 const HomeDashboard = () => {
   return (
-    <div className="home-dashboard" style={{maxHeight:"110vh"}}>
+    <div className="home-dashboard" style={{minHeight:"110vh"}}>
       <div className="cases">
         <MyCases/>
       </div>
-      <div className="news">
-        <News/>
-      </div>
-      <div className="updates">
-        <h3>Updates</h3>
-        <p className='temp-p'>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vitae justo non tellus
-          laoreet tincidunt. Donec et felis ligula. Integer sed sagittis odio, eu rhoncus libero.
-          Sed elementum augue vitae mauris ultricies, eu auctor nisl venenatis. Nullam quis semper
-          libero, vel scelerisque justo. Curabitur tristique, ex vitae accumsan interdum, justo
-          nisi scelerisque velit, a cursus urna ligula id purus. In tincidunt erat nec dolor
-          accumsan, eu sagittis ligula tempus.
-        </p>
-      </div>
-      {/* Add more components as needed */}
     </div>
   );
 };
+
+const Profile=()=> {
+  const [profileData, setProfileData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    dob: '',
+    gender: '',
+    phone: '',
+    username: '',
+    adhar: '',
+    address: '',
+  });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/cao/user', { withCredentials: true });
+        setProfileData(response.data.user);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  return (
+    <div className="profile-height">
+      <div className="profile-container">
+      <div className="profile-header">
+        <img src={adminIcon} alt="User Avatar" className="avatar" />
+        <h2>{profileData.username}</h2>
+      </div>
+      <div className="profile-details">
+        <p>First Name: {profileData.firstName}</p>
+        <p>Last Name: {profileData.lastName}</p>
+        <p>Email: {profileData.email}</p>
+        <p>Gender: {profileData.gender}</p>
+        <p>Phone: {profileData.phone}</p>
+      </div>
+    </div>
+    </div>
+  );
+}

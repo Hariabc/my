@@ -222,10 +222,10 @@ const AdminDashboard = () => {
 
 
   return (
-    <div className="container">
+    <div className="case-container" style={{width:"100%",backgroundColor:"white",padding:"20px",borderRadius:"4px"}}>
       <ToastContainer />
       <h1>Admin Dashboard - Pending Cases</h1>
-      <div className="filter-section">
+      <div className="filter-section" style={{width:"300px"}}>
         <label>Filter by Case Type:</label>
         <select value={filterType} onChange={handleFilterChange}>
           <option value="all">All</option>
