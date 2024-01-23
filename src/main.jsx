@@ -21,7 +21,7 @@ import CaseFilingForm from './dashborad-components/FileACase.jsx';
 import FileACaseMin from './dashborad-components/FileACaseMin.jsx';
 import HomeCon from './Features/Video_Conference/homeCon.jsx';
 import Room from './Features/Video_Conference/Room.jsx';
-import AdvocateConference from './Features/AdvocateConference.jsx';
+
 import CaseTracking from './client_dashboard/CaseTracking.jsx';
 import "./index.css"
 import Layout from './components/Layout.jsx';
@@ -48,7 +48,8 @@ import AdminEventForm from './Admin_dashboard_components/AdminEventForm.jsx';
 import JudgeEventForm from './judge/JudgeEventForm.jsx';
 import JudgeMycasesPage from './judge/JudgeMyCases.jsx';
 import JudgeCaseDetails from './judge/JudgeIndividualCases.jsx';
-import JudgeCaseTracking from './judge/CaseTracking.jsx'
+import JudgeCaseTracking from './judge/CaseTracking.jsx';
+import PublicAdvocateForm from './client_dashboard/publicAdvocate.jsx';
 const App = () => {
   return (
     <Router>
@@ -81,12 +82,12 @@ const App = () => {
           <Route path='/chat' element={<Chat/>}/> 
           <Route path='/temp' element={<Apps/>}/> 
           <Route path='/casefilingform' element={<CaseFilingForm/>}/>
+          <Route path='/publicadvocatecasefiling' element={<PublicAdvocateForm/>}/>
           <Route path='/fileacase' element={<FileACaseMin/>}/>
           <Route path='/client/pre-trial' element={<VideoConference/>}/>
           <Route path='judge/schedule-pre-trial' element={<JudgeConference/>}/>
           <Route path="/homecon/:meetingID" element={<HomeCon/>}/>
           <Route path='/room/:roomID' element={<Room/>}/>
-          <Route path='pre-trial-conferencing' element={<AdvocateConference/>}/>
           <Route path='client/case-tracking' element={<CaseTracking/>}/>
           <Route path="/judge/register/complete/:token" element={<JudgeReg />} />
           <Route path='/judge/scheduling-event' element={<JudgeEventForm/>}/>

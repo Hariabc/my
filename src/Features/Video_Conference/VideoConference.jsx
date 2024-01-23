@@ -1,62 +1,63 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import "./VideoConference.css";
 import { useNavigate } from 'react-router-dom';
+import './Videoconference.css'; // Import your CSS file for styling
 
-const VideoConference = () => {
+function Videoconference() {
+  const [conferences, setConferences] = useState([]);
   const navigate = useNavigate();
 
-  const handleJoinClick = () => {
+  const handleJoinClick = (meetingID) => {
     // Redirect to Home.js when the Join button is clicked
-    navigate(`/homecon`);  // Assuming you need to pass the conference ID to the Home component
+    navigate(`/homecon/${meetingID}`);
   };
 
-  const [conferences, setConference] = useState([]);
-
   useEffect(() => {
-    const fetchScheduledConferences = async () => {
+    // Fetch conferences for the specified client when the component mounts
+    const fetchConferences = async () => {
       try {
-        const response = await axios.get('http://localhost:3002/api/conferences');
-        setConference(response.data);
+        // Use Axios to make the GET request with the clientId in the URL
+        const response = await axios.get(`http://localhost:5000/client/scheduledConferences`, {
+          withCredentials: true,
+        });
+        const data = response.data;
+
+        setConferences(data.scheduledConferences);
       } catch (error) {
-        console.error('Error fetching scheduled conferences:', error);
+        console.error(error);
       }
     };
 
-    fetchScheduledConferences();
-  }, []);
+    fetchConferences();
+  }, []); // Trigger the fetch when clientId changes
 
   return (
-    <div className='video-conference-container'>
-      <h2 className="video-conference-title">Scheduled Conferences</h2>
-
+    <div className="video-conference-container">
+      <h2>Client Dashboard - Scheduled Conferences</h2>
       {conferences.length === 0 ? (
-        <p>No conferences scheduled by the judge.</p>
+        <p>No scheduled conferences at the moment.</p>
       ) : (
-        // Conference List with Join Button
-        <ul className="conference-list">
-          {conferences.map((conference) => (
-            <li key={conference._id} className="conference-list-item">
-              <div className="conference-details">
-                <strong className="conference-title">{conference.title}</strong> -{' '}
-                <span className="conference-description">{conference.description}</span> -{' '}
-                <span className="conference-date">{conference.date}</span>
-              </div>
-              <div className="conference-buttons">
-                <button
-                  type="button"
-                  onClick={() => handleJoinClick(conference._id)}
-                  className="join-button"
-                >
-                  Join
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
+        conferences.map(conference => (
+          <div key={conference._id} className="conference-details">
+            <div className="detail-group">
+              <p>Case Number: {conference.caseNumber}</p>
+              <p>Plaintiff: {conference.plaintiffName}</p>
+              <p>Defendant: {conference.defendantName}</p>
+            </div>
+            <div className="detail-group">
+              <p>Title: {conference.title}</p>
+              <p> Desciption : {conference.description}</p>
+              <p>Date: {new Date(conference.date).toLocaleString()}</p>
+              <p><b>Meeting ID : {conference.meetingID}</b></p>
+              <p>Hearing Mode: {conference.hearingMode}</p>
+              <p>Status: {conference.hearingStatus}</p>
+            </div>
+            <button type="button" onClick={() => handleJoinClick(conference._id)} className="join-button">Join Conference</button>
+          </div>
+        ))
       )}
     </div>
   );
-};
+}
 
-export default VideoConference;
+export default Videoconference;
