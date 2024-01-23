@@ -35,6 +35,7 @@ import Chat from '../Chat/Chat'; // Replace with the correct path
 import Profile from '../client/Profile'; // Replace with the correct path
 import MyCases from '../Admin_dashboard_components/Mycases';
 
+import { useNavigate } from 'react-router-dom';
 
 import { FiHome } from "react-icons/fi";
 import { RiMenu2Fill } from "react-icons/ri";
@@ -46,6 +47,7 @@ import { MdHelpOutline } from "react-icons/md";
 const AdminDashboard = () => {
   const [showAnswers, setShowAnswers] = useState({});
   const [userData, setuserData] = useState({});
+  const navigate = useNavigate();
 
   const [selectedComponent, setSelectedComponent] = useState(null);
 
@@ -76,7 +78,18 @@ const AdminDashboard = () => {
       [questionId]: !prev[questionId],
     }));
   };
-
+  const handleLogout = async () => {
+    try {
+      // Make a request to the logout endpoint
+      await axios.post('http://localhost:5000/cao/logout', null, {
+        withCredentials: true,
+      });
+      navigate("/login")
+      
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
+  };
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -137,7 +150,7 @@ const AdminDashboard = () => {
           <div className="notification-icon">
             <IoNotificationsOutline size={30} />
             <div className="logout-button" style={{paddingLeft:"20px"}}> 
-            <button>Logout</button>
+            <button onClick={handleLogout} > Logout</button>
           </div>
           </div>
         </div>

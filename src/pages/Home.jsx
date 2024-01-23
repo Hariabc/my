@@ -24,9 +24,9 @@ export default function Home() {
     </button>
     </div>
     </div>
-    {/* <ServicePage/>
-    <ContactUs/> */}
-    {/* <Footer/> */}
+    <ServicePage/>
+    <ContactUs/> 
+     <Footer/>
     </>
   )
 }

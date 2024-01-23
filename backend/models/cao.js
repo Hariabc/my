@@ -43,7 +43,7 @@ const courtAdminSchema = new mongoose.Schema({
     type: String,
     default: 'Court Administrative Officer',
   },
-
+ 
   courtCases: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Filedcase',

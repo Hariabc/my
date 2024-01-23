@@ -200,12 +200,15 @@ router.post('/cases', authMiddleware, async (req, res) => {
     const { caseId, approvalType } = req.body;
     const courtAdminId = req.user._id;
 
-    // Find the filed case by ID
-    const filedCase = await Filedcase.findById(caseId);
+    // Find the filed case by ID and populate caseDetails
+    const filedCase = await Filedcase.findById(caseId).populate('caseDetails');
 
     if (!filedCase) {
       return res.status(404).json({ success: false, message: 'Filedcase not found' });
     }
+
+    // Access courtName after populating caseDetails
+    const courtName = filedCase.caseDetails.courtName;
 
     const assignJudgePromise = (async () => {
       if (approvalType === 'judge') {
@@ -215,6 +218,7 @@ router.post('/cases', authMiddleware, async (req, res) => {
           caseStatus: 'approvedByCourtAdminForAssigningJudge',
           caseDetails: filedCase._id,
           courtAdmin: courtAdminId,
+          courtName: courtName
         });
         await newCase.save();
         return { success: true, message: 'Case approved for assigning judge', case: newCase };
@@ -229,6 +233,7 @@ router.post('/cases', authMiddleware, async (req, res) => {
           caseStatus: 'approvedByCourtAdminForAssigningPublicAdvocate',
           caseDetails: filedCase._id,
           courtAdmin: courtAdminId,
+          courtName: courtName
         });
         await newCase.save();
         return { success: true, message: 'Case approved for assigning Public Advocate', case: newCase };
@@ -244,6 +249,7 @@ router.post('/cases', authMiddleware, async (req, res) => {
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
+
 
 router.get('/registered-judges', authMiddleware,async (req, res) => {
   try {

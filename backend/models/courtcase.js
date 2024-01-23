@@ -28,6 +28,10 @@ const caseSchema = new mongoose.Schema({
     default:"pending",
     required: true
   },
+  courtName: {
+    type: String,
+    required:true
+ },
   caseDetails: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Filedcase',

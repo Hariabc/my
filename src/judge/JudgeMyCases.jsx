@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './JudgeMyCases.css';
 import { useNavigate } from 'react-router-dom';
+import DocumentModal from './document';
 
 const JudgeMyCases = ({ judgeId }) => {
   const [cases, setCases] = useState([]);
   const [selectedCase, setSelectedCase] = useState(null);
-  const navigate = useNavigate();
+  const [documentModalVisible, setDocumentModalVisible] = useState(false);
 
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchJudgeCases = async () => {
       try {
@@ -32,7 +34,14 @@ const JudgeMyCases = ({ judgeId }) => {
   };
 
   const handleViewDocuments = (caseId) => {
-    console.log(`Viewing documents for case ${caseId}`);
+    const selected = cases.find((caseItem) => caseItem._id === caseId);
+    setSelectedCase(selected);
+    setDocumentModalVisible(true);
+  };
+
+  const handleCloseDocumentModal = () => {
+    setDocumentModalVisible(false);
+    setSelectedCase(null);
   };
 
   const handleSchedulePreTrial = (caseId) => {
@@ -166,6 +175,9 @@ const JudgeMyCases = ({ judgeId }) => {
             </div>
           </div>
         </div>
+      )}
+      {documentModalVisible && (
+        <DocumentModal documents={selectedCase.documents} onClose={handleCloseDocumentModal} />
       )}
     </div>
   );
