@@ -300,7 +300,7 @@ const nodemailer = require('nodemailer');
       const judgeId = req.user._id;
   
       // Assuming you have a judge field in your Conference model
-      const conferences = await JudgeConference.find({ user: judgeId });
+      const conferences = await JudgeConference.find({ judge: judgeId });
   
       res.json(conferences);
     } catch (error) {
@@ -311,7 +311,7 @@ const nodemailer = require('nodemailer');
 
   router.post('/create-conference', authMiddleware, async (req, res) => {
     try {
-      const { caseNumber, plaintiffName, defendantName, advocateName, title, description, date, meetingID,conferenceType} = req.body;
+      const { caseNumber, plaintiffName, defendantName, advocateName, title, description, date, meetingID} = req.body;
       const userId = req.user._id;
   
       // Create a new conference
@@ -327,6 +327,7 @@ const nodemailer = require('nodemailer');
         hearingMode: "virtual",
         hearingStatus:'scheduled',
         judge: userId,
+        
       });
   
       // Save the new conference
@@ -353,7 +354,7 @@ const nodemailer = require('nodemailer');
       const { conferenceId } = req.params;
       const userId = req.user._id;
   
-      const deletedConference = await JudgeConference.findOneAndDelete({ _id: conferenceId , user: userId});
+      const deletedConference = await JudgeConference.findOneAndDelete({ _id: conferenceId , judge: userId});
   
       if (!deletedConference) {
         return res.status(404).json({ error: 'Conference not found' });
@@ -365,7 +366,7 @@ const nodemailer = require('nodemailer');
       res.status(500).json({ error: 'Failed to delete conference' });
     }
   });
-  
+
   router.put('/update-conference/:updateconferenceId', authMiddleware, async (req, res) => {
     try {
       const { caseNumber,plaintiffName,defendantName,advocateName,title, description, date } = req.body;

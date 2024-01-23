@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PartyInPersonfrom from './PartyInPerson';
+import PublicAdvocateForm from './publicAdvocate';// Import the PublicAdvocateForm
 // import PrivateAdvocate from './PrivateAdvocate';
 // import PublicAdvocate from './PublicAdvocate';
 import "./CaseFileOpt.css";
@@ -31,6 +32,11 @@ export default function FileACaseMin() {
           )}
         </div>
       </div>
+ 
+      {selectedOption === 'publicAdvocate' && (
+        <PublicAdvocateForm />
+      )}
+
 
       {selectedOption === null && (
         <div className="message-box">
