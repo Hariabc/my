@@ -24,7 +24,7 @@ export default function Chat() {
       
 return (
     <div className="App" style={{
-        height:"100vh"
+        height:"85vh"
     }}>
         <SendbirdApp appId={APP_ID} userId={userData.username} />
     </div>
