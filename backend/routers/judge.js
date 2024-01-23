@@ -366,7 +366,29 @@ const nodemailer = require('nodemailer');
     }
   });
   
+  router.put('/update-conference/:updateconferenceId', authMiddleware, async (req, res) => {
+    try {
+      const { caseNumber,plaintiffName,defendantName,advocateName,title, description, date } = req.body;
+      const { updateconferenceId } = req.params;
+      const userId = req.user._id;
 
+      const updatedConference = await JudgeConference.findOneAndUpdate(
+        { _id: updateconferenceId, judge: userId },
+        {caseNumber,plaintiffName,defendantName,advocateName, title, description, date },
+        { new: true }
+      );
+
+      if (!updatedConference) {
+        return res.status(404).json({ error: 'Event not found or unauthorized' });
+      }
+
+      res.status(200).json(updatedConference);
+    } catch (error) {
+      console.error('Error updating conference:', error);
+      res.status(500).json({ error: 'Failed to update conference' });
+    }
+  });
+  
 
 
   module.exports = router;

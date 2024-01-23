@@ -55,7 +55,12 @@ const clientSchema = new mongoose.Schema({
   role: {
     type: String,
     default:"client"
-  }
+  },
+
+  scheduledConferences: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'JudgeConference',
+  }],
 
 }, { timestamps: true });
 

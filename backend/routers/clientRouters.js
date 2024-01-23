@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken")
 const cookie = require('cookie-parser')
 const User=require("../models/client")
 const authMiddleware = require("../middleware/clientAuthMiddleware")
-const Filedcase= require('../models/PartyInPerson')
+const Filedcase= require('../models/partyinperson')
 const Event = require('../models/event')
 const { Case, Hearing, Order } = require('../models/courtcase')
 const autopopulate = require('mongoose-autopopulate');
@@ -343,6 +343,25 @@ router.delete('/delete/:eventId', authMiddleware, async (req, res) => {
   } catch (error) {
     console.error('Error deleting event:', error);
     res.status(500).json({ error: 'Failed to delete event' });
+  }
+});
+
+router.get('/scheduledConferences',authMiddleware, async (req, res) => {
+  try {
+    const clientId = req.user._id;
+
+    // Find the client by ID with populated scheduledConferences
+    const conferences = await User.findById(clientId).populate('scheduledConferences');
+    if (!conferences) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+
+   // Return the scheduledConferences to the frontend
+   res.json({ scheduledConferences: conferences.scheduledConferences });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 

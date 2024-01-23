@@ -85,6 +85,10 @@ const caseSchema = new mongoose.Schema({
     expiryDate: String,
     cvv: String,
   },
+  scheduledConferences: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'JudgeConference',
+  }],
 });
 
 

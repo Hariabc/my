@@ -37,6 +37,7 @@ const JudgeConference = () => {
         const response = await axios.get('http://localhost:5000/judge/my-conferences', {
           withCredentials: true,
         });
+        console.log(response.data);
         setConference(response.data);
       } catch (error) {
         console.error('Error fetching scheduled conferences:', error);
@@ -151,6 +152,9 @@ const generateMeetingID = () => {
 
       // Show a custom-styled pop-up for conference creation
       showCustomToast(`Conference Scheduled successfully! Meeting ID: ${generatedMeetingID}`, 'success');
+
+
+
     } catch (error) {
       console.error('Error creating conference:', error.message);
       // Add logic to handle errors
@@ -159,15 +163,22 @@ const generateMeetingID = () => {
 
   const handleDelete = async (conferenceId) => {
     try {
-      await axios.delete(`http://localhost:5000/judge/delete-conference/${conferenceId}`, { withCredentials: true });
-      setConference(
-        conferences.filter((conference) => conference._id !== conferenceId)
-      );
-      showCustomToast('Conference deleted successfully!', 'success');
+     await axios.delete(`http://localhost:5000/judge/delete-conference/${conferenceId}`, {
+        withCredentials: true,
+      });
+  
+        // If the server returns a successful response, update the conferences list
+        setConference(conferences.filter((conference) => conference._id !== conferenceId)
+        );
+        showCustomToast('Conference deleted successfully!', 'success');
+      
+      
     } catch (error) {
       console.error('Error deleting conference:', error);
+      showCustomToast('Failed to delete conference', 'error');
     }
   };
+  
 
 
   const handleUpdateClick =  (conferenceId) => {
@@ -175,6 +186,9 @@ const generateMeetingID = () => {
     if (!updateMode) {
       const conferenceToUpdate = conferences.find((conference) => conference._id === conferenceId);
       setTitle(conferenceToUpdate.caseNumber);
+      setTitle(conferenceToUpdate.plaintiffName);
+      setTitle(conferenceToUpdate.defendantName);
+      setTitle(conferenceToUpdate.advocateName);
       setTitle(conferenceToUpdate.title);
       setDescription(conferenceToUpdate.description);
       setDate(conferenceToUpdate.date);
@@ -187,6 +201,9 @@ const generateMeetingID = () => {
 
   const handleCancelUpdate = () => {
     setCaseNumber('');
+    setPlaintiffName('');
+    setDefendantName('');
+    setAdvocateName('');
     setTitle('');
     setDescription('');
     setDate('');
@@ -199,9 +216,12 @@ const generateMeetingID = () => {
     try {
       await axios.put(`http://localhost:5000/judge/update-conference/${updateConferenceId}`, {
         caseNumber,
-        title,
-        description,
-        date,
+          plaintiffName,
+          defendantName,
+          advocateName,
+          title,
+          description,
+          date,
      } ,{
           withCredentials: true, // Ensure credentials are sent
         });
@@ -209,13 +229,22 @@ const generateMeetingID = () => {
       setConference((prevConference) =>
         prevConference.map((conference) =>
           conference._id === updateConferenceId
-            ? { ...conference,caseNumber, title, description, date
+            ? { ...conference,caseNumber,
+              plaintiffName,
+              defendantName,
+              advocateName,
+              title,
+              description,
+              date,
             }
             : conference
         )
       );
       
       setCaseNumber('');
+      setPlaintiffName('');
+      setDefendantName('');
+      setAdvocateName('');
       setTitle('');
       setDescription('');
       setDate('');
