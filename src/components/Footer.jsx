@@ -1,5 +1,6 @@
 import React from 'react';
 import './Footer.css';
+import { Link } from 'react-scroll';
 
 function Footer() {
   return (
@@ -16,9 +17,9 @@ function Footer() {
               flexDirection:"row",
               paddingRight:"20px"
             }}>
-              <li style={{paddingRight:"30px"}}><a href="#">Home</a></li>
-              <li style={{paddingRight:"30px"}}><a href="#">Contact Us</a></li>
-              <li style={{paddingRight:"30px"}}><a href="#">Services</a></li>
+              <li style={{paddingRight:"30px"}}><Link to="about" spy={true} smooth={true} duration={500} className="h">Home</Link></li>
+              <li style={{paddingRight:"30px"}}><Link to="contact" spy={true} smooth={true}  duration={500} className="h">Contact Us</Link></li>
+              <li style={{paddingRight:"30px"}}><Link to="services" spy={true} smooth={true}  duration={500} className="h">Services</Link></li>
               <li style={{paddingRight:"30px"}}><a href="#">Resources</a></li>
             </ul>
           </div>
