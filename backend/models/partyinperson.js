@@ -74,9 +74,11 @@ const caseSchema = new mongoose.Schema({
     caseCategory: String,
   },
   documents: [{
-    filename: String,
+    filename: String, // Store URL or file path
     url: String,
-  }],
+  }// Store URL or file path
+    // Add more document fields as needed
+  ],
   paymentDetails: {
     paymentMethod: String,
     cardNumber: String,
