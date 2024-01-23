@@ -1,7 +1,5 @@
 /* login.css */
 
-
-
 .login-container {
   display: flex;
   align-items: center;
@@ -53,7 +51,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   border-radius: 10px;
   padding: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  height: 50vh;
+  height: auto;
   width: 50vh;
   margin-top: 30px;
   margin-left: 20%;
@@ -123,26 +121,6 @@ button:hover {
 }
 /* login.css */
 
-/* Add a mobile-first media query */
-@media only screen and (max-width: 600px) {
-  .login-container {
-    padding: 10px; /* Adjust padding for smaller screens */
-  }
-
-  .user-selection {
-    flex-direction: row; /* Stack user buttons vertically on smaller screens */
-  }
-
-  .user-button img {
-    width: 50px; /* Reduce image size for smaller screens */
-    height: 50px;
-  }
-
-  .login-form {
-    width: 80%; /* Adjust form width for smaller screens */
-  }
-}
-/* 
 /* .login-container {
   display: flex;
   align-items: center;
@@ -150,11 +128,17 @@ button:hover {
   justify-content: space-evenly;
   height: 100vh;
   padding: 20px;
-} */ */
+} */
 
 /* ... (rest of your existing styles) ... */
 .user-text{
   font-weight: 400;
   font-style: normal;
   color: #0c0c0c;
+}
+/* Add a mobile-first media query */
+@media only screen and (max-width: 900px) {
+  .image{
+    display: none;
+  }
 }
