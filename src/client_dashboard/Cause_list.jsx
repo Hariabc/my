@@ -1,18 +1,31 @@
-// Dropdown.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './causelist.css';
 
-const App = () => {
+const CauselistPage = () => {
   const [states, setStates] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [courts, setCourts] = useState([]);
   const [selectedState, setSelectedState] = useState('');
   const [selectedDistrict, setSelectedDistrict] = useState('');
+  const [selectedCourt, setSelectedCourt] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
   const [captcha, setCaptcha] = useState('');
   const [captchaInput, setCaptchaInput] = useState('');
   const [captchaVerified, setCaptchaVerified] = useState(false);
+  const [causeList, setCauseList] = useState([]);
+  const [showCauseList, setShowCauseList] = useState(false);
+  const[realcourtname, setrealcourtname]=useState('')
+
+  const formatDate = (date) => {
+    // Use toLocaleDateString to format the date
+    const formattedDate = new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: 'UTC'
+    });
+    return formattedDate;
+  };
 
   useEffect(() => {
     // Fetch states
@@ -93,75 +106,179 @@ const App = () => {
     return captcha;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Add your form submission logic here
     if (captchaVerified) {
-      alert('Form submitted successfully!');
-      // Reset form or navigate to another page if needed
+      try {
+        const courtName = courts.find((court) => court.id === selectedCourt)?.name;
+        setrealcourtname(courtName)
+        if (!courtName) {
+          console.error('Court name not found for the selected ID');
+          return;
+        }
+  
+        try {
+          const response = await axios.post(`http://localhost:5000/client/${courtName}/causelist`, { date: selectedDate });
+          setCauseList(response.data);
+          setShowCauseList(true);
+        } catch (error) {
+          console.error('Error fetching cause list:', error);
+        }
+      } catch (nestedError) {
+        console.error('Error in nested try block:', nestedError);
+      }
     } else {
       alert('Please verify the captcha before submitting.');
     }
   };
-
+  
   return (
     <div className="container">
-      <h2>Cause Lists</h2>
-      <div className="dropdown-container">
-        <div className="dropdown-box">
-          <label htmlFor="states">Select State:</label>
-          <select id="states" onChange={handleStateChange}>
-            <option value="">Select a state</option>
-            {states.map((state) => (
-              <option key={state.id} value={state.id}>
-                {state.name}
-              </option>
+      {!showCauseList ? (
+        <div className="dropdown-container">
+          <div className="dropdown-box">
+            <label htmlFor="states">Select State:</label>
+            <select id="states" onChange={handleStateChange}>
+              <option value="">Select a state</option>
+              {states.map((state) => (
+                <option key={state.id} value={state.id}>
+                  {state.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="dropdown-box">
+            <label htmlFor="districts">Select District:</label>
+            <select id="districts" onChange={handleDistrictChange}>
+              <option value="">Select a district</option>
+              {districts.map((district) => (
+                <option key={district.id} value={district.id}>
+                  {district.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="dropdown-box">
+            <label htmlFor="courts">Select Court:</label>
+            <select id="courts" onChange={(e) => setSelectedCourt(e.target.value)}>
+              <option value="">Select a court</option>
+              {courts.map((court) => (
+                <option key={court.id} value={court.id}>
+                  {court.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="dropdown-box">
+            <label htmlFor="date">Cause List Date:</label>
+            <input type="date" id="date" onChange={handleDateChange} />
+          </div>
+
+          <div className="captcha-box">
+            <label htmlFor="captcha">Enter Captcha:</label>
+            <div className="captcha-text-box">{captcha}</div>
+            <input type="text" id="captcha" className="captcha-input" onChange={handleCaptchaInputChange} />
+            <button onClick={handleVerifyCaptcha}>Verify Captcha</button>
+            {captchaVerified && <p className="success-message">Verification successful!</p>}
+          </div>
+
+          <div className="button-box">
+            <button onClick={handleSubmit}>Submit</button>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <h2>Cause List for {courts.find((court) => court.id === selectedCourt)?.name}</h2>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
+            <thead>
+              <tr>
+                <th style={tableHeaderStyle}>Sl. No</th>
+                <th style={tableHeaderStyle}>Case Number</th>
+                <th style={tableHeaderStyle}>Parties Involved</th>
+                  <th style={tableHeaderStyle}>Court Name</th>
+                {/* <th style={tableHeaderStyle}>Judge Name</th> */}
+                  
+                <th style={tableHeaderStyle}>Hearing Date</th>
+                <th style={tableHeaderStyle}>Hearing Time</th>
+                  <th style={tableHeaderStyle}>Mode of Hearing</th>
+                <th style={tableHeaderStyle}>Status</th>
+                  
+              </tr>
+            </thead>
+             <tbody>
+      {causeList.map((caseItem, index) => (
+        <tr key={caseItem.caseNumber}>
+          <td style={tableCellStyle}>{index + 1}</td>
+          <td style={tableCellStyle}>{caseItem.caseNumber}</td>
+          <td style={tableCellStyle}>
+            {caseItem.hearings.map((hearing, hearingIndex) => (
+              <div key={hearingIndex}>{`${hearing.plaintiffName} vs ${hearing.defendantName}`}</div>
             ))}
-          </select>
-        </div>
-
-        <div className="dropdown-box">
-          <label htmlFor="districts">Select District:</label>
-          <select id="districts" onChange={handleDistrictChange}>
-            <option value="">Select a district</option>
-            {districts.map((district) => (
-              <option key={district.id} value={district.id}>
-                {district.name}
-              </option>
+          </td>
+          <td style={tableCellStyle}>{realcourtname}</td>
+          {/* <td style={tableCellStyle}>
+            {caseItem.hearings.map((hearing, hearingIndex) => (
+              <div key={hearingIndex}>{(hearing.judge.name)}</div>
             ))}
-          </select>
-        </div>
-
-        <div className="dropdown-box">
-          <label htmlFor="courts">Select Court:</label>
-          <select id="courts">
-            <option value="">Select a court</option>
-            {courts.map((court) => (
-              <option key={court.id} value={court.id}>
-                {court.name}
-              </option>
+          </td> */}
+          <td style={tableCellStyle}>
+            {caseItem.hearings.map((hearing, hearingIndex) => (
+              <div key={hearingIndex}>{formatDate(hearing.date)}</div>
             ))}
-          </select>
-        </div>
+          </td>
+          <td style={tableCellStyle}>
+            {caseItem.hearings.map((hearing, hearingIndex) => (
+              <div key={hearingIndex}>{(hearing.time)}</div>
+            ))}
+          </td>
+          {/* Additional columns for each hearing property can be added similarly */}
+          {/* <td style={tableCellStyle}>{formatTime(caseItem.heaings.date)}</td> */}
+          <td style={tableCellStyle}>
+            {caseItem.hearings.map((hearing, hearingIndex) => (
+              <div key={hearingIndex}>{hearing.hearingMode}</div>
 
-        <div className="dropdown-box">
-          <label htmlFor="date">Cause List Date:</label>
-          <input type="date" id="date" onChange={handleDateChange} />
+            ))}
+          </td>
+          <td style={tableCellStyle}>
+            {caseItem.hearings.map((hearing, hearingIndex) => (
+              <div key={hearingIndex}>{hearing.hearingStatus}</div>
+              
+            ))}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+          </table>
         </div>
-
-        <div className="captcha-box">
-          <label htmlFor="captcha">Enter Captcha:</label>
-          <div className="captcha-text-box">{captcha}</div>
-          <input type="text" id="captcha" className="captcha-input" onChange={handleCaptchaInputChange} />
-          <button onClick={handleVerifyCaptcha}>Verify Captcha</button>
-          {captchaVerified && <p className="success-message">Verification successful!</p>}
-        </div>
-
-        <div className="button-box">
-          <button onClick={handleSubmit}>Submit</button>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
 
-export default App;
+const tableHeaderStyle = {
+  border: '1px solid #ddd',
+  padding: '10px',
+  backgroundColor: '#f2f2f2',
+  textAlign: 'left',
+};
+
+const tableCellStyle = {
+  border: '1px solid #ddd',
+  padding: '10px',
+  textAlign: 'left',
+};
+
+const formatDate = (dateString) => {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+};
+
+const formatTime = (dateString) => {
+  const options = { hour: 'numeric', minute: 'numeric', hour12: true };
+  return new Date(dateString).toLocaleTimeString(undefined, options);
+};
+
+export default CauselistPage;

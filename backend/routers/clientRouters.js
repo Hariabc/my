@@ -13,6 +13,7 @@ const Filedcase= require('../models/partyinperson')
 const Event = require('../models/event')
 const { Case, Hearing, Order } = require('../models/courtcase')
 const autopopulate = require('mongoose-autopopulate');
+const Judge=require('../models/judge')
 router.use(cookie());
 // router.use(
 //   session({
@@ -180,6 +181,61 @@ router.post('/login',async (req, res) => {
     return res.status(500).json({ error: 'Failed to log in', message: err.message });
   }
 });
+
+// causelistRoutes.js // Import your Case model
+
+router.post('/:courtName/causelist', async (req, res) => {
+  try {
+    const { courtName } = req.params;
+    const { date } = req.body;
+
+    // Fetch cases based on the courtName
+    const cases = await Case.find({ courtName }).populate('hearings').populate('judge');
+
+    const filteredCases = cases.filter((caseItem) =>
+    caseItem.hearings.some((hearing) => {
+      // console.log('hearing.date:', hearing.date);
+      // console.log('date:', date);
+      if (hearing.date) {
+        const hearingDate = new Date(hearing.date).toISOString().split('T')[0];
+        return hearingDate === date;
+      } else {
+        return false;
+      }
+    })
+  );
+  
+    // console.log('Filtered cases:', filteredCases);
+
+    // Map cases to include relevant hearing details
+    const causeList = filteredCases.map((caseItem) => ({
+      caseNumber: caseItem.caseNumber,
+      caseStatus: caseItem.caseStatus,
+      hearings: caseItem.hearings.map((hearing) => ({
+        plaintiffName: hearing.plaintiffName,
+        defendantName: hearing.defendantName,
+        advocateName: hearing.advocateName,
+        title: hearing.title,
+        description: hearing.description,
+        date: hearing.date,
+        time: new Date(hearing.date).toLocaleTimeString(),
+        meetingID: hearing.meetingID,
+        hearingMode: hearing.hearingMode,
+        hearingStatus: hearing.hearingStatus,
+        judge:hearing.judge.name
+      })),
+    }));
+
+    // console.log('Cause list:', causeList);
+
+    res.status(200).json(causeList);
+  } catch (error) {
+    console.error('Error fetching cause list:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 
 router.get('/user', authMiddleware, (req, res) => {
   try {
