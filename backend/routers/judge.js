@@ -311,14 +311,16 @@ const nodemailer = require('nodemailer');
 
   router.post('/create-conference', authMiddleware, async (req, res) => {
     try {
-      const { caseNumber, plaintiffName, defendantName, advocateName, title, description, date, meetingID} = req.body;
+      const { caseNumber, plaintiffName,plaintiffEmail, defendantName,defendantEmail, advocateName, title, description, date, meetingID} = req.body;
       const userId = req.user._id;
   
       // Create a new conference
       const newConference = new JudgeConference({
         caseNumber,
         plaintiffName,
+        plaintiffEmail,
         defendantName,
+        defendantEmail,
         advocateName,
         title,
         description,
@@ -369,13 +371,13 @@ const nodemailer = require('nodemailer');
 
   router.put('/update-conference/:updateconferenceId', authMiddleware, async (req, res) => {
     try {
-      const { caseNumber,plaintiffName,defendantName,advocateName,title, description, date } = req.body;
+      const { caseNumber,plaintiffName,plaintiffEmail,defendantName,defendantEmail,advocateName,title, description, date } = req.body;
       const { updateconferenceId } = req.params;
       const userId = req.user._id;
 
       const updatedConference = await JudgeConference.findOneAndUpdate(
         { _id: updateconferenceId, judge: userId },
-        {caseNumber,plaintiffName,defendantName,advocateName, title, description, date },
+        {caseNumber,plaintiffName,plaintiffEmail,defendantName,defendantEmail,advocateName, title, description, date },
         { new: true }
       );
 

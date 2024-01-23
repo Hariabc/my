@@ -9,10 +9,20 @@ const judgeConferenceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
+  plaintiffEmail: {
+    type: String, // Assuming email is a string, you might want to use the Email type if available in your mongoose version
+    required: true,
+  },
   defendantName: {
     type: String,
     required: true,
   },
+  defendantEmail: {
+    type: String, // Assuming email is a string, you might want to use the Email type if available in your mongoose version
+    required: true,
+  },
+  
   advocateName: {
     type: String,
     required: true,
@@ -53,13 +63,12 @@ const judgeConferenceSchema = new mongoose.Schema({
 });
 
 judgeConferenceSchema.pre('save', async function (next) {
- 
   try {
     console.log("Middleware triggered!");
-    // Find the User with the matching firstName and lastName for plaintiffName
+    
+    // Find the User with the matching email address for plaintiffEmail
     const plaintiffUser = await mongoose.model('User').findOne({
-      firstName: this.plaintiffName.split(' ')[0],
-      lastName: this.plaintiffName.split(' ')[1],
+      email: this.plaintiffEmail,
     });
 
     // If found, update the scheduledConferences array
@@ -68,10 +77,9 @@ judgeConferenceSchema.pre('save', async function (next) {
       await plaintiffUser.save();
     }
 
-    // Find the User with the matching firstName and lastName for defendantName
+    // Find the User with the matching email address for defendantEmail
     const defendantUser = await mongoose.model('User').findOne({
-      firstName: this.defendantName.split(' ')[0],
-      lastName: this.defendantName.split(' ')[1],
+      email: this.defendantEmail,
     });
 
     // If found, update the scheduledConferences array
@@ -86,7 +94,6 @@ judgeConferenceSchema.pre('save', async function (next) {
     next(error);
   }
 });
-
 
 const JudgeConference = mongoose.model('JudgeConference', judgeConferenceSchema);
 

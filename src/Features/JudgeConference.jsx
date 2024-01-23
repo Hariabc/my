@@ -27,6 +27,10 @@ const JudgeConference = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
+  // Add these lines with other state variables
+const [plaintiffEmail, setPlaintiffEmail] = useState('');
+const [defendantEmail, setDefendantEmail] = useState('');
+
  
   const [updateMode, setUpdateMode] = useState(false);
   const [updateConferenceId, setUpdateConferenceId] = useState('');
@@ -124,7 +128,9 @@ const generateMeetingID = () => {
         {
           caseNumber,
           plaintiffName,
+          plaintiffEmail, // Add plaintiff email
           defendantName,
+          defendantEmail,
           advocateName,
           title,
           description,
@@ -144,7 +150,9 @@ const generateMeetingID = () => {
       // Reset form fields
       setCaseNumber('');
       setPlaintiffName('');
-      setDefendantName('');
+      setPlaintiffEmail(''); // Clear plaintiff email
+    setDefendantName('');
+    setDefendantEmail('');
       setAdvocateName('');
       setTitle('');
       setDescription('');
@@ -185,10 +193,12 @@ const generateMeetingID = () => {
     // If not already in update mode, set the form fields and update mode
     if (!updateMode) {
       const conferenceToUpdate = conferences.find((conference) => conference._id === conferenceId);
-      setTitle(conferenceToUpdate.caseNumber);
-      setTitle(conferenceToUpdate.plaintiffName);
-      setTitle(conferenceToUpdate.defendantName);
-      setTitle(conferenceToUpdate.advocateName);
+      setCaseNumber(conferenceToUpdate.caseNumber);
+      setPlaintiffName(conferenceToUpdate.plaintiffName);
+      setPlaintiffEmail(conferenceToUpdate.plaintiffEmail);
+      setDefendantName(conferenceToUpdate.defendantName);
+      setDefendantEmail(conferenceToUpdate.defendantEmail);
+      setAdvocateName(conferenceToUpdate.advocateName);
       setTitle(conferenceToUpdate.title);
       setDescription(conferenceToUpdate.description);
       setDate(conferenceToUpdate.date);
@@ -202,7 +212,9 @@ const generateMeetingID = () => {
   const handleCancelUpdate = () => {
     setCaseNumber('');
     setPlaintiffName('');
+    setPlaintiffEmail(''); // Clear plaintiff email
     setDefendantName('');
+    setDefendantEmail('');
     setAdvocateName('');
     setTitle('');
     setDescription('');
@@ -217,7 +229,9 @@ const generateMeetingID = () => {
       await axios.put(`http://localhost:5000/judge/update-conference/${updateConferenceId}`, {
         caseNumber,
           plaintiffName,
+          plaintiffEmail,
           defendantName,
+          defendantEmail,
           advocateName,
           title,
           description,
@@ -231,7 +245,9 @@ const generateMeetingID = () => {
           conference._id === updateConferenceId
             ? { ...conference,caseNumber,
               plaintiffName,
+              plaintiffEmail,
               defendantName,
+              defendantEmail,
               advocateName,
               title,
               description,
@@ -243,7 +259,9 @@ const generateMeetingID = () => {
       
       setCaseNumber('');
       setPlaintiffName('');
-      setDefendantName('');
+      setPlaintiffEmail(''); // Clear plaintiff email
+    setDefendantName('');
+    setDefendantEmail('');
       setAdvocateName('');
       setTitle('');
       setDescription('');
@@ -275,21 +293,23 @@ const generateMeetingID = () => {
       const caseDetails = response.data.find((caseDetail) => caseDetail.caseNumber === enteredCaseNumber);
   
       if (caseDetails) {
-        // Access specific properties of plaintiffDetails and defendantDetails
-        const { fullName: plaintiffFullName } = caseDetails.plaintiffDetails;
-        const { fullName: defendantFullName } = caseDetails.defendantDetails;
+        const { fullName: plaintiffFullName, partyEmailAddresses: plaintiffEmail } = caseDetails.plaintiffDetails;
+        const { fullName: defendantFullName, partyEmailAddresses: defendantEmail } = caseDetails.defendantDetails || { fullName: 'None', partyEmailAddresses: 'None' };
         const { fullName: advocateFullName } = caseDetails.advocateDetails || { fullName: 'None' };
   
         setPlaintiffName(plaintiffFullName);
+        setPlaintiffEmail(plaintiffEmail);
         setDefendantName(defendantFullName);
+        setDefendantEmail(defendantEmail);
         setAdvocateName(advocateFullName);
-        setValidCaseNumber(true); // Set validCaseNumber to true if the caseNumber is valid
+        setValidCaseNumber(true);
       } else {
-        // Handle case not found
         setPlaintiffName('');
+        setPlaintiffEmail('');
         setDefendantName('');
+        setDefendantEmail('');
         setAdvocateName('None');
-        setValidCaseNumber(false); // Set validCaseNumber to false if the caseNumber is invalid
+        setValidCaseNumber(false);
       }
     } catch (error) {
       console.error('Error fetching case details:', error);
@@ -356,11 +376,37 @@ const generateMeetingID = () => {
 <br />
 
 <label className="event-form-label">
+  Plaintiff Email:
+  <input
+    type="email"
+    value={plaintiffEmail}
+    onChange={(e) => setPlaintiffEmail(e.target.value)}
+    required
+    className="event-form-input"
+    disabled
+  />
+</label>
+<br />
+
+<label className="event-form-label">
   Defendant Name:
   <input
     type="text"
     value={defendantName}
     onChange={(e) => setDefendantName(e.target.value)}
+    required
+    className="event-form-input"
+    disabled
+  />
+</label>
+<br />
+
+<label className="event-form-label">
+  Defendant Email:
+  <input
+    type="email"
+    value={defendantEmail}
+    onChange={(e) => setDefendantEmail(e.target.value)}
     required
     className="event-form-input"
     disabled

@@ -146,15 +146,8 @@ const PrivateAdvocateForm = () => {
       {currentStep === 3 && (
         <CaseAndCourtDetailsForm onChange={handleCaseAndCourtChange} onNext={() => setCurrentStep(4)} />
       )}
-      {currentStep === 4 && (
-        <DocumentUploadForm onChange={handleDocumentUpload} onNext={() => setCurrentStep(5)} />
-      )}
-      {currentStep === 5 && (
-        <PaymentDetailsForm onChange={handlePaymentChange} onNext={() => setCurrentStep(6)} />
-      )}
-      {currentStep === 6 && (
-        <PublicAttorneyRequestForm onChange={handlePublicAttorneyRequest} />
-      )}
+     
+      
     </div>
   );
 };
