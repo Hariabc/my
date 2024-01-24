@@ -225,6 +225,10 @@ const AdminDashboard = () => {
     <div className="case-container" style={{width:"100%",backgroundColor:"white",padding:"20px",borderRadius:"4px"}}>
       <ToastContainer />
       <h1>Admin Dashboard - Pending Cases</h1>
+      {filteredCases.length === 0 ? (
+        <p>No filed cases available.</p>
+      ) : (
+        <>
       <div className="filter-section" style={{width:"300px"}}>
         <label>Filter by Case Type:</label>
         <select value={filterType} onChange={handleFilterChange}>
@@ -236,6 +240,7 @@ const AdminDashboard = () => {
       </div>
       <div>
         <h2>Filtered Cases:</h2>
+        {filteredCases.length > 0 ? (
         <table>
           <thead>
             <tr>
@@ -267,7 +272,10 @@ const AdminDashboard = () => {
             ))}
           </tbody>
         </table>
-      </div>
+      ) : (
+        <p>No cases match the selected filter.</p>
+      )}
+    </div>
 
       {selectedCase && (
         <div className="overlay">
@@ -345,6 +353,8 @@ const AdminDashboard = () => {
           documents={selectedCaseDocuments}
           onClose={closeDocumentsModal}
         />
+      )}
+      </>
       )}
 
     </div>
