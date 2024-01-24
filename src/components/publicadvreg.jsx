@@ -29,6 +29,10 @@ const RegistrationForm = () => {
   };
 
   const containerStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
     maxWidth: '400px',
     margin: 'auto',
     padding: '20px',
@@ -36,6 +40,14 @@ const RegistrationForm = () => {
     borderRadius: '5px',
     boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
   };
+
+  const toastContainerStyle = {
+    position: 'fixed',
+    top: '20px',
+    right: '20px',
+    zIndex: '1', // Ensure toast appears above other elements
+  };
+  
 
   const handleRegister = async () => {
     if (password !== confirmPassword) {
@@ -72,6 +84,7 @@ const RegistrationForm = () => {
 
   return (
     <div style={containerStyle}>
+      <ToastContainer style={toastContainerStyle}/>
       <input
         type="email"
         placeholder="Email"
@@ -96,7 +109,7 @@ const RegistrationForm = () => {
       <button onClick={handleRegister} style={buttonStyle}>
         Register
       </button>
-      <ToastContainer />
+      
     </div>
   );
 };

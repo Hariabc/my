@@ -11,6 +11,10 @@ const RegistrationForm = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const containerStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
     maxWidth: '400px',
     margin: 'auto',
     padding: '20px',
