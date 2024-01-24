@@ -17,7 +17,7 @@ const PublicAdvocateForm = () => {
   const [plaintiffDetails, setPlaintiffDetails] = useState({});
   const [defendantDetails, setDefendantDetails] = useState({});
   const [caseDetails, setCaseAndCourtDetails] = useState({});
-  const [documents, setDocumentDetails] = useState({});
+  const [downloadURLs, setDownloadURLs] = useState([]);
   const [paymentDetails, setPaymentDetails] = useState({});
   const [publicAttorneyRequest, setPublicAttorneyRequest] = useState({});
   const [user, setUser] = useState({});
@@ -43,40 +43,30 @@ const PublicAdvocateForm = () => {
     scrollToTop(); // Scroll to the top when the component mounts or updates
   }, [currentStep]);
 
-
- 
   const handlePlaintiffChange = (data) => {
-      setPlaintiffDetails(data);
-      setCurrentStep(2);
+    setPlaintiffDetails(data);
+    setCurrentStep(2);
   };
 
-  
-
   const handleDefendantChange = (data) => {
-      setDefendantDetails(data);
-      setCurrentStep(3);
+    setDefendantDetails(data);
+    setCurrentStep(3);
   };
 
   const handleCaseAndCourtChange = (data) => {
-     // Validate plaintiff details before proceeding to the next step
-     
-
-     
-       setCaseAndCourtDetails(data);
-       setCurrentStep(4);
-     
-       // You may display an error message or handle it as needed
-     
+    setCaseAndCourtDetails(data);
+    setCurrentStep(4);
   };
 
-  const handleDocumentUpload = (data) => {
-    setDocumentDetails(data);
-    setCurrentStep(5);
+  const handleDocumentUpload = (data, callback) => {
+    console.log('Download URLs:', data);
+    setDownloadURLs(data);  // Update downloadURLs state
+    callback(); // Call the callback function after updating the state
   };
 
   const handlePaymentChange = (data) => {
     setPaymentDetails(data);
-    setCurrentStep(6);
+    handleSubmit(data);
   };
 
   const handlePublicAttorneyRequest = (data) => {

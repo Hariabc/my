@@ -53,6 +53,11 @@ const caseSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Order'
   }]
+  ,
+  publicAdvocateDetails: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Advocate'
+    },
 });
 
 // caseSchema.pre('findOne', function (next) {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { firebaseApp } from '../firebase';
 
 const PublicAttorneyRequestForm = ({ onChange, onNext }) => {
   const [reason, setReason] = useState('');
@@ -15,29 +16,39 @@ const PublicAttorneyRequestForm = ({ onChange, onNext }) => {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleUpload = async () => {
+    const storageRef = ref(getStorage(firebaseApp));
+
     try {
-      const formData = new FormData();
-      formData.append('reason', reason);
-      formData.append('incomeCertificate', incomeCertificate);
-      formData.append('identificationDocument', identificationDocument);
+      const uploadPromises = [];
+      if (incomeCertificate) {
+        const incomeCertificateRef = ref(storageRef, `incomeCertificates/${incomeCertificate.name}`);
+        await uploadBytes(incomeCertificateRef, incomeCertificate);
+        const incomeCertificateURL = await getDownloadURL(incomeCertificateRef);
+        uploadPromises.push({ filename: incomeCertificate.name, url: incomeCertificateURL });
+      }
 
-      // Send the public attorney request to the server
-      const response = await axios.post('http://localhost:5000/api/request-public-attorney', formData);
+      if (identificationDocument) {
+        const identificationDocumentRef = ref(storageRef, `identificationDocuments/${identificationDocument.name}`);
+        await uploadBytes(identificationDocumentRef, identificationDocument);
+        const identificationDocumentURL = await getDownloadURL(identificationDocumentRef);
+        uploadPromises.push({ filename: identificationDocument.name, url: identificationDocumentURL });
+      }
 
-      // Handle the response as needed
-      console.log('Public attorney request submitted successfully:', response.data);
-
-      // You can include additional logic here based on the response
+      const uploadedFiles = await Promise.all(uploadPromises);
+      const formData = {
+        reason,
+        incomeCertificate: uploadedFiles.find(file => file.filename === incomeCertificate.name),
+        identificationDocument: uploadedFiles.find(file => file.filename === identificationDocument.name),
+      };
 
       // Notify the parent component that this step is complete
-      onChange({ reason });
+      onChange(formData);
 
       // Proceed to the next step
       onNext();
     } catch (error) {
-      console.error('Error submitting public attorney request:', error);
-      // Handle the error as needed
+      console.error('Error uploading files:', error);
     }
   };
 
@@ -63,7 +74,7 @@ const PublicAttorneyRequestForm = ({ onChange, onNext }) => {
         <input type="file" onChange={(e) => handleFileChange(e, 'identificationDocument')} />
       </label>
       <br />
-      <button onClick={handleSubmit}>Submit Request</button>
+      <button onClick={handleUpload}>Submit Request</button>
     </div>
   );
 };
