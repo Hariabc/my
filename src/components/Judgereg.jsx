@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useParams} from 'react-router-dom';
-
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,6 +9,33 @@ const RegistrationForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  const containerStyle = {
+    maxWidth: '400px',
+    margin: 'auto',
+    padding: '20px',
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+  };
+
+  const inputStyle = {
+    width: '100%',
+    padding: '10px',
+    margin: '10px 0',
+    boxSizing: 'border-box',
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+  };
+
+  const buttonStyle = {
+    backgroundColor: '#4caf50',
+    color: 'white',
+    padding: '10px 15px',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+  };
 
   const handleRegister = async () => {
     if (password !== confirmPassword) {
@@ -44,27 +70,33 @@ const RegistrationForm = () => {
     }
   };
 
+
   return (
-    <div>
+    <div style={containerStyle}>
       <input
         type="email"
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        style={inputStyle}
       />
       <input
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        style={inputStyle}
       />
       <input
         type="password"
         placeholder="Confirm Password"
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
+        style={inputStyle}
       />
-      <button onClick={handleRegister}>Register</button>
+      <button onClick={handleRegister} style={buttonStyle}>
+        Register
+      </button>
       <ToastContainer />
     </div>
   );
