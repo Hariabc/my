@@ -311,43 +311,81 @@ const nodemailer = require('nodemailer');
 
   router.post('/create-conference', authMiddleware, async (req, res) => {
     try {
-      const { caseNumber, plaintiffName,plaintiffEmail, defendantName,defendantEmail, advocateName, title, description, date, meetingID} = req.body;
-      const userId = req.user._id;
-  
-      // Create a new conference
-      const newConference = new JudgeConference({
-        caseNumber,
-        plaintiffName,
-        plaintiffEmail,
-        defendantName,
-        defendantEmail,
-        advocateName,
-        title,
-        description,
-        date,
-        meetingID,
-        hearingMode: "virtual",
-        hearingStatus:'scheduled',
-        judge: userId,
-        
-      });
-  
-      // Save the new conference
-      await newConference.save();
-  
-      // Update the case status to "preTrialconferenceScheduled"
-      await Case.findOneAndUpdate({ caseNumber: req.body.caseNumber },
-              {
+        const { caseNumber, plaintiffName, plaintiffEmail, defendantName, defendantEmail, advocateName, title, description, date, meetingID } = req.body;
+        const userId = req.user._id;
+
+        // Create a new conference
+        const newConference = new JudgeConference({
+            caseNumber,
+            plaintiffName,
+            plaintiffEmail,
+            defendantName,
+            defendantEmail,
+            advocateName,
+            title,
+            description,
+            date,
+            meetingID,
+            hearingMode: "virtual",
+            hearingStatus: 'scheduled',
+            judge: userId,
+        });
+
+        // Save the new conference
+        await newConference.save();
+
+        // Update the case status to "preTrialconferenceScheduled"
+        await Case.findOneAndUpdate(
+            { caseNumber: req.body.caseNumber },
+            {
                 $push: { hearings: newConference._id },
                 $set: { caseStatus: 'preTrialconferenceScheduled' },
-              });
-  
-      res.status(201).json({ message: 'Conference created successfully', data: newConference });
+            }
+        );
+
+        // Send email to plaintiff
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'ecourtservicehelper@gmail.com',
+                pass: 'aryj ahqq wggy bawx', 
+            },
+        });
+
+        const mailOptions = {
+          from: 'your_email@gmail.com', // replace with your Gmail email
+          to: plaintiffEmail,
+          subject: 'Conference Scheduled',
+          html: `
+              <p style="font-size: 16px; color: #333;">Dear ${plaintiffName},</p>
+              <p style="font-size: 14px;">Your conference has been scheduled. Details:</p>
+              <ul>
+                  <li style="font-size: 14px;"><strong>Title:</strong> ${title}</li>
+                  <li style="font-size: 14px;"><strong>Date:</strong> ${date}</li>
+                  <li style="font-size: 14px;"><strong>Meeting ID:</strong> ${meetingID}</li>
+                  <li style="font-size: 14px;"><strong>Hearing Mode:</strong> ${newConference.hearingMode}</li>
+                  <li style="font-size: 14px;"><strong>Hearing Status:</strong> ${newConference.hearingStatus}</li>
+              </ul>
+              <p style="font-size: 14px;">The Court Management Team</p>
+          `,
+      };
+      
+      
+
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.error('Error sending email:', error);
+                res.status(500).json({ error: 'Failed to send email' });
+            } else {
+                console.log('Email sent: ' + info.response);
+                res.status(201).json({ message: 'Conference created successfully and email sent', data: newConference });
+            }
+        });
     } catch (error) {
-      console.error('Error creating conference:', error);
-      res.status(500).json({ error: 'Failed to create conference' });
+        console.error('Error creating conference:', error);
+        res.status(500).json({ error: 'Failed to create conference' });
     }
-  });
+});
   
   
   // Delete a conference
