@@ -19,6 +19,7 @@ export default function FileACaseMin() {
           <button
             onClick={() => handleOptionClick('partyInPerson')}
             className={`option-button ${selectedOption === 'partyInPerson' ? 'active' : ''}`}
+            style={{ color: selectedOption === 'partyInPerson' ? 'black' : '' }}
           >
             <b>PARTY IN PERSON</b> <br></br>
             (Represent Your Case Without Lawyer)

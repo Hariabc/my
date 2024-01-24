@@ -1,73 +1,140 @@
+/* Update your CSS file */
+
 .container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .dropdown-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.dropdown-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dropdown-box {
+  width: 100%;
+}
+
+label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+select,
+input[type="date"],
+.captcha-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 12px 20px;
+  font-size: 18px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+.success-message {
+  color: #2ecc71;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+/* Cause List Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-size: 16px;
+}
+
+/* Responsive styles for small screens */
+@media (max-width: 600px) {
   .dropdown-box {
-    flex: 1 1 30%;
-    margin-bottom: 15px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  select,
-  input[type="date"],
-  .captcha-input {
     width: 100%;
-    padding: 8px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    margin-bottom: 10px;
   }
-  
-  .captcha-box {
-    flex: 1 1 100%;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .captcha-text-box {
-    padding: 8px;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    margin-bottom: 10px;
-  }
-  
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  .success-message {
-    color: green;
-    margin-top: 5px;
-  }
-  
+}
+/* Update your CSS file */
+
+.captcha-box {
+  margin-bottom: 20px;
+}
+
+.label-captcha {
+  font-size: 14px; /* Adjusted font size for label */
+}
+
+.captcha-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Reduced gap between text box and input box */
+}
+
+.captcha-text-box {
+  padding: 5px; /* Reduced padding for smaller text box */
+  font-size: 12px; /* Adjusted font size for text box */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.captcha-input-container {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Reduced gap between input box and text box */
+}
+
+.captcha-input {
+  flex-grow: 1;
+  padding: 5px; /* Reduced padding for smaller input box */
+  font-size: 12px; /* Adjusted font size for input box */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.captcha-verify-button {
+  padding: 8px 15px; /* Adjusted padding for a smaller rectangular box */
+  font-size: 14px; /* Adjusted font size */
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.captcha-verify-button:hover {
+  background-color: #2980b9;
+}
+
+.success-message {
+  color: #2ecc71;
+  font-size: 14px; /* Adjusted font size for success message */
+  margin-top: 5px; /* Reduced margin for success message */
+}

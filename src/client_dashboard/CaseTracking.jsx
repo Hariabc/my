@@ -23,46 +23,38 @@ const CaseTracking = () => {
 
   const handleSearch = async () => {
     try {
-      setLoading(true); // Set loading to true
+      setLoading(true);
       console.log('Selected State:', selectedCourt.courtState);
       console.log('Selected District:', selectedCourt.courtDistrict);
       console.log('Selected Court:', selectedCourt.courtName);
       console.log('Tracking Option:', trackingOption);
       console.log('Search Value:', searchValue);
-  
-      // Clear previous case details
+
       setCaseDetails(null);
-  
-      // Send Axios request to the backend
+
       const response = await axios.post('http://localhost:5000/client/case-tracking', {
         courtState: selectedCourt.courtState,
         courtDistrict: selectedCourt.courtDistrict,
         courtName: selectedCourt.courtName,
         searchType: trackingOption,
-        searchValue: searchValue, // Keep the original searchValue without converting to uppercase
+        searchValue: searchValue,
       });
-  
-      // Handle the response from the backend
+
       console.log(response.data);
-  
+
       const { caseDetails } = response.data;
-  
+
       if (!caseDetails || !caseDetails.caseNumber) {
-        // Case not found
         console.log('No case found');
       } else {
-        // Update the case details state with the received data
         setCaseDetails(caseDetails);
       }
     } catch (error) {
       console.error('Error fetching case details:', error);
     } finally {
-      setLoading(false); // Set loading back to false, whether the request was successful or not
+      setLoading(false);
     }
   };
-  
-
-  
 
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
@@ -70,65 +62,68 @@ const CaseTracking = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="card">
-        <div className="card-body">
-          <h2 className="card-title">Case Tracking</h2>
-
-          <div className="btn-group" role="group" aria-label="Tracking Options">
+    <div className="unique-container mt-5">
+      <div className="unique-card">
+        <div className="unique-card-body">
+          <div className="unique-heading-container">
+            <h2 className="unique-card-title"><b>CASE TRACKING</b></h2>
+          </div>
+  
+          <div className="unique-btn-group" role="group" aria-label="Tracking Options">
             <button
               type="button"
-              className={`btn btn-outline-primary ${trackingOption === 'cnr' ? 'active' : ''}`}
+              className={`unique-btn unique-btn-outline-primary ${trackingOption === 'cnr' ? 'unique-active' : ''}`}
               onClick={() => handleSearchOptionClick('cnr')}
             >
               CNR Number
             </button>
           </div>
-
+  
           {trackingOption && (
-            <div className="mt-3">
+            <div className="unique-mt-3">
               <Dropdown onSelectCourt={handleCourtSelect} />
-
-              <div className="input-group">
+              <br></br>
+              <div className="unique-input-group">
                 <input
                   type="text"
-                  className="form-control"
+                  className="unique-form-control small-input"  // Add small-input class for reduced size
                   placeholder={`Enter ${trackingOption === 'cnr' ? 'CNR' : ''}`}
                   value={searchValue}
                   onChange={handleInputChange}
                 />
-                <div className="input-group-append">
-                  <button className="btn btn-primary" type="button" onClick={handleSearch}>
-                    Submit
-                  </button>
-                </div>
+              </div>
+  
+              <div className="unique-mt-3 text-center"> {/* Use text-center class for center alignment */}
+                <button className="unique-btn unique-btn-primary small-button" type="button" onClick={handleSearch}>
+                  Submit
+                </button>
               </div>
             </div>
           )}
-
+  
           {loading && <p>Loading...</p>}
-
+  
           {!loading && caseDetails && (
-            <div className="mt-4">
-              <h3 className="mb-3">Case Details:</h3>
-              <div className="card">
-                <div className="card-body">
-                  <p className="card-text">
+            <div className="unique-mt-4">
+              <h3 className="unique-mb-3">Case Details:</h3>
+              <div className="unique-card">
+                <div className="unique-card-body">
+                  <p className="unique-card-text">
                     <strong>Case Number:</strong> {caseDetails.caseNumber}
                   </p>
-                  <p className="card-text">
+                  <p className="unique-card-text">
                     <strong>Case Type:</strong> {caseDetails.caseType || caseDetails.filecasetype}
                   </p>
-                  <p className="card-text">
+                  <p className="unique-card-text">
                     <strong>Case Status:</strong> {caseDetails.caseStatus || caseDetails.progress}
                   </p>
                 </div>
               </div>
             </div>
           )}
-
-          {!loading && !caseDetails && (
-            <div className="mt-4">
+  
+          {!loading && !caseDetails && searchValue.trim() && (
+            <div className="unique-mt-4">
               <p>No case found.</p>
             </div>
           )}
@@ -136,6 +131,11 @@ const CaseTracking = () => {
       </div>
     </div>
   );
+  
+  
+  
+  
+  
 };
 
 export default CaseTracking;

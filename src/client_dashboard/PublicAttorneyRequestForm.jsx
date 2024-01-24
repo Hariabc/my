@@ -1,17 +1,29 @@
-// PublicAttorneyRequestForm.jsx
-
 import React, { useState } from 'react';
 import axios from 'axios';
 
 const PublicAttorneyRequestForm = ({ onChange, onNext }) => {
   const [reason, setReason] = useState('');
+  const [incomeCertificate, setIncomeCertificate] = useState(null);
+  const [identificationDocument, setIdentificationDocument] = useState(null);
+
+  const handleFileChange = (event, type) => {
+    const file = event.target.files[0];
+    if (type === 'incomeCertificate') {
+      setIncomeCertificate(file);
+    } else if (type === 'identificationDocument') {
+      setIdentificationDocument(file);
+    }
+  };
 
   const handleSubmit = async () => {
     try {
+      const formData = new FormData();
+      formData.append('reason', reason);
+      formData.append('incomeCertificate', incomeCertificate);
+      formData.append('identificationDocument', identificationDocument);
+
       // Send the public attorney request to the server
-      const response = await axios.post('http://localhost:5000/api/request-public-attorney', {
-        reason,
-      });
+      const response = await axios.post('http://localhost:5000/api/request-public-attorney', formData);
 
       // Handle the response as needed
       console.log('Public attorney request submitted successfully:', response.data);
@@ -39,6 +51,16 @@ const PublicAttorneyRequestForm = ({ onChange, onNext }) => {
           onChange={(e) => setReason(e.target.value)}
           placeholder="Enter your reason for requesting a public attorney"
         />
+      </label>
+      <br />
+      <label>
+        Upload Income Certificate:
+        <input type="file" onChange={(e) => handleFileChange(e, 'incomeCertificate')} />
+      </label>
+      <br />
+      <label>
+        Upload Identification Document (Aadhar, Driver's License, Passport, etc.):
+        <input type="file" onChange={(e) => handleFileChange(e, 'identificationDocument')} />
       </label>
       <br />
       <button onClick={handleSubmit}>Submit Request</button>

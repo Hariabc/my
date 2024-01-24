@@ -4,7 +4,7 @@ import DefendantDetailsForm from '../components/DefendantDetailsForm';
 import CaseAndCourtDetailsForm from '../components/CaseandCourtDetailsForm';
 import DocumentUploadForm from '../components/DocumentsUploadForm';
 import PaymentDetailsForm from '../components/PaymentDetailsForm';
-import PublicAttorneyRequestForm from '../dashborad-components/PublicAdvocate';
+import PublicAttorneyRequestForm from '../client_dashboard/PublicAttorneyRequestForm';
 import './PartyInPerson.css'
 import axios from 'axios';
 import { toast } from 'react-toastify';

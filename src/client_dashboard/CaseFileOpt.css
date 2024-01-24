@@ -46,6 +46,7 @@ button:hover {
 
 button.active {
   background-color: #2ecc71;
+  
 }
 
 .form-click-container {

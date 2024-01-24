@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import "./causelist.css";
 
 const CauselistPage = () => {
   const [states, setStates] = useState([]);
@@ -178,12 +179,18 @@ const CauselistPage = () => {
           </div>
 
           <div className="captcha-box">
-            <label htmlFor="captcha">Enter Captcha:</label>
-            <div className="captcha-text-box">{captcha}</div>
-            <input type="text" id="captcha" className="captcha-input" onChange={handleCaptchaInputChange} />
-            <button onClick={handleVerifyCaptcha}>Verify Captcha</button>
-            {captchaVerified && <p className="success-message">Verification successful!</p>}
-          </div>
+  <label htmlFor="captcha" className="label-captcha">Enter Captcha:</label>
+  <div className="captcha-container">
+    <div className="captcha-text-box">{captcha}</div>
+    <div className="captcha-input-container">
+      <input type="text" id="captcha" className="captcha-input" onChange={handleCaptchaInputChange} />
+    </div>
+  </div>
+  <button className="captcha-verify-button" onClick={handleVerifyCaptcha}>
+    Verify
+  </button>
+  {captchaVerified && <p className="success-message">Verification successful!</p>}
+</div>
 
           <div className="button-box">
             <button onClick={handleSubmit}>Submit</button>
