@@ -74,8 +74,8 @@ const caseSchema = new mongoose.Schema({
     caseCategory: String,
   },
   documents: [{
-    document1: String, // Store URL or file path
-    document2: String,
+    filename: String,
+    url:String
   }// Store URL or file path
     // Add more document fields as needed
   ],

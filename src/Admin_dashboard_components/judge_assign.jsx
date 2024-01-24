@@ -116,7 +116,7 @@ const AssignJudgeDashboard = () => {
                 <strong>Plaintiff Name:</strong> {caseItem.plaintiffDetails.fullName}
               </div>
               <div className="case-details">
-                <strong>Defendant Name:</strong> {caseItem.defendantDetails.fullname}
+                <strong>Defendant Name:</strong> {caseItem.defendantDetails.fullName}
               </div>
               <div className="case-details">
                 <strong>Court Name:</strong> {caseItem.caseDetails.courtName}
