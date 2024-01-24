@@ -21,7 +21,7 @@ import CaseFilingForm from './dashborad-components/FileACase.jsx';
 import FileACaseMin from './dashborad-components/FileACaseMin.jsx';
 import HomeCon from './Features/Video_Conference/homeCon.jsx';
 import Room from './Features/Video_Conference/Room.jsx';
-
+import Advcauselist from './advocate/Cause_list.jsx'
 import CaseTracking from './client_dashboard/CaseTracking.jsx';
 import "./index.css"
 import Layout from './components/Layout.jsx';
@@ -50,6 +50,7 @@ import JudgeMycasesPage from './judge/JudgeMyCases.jsx';
 import JudgeCaseDetails from './judge/JudgeIndividualCases.jsx';
 import JudgeCaseTracking from './judge/CaseTracking.jsx';
 import PublicAdvocateForm from './client_dashboard/publicAdvocate.jsx';
+import Judgecauselist from './judge/Cause_list.jsx'
 const App = () => {
   return (
     <Router>
@@ -102,7 +103,10 @@ const App = () => {
           <Route  path="*" element={<ErrorPage/>}/>
           <Route path="/client/cause-list" element={<Causelist />} />
             <Route path="/cao/judge-assign" element={<Judgeassign />} />
-          <Route path='judge/case-tracking' element={<JudgeCaseTracking/>}/>
+            <Route path='judge/case-tracking' element={<JudgeCaseTracking />} />
+          <Route path='judge/cause-list' element={<Judgecauselist/>}/>
+          <Route path='advocate/cause-list' element={<Advcauselist/>}/>
+            
             
           <Route path='/cao/scheduling-event' element={<AdminEventForm/>}/>
         </Route>
