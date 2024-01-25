@@ -79,22 +79,7 @@ const caseSchema = new mongoose.Schema({
     expiryDate: String,
     cvv: String,
   },
-    publicAdvocateFormDetails: {
-        reason: {
-            type: String,
-            required:true
-        },
-        IncomeCertificate: [{
-            filename: String,
-            url:String
-          }
-        ],
-        IdentificationDocument: [{
-            filename: String,
-            url:String
-          }
-          ],
-    }
+    
 });
 
 const Case = mongoose.model('Publicadvocatecase', caseSchema);

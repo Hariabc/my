@@ -1,18 +1,16 @@
-const mongoose = require('mongoose');
+// publicAdvocateCaseRouter.js
+
 const express = require('express');
-const Case = require('../models/partyinperson');
+const PublicAdvocateCase = require('../models/publicAdvocate');
 const router = express.Router();
 router.use(express.json());
-const User = require("../models/client")
-const Court = require('../models/court')
-const CourtAdmin = require('../models/cao')
+const User = require("../models/client");
+const Court = require('../models/court');
+const CourtAdmin = require('../models/cao');
 const PDFDocument = require('pdfkit');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
-
-// Include other necessary modules and functions...
-
 
 function generateCaseNumber() {
   const timestamp = Date.now().toString();
@@ -31,6 +29,9 @@ const generatePDF = (caseDetails) => {
       const pdfDoc = new PDFDocument();
       pdfDoc.fontSize(12);
       pdfDoc.text('Case Details', { align: 'center', underline: true, margin: [0, 0, 0, 10] });
+
+      // Customize the PDF generation based on the schema of your Public Advocate Case model
+      // Modify the following lines accordingly
 
       pdfDoc
         .fontSize(10)
@@ -100,70 +101,68 @@ const sendEmailWithAttachment = async (recipientEmail, pdfFilePath, caseNumber) 
   }
 };
 
-
-function generateCaseNumber() {
-  const timestamp = Date.now().toString(); // Current timestamp
-  const alphanumeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; // Alphanumeric characters
-  let caseNumber = timestamp; // Initialize with timestamp
-
-  // Append random alphanumeric characters until the case number length reaches 16
-  while (caseNumber.length < 16) {
-    const randomIndex = Math.floor(Math.random() * alphanumeric.length);
-    caseNumber += alphanumeric.charAt(randomIndex);
-  }
-
-  return caseNumber.slice(0, 16); // Return only the first 16 characters
-}
-
 router.post('/case', async (req, res) => {
   try {
-    const { plaintiffDetails, defendantDetails, caseDetails, downloadURLs, paymentDetails, id } = req.body;
+    const {
+      reason,
+      incomeCertificate,
+      identificationDocument,
+      plaintiffDetails,
+      defendantDetails,
+      caseDetails,
+      documents,
+      paymentDetails,
+      id
+    } = req.body;
 
     const courtName = req.body.caseDetails.courtName;
 
+    // Check if the court exists
     const court = await Court.findOne({ name: courtName });
     if (!court) {
       return res.status(404).json({ message: 'Court not found' });
     }
 
-    const newCase = new Case({
+    // Check if the court admin exists
+    const courtAdmin = await CourtAdmin.findOne({ court: court._id });
+    if (!courtAdmin) {
+      return res.status(404).json({ message: 'Court admin not found' });
+    }
+
+    const newPublicAdvocateCase = new PublicAdvocateCase({
       caseNumber: generateCaseNumber(),
+      progress: 'pending',
+      publicAdvocateFormDetails: {
+        reason,
+        IncomeCertificate: incomeCertificate,
+        IdentificationDocument: identificationDocument,
+      },
       plaintiffDetails,
       defendantDetails,
       caseDetails,
+      documents,
       paymentDetails,
     });
 
-    newCase.documents = downloadURLs.map(({ filename, url }) => ({ filename, url }));
-
-    await newCase.save();
-
-
-    // await newCase.save();
+    await newPublicAdvocateCase.save();
 
     const user = await User.findById(id);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    user.cases.push(newCase._id);
+    user.cases.push(newPublicAdvocateCase._id);
     await user.save();
 
-    const courtAdmin = await CourtAdmin.findOne({ court: court._id });
-    if (!courtAdmin) {
-      return res.status(404).json({ message: 'Court admin not found' });
-    }
-
-    courtAdmin.courtCases.push(newCase._id);
-    await courtAdmin.save();
-    const pdfFilePath = await generatePDF(newCase);
-    await sendEmailWithAttachment(user.email, pdfFilePath, newCase.caseNumber);
+    // Additional logic for sending emails, generating PDFs, etc.
+    const pdfFilePath = await generatePDF(newPublicAdvocateCase);
+    await sendEmailWithAttachment(user.email, pdfFilePath, newPublicAdvocateCase.caseNumber);
     fs.unlinkSync(pdfFilePath);
-    res.status(201).json({ message: 'Case details saved successfully', caseNumber: newCase.caseNumber });
+
+    res.status(201).json({ message: 'Case details saved successfully', caseNumber: newPublicAdvocateCase.caseNumber });
   } catch (error) {
     res.status(500).json({ message: 'Error saving case details', error: error.message });
   }
 });
-
 
 module.exports = router;

@@ -21,6 +21,7 @@ const DocumentUploadForm = ({ onChange, onNext }) => {
       });
   
       const downloadURLs = await Promise.all(uploadPromises);
+      console.log(downloadURLs)
       onChange(downloadURLs);
       onNext();
     } catch (error) {
