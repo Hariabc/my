@@ -1,7 +1,7 @@
 // Import React and necessary components and libraries
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import Stepper from 'react-stepper-horizontal';
 
@@ -9,7 +9,7 @@ import Stepper from 'react-stepper-horizontal';
 import PlantiffDetailsForm from '../components/PlantiffDetailsForm';
 import DefendantDetailsForm from '../components/DefendantDetailsForm';
 import CaseAndCourtDetailsForm from '../components/CaseandCourtDetailsForm';
-import DocumentUploadForm from '../components/DocumentsUploadForm';
+import DocumentUploadForm from '../components/DocumentUploadForm';
 import PaymentDetailsForm from '../components/PaymentDetailsForm';
 import PublicAttorneyRequestForm from '../client_dashboard/PublicAttorneyRequestForm';
 
@@ -85,23 +85,23 @@ const PublicAdvocateForm = () => {
     setCurrentStep(4);
   };
 
-  // Handle changes in Document Upload Form
-  const handleDocumentUpload = (data, callback) => {
-    setDownloadURLs(data);
-    // callback();
-  };
+  const handleDocumentUpload = (data) => {
+  console.log('Download URLs:', data);
+  setDownloadURLs(data);  // Update downloadURLs state
+};
 
-  // Handle changes in Payment Details Form
-  const handlePaymentChange = (data) => {
-    setPaymentDetails(data);
-    setCurrentStep(6);
-  };
+// Handle changes in Payment Details Form
+const handlePaymentChange = (data) => {
+  setPaymentDetails(data);
+  setCurrentStep(6);
+};
 
-  // Handle changes in Public Attorney Request Form
-  const handlePublicAttorneyRequest = (data) => {
-    setPublicAttorneyRequest(data);
-    handleSubmit(data);
-  };
+// Handle changes in Public Attorney Request Form
+const handlePublicAttorneyRequest = async (data) => {
+  setPublicAttorneyRequest(data);
+  await handleSubmit(data); // Wait for submission to complete
+  // setCurrentStep(7); // Advance to the next step after Public Attorney Request Form
+};
 
   // Handle form submission
   const handleSubmit = async (publicAttorneyRequestData) => {
@@ -138,6 +138,7 @@ const PublicAdvocateForm = () => {
   // Render the component
   return (
     <div className="case-filing-form">
+      <ToastContainer />
       <Stepper steps={steps} activeStep={currentStep - 1} activeColor="#007bff" completeColor="#28a745" size={30} circleFontSize={12} onClick={(step) => handleStepChange(step)} />
 
       {currentStep === 1 && (
@@ -149,9 +150,9 @@ const PublicAdvocateForm = () => {
       {currentStep === 3 && (
         <CaseAndCourtDetailsForm onChange={handleCaseAndCourtChange} onNext={() => setCurrentStep(4)} />
       )}
-      {currentStep === 4 && (
-        <DocumentUploadForm onChange={handleDocumentUpload} onNext={() => setCurrentStep(5)} />
-      )}
+    {currentStep === 4 && (
+  <DocumentUploadForm onChange={(data) => handleDocumentUpload(data)} onNext={() => setCurrentStep(5)} />
+)}
       {currentStep === 5 && (
         <PaymentDetailsForm onChange={handlePaymentChange} onNext={() => setCurrentStep(6)} />
       )}

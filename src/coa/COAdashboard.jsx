@@ -161,14 +161,14 @@ const BriefcaseDashboard = () => {
   const linksDataBriefcase = [
     { path: '/mycases', label: 'Receive Filed Cases', image: recievecases },
     { path: '/judge-assign', label: 'Assigging judges', image: assignjudge },
-    { path: '/documentation', label: 'Documentation', image: Documentation },
+    { path: '/publicadvocate-assign', label: 'Assigning Public Advocates', image: Documentation },
     { path: '/update-cause-list', label: 'Updating Cause List', image: updatecauselist },
     { path: '/scheduling-event', label: 'Scheduling Calendar', image: scheduling },
     { path: '/case-analytics', label: 'Cases Analytics', image: caseanalytics },
     { path: '/addjudge-publicadv', label: 'Register Public advocates and Judges', image: addlawyers },
     { path: '/news', label: 'Posting Updates News', image: news },
     { path: '/send-notifications', label: 'Notifications', image: notifications },
-    { path: '/case-profile-management', label: 'Case Management', image: resources },
+    { path: '/court-cases', label: 'Court Cases', image: resources },
     { path: '/pre-trial-conferencing', label: 'Pre-trial', image: videoconfrence },
     // ... add more links as needed
   ];

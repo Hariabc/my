@@ -9,6 +9,7 @@ const Filedcase=require('../models/partyinperson')
 const { Case, Hearing, Order } = require('../models/courtcase');
 const court = require('../models/court');
 const Event = require('../models/event')
+const Advocate=require('../models/advocate')
 
 const router = express.Router();
 router.use(cookie())
@@ -130,6 +131,22 @@ router.get('/mycases', authMiddleware, async (req, res) => {
   }
 });
 
+router.get('/allcases', authMiddleware, async (req, res) => {
+  try {
+    const courtAdminId = req.user._id; // Retrieve court admin ID from authenticated user
+    // console.log(courtAdminId)
+    // Find the court admin by ID and populate the associated court cases
+    const courtAdmin = await CourtAdmin.findById(courtAdminId).populate('AllCases');
+
+    if (!courtAdmin) {
+      return res.status(404).json({ message: 'Court admin not found' });
+    }
+
+    res.status(200).json({ courtCases: courtAdmin.AllCases });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching court cases', error: error.message });
+  }
+});
 // Assuming you have a route like '/approve-for-assigning-judge'
 router.post('/approve-case/:adminId/:caseId/:approvalType', async (req, res) => {
   try {
@@ -189,6 +206,28 @@ router.get('/judgeapproved-cases', authMiddleware,async (req, res) => {
     const judgeApprovedCases = courtAdmin.judgeapprovedcases;
 
     res.json({ judgeApprovedCases });
+  } catch (error) {
+    console.error('Error fetching judge-approved cases:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+router.get('/publicadvocateapproved-cases', authMiddleware,async (req, res) => {
+  try {
+    // Assuming you have a middleware to authenticate the court admin and attach user data to req.user
+    const courtAdminId = req.user._id;
+
+    // Find the court admin by ID and populate the judge-approved cases
+    const courtAdmin = await CourtAdmin.findById(courtAdminId).populate('publicadvocateapprovedcases');
+
+    if (!courtAdmin) {
+      return res.status(404).json({ message: 'Court Admin not found' });
+    }
+
+    // Extract the judge-approved cases
+    const publicadvocateapprovedcases = courtAdmin.publicadvocateapprovedcases;
+
+    res.json({ publicadvocateapprovedcases });
   } catch (error) {
     console.error('Error fetching judge-approved cases:', error);
     res.status(500).json({ message: 'Internal Server Error' });
@@ -273,6 +312,29 @@ router.get('/registered-judges', authMiddleware,async (req, res) => {
   }
 });
 
+router.get('/registered-publicAdvocates', authMiddleware,async (req, res) => {
+  try {
+    // Assuming you have a middleware to authenticate the admin and attach user data to req.user
+    const adminId = req.user._id;
+
+    // Find the court admin by ID
+    const admin = await CourtAdmin.findById(adminId).populate('Publicadvocates');
+
+    if (!admin) {
+      return res.status(404).json({ message: 'Admin not found' });
+    }
+
+    // Access the list of registered judges directly from the admin object
+    const registeredPublicadvocates = admin.Publicadvocates;
+
+    res.json({ registeredPublicadvocates });
+  } catch (error) {
+    console.error('Error fetching registered judges:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
 router.post('/assign-judge/:judgeId/:filedcaseId', authMiddleware, async (req, res) => {
   try {
     // Extract judgeId, filedcaseId from request parameters
@@ -323,6 +385,58 @@ router.post('/assign-judge/:judgeId/:filedcaseId', authMiddleware, async (req, r
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
+router.post('/assign-publicAdvocate/:publicadvocateId/:filedcaseId', authMiddleware, async (req, res) => {
+  try {
+    // Extract judgeId, filedcaseId from request parameters
+    const { publicadvocateId, filedcaseId } = req.params;
+    const adminId = req.user._id;
+
+    // Find the judge, filedcase, and courtCase based on their IDs
+    const publicadvocate = await Advocate.findById(publicadvocateId);
+    const filedcase = await Filedcase.findById(filedcaseId);
+    const courtCase = await Case.findOne({ caseDetails: filedcase._id });
+
+    // Check if the judge, filedcase, or courtCase is not found
+    if (!publicadvocate || !filedcase || !courtCase) {
+      return res.status(404).json({ message: 'publicadvocate, Filedcase, or CourtCase not found' });
+    }
+
+    // Check if the case is already assigned to a judge
+    if (courtCase.publicadvocate) {
+      return res.status(400).json({ message: 'Case is already assigned to a Public Advocate' });
+    }
+
+    // Ensure that the judge object has a 'cases' property (initialize it if not present)
+    if (!publicadvocate.cases) {
+      publicadvocate.cases = [];
+    }
+
+    // Add the filedcase to the judge's cases array
+    publicadvocate.cases.push(filedcase._id);
+    await publicadvocate.save();
+
+    // Remove the filedcase from judgeapprovedcases array
+    // Add the filedcase to judgeAssignedCases array
+    await CourtAdmin.findByIdAndUpdate(adminId, {
+      $pull: { publicadvocateapprovedcases: filedcaseId },
+      $push: { publicadvocateassignedcases: filedcaseId },
+    });
+
+    // Associate the judge with the CourtCase
+    courtCase.publicadvocate = publicadvocate;
+    courtCase.caseStatus = 'caseAssignedToAPublicAdvocate';
+    await courtCase.save();
+
+    // Respond with a success message
+    res.json({ message: 'Public Advocate assigned to Filedcase and associated with CourtCase successfully' });
+  } catch (error) {
+    // Handle errors and respond with an internal server error
+    console.error('Error assigning Public Advocate:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
 
 // Add this route in your router file (e.g., routes/client.js)
 router.get('/my-events', authMiddleware, async (req, res) => {

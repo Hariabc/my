@@ -50,6 +50,10 @@ const PublicAttorneyRequestForm = ({ onChange, onSubmit }) => {
 
       // Call the onSubmit function passed from the parent
       onSubmit();
+
+      // Log the download URLs to the console
+      console.log('Income Certificate URL:', formData.incomeCertificate.url);
+      console.log('Identification Document URL:', formData.identificationDocument.url);
     } catch (error) {
       console.error('Error uploading files:', error);
       // Handle errors (e.g., show a user-friendly message)

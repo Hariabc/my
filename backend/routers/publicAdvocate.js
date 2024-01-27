@@ -1,7 +1,5 @@
-// publicAdvocateCaseRouter.js
-
 const express = require('express');
-const PublicAdvocateCase = require('../models/publicAdvocate');
+const PublicAdvocateCase = require('../models/partyinperson');
 const router = express.Router();
 router.use(express.json());
 const User = require("../models/client");
@@ -12,6 +10,7 @@ const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
 
+// Function to generate a unique case number
 function generateCaseNumber() {
   const timestamp = Date.now().toString();
   const alphanumeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -23,6 +22,7 @@ function generateCaseNumber() {
   return caseNumber.slice(0, 16);
 }
 
+// Function to generate a PDF document based on case details
 const generatePDF = (caseDetails) => {
   return new Promise((resolve, reject) => {
     try {
@@ -62,6 +62,7 @@ const generatePDF = (caseDetails) => {
   });
 };
 
+// Function to send an email with a PDF attachment
 const sendEmailWithAttachment = async (recipientEmail, pdfFilePath, caseNumber) => {
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -101,18 +102,21 @@ const sendEmailWithAttachment = async (recipientEmail, pdfFilePath, caseNumber) 
   }
 };
 
+// Route to handle the case submission
 router.post('/case', async (req, res) => {
   try {
     const {
-      reason,
-      incomeCertificate,
-      identificationDocument,
+      id,
       plaintiffDetails,
       defendantDetails,
       caseDetails,
-      documents,
+      downloadURLs,
       paymentDetails,
-      id
+      publicAttorneyRequest: {
+        reason,
+        incomeCertificate: { filename: incomeCertificateFilename, url: incomeCertificateUrl },
+        identificationDocument: { filename: identificationDocumentFilename, url: identificationDocumentUrl },
+      },
     } = req.body;
 
     const courtName = req.body.caseDetails.courtName;
@@ -124,26 +128,35 @@ router.post('/case', async (req, res) => {
     }
 
     // Check if the court admin exists
-    const courtAdmin = await CourtAdmin.findOne({ court: court._id });
-    if (!courtAdmin) {
-      return res.status(404).json({ message: 'Court admin not found' });
-    }
+ 
+    // const downloadURLs = [];
+
+    // Add logic here to save the files to your storage and get their download URLs
+    // Use the provided filenames to create paths or unique identifiers for your files
 
     const newPublicAdvocateCase = new PublicAdvocateCase({
       caseNumber: generateCaseNumber(),
       progress: 'pending',
+      filecasetype: 'publicAdvocate',
       publicAdvocateFormDetails: {
         reason,
-        IncomeCertificate: incomeCertificate,
-        IdentificationDocument: identificationDocument,
+        IncomeCertificate: {
+          filename: incomeCertificateFilename,
+          url: incomeCertificateUrl,
+        },
+        IdentificationDocument: {
+          filename: identificationDocumentFilename,
+          url: identificationDocumentUrl,
+        },
       },
       plaintiffDetails,
       defendantDetails,
       caseDetails,
-      documents,
       paymentDetails,
     });
 
+    // Assuming downloadURLs is an array of objects containing filename and url
+    newPublicAdvocateCase.documents = downloadURLs.map(({ filename, url }) => ({ filename, url }));
     await newPublicAdvocateCase.save();
 
     const user = await User.findById(id);
@@ -153,7 +166,14 @@ router.post('/case', async (req, res) => {
 
     user.cases.push(newPublicAdvocateCase._id);
     await user.save();
+    const courtAdmin = await CourtAdmin.findOne({ court: court._id });
+    if (!courtAdmin) {
+      return res.status(404).json({ message: 'Court admin not found' });
+    }
+    courtAdmin.AllCases.push(newCase._id);
 
+    courtAdmin.courtCases.push(newPublicAdvocateCase._id);
+    await courtAdmin.save();
     // Additional logic for sending emails, generating PDFs, etc.
     const pdfFilePath = await generatePDF(newPublicAdvocateCase);
     await sendEmailWithAttachment(user.email, pdfFilePath, newPublicAdvocateCase.caseNumber);

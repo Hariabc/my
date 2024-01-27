@@ -315,6 +315,21 @@ router.post('/logout', (req, res) => {
 });
 
 
+router.get('/mycases', authMiddleware, async (req, res) => {
+  const advocateId = req.user._id; // Use req.user._id to get the authenticated judge's ID
+  // console.log(advocateId);
+  try {
+    const advocate = await Advocate.findById(advocateId).populate('cases');
 
+    if (!advocate) {
+      return res.status(404).json({ message: 'Advocate not found' });
+    }
+
+    res.json(advocate.cases);
+  } catch (error) {
+    console.error('Error fetching advocate cases:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 module.exports = router;

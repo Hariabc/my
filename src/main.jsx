@@ -41,6 +41,9 @@ import AddUsers from './Admin_dashboard_components/publicadv_judgeregister.jsx'
 import ErrorPage from './pages/ErrorPage.jsx';
 import Causelist from './client_dashboard/Cause_list.jsx'
 import Judgeassign from './Admin_dashboard_components/judge_assign.jsx'
+import PubAdvassign from './Admin_dashboard_components/publicadvocateassign.jsx'
+import Pubadvcases from './advocate/mycases.jsx'
+import Advcasetracking from './advocate/CaseTracking.jsx'
 import Services from './pages/service';
 import Contact from './pages/contact';
 import ClientEventForm from './client_dashboard/ClientEventForm.jsx';
@@ -51,6 +54,7 @@ import JudgeCaseDetails from './judge/JudgeIndividualCases.jsx';
 import JudgeCaseTracking from './judge/CaseTracking.jsx';
 import PublicAdvocateForm from './client_dashboard/publicAdvocate.jsx';
 import Judgecauselist from './judge/Cause_list.jsx'
+import Courtcases from './Admin_dashboard_components/courtcases.jsx'
 const App = () => {
   return (
     <Router>
@@ -98,14 +102,22 @@ const App = () => {
           <Route path="/client/mycases" element={<ClientCases/>} />
           <Route path="/client/mycases/:caseId" element={<IndividualCasesID />} />
           <Route path="/client/scheduling-event" element={<ClientEventForm/>}/>
-          <Route path="/cao/mycases" element={<Mycases />} />
+            <Route path="/cao/mycases" element={<Mycases />} />
+          <Route path="/cao/court-cases" element={<Courtcases />} />
+            
           <Route path="/cao/addjudge-publicadv" element={<AddUsers/>} />
           <Route  path="*" element={<ErrorPage/>}/>
           <Route path="/client/cause-list" element={<Causelist />} />
             <Route path="/cao/judge-assign" element={<Judgeassign />} />
+            <Route path="/cao/publicadvocate-assign" element={<PubAdvassign />} />
+
             <Route path='judge/case-tracking' element={<JudgeCaseTracking />} />
           <Route path='judge/cause-list' element={<Judgecauselist/>}/>
-          <Route path='advocate/cause-list' element={<Advcauselist/>}/>
+            <Route path='advocate/cause-list' element={<Advcauselist />} />
+            <Route path='advocate/my-cases' element={<Pubadvcases />} />
+          <Route path='advocate/case-tracking' element={<Advcasetracking/>}/>
+            
+            
             
             
           <Route path='/cao/scheduling-event' element={<AdminEventForm/>}/>

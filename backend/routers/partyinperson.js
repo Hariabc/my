@@ -153,7 +153,8 @@ router.post('/case', async (req, res) => {
     if (!courtAdmin) {
       return res.status(404).json({ message: 'Court admin not found' });
     }
-
+    courtAdmin.AllCases.push(newCase._id);
+    
     courtAdmin.courtCases.push(newCase._id);
     await courtAdmin.save();
     const pdfFilePath = await generatePDF(newCase);

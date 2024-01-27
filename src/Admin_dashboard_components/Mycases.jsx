@@ -48,6 +48,7 @@ const AdminDashboard = () => {
   const viewDocuments = (caseItem) => {
     setSelectedCase(caseItem);
     setSelectedCaseDocuments(caseItem.documents);
+
     setDocumentsModalVisible(true);
   };
 
@@ -190,7 +191,6 @@ const AdminDashboard = () => {
   
       // Close the modal
       setApproveOptionsVisible(false);
-  
       // Show success toast message
       toast.success('Case approved for assigning public advocate', {
         position: toast.POSITION.TOP_CENTER,
@@ -333,7 +333,7 @@ const AdminDashboard = () => {
                       <button onClick={handleAssignJudge} className='assign-btn'>Approve for Assigning Judge</button>
                       <button onClick={handleAssignPublicAdvocate} className='assign-btn'>Approve for Assigning Public Advocate</button>
                       <button onClick={closeApproveOptionsModal} className='close-btn'>
-                        {/* <FontAwesomeIcon icon={faTimes} /> */}
+                        <FontAwesomeIcon icon={faTimes} />
                       </button>
                     </div>
                   </div>
@@ -349,11 +349,12 @@ const AdminDashboard = () => {
       )}
     
     {documentsModalVisible && (
-        <DocumentsModal
-          documents={selectedCaseDocuments}
-          onClose={closeDocumentsModal}
-        />
-      )}
+  <DocumentsModal
+    documents={selectedCaseDocuments}
+    publicAdvocateFormDetails={selectedCase.publicAdvocateFormDetails}  // Assuming publicAdvocateFormDetails is part of selectedCase
+    onClose={closeDocumentsModal}
+  />
+)}
       </>
       )}
 

@@ -180,7 +180,7 @@ router.post('/login',async (req, res) => {
     // Handle errors
     return res.status(500).json({ error: 'Failed to log in', message: err.message });
   }
-});
+}); 
 
 // causelistRoutes.js // Import your Case model
 

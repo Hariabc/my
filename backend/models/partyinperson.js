@@ -87,16 +87,16 @@ const caseSchema = new mongoose.Schema({
   publicAdvocateFormDetails: {
     reason: {
         type: String,
-        required:true
+        // required:true
     },
     IncomeCertificate: [{
-        filename: String,
-        url:String
+      filepath: String,
+      url: String,
       }
     ],
     IdentificationDocument: [{
-        filename: String,
-        url:String
+      filepath: String,
+      url: String,
       }
       ],
 }
