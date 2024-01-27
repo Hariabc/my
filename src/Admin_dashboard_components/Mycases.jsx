@@ -33,9 +33,16 @@ const AdminDashboard = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
-  const filteredCases2 = cases.filter((caseItem) =>
-  caseItem.caseNumber.toString().includes(searchQuery.toLowerCase())
-);
+
+  const filteredCases2 = cases.filter((caseItem) => {
+    const caseNumberMatch = (caseItem.caseNumber?.toString() || '').includes(searchQuery.toUpperCase());
+    const titleMatch = (caseItem.title || '').toLowerCase().includes(searchQuery.toLowerCase());
+    const plaintiffMatch = (caseItem.plaintiffDetails?.fullName || '').toLowerCase().includes(searchQuery.toLowerCase());
+    const defendantMatch = (caseItem.defendantDetails?.fullName || '').toLowerCase().includes(searchQuery.toLowerCase());
+  
+    return caseNumberMatch || titleMatch || plaintiffMatch || defendantMatch;
+  });
+  
 
 
   useEffect(() => {
@@ -210,6 +217,7 @@ const AdminDashboard = () => {
     setApproveOptionsVisible(true);
     // Set the selected case
     setSelectedCase(cases.find((caseItem) => caseItem._id === caseId));
+    selectedCase(null)
   };
   const handleReject = async (caseId) => {
     try {
@@ -331,8 +339,8 @@ const AdminDashboard = () => {
                   <StyledTableHead align='center'>Case Title</StyledTableHead>
                   <StyledTableHead align='center'>Case Number</StyledTableHead>
                   <StyledTableHead align='center'>View Details</StyledTableHead>
-                  <StyledTableHead align='center'>Actions</StyledTableHead>
                   <StyledTableHead align='center'>View Documents</StyledTableHead>
+                  <StyledTableHead align='center'>Actions</StyledTableHead>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -466,7 +474,7 @@ const AdminDashboard = () => {
     {documentsModalVisible && (
   <DocumentsModal
     documents={selectedCaseDocuments}
-    publicAdvocateFormDetails={selectedCase.publicAdvocateFormDetails}  // Assuming publicAdvocateFormDetails is part of selectedCase
+    // publicAdvocateFormDetails={selectedCase.publicAdvocateFormDetails}  // Assuming publicAdvocateFormDetails is part of selectedCase
     onClose={closeDocumentsModal}
   />
 )}
