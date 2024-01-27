@@ -34,9 +34,9 @@ const MyCases = () => {
       {cases.length > 0 ? (
         cases.map((caseItem) => (
           <div key={caseItem._id} className="case-item">
-            <h4>Case ID: {caseItem.caseNumber}</h4>
+            <h4 style={{marginTop:"5%"}}>Case ID: {caseItem.caseNumber}</h4>
             {/* Display other case details */}
-            <button onClick={() => viewCaseDetails(caseItem._id)}>View Case Details</button>
+            <button onClick={() => viewCaseDetails(caseItem._id)} style={{width:"100%",padding:"10px 40px"}}>View Case Details</button>
           </div>
         ))
       ) : (

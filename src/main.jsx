@@ -51,8 +51,11 @@ import JudgeCaseDetails from './judge/JudgeIndividualCases.jsx';
 import JudgeCaseTracking from './judge/CaseTracking.jsx';
 import PublicAdvocateForm from './client_dashboard/publicAdvocate.jsx';
 import Judgecauselist from './judge/Cause_list.jsx'
+import { ThemeProvider } from 'react-bootstrap';
+import theme from './theme.jsx';
 const App = () => {
   return (
+    <ThemeProvider theme={theme}>
     <Router>
       <AuthProvider>
       <Routes>
@@ -113,6 +116,7 @@ const App = () => {
       </Routes>
       </AuthProvider>
     </Router>
+    </ThemeProvider>
   );
 };
 

@@ -134,7 +134,7 @@ const CauselistPage = () => {
   };
   
   return (
-    <div className="container">
+    <div className="causelist-container" style={{width:"100%"}}>
       {!showCauseList ? (
         <div className="dropdown-container">
           <div className="dropdown-box">
