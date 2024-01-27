@@ -19,7 +19,7 @@ import JudgeConference from './Features/JudgeConference.jsx';
 import Conference from './Features/Video_Conference/Conference.jsx';
 import CaseFilingForm from './dashborad-components/FileACase.jsx';
 import FileACaseMin from './dashborad-components/FileACaseMin.jsx';
-import HomeCon from './Features/Video_Conference/homeCon.jsx';
+// import HomeCon from './Features/Video_Conference/homeCon.jsx';
 import Room from './Features/Video_Conference/Room.jsx';
 import Advcauselist from './advocate/Cause_list.jsx'
 import CaseTracking from './client_dashboard/CaseTracking.jsx';
@@ -57,6 +57,9 @@ import Judgecauselist from './judge/Cause_list.jsx'
 import { ThemeProvider } from 'react-bootstrap';
 import theme from './theme.jsx';
 import Courtcases from './Admin_dashboard_components/courtcases.jsx'
+import Orders from './judge/Order.jsx';
+import Judgements from './judge/Judgement.jsx';
+import OrderJudgements from './judge/orders&judgements.jsx';
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
@@ -94,7 +97,7 @@ const App = () => {
           <Route path='/fileacase' element={<FileACaseMin/>}/>
           <Route path='/client/pre-trial' element={<VideoConference/>}/>
           <Route path='judge/schedule-pre-trial' element={<JudgeConference/>}/>
-          <Route path="/homecon/:meetingID" element={<HomeCon/>}/>
+          {/* <Route path="/homecon/:meetingID" element={<HomeCon/>}/> */}
           <Route path='/room/:roomID' element={<Room/>}/>
           <Route path='client/case-tracking' element={<CaseTracking/>}/>
           <Route path="/judge/register/complete/:token" element={<JudgeReg />} />
@@ -106,8 +109,7 @@ const App = () => {
           <Route path="/client/mycases/:caseId" element={<IndividualCasesID />} />
           <Route path="/client/scheduling-event" element={<ClientEventForm/>}/>
           <Route path="/cao/mycases" element={<Mycases />} />
-          <Route path="/cao/court-cases" element={<Courtcases />} />
-            
+          <Route path="/cao/court-cases" element={<Courtcases />} />   
           <Route path="/cao/addjudge-publicadv" element={<AddUsers/>} />
           <Route  path="*" element={<ErrorPage/>}/>
           <Route path="/client/cause-list" element={<Causelist />} />
@@ -116,11 +118,7 @@ const App = () => {
 
             <Route path='judge/case-tracking' element={<JudgeCaseTracking />} />
           <Route path='judge/cause-list' element={<Judgecauselist/>}/>
-            <Route path='advocate/cause-list' element={<Advcauselist />} />
-            <Route path='advocate/my-cases' element={<Pubadvcases />} />
-          <Route path='advocate/case-tracking' element={<Advcasetracking/>}/>
-            
-            
+          <Route path='advocate/cause-list' element={<Advcauselist/>}/>
             
             
           <Route path='/cao/scheduling-event' element={<AdminEventForm/>}/>

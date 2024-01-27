@@ -1,136 +1,126 @@
-  /* Update CaseTracking.css */
-
-
-  
-  .unique-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .unique-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 20px;
-  }
-
-  .unique-card-title {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-
-  .unique-btn-group button {
-    margin-right: 10px;
-    font-size: 16px;
-    padding: 10px 15px;
-    border: 1px solid #3498db;
-    border-radius: 4px;
-    background-color: #3498db;
-    color: #fff;
-    cursor: pointer;
-  }
-
-  .unique-btn-group button.unique-active {
-    background-color: #2980b9;
-  }
-
-  .unique-mt-3 {
-    margin-top: 20px;
-  }
-
-  .unique-input-group {
-    display: flex;
-  }
-
-  .unique-form-control {
-    flex: 1;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px 0 0 4px;
-    width: 25px;
-    height: 50px;
-  }
-
-  .unique-input-group-append button {
-    padding: 10px 15px;
-    border: 1px solid #27ae60;
-    border-radius: 0 4px 4px 0;
-    background-color: #2ecc71;
-    color: #fff;
-    cursor: pointer;
-  }
-
-  .unique-input-group-append button:hover {
-    background-color: #27ae60;
-  }
-
-  .unique-mt-4 {
-    margin-top: 40px;
-  }
-
-  .unique-card-text {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-
-  .unique-card-text strong {
-    font-weight: bold;
-    margin-right: 5px;
-  }
-
-  /* Loading Spinner */
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  .loading-spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-top: 4px solid #3498db;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 1s linear infinite;
-    margin-right: 10px;
-  }
-  .dropdown-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .dropdown-box {
-    width: 100%;
-  }
-
-  label {
-    display: block;
-    font-size: 16px;
-    margin-bottom: 8px;
-    color: #333;
-  }
-/* Update your CSS file */
-
-.unique-heading-container {
+/* Default styles */
+.custom-container {
   display: flex;
+  justify-content: center;
   align-items: center;
+  height: 100vh;
+}
+
+.custom-heading-container {
+  padding-left: 250px;
+}
+
+.custom-card {
+  width: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-form-control.small-input {
+  border-radius: 50px;
+  background-color: aliceblue;
+  margin-top: 10px;
+}
+
+.custom-btn.custom-btn-primary.small-button {
+  padding: 10px;
+  font-size: 14px;
+}
+
+.custom-card-body {
+  padding: 20px;
+  margin: 10px;
+}
+
+.custom-input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 700px;
+}
+
+.custom-mt-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.unique-case-details {
+  margin-top: 20px;
+}
+
+.unique-case-heading {
+  margin-bottom: 15px;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.unique-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 15px;
+}
+
+.unique-card-body {
+  padding: 15px;
+}
+
+.unique-case-number {
+  font-weight: bold;
+}
+
+.unique-case-info {
+  margin-top: 10px;
+}
+
+.unique-no-case {
+  margin-top: 20px;
+  color: #777;
+}
+
+.custom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.custom-btn-group {
+  display: flex;
   justify-content: center;
 }
 
-.unique-card-title {
-  margin: 0; /* Remove default margin for h2 */
-}
-.unique-form-control.small-input {
-  width: 50%; /* Adjust the width as needed */
+/* Adjust these styles based on your design preferences */
+.custom-form-control {
+  width: 200px; /* Adjust the width as needed */
+  margin-right: 10px; /* Adjust the spacing between the Dropdown and TextField */
 }
 
-.unique-btn.unique-btn-primary.small-button {
-  width: 300px; /* Adjust the width as needed */
-  height: 30px; /* Adjust the height as needed */
+/* Add this to center the buttons */
+.custom-mt-3 {
+  display: flex;
+  justify-content: center;
+}
+
+/* Add this to center the loading spinner */
+.custom-no-case {
+  display: flex;
+  justify-content: center;
+}
+
+/* Responsive styles */
+@media (max-width: 1300px) {
+  .custom-heading-container {
+    padding-left: 0;
+  }
+
+  .custom-card {
+    width: 80%;
+  }
+
+  .custom-input-group {
+    width: 90%;
+  }
+
 }

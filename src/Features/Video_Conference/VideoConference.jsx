@@ -33,7 +33,7 @@ function Videoconference() {
 
   return (
     <div className="video-conference-container">
-      <h2>Client Dashboard - Scheduled Conferences</h2>
+      <h2 className='conference-heading'>SCHEDULED - CONFERENCES</h2>
       {conferences.length === 0 ? (
         <p>No scheduled conferences at the moment.</p>
       ) : (
