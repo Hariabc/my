@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./causelist.css";
+import { Button, MenuItem, Typography, Select, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, InputLabel, Container } from '@mui/material';
+
 
 const CauselistPage = () => {
   const [states, setStates] = useState([]);
@@ -134,134 +136,163 @@ const CauselistPage = () => {
   };
   
   return (
-    <div className="causelist-container" style={{width:"100%"}}>
-      {!showCauseList ? (
-        <div className="dropdown-container">
-          <div className="dropdown-box">
-            <label htmlFor="states">Select State:</label>
-            <select id="states" onChange={handleStateChange}>
-              <option value="">Select a state</option>
-              {states.map((state) => (
-                <option key={state.id} value={state.id}>
-                  {state.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="dropdown-box">
-            <label htmlFor="districts">Select District:</label>
-            <select id="districts" onChange={handleDistrictChange}>
-              <option value="">Select a district</option>
-              {districts.map((district) => (
-                <option key={district.id} value={district.id}>
-                  {district.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="dropdown-box">
-            <label htmlFor="courts">Select Court:</label>
-            <select id="courts" onChange={(e) => setSelectedCourt(e.target.value)}>
-              <option value="">Select a court</option>
-              {courts.map((court) => (
-                <option key={court.id} value={court.id}>
-                  {court.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="dropdown-box">
-            <label htmlFor="date">Cause List Date:</label>
-            <input type="date" id="date" onChange={handleDateChange} />
-          </div>
-
-          <div className="captcha-box">
-  <label htmlFor="captcha" className="label-captcha">Enter Captcha:</label>
-  <div className="captcha-container">
-    <div className="captcha-text-box">{captcha}</div>
-    <div className="captcha-input-container">
-      <input type="text" id="captcha" className="captcha-input" onChange={handleCaptchaInputChange} />
+    <Container maxWidth="xl" className="container-list" >
+    <div className="heading">
+      <Typography variant="h4" align="center" gutterBottom><b>CAUSE LIST</b></Typography>
     </div>
+
+    {!showCauseList ? (
+      <div className="dropdown-container">
+        <div className="flex-container">
+          <div className="dropdown-box">
+            <InputLabel id="state-label">Select State:</InputLabel>
+            <Select labelId="state-label" label="Select State" style={{ width: '250px' }} id="states" onChange={handleStateChange}>
+            <MenuItem value="">
+        <em>Choose a state</em>
+      </MenuItem>
+      {states.map((state) => (
+        <MenuItem key={state.id} value={state.id}>
+          {state.name}
+        </MenuItem>
+      ))}
+    </Select>
   </div>
-  <button className="captcha-verify-button" onClick={handleVerifyCaptcha}>
-    Verify
-  </button>
-  {captchaVerified && <p className="success-message">Verification successful!</p>}
+
+          <div className="dropdown-box">
+            <InputLabel id="state-label">Select District:</InputLabel>
+            <Select labelId="district-label" id="districts" style={{ width: '250px' }} onChange={handleDistrictChange}>
+              <MenuItem value=""><em>Select a district</em></MenuItem>
+              {districts.map((district) => (
+                <MenuItem key={district.id} value={district.id}>
+                  {district.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </div>
+
+          <div className="dropdown-box">
+            <InputLabel htmlFor="courts">Select Court:</InputLabel>
+            <Select id="courts" style={{ width: '250px' }} onChange={(e) => setSelectedCourt(e.target.value)}>
+              <MenuItem value="">Select a court</MenuItem>
+              {courts.map((court) => (
+                <MenuItem key={court.id} value={court.id}>
+                  {court.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </div>
+          <div className="dropdown-box">
+  <label htmlFor="date">Cause List Date:</label>
+  <TextField
+    type="date"
+    id="date" style={{ width: '250px' }}
+    onChange={handleDateChange}
+    InputLabelProps={{
+      shrink: true,
+    }}
+  />
+</div>
 </div>
 
-          <div className="button-box">
-            <button onClick={handleSubmit}>Submit</button>
-          </div>
+         
+<div className="captcha-box">
+  <Typography variant="h6" className="label-captcha"><b>Enter Captcha:</b></Typography>
+  
+  <div className="captcha-container">
+    <Typography variant="body1">Captcha</Typography>
+    <Typography variant="body1" className="captcha-text-box">{captcha}</Typography>
+    <TextField
+      type="text"
+      id="captcha"
+      className="captcha-input"
+      variant="outlined"
+      onChange={handleCaptchaInputChange}
+    />
+  </div>
+  <Button variant="contained" color="primary" className="captcha-verify-button" onClick={handleVerifyCaptcha} style={{ marginTop: '10px' }}>
+    Verify
+  </Button>
+  {captchaVerified && <Typography variant="body2" className="success-message">Verification successful!</Typography>}
+</div>
+
+
+<div className="submit-button-container">
+<Button
+  variant='contained'
+  color="primary"
+  size="small" // Add this line to make the button small
+  onClick={handleSubmit}
+  fullWidth
+  style={{ marginTop: '10px', marginLeft:'610px' ,  width: '250px' }}
+  >
+  Submit
+</Button>
+</div>
         </div>
       ) : (
         <div>
-          <h2>Cause List for {courts.find((court) => court.id === selectedCourt)?.name}</h2>
-          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
-            <thead>
-              <tr>
-                <th style={tableHeaderStyle}>Sl. No</th>
-                <th style={tableHeaderStyle}>Case Number</th>
-                <th style={tableHeaderStyle}>Parties Involved</th>
-                  <th style={tableHeaderStyle}>Court Name</th>
-                {/* <th style={tableHeaderStyle}>Judge Name</th> */}
-                  
-                <th style={tableHeaderStyle}>Hearing Date</th>
-                <th style={tableHeaderStyle}>Hearing Time</th>
-                  <th style={tableHeaderStyle}>Mode of Hearing</th>
-                <th style={tableHeaderStyle}>Status</th>
-                  
-              </tr>
-            </thead>
-             <tbody>
-      {causeList.map((caseItem, index) => (
-        <tr key={caseItem.caseNumber}>
-          <td style={tableCellStyle}>{index + 1}</td>
-          <td style={tableCellStyle}>{caseItem.caseNumber}</td>
-          <td style={tableCellStyle}>
-            {caseItem.hearings.map((hearing, hearingIndex) => (
-              <div key={hearingIndex}>{`${hearing.plaintiffName} vs ${hearing.defendantName}`}</div>
-            ))}
-          </td>
-          <td style={tableCellStyle}>{realcourtname}</td>
-          {/* <td style={tableCellStyle}>
-            {caseItem.hearings.map((hearing, hearingIndex) => (
-              <div key={hearingIndex}>{(hearing.judge.name)}</div>
-            ))}
-          </td> */}
-          <td style={tableCellStyle}>
-            {caseItem.hearings.map((hearing, hearingIndex) => (
-              <div key={hearingIndex}>{formatDate(hearing.date)}</div>
-            ))}
-          </td>
-          <td style={tableCellStyle}>
-            {caseItem.hearings.map((hearing, hearingIndex) => (
-              <div key={hearingIndex}>{(hearing.time)}</div>
-            ))}
-          </td>
-          {/* Additional columns for each hearing property can be added similarly */}
-          {/* <td style={tableCellStyle}>{formatTime(caseItem.heaings.date)}</td> */}
-          <td style={tableCellStyle}>
-            {caseItem.hearings.map((hearing, hearingIndex) => (
-              <div key={hearingIndex}>{hearing.hearingMode}</div>
+    <h2>Cause List for {courts.find((court) => court.id === selectedCourt)?.name}</h2>
+    <TableContainer component={Paper}>
+      <Table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
+        <TableHead>
+          <TableRow>
+            <TableCell style={tableHeaderStyle}>Sl. No</TableCell>
+            <TableCell style={tableHeaderStyle}>Case Number</TableCell>
+            <TableCell style={tableHeaderStyle}>Parties Involved</TableCell>
+            <TableCell style={tableHeaderStyle}>Court Name</TableCell>
+            {/* <TableCell style={tableHeaderStyle}>Judge Name</TableCell> */}
+            <TableCell style={tableHeaderStyle}>Hearing Date</TableCell>
+            <TableCell style={tableHeaderStyle}>Hearing Time</TableCell>
+            <TableCell style={tableHeaderStyle}>Mode of Hearing</TableCell>
+            <TableCell style={tableHeaderStyle}>Status</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {causeList.map((caseItem, index) => (
+            <TableRow key={caseItem.caseNumber}>
+              <TableCell style={tableCellStyle}>{index + 1}</TableCell>
+              <TableCell style={tableCellStyle}>{caseItem.caseNumber}</TableCell>
+              <TableCell style={tableCellStyle}>
+                {caseItem.hearings.map((hearing, hearingIndex) => (
+                  <div key={hearingIndex}>{`${hearing.plaintiffName} vs ${hearing.defendantName}`}</div>
+                ))}
+              </TableCell>
+              <TableCell style={tableCellStyle}>{realcourtname}</TableCell>
+              {/* <TableCell style={tableCellStyle}>
+                {caseItem.hearings.map((hearing, hearingIndex) => (
+                  <div key={hearingIndex}>{(hearing.judge.name)}</div>
+                ))}
+              </TableCell> */}
+              <TableCell style={tableCellStyle}>
+                {caseItem.hearings.map((hearing, hearingIndex) => (
+                  <div key={hearingIndex}>{formatDate(hearing.date)}</div>
+                ))}
+              </TableCell>
+              <TableCell style={tableCellStyle}>
+                {caseItem.hearings.map((hearing, hearingIndex) => (
+                  <div key={hearingIndex}>{(hearing.time)}</div>
+                ))}
+              </TableCell>
+              <TableCell style={tableCellStyle}>
+                {caseItem.hearings.map((hearing, hearingIndex) => (
+                  <div key={hearingIndex}>{hearing.hearingMode}</div>
+                ))}
+              </TableCell>
+              <TableCell style={tableCellStyle}>
+                {caseItem.hearings.map((hearing, hearingIndex) => (
+                  <div key={hearingIndex}>{hearing.hearingStatus}</div>
+                ))}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  </div>
+)}
 
-            ))}
-          </td>
-          <td style={tableCellStyle}>
-            {caseItem.hearings.map((hearing, hearingIndex) => (
-              <div key={hearingIndex}>{hearing.hearingStatus}</div>
-              
-            ))}
-          </td>
-        </tr>
-      ))}
-    </tbody>
-          </table>
-        </div>
-      )}
-    </div>
+</Container>
+   
   );
 };
 

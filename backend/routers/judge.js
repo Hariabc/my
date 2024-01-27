@@ -11,6 +11,7 @@ const nodemailer = require('nodemailer');
   const JudgeConference = require('../models/meeting');
   const { Case, Hearing, Order } = require("../models/courtcase"); // Import the Case model
   const Judge = require('../models/judge');
+  const Judgement = require('../models/judgement');
 
   router.use(cookie())
 
@@ -429,7 +430,100 @@ const nodemailer = require('nodemailer');
       res.status(500).json({ error: 'Failed to update conference' });
     }
   });
+
+  router.post('/orders',authMiddleware, async (req, res) => {
+    try {
+      const {caseNumber, orderId,orderType, orderContent, orderDate } = req.body;
+      const userId = req.user._id;
   
+      const newOrder = new Order({
+        caseNumber,
+        orderId,
+        orderType,
+        orderContent,
+        orderDate,
+        judge: userId,
+      });
+  
+      const savedOrder = await newOrder.save();
+  
+      res.status(200).json({ orderId: savedOrder._id, message: 'Order created successfully' });
+    } catch (error) {
+      console.error('Error creating order:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
+  router.get('/get-orders', authMiddleware, async (req, res) => {
+    try {
+      const judgeId = req.user._id;
+  
+      // Assuming you have a judge field in your Conference model
+      const orders = await Order.find({ judge: judgeId });
+  
+      res.json(orders);
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+      res.status(500).json({ error: 'Failed to fetch orders' });
+    }
+  });
+
+  router.post('/submit-judgment', authMiddleware, async (req, res) => {
+    try {
+      // Extract relevant data from the request body
+      const {
+        caseNumber,
+        judgementId,
+        courtName,
+        judgeName,
+        dateOfJudgment,
+        plaintiffName,
+        defendantName,
+        advocateName,
+        factualBackground,
+        legalIssues,
+        plaintiffArg,
+        defendantArg,
+        analysisAndDecision,
+        ordersAndRelief,
+        disposition,
+        conclusion,
+        signature,
+      } = req.body;
+      const userId = req.user._id;
+  
+      // Create a new Judgment instance
+      const judgment = new Judgement({
+        caseNumber,
+        judgementId,
+        courtName,
+        judgeName,
+        dateOfJudgment,
+        plaintiffName,
+        defendantName,
+        advocateName,
+        factualBackground,
+        legalIssues,
+        plaintiffArg,
+        defendantArg,
+        analysisAndDecision,
+        ordersAndRelief,
+        disposition,
+        conclusion,
+        signature,
+        judge: userId // Assuming you have authentication middleware setting req.user
+      });
+  
+      // Save the judgment to the database
+      await judgment.save();
+  
+      // Respond with the saved judgment
+      res.status(201).json(judgment);
+    } catch (error) {
+      console.error('Error submitting judgment:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
 
 
   module.exports = router;

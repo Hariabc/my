@@ -72,7 +72,7 @@ const Dropdown = ({ onSelectCourt }) => {
             {state.name}
           </option>
         ))}
-      </select>
+      </select> 
 
       <label htmlFor="districts" style={{marginRight:"80%",padding:"7px 0",width:"100px"}}>Select District:</label>
       <select id="districts" onChange={handleDistrictChange}>

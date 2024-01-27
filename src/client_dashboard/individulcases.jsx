@@ -80,7 +80,7 @@ const CaseDetails = () => {
             <h5 className="subtitle">Case ID</h5>
             <hr />
             <div className="details">
-              <p>{caseDetails._id}</p>
+              <p>{caseDetails.caseNumber}</p>
             </div>
           </div>
           
