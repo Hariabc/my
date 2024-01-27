@@ -67,8 +67,8 @@ const AdminDashboard = () => {
 
   const openCaseDetailsModal = (caseItem) => {
     setSelectedCase(caseItem);
-    setSelectedCaseDocuments(caseItem.documents);
-    setDocumentsModalVisible(true);
+    // setSelectedCaseDocuments(caseItem.documents);
+    // setDocumentsModalVisible(true);
   };
 
   const closeDocumentsModal = () => {
@@ -466,7 +466,7 @@ const AdminDashboard = () => {
     {documentsModalVisible && (
   <DocumentsModal
     documents={selectedCaseDocuments}
-    publicAdvocateFormDetails={selectedCase.publicAdvocateFormDetails}  // Assuming publicAdvocateFormDetails is part of selectedCase
+    // publicAdvocateFormDetails={selectedCase.publicAdvocateFormDetails}  // Assuming publicAdvocateFormDetails is part of selectedCase
     onClose={closeDocumentsModal}
   />
 )}

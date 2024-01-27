@@ -106,8 +106,7 @@ const App = () => {
           <Route path="/client/mycases/:caseId" element={<IndividualCasesID />} />
           <Route path="/client/scheduling-event" element={<ClientEventForm/>}/>
           <Route path="/cao/mycases" element={<Mycases />} />
-          <Route path="/cao/court-cases" element={<Courtcases />} />
-            
+          <Route path="/cao/court-cases" element={<Courtcases />} />   
           <Route path="/cao/addjudge-publicadv" element={<AddUsers/>} />
           <Route  path="*" element={<ErrorPage/>}/>
           <Route path="/client/cause-list" element={<Causelist />} />
