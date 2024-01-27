@@ -41,12 +41,12 @@ th {
 .modal {
   background-color: #fff;
   border-radius: 5px;
-  max-width: 800px; /* Adjust the maximum width based on your design */
+  margin:0 60px;
   width: 100%;
   padding: 20px;
   max-height: 80vh; /* Set maximum height for scrolling */
   overflow-y: auto; /* Enable vertical scrolling */
-} */
+} 
 
 .section {
   margin-bottom: 20px;
@@ -185,18 +185,6 @@ button {
   margin-right: 10px;
 }
 
-/* Table Styles */
-table {
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Table Header Styles */
-th {
-  background-color: #007bff;
-  color: #fff;
-}
-
 /* Modal Overlay Styles */
 .overlay {
   backdrop-filter: blur(5px);
@@ -205,6 +193,14 @@ th {
 /* Modal Content Styles */
 .modal-content {
   border-radius: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  overflow: hidden;
+}
+.section-case{
+  grid-column: span 2;
+  display: inline;
 }
 
 /* Section Styles */
@@ -213,12 +209,6 @@ th {
   border-radius: 8px;
   padding: 15px;
   margin-bottom: 20px;
-}
-
-/* Close Button Styles */
-.close-btn {
-  font-size: 24px;
-  color: #6c757d;
 }
 
 /* Plaintiff, Defendant, Case, Payment Details Section Styles */
@@ -259,12 +249,12 @@ th {
 .section h3 {
   font-size: 18px;
   margin-bottom: 10px;
-  color: #343a40;
+  color: #000;
 }
 
 .section p {
   margin-bottom: 8px;
-  color: #6c757d;
+  color: #000;
 }
 
 /* Plaintiff Details Section Styles */
@@ -300,33 +290,25 @@ th {
 }
 
 
-/* ... (remaining styles) */
-
-/* Add more specific styles based on your design requirements */
-/* Mycases.css */
-
-/* ... (previous styles) */
-
-/* Internal Details Section Styles */
 .section {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start; /* Align items to start */
   align-items: center; /* Align items vertically at the center */
   margin-bottom: 20px;
+  border: 2px solid #0e0e0f;
 }
 
 .section h3 {
   flex-basis: 100%;
   font-size: 18px;
   margin-bottom: 10px;
-  color: #343a40;
+  color: #191919;
 }
 
 .section p {
   flex-basis: 100%;
   margin-bottom: 15px;
-  color: #6c757d;
   display: flex;
   align-items: center; /* Align items horizontally at the center */
 }
@@ -342,29 +324,3 @@ th {
 }
 
 /* Plaintiff Details Section Styles */
-.plaintiff-details {
-  background-color: #f8d7da;
-  border: 1px solid #f5c6cb;
-  border-radius: 8px;
-}
-
-/* Defendant Details Section Styles */
-.defendant-details {
-  background-color: #d4edda;
-  border: 1px solid #c3e6cb;
-  border-radius: 8px;
-}
-
-/* Case Details Section Styles */
-.case-details {
-  background-color: #d1ecf1;
-  border: 1px solid #bee5eb;
-  border-radius: 8px;
-}
-
-/* Payment Details Section Styles */
-.payment-details {
-  background-color: #f8d7da;
-  border: 1px solid #f5c6cb;
-  border-radius: 8px;
-} 

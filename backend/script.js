@@ -6,9 +6,10 @@ const cors = require("cors");
 const clientRouters = require("./routers/clientRouters");
 const AdvocateRouters = require("./routers/advocate")
 const caoRouters = require("./routers/caoRouters")
-const courtRouters = require(".//routers/court")
+const courtRouters = require("./routers/court")
 const judgeRouters = require("./routers/judge")
 const PartyinpersonRouter = require("./routers/PartyInPerson")
+const publicAdvocate = require("./routers/publicAdvocate")
 
 // const { MongoClient, ServerApiVersion } = require('mongodb');
 
@@ -26,7 +27,9 @@ app.use("/court", courtRouters)
 app.use("/cao", caoRouters)
 app.use("/advocate", AdvocateRouters)
 app.use("/judge", judgeRouters);
-app.use("/file",PartyinpersonRouter)
+app.use("/file", PartyinpersonRouter)
+app.use("/publicadvocate",publicAdvocate)
+
 // app.use("/conferences",ConferenceRouter)
 
 // MongoDB connection URI with authentication credentials

@@ -1,65 +1,72 @@
-  const mongoose = require('mongoose');
+const mongoose = require('mongoose');
+
+// const autopopulate = require('mongoose-autopopulate');
+const caseSchema = new mongoose.Schema({
+  caseNumber: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  caseType: {
+    type: String,
+    enum: ['partyinperson', 'publicAdvocate', 'privateAdvocate'],
+    required: true
+  },
+  caseStatus: {
+    type: String,
+    enum: [
+      'pending',
+      'sentToCourtAdmin',
+      'approvedByCourtAdminForAssigningJudge',
+      'approvedByCourtAdminForAssigningPublicAdvocate',
+      'caseAssignedToAJudge',
+      'caseAssignedToAPublicAdvocate',
+      'rejectedByCourtAdmin',
+      'preTrialconferenceScheduled',
+      'inProgress',
+      'completed'
+    ],
+    default:"pending",
+    required: true
+  },
+  courtName: {
+    type: String,
+    required:true
+ },
+  caseDetails: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Filedcase',
+    autopopulate: true,
+  },
+  courtAdmin: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'CourtAdmin',
+  },
+  judge: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Judge',
+  },
+  hearings: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'JudgeConference'
+  }],
+  orders: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Order'
+  }]
+  ,
+  judgements: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref : 'Judgement'
+  }],
+  publicAdvocateDetails: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Advocate'
+    },
+});
 
   
-  // const autopopulate = require('mongoose-autopopulate');
-  const caseSchema = new mongoose.Schema({
-    caseNumber: {
-      type: String,
-      unique: true,
-      required: true
-    },
-    caseType: {
-      type: String,
-      enum: ['partyinperson', 'publicAdvocate', 'privateAdvocate'],
-      required: true
-    },
-    caseStatus: {
-      type: String,
-      enum: [
-        'pending',
-        'sentToCourtAdmin',
-        'approvedByCourtAdminForAssigningJudge',
-        'approvedByCourtAdminForAssigningPublicAdvocate',
-        'caseAssignedToAJudge',
-        'caseAssignedToAPublicAdvocate',
-        'rejectedByCourtAdmin',
-        'preTrialconferenceScheduled',
-        'inProgress',
-        'completed'
-      ],
-      default:"pending",
-      required: true
-    },
-    courtName: {
-      type: String,
-      required:true
-  },
-    caseDetails: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Filedcase',
-      autopopulate: true,
-    },
-    courtAdmin: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'CourtAdmin',
-    },
-    judge: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Judge',
-    },
-    hearings: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'JudgeConference'
-    }],
-    orders: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Order'
-    }],
-    judgements: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref : 'Judgement'
-    }]
-  });
+  
 
   // caseSchema.pre('findOne', function (next) {
   //   this.populate('caseDetails');

@@ -23,10 +23,11 @@ h3 {
   padding: 15px;
   margin-bottom: 15px;
   background-color: #fff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .case-item h4 {
-  margin-bottom: 10px;
   font-weight: bold;
   color: #333;
 }

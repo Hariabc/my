@@ -49,6 +49,11 @@ const courtAdminSchema = new mongoose.Schema({
     ref: 'Filedcase',
   }],
 
+  AllCases: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Filedcase',
+  }],
+
   rejectedCases: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Filedcase',
@@ -69,6 +74,10 @@ const courtAdminSchema = new mongoose.Schema({
     ref: 'Filedcase',
   }],
 
+  publicadvocateassignedcases:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Filedcase',
+  }],
   court: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Court',

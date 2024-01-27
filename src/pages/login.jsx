@@ -9,6 +9,7 @@ import axios from "axios";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import login from "../assets/DASHBOARDS/login-img.png"
+import {motion} from "framer-motion"
 const LoginPage = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [email, setEmail] = useState('');
@@ -115,7 +116,8 @@ const LoginPage = () => {
           <h2 style={{paddingBottom:"5px",fontWeight:"unset",textAlign:"center"}} >Login as {users.find((user) => user.id === selectedUser).name}</h2>
           <form onSubmit={handleLogin}>
             <label htmlFor="email" style={{fontSize:"20px"}}>Email:</label>
-            <input
+            <motion.input 
+              whileFocus={{ scale: 1.1 }} 
               type="text"
               id="email"
               name="email"
@@ -123,9 +125,11 @@ const LoginPage = () => {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-            />
+            >
+            </motion.input>
             <label htmlFor="password" style={{fontSize:"20px"}}>Password:</label>
-            <input
+            <motion.input 
+              whileFocus={{ scale: 1.1 }} 
               type="password"
               id="password"
               name="password"

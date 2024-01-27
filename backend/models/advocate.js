@@ -72,7 +72,7 @@ const advocateSchema = new mongoose.Schema({
   },
   cases: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Case'
+    ref: 'Filedcase'
   }],
   courtAdminId: {
     type: String,
