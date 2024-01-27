@@ -34,14 +34,19 @@ const AdminDashboard = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredCases2 = cases.filter((caseItem) => {
-    const caseNumberMatch = (caseItem.caseNumber?.toString() || '').includes(searchQuery.toUpperCase());
-    const titleMatch = (caseItem.title || '').toLowerCase().includes(searchQuery.toLowerCase());
-    const plaintiffMatch = (caseItem.plaintiffDetails?.fullName || '').toLowerCase().includes(searchQuery.toLowerCase());
-    const defendantMatch = (caseItem.defendantDetails?.fullName || '').toLowerCase().includes(searchQuery.toLowerCase());
+  useEffect(() => {
+    // Apply the search filter to the initial set of cases
+    const filteredCases = cases.filter((caseItem) => {
+      const caseNumberMatch = (caseItem.caseNumber?.toString() || '').includes(searchQuery.toUpperCase());
+      const titleMatch = (caseItem.title || '').toLowerCase().includes(searchQuery.toLowerCase());
+      const plaintiffMatch = (caseItem.plaintiffDetails?.fullName || '').toLowerCase().includes(searchQuery.toLowerCase());
+      const defendantMatch = (caseItem.defendantDetails?.fullName || '').toLowerCase().includes(searchQuery.toLowerCase());
   
-    return caseNumberMatch || titleMatch || plaintiffMatch || defendantMatch;
-  });
+      return caseNumberMatch || titleMatch || plaintiffMatch || defendantMatch;
+    });
+  
+    setFilteredCases(filteredCases);
+  }, [cases, searchQuery]);
   
 
 
@@ -74,9 +79,8 @@ const AdminDashboard = () => {
 
   const openCaseDetailsModal = (caseItem) => {
     setSelectedCase(caseItem);
-    setSelectedCaseDocuments(caseItem.documents);
-    setDocumentsModalVisible(true);
   };
+
 
   const closeDocumentsModal = () => {
     setDocumentsModalVisible(false);
@@ -85,16 +89,20 @@ const AdminDashboard = () => {
 
   const handleFilterChange = (e) => {
     const selectedType = e.target.value;
-
+  
     if (selectedType === 'all') {
-      setFilteredCases(cases);
+      setFilteredCases(cases); // Reset to the original set of cases
     } else {
       const filtered = cases.filter((caseItem) => caseItem.filecasetype === selectedType);
       setFilteredCases(filtered);
     }
-
+  
     setFilterType(selectedType);
   };
+  
+  
+
+  
 
   const handleAssignJudge = async () => {
     try {
@@ -344,7 +352,7 @@ const AdminDashboard = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {filteredCases2
+              {filteredCases
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((caseItem, index) => (
                     <TableRow key={caseItem._id}>
@@ -359,30 +367,33 @@ const AdminDashboard = () => {
                       <TableCell align='center'>
                         <Button onClick={() => viewDocuments(caseItem)} variant='contained'>
                           View Documents
-                        </Button>
-                      </TableCell>
-                      <TableCell align='center' width={40}>
-                        <Stack spacing={3} justifyContent='space-evenly' direction='row'>
-                          <Button
-                            onClick={() => handleApprove(caseItem._id)}
-                            className='approve-btn'
-                            variant='outlined'
-                            color='success'
-                          >
-                            Approve
-                          </Button>
-                          <Button
-                            onClick={() => handleReject(caseItem._id)}
-                            className='reject-btn'
-                            variant='outlined'
-                            color='error'
-                          >
-                            Reject
-                          </Button>
-                        </Stack>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+
+        </Button>
+      </TableCell>
+      <TableCell align='center' width={40}>
+        <Stack spacing={3} justifyContent='space-evenly' direction='row'>
+          <Button
+            onClick={() => handleApprove(caseItem._id)}
+            className='approve-btn'
+            variant='outlined'
+            color='success'
+          >
+            Approve
+          </Button>
+          <Button
+            onClick={() => handleReject(caseItem._id)}
+            className='reject-btn'
+            variant='outlined'
+            color='error'
+          >
+            Reject
+          </Button>
+        </Stack>
+      </TableCell>
+    </TableRow>
+
+  ))}
+
               </TableBody>
             </Table>
           </TableContainer>
@@ -474,7 +485,7 @@ const AdminDashboard = () => {
     {documentsModalVisible && (
   <DocumentsModal
     documents={selectedCaseDocuments}
-    // publicAdvocateFormDetails={selectedCase.publicAdvocateFormDetails}  // Assuming publicAdvocateFormDetails is part of selectedCase
+    publicAdvocateFormDetails={selectedCase.publicAdvocateFormDetails}  // Assuming publicAdvocateFormDetails is part of selectedCase
     onClose={closeDocumentsModal}
   />
 )}

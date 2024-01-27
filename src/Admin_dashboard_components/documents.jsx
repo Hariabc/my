@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './document.css'
 const DocumentsModal = ({ documents, publicAdvocateFormDetails, onClose }) => {
   return (
     <div className="overlay">
@@ -10,7 +10,7 @@ const DocumentsModal = ({ documents, publicAdvocateFormDetails, onClose }) => {
             {documents.map((document, index) => (
               <div key={index} className="document-item">
                 <p>Filename: {document.filename}</p>
-                <img src={document.url} alt={document.filename} style={{ maxWidth: '100%', maxHeight: '500px' }} />
+                <img src={document.url} alt={document.filename} className="document-image" />
               </div>
             ))}
           </div>
@@ -21,16 +21,14 @@ const DocumentsModal = ({ documents, publicAdvocateFormDetails, onClose }) => {
               <p>Reason: {publicAdvocateFormDetails.reason}</p>
               <h3>Income Certificate</h3>
               {publicAdvocateFormDetails.IncomeCertificate.map((certificate, index) => (
-                <div key={index}>
-                  {/* <p>Filepath: {certificate.filepath}</p> */}
-                  <p>Image: <img src={certificate.url} alt={certificate.filepath} style={{ maxWidth: '100%', maxHeight: '500px' }} /></p>
+                <div key={index} className="document-item">
+                  <p>Image: <img src={certificate.url} alt={certificate.filepath} className="document-image" /></p>
                 </div>
               ))}
               <h3>Identification Document</h3>
               {publicAdvocateFormDetails.IdentificationDocument.map((document, index) => (
-                <div key={index}>
-                  {/* <p>Filepath: {document.filepath}</p> */}
-                  <p>Image: <img src={document.url} alt={document.filepath} style={{ maxWidth: '100%', maxHeight: '500px' }} /></p>
+                <div key={index} className="document-item">
+                  <p>Image: <img src={document.url} alt={document.filepath} className="document-image" /></p>
                 </div>
               ))}
             </div>
