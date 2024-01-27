@@ -1,10 +1,8 @@
-// MyCases.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Card, CardContent, Button, Typography, Grid } from '@mui/material';
 import './MyCases.css';
-
 
 const MyCases = () => {
   const [cases, setCases] = useState([]);
@@ -29,20 +27,34 @@ const MyCases = () => {
   };
 
   return (
-    <div className="cases-container">
-      <h3>My Cases</h3>
+    <Grid container spacing={2} className="cases-container" style={{ maxWidth: '100%', margin: 'auto' }}>
+      <Grid item xs={12}>
+        <Typography variant="h4" gutterBottom >
+          MY CASES
+        </Typography>
+      </Grid>
       {cases.length > 0 ? (
         cases.map((caseItem) => (
-          <div key={caseItem._id} className="case-item">
-            <h4>Case ID: {caseItem.caseNumber}</h4>
-            {/* Display other case details */}
-            <button onClick={() => viewCaseDetails(caseItem._id)}>View Case Details</button>
-          </div>
+          <Grid item key={caseItem._id} xs={12} sm={6} md={4}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" component="div" gutterBottom>
+                  Case ID: {caseItem.caseNumber}
+                </Typography>
+                {/* Display other case details */}
+                <Button variant="outlined" onClick={() => viewCaseDetails(caseItem._id)}>
+                  View Case Details
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
         ))
       ) : (
-        <p>No cases found</p>
+        <Grid item xs={12}>
+          <Typography variant="body1">No cases found</Typography>
+        </Grid>
       )}
-    </div>
+    </Grid>
   );
 };
 

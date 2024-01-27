@@ -19,7 +19,7 @@ import JudgeConference from './Features/JudgeConference.jsx';
 import Conference from './Features/Video_Conference/Conference.jsx';
 import CaseFilingForm from './dashborad-components/FileACase.jsx';
 import FileACaseMin from './dashborad-components/FileACaseMin.jsx';
-import HomeCon from './Features/Video_Conference/homeCon.jsx';
+// import HomeCon from './Features/Video_Conference/homeCon.jsx';
 import Room from './Features/Video_Conference/Room.jsx';
 import Advcauselist from './advocate/Cause_list.jsx'
 import CaseTracking from './client_dashboard/CaseTracking.jsx';
@@ -51,6 +51,9 @@ import JudgeCaseDetails from './judge/JudgeIndividualCases.jsx';
 import JudgeCaseTracking from './judge/CaseTracking.jsx';
 import PublicAdvocateForm from './client_dashboard/publicAdvocate.jsx';
 import Judgecauselist from './judge/Cause_list.jsx'
+import Orders from './judge/Order.jsx';
+import Judgements from './judge/Judgement.jsx';
+import OrderJudgements from './judge/orders&judgements.jsx';
 const App = () => {
   return (
     <Router>
@@ -87,7 +90,7 @@ const App = () => {
           <Route path='/fileacase' element={<FileACaseMin/>}/>
           <Route path='/client/pre-trial' element={<VideoConference/>}/>
           <Route path='judge/schedule-pre-trial' element={<JudgeConference/>}/>
-          <Route path="/homecon/:meetingID" element={<HomeCon/>}/>
+          {/* <Route path="/homecon/:meetingID" element={<HomeCon/>}/> */}
           <Route path='/room/:roomID' element={<Room/>}/>
           <Route path='client/case-tracking' element={<CaseTracking/>}/>
           <Route path="/judge/register/complete/:token" element={<JudgeReg />} />
@@ -106,6 +109,9 @@ const App = () => {
             <Route path='judge/case-tracking' element={<JudgeCaseTracking />} />
           <Route path='judge/cause-list' element={<Judgecauselist/>}/>
           <Route path='advocate/cause-list' element={<Advcauselist/>}/>
+          <Route path='/orders' element={<Orders/>}/>
+          <Route path='/judgements' element={<Judgements/>}/>
+          <Route path='/judge/order-judgements' element={<OrderJudgements/>}/>
             
             
           <Route path='/cao/scheduling-event' element={<AdminEventForm/>}/>

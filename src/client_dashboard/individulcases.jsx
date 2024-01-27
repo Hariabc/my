@@ -47,7 +47,7 @@ const CaseDetails = () => {
   };
   return (
     <>
-    <div className="container">
+    <div className="case-container">
       <div className="case-info">
         <h3 className="title">Case Details</h3>
         {caseDetails ? (
@@ -55,7 +55,7 @@ const CaseDetails = () => {
           <div className="boxCaseDetails">
             <h5 className="subtitle">Case ID</h5>
             <div className="details">
-              <p>{caseDetails._id}</p>
+              <p>{caseDetails.caseNumber}</p>
             </div>
           </div>
           

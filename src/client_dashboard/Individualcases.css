@@ -1,7 +1,7 @@
 /* Individualcases.css */
 
-.ind-container {
-  max-width: 800px;
+.case-container {
+  max-width: 80%;
   margin: 0 auto;
   padding: 20px;
   background-color: #f7f7f7;

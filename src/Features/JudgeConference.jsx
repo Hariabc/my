@@ -4,11 +4,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./JudgeConference.css";
 import { useNavigate } from 'react-router-dom';
-
+import { TextField, Button, Typography, Grid, Paper,List, ListItem, ListItemText,IconButton } from '@mui/material';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import AddIcon from '@mui/icons-material/Add';
+
 
 const JudgeConference = () => {
 
@@ -31,7 +33,7 @@ const JudgeConference = () => {
 const [plaintiffEmail, setPlaintiffEmail] = useState('');
 const [defendantEmail, setDefendantEmail] = useState('');
 
- 
+const [showForm, setShowForm] = useState(false);
   const [updateMode, setUpdateMode] = useState(false);
   const [updateConferenceId, setUpdateConferenceId] = useState('');
 
@@ -323,6 +325,26 @@ const generateMeetingID = () => {
     // Fetch case details when the case number changes
     await fetchCaseDetails(enteredCaseNumber);
   };
+  
+  const handleToggleForm = () => {
+    setShowForm((prevShowForm) => !prevShowForm);
+
+    // Reset form fields and update mode when toggling the form
+    if(!showForm){
+    setCaseNumber('');
+    setPlaintiffName('');
+    setPlaintiffEmail('');
+    setDefendantName('');
+    setDefendantEmail('');
+    setAdvocateName('');
+    setTitle('');
+    setDescription('');
+    setDate('');
+
+    setUpdateMode(false);
+    setUpdateConferenceId('');
+    }    
+  };
 
 
 
@@ -345,187 +367,223 @@ const generateMeetingID = () => {
         draggable
         pauseOnHover
       />
-      <h2  className="event-scheduler-title">Pre-trial Conferences</h2>
+       <Typography variant="h2" className="event-scheduler-title">
+        Pre-trial Conferences
+      </Typography>
 
-      {/* Schedule a new conference */}
-      <div className="event-container">
+      <IconButton className="schedule-conference-button" color="primary" onClick={handleToggleForm}>
+        <AddIcon />
+      </IconButton>
+      
+      {showForm && (
+      <Paper elevation={3} className="event-form-container">
+      <Typography variant="h4" className="event-form-title">
+        {updateMode ? 'Update Conference' : 'Schedule Conference'}
+      </Typography>
+
       <form onSubmit={handleSubmit} className="event-form">
-      <div className="input-box">
-      <label className={`event-form-label ${validCaseNumber ? '' : 'invalid-case-number'}`}>
-            Case Number:
-            <input
-              type="text"
-              value={caseNumber}
-              onChange={handleCaseNumberChange}
-              required
-              className={`event-form-input ${validCaseNumber ? '' : 'invalid-input'}`}
-            />
-          </label>
-            <br />
-            <label className="event-form-label">
-  Plaintiff Name:
-  <input
-    type="text"
-    value={plaintiffName}
-    onChange={(e) => setPlaintiffName(e.target.value)}
-    required
-    className="event-form-input"
-    disabled
-  />
-</label>
-<br />
+      <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+      <TextField
+      label="Case Number"
+      variant="outlined"
+      value={caseNumber}
+      onChange={handleCaseNumberChange}
+      required
+      fullWidth
+      error={!validCaseNumber}
+      helperText={!validCaseNumber ? 'Invalid Case Number' : ''}
+    />
+    </Grid>
 
-<label className="event-form-label">
-  Plaintiff Email:
-  <input
-    type="email"
-    value={plaintiffEmail}
-    onChange={(e) => setPlaintiffEmail(e.target.value)}
-    required
-    className="event-form-input"
-    disabled
-  />
-</label>
-<br />
+    <Grid item xs={12}>
+    <TextField
+      label="Plantiff Name"
+      variant="outlined"
+      value={plaintiffName}
+      onChange={(e) => setTitle(e.target.value)}
+      required
+      fullWidth
+    />
+    </Grid>
 
-<label className="event-form-label">
-  Defendant Name:
-  <input
-    type="text"
-    value={defendantName}
-    onChange={(e) => setDefendantName(e.target.value)}
-    required
-    className="event-form-input"
-    disabled
-  />
-</label>
-<br />
 
-<label className="event-form-label">
-  Defendant Email:
-  <input
-    type="email"
-    value={defendantEmail}
-    onChange={(e) => setDefendantEmail(e.target.value)}
-    required
-    className="event-form-input"
-    disabled
-  />
-</label>
-<br />
+    <Grid item xs={12}>
+    <TextField
+      label="Plantiff Email"
+      variant="outlined"
+      value={plaintiffEmail}
+      onChange={(e) => setTitle(e.target.value)}
+      required
+      fullWidth
+    />
+    </Grid>
 
-<label className="event-form-label">
-  Advocate Name:
-  <input
-    type="text"
-    value={advocateName}
-    onChange={(e) => setAdvocateName(e.target.value)}
-    required
-    className="event-form-input"
-    disabled
-  />
-</label>
-<br />
+    <Grid item xs={12}>
+    <TextField
+      label="Defendant Name"
+      variant="outlined"
+      value={defendantName}
+      onChange={(e) => setTitle(e.target.value)}
+      required
+      fullWidth
+    />
+    </Grid>
+    
+    <Grid item xs={12}>
+    <TextField
+      label="Defendant Email"
+      variant="outlined"
+      value={defendantEmail}
+      onChange={(e) => setTitle(e.target.value)}
+      required
+      fullWidth
+    />
+    </Grid>
+
+    <Grid item xs={12}>
+    <TextField
+      label="Advocate Name"
+      variant="outlined"
+      value={advocateName}
+      onChange={(e) => setTitle(e.target.value)}
+      required
+      fullWidth
+    />
+    </Grid>
         
-          <label className="event-form-label">
-            Title:
-            <input
-              type="text"
+    <Grid item xs={12}>
+            <TextField
+              label="Title"
+              variant="outlined"
+              fullWidth
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
-              className="event-form-input"
             />
-          </label>
-          <br />
-
-          <label className="event-form-label">
-            Description:
-            <textarea
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Description"
+              variant="outlined"
+              multiline
+              rows={4}
+              fullWidth
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required
-              className="event-form-textarea"
             />
-          </label>
-          <br />
-
-          <label className="event-form-label">
-            Date:
-            <input
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Date"
               type="datetime-local"
+              variant="outlined"
+              fullWidth
               value={date}
               onChange={(e) => setDate(e.target.value)}
               required
-              className="event-form-input"
             />
-          </label>
-          <br />
-
-          
-          </div>
-          <br />
-
-          <button type="submit" className="event-form-submit-button">
-            {updateMode ? 'Update Conference' : 'Schedule Conference'}
-          </button>
-          {updateMode && (
-    <button type="button" className="event-form-cancel-update-button" onClick={handleCancelUpdate}>
+          </Grid>
+        </Grid>
+      
+        
+          <Button
+    type="submit"
+    variant="contained"
+    color="primary"
+    className="event-form-submit-button"
+  >
+    {updateMode ? 'Update Conference' : 'Schedule Conference'}
+  </Button>
+  {updateMode && (
+    <Button
+      type="button"
+      variant="outlined"
+      color="secondary"
+      className="event-form-cancel-update-button"
+      onClick={handleCancelUpdate}
+    >
       Cancel Update
-    </button>
+    </Button>
   )}
+  
+
 
         </form>
+        </Paper>
+      
+      )}
 
-        {/* Event List */}
-        <div className="event-list-container">
-          <h2 className="event-list-title">Conference Scheduled!!</h2>
-          {conferences.length === 0 ? (
-    <p>No Conferences are available.</p>
-  ) : (
-          <ul className="event-list">
-            {conferences.map((conference) => (
-              <li key={conference._id} className="event-list-item">
-                <div className="event-details">
-        <strong className="event-list-item-title">Case Number:</strong> {conference.caseNumber} <br />
-        <strong className="event-list-item-title">Plaintiff Name:</strong> {conference.plaintiffName} <br />
-        <strong className="event-list-item-title">Defendant Name:</strong> {conference.defendantName} <br />
-        <strong className="event-list-item-title">Advocate Name:</strong> {conference.advocateName} <br />
-        <strong className="event-list-item-title">Title:</strong> {conference.title} <br />
-        <strong className="event-list-item-title">Description:</strong> {conference.description} <br />
-        <strong className="event-list-item-title">Date:</strong> {conference.date} <br />
-        <strong className="event-list-item-title">Meeting ID:</strong> {conference.meetingID} <br />
-      </div>
-                <div className="event-buttons">
-                <button
-                    type="button"
-                    onClick={() => handleJoinClick(conference.meetingID)}
-                    className="event-list-join-button"
-                  >
-                    Join
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleUpdateClick(conference._id)}
-                    className="event-list-update-button"
-                    disabled={updateMode}
-                  >
-                    Update
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleDelete(conference._id)}
-                    className="event-list-delete-button"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-  )}
-        </div>
-      </div>
+        <Paper elevation={3} className="event-list-container">
+      <Typography variant="h4" className="event-list-title">
+        Conference Scheduled!!
+      </Typography>
+      {conferences.length === 0 ? (
+        <p>No Conferences are available.</p>
+      ) : (
+        <List className="event-list">
+          {conferences.map((conference) => (
+            <ListItem key={conference._id} className="event-list-item">
+              <div className="event-details">
+              <ListItemText
+                  primary={`Case Number: ${conference.caseNumber}`}
+                 
+                />
+                <ListItemText
+                  primary={`Plaintiff Name: ${conference.plaintiffName}`}
+                  secondary={`Plaintiff Email: ${conference.plaintiffEmail}`}
+                />
+
+                <ListItemText
+                  primary={`Defendant Name: ${conference.defendantName}`}
+                  secondary={`Defendant Email: ${conference.defendantEmail}`}
+                />
+                <ListItemText
+                  secondary={`Advocate Name: ${conference.advocateName}`}
+                  
+                />
+                <ListItemText primary={`Title: ${conference.title}`} />
+                <ListItemText primary={`Description: ${conference.description}`} />
+                <ListItemText primary={`Date: ${conference.date}`} />
+                <ListItemText primary={`Meeting ID: ${conference.meetingID}`} />
+              </div>
+
+              <div className="event-buttons">
+                <Button
+                  type="button"
+                  variant="contained"
+                  color="primary"
+                  className="event-list-join-button"
+                  onClick={() => handleJoinClick(conference.meetingID)}
+                >
+                  Join
+                </Button>
+                <Button
+                  type="button"
+                  variant="contained"
+                  color="secondary"
+                  className="event-list-update-button"
+                  onClick={() => handleUpdateClick(conference._id)}
+                  disabled={updateMode}
+                >
+                  Update
+                </Button>
+                <Button
+                  type="button"
+                  variant="contained"
+                  color="error"
+                  className="event-list-delete-button"
+                  onClick={() => handleDelete(conference._id)}
+                >
+                  Delete
+                </Button>
+              </div>
+            </ListItem>
+          ))}
+        </List>
+      )}
+    </Paper>
     </div>
   );
 };

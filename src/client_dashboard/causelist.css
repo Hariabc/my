@@ -1,10 +1,46 @@
-/* Update your CSS file */
-
-.container {
-  max-width: 800px;
+/* causelist.css */
+.container-list {
+  max-width: 96%;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
+  padding: 40px;
+  margin-top: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.captcha-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.button-box {
+  text-align: center;
+  margin-top: 20px;
+  
+}
+
+
+.click {
+  padding: 10px 20px;
+  height: 45px;
+  background-color: #2e6eb3;
+  color: #fff;
+  border: none;
+  
+  cursor: pointer;
+}
+.flex-container {
+  display: flex;
+  gap: 10px; /* Adjust the gap as needed */
+  justify-content: space-between; /* Adjust the justification as needed */
+  align-items: center; /* Align items vertically at the center */
+  flex-wrap: wrap; /* Allow items to wrap to the next line if needed */
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .dropdown-container {
@@ -14,127 +50,102 @@
 }
 
 .dropdown-box {
-  width: 100%;
+  margin-bottom: 20px;
 }
 
 label {
   display: block;
-  font-size: 16px;
-  margin-bottom: 8px;
-  color: #333;
+  margin-bottom: 5px;
 }
 
-select,
-input[type="date"],
-.captcha-input {
+input,
+select {
   width: 100%;
   padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ddd;
+  box-sizing: border-box;
+  border: 2px solid #ddd;
   border-radius: 4px;
-  margin-bottom: 15px;
 }
 
-button {
-  padding: 12px 20px;
-  font-size: 18px;
-  background-color: #3498db;
+.captcha-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.captcha-text-box {
+  display: flex; /* Make it a flex container */
+  flex-direction: column; /* Stack child elements vertically */
+  padding: 10px;
+  border: 3px solid #ddd;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.captcha-input-container {
+  flex: 1;
+  display: flex;
+}
+
+.captcha-input {
+ 
+  padding: 10px;
+  box-sizing: border-box;
+  border: 3px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+
+}
+
+.captcha-verify-button {
+  padding: 10px 20px;
+  background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #2980b9;
+  font-size: 14px;
 }
 
 .success-message {
-  color: #2ecc71;
-  font-size: 16px;
+  color: green;
   margin-top: 10px;
+  font-size: 14px;
 }
 
-/* Cause List Table Styles */
+label.label-captcha {
+  font-size: 16px;
+  padding-left: 50px;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-th,
-td {
+th, td {
   border: 1px solid #ddd;
   padding: 10px;
   text-align: left;
+  vertical-align: top;
 }
 
-th {
-  background-color: #f2f2f2;
-  font-size: 16px;
-}
-
-/* Responsive styles for small screens */
-@media (max-width: 600px) {
-  .dropdown-box {
-    width: 100%;
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .container-list {
+    max-width: 100%;
+    padding: 20px;
   }
-}
-/* Update your CSS file */
 
-.captcha-box {
-  margin-bottom: 20px;
-}
+  .dropdown-container {
+    flex-direction: column;
+  }
 
-.label-captcha {
-  font-size: 14px; /* Adjusted font size for label */
-}
-
-.captcha-container {
-  display: flex;
-  flex-direction: column;
-  gap: 5px; /* Reduced gap between text box and input box */
-}
-
-.captcha-text-box {
-  padding: 5px; /* Reduced padding for smaller text box */
-  font-size: 12px; /* Adjusted font size for text box */
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.captcha-input-container {
-  display: flex;
-  align-items: center;
-  gap: 5px; /* Reduced gap between input box and text box */
-}
-
-.captcha-input {
-  flex-grow: 1;
-  padding: 5px; /* Reduced padding for smaller input box */
-  font-size: 12px; /* Adjusted font size for input box */
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.captcha-verify-button {
-  padding: 8px 15px; /* Adjusted padding for a smaller rectangular box */
-  font-size: 14px; /* Adjusted font size */
-  background-color: #3498db;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.captcha-verify-button:hover {
-  background-color: #2980b9;
-}
-
-.success-message {
-  color: #2ecc71;
-  font-size: 14px; /* Adjusted font size for success message */
-  margin-top: 5px; /* Reduced margin for success message */
+  .button-box button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
 }
