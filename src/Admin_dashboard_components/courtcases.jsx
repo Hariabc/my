@@ -18,7 +18,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/cao/mycases', { withCredentials: true });
+        const response = await axios.get('http://localhost:5000/cao/allcases', { withCredentials: true });
         setCases(response.data.courtCases);
         setFilteredCases(response.data.courtCases);
       } catch (error) {

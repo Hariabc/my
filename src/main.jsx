@@ -117,8 +117,14 @@ const App = () => {
             <Route path="/cao/publicadvocate-assign" element={<PubAdvassign />} />
 
             <Route path='judge/case-tracking' element={<JudgeCaseTracking />} />
-          <Route path='judge/cause-list' element={<Judgecauselist/>}/>
-          <Route path='advocate/cause-list' element={<Advcauselist/>}/>
+              <Route path='judge/cause-list' element={<Judgecauselist />} />
+              
+              
+              
+              <Route path='advocate/cause-list' element={<Advcauselist />} />
+          <Route path='advocate/my-cases' element={<Pubadvcases/>}/>
+          <Route path='advocate/case-tracking' element={<Advcasetracking/>}/>
+              
             
             
           <Route path='/cao/scheduling-event' element={<AdminEventForm/>}/>
