@@ -67,6 +67,8 @@ const AdminDashboard = () => {
 
   const openCaseDetailsModal = (caseItem) => {
     setSelectedCase(caseItem);
+    setSelectedCaseDocuments(caseItem.documents);
+    setDocumentsModalVisible(true);
   };
 
   const closeDocumentsModal = () => {
@@ -160,7 +162,6 @@ const AdminDashboard = () => {
   
       // Close the modal
       setApproveOptionsVisible(false);
-  
       // Show success toast message
       toast.success('Case approved for assigning public advocate', {
         position: toast.POSITION.TOP_CENTER,
@@ -463,11 +464,12 @@ const AdminDashboard = () => {
       )}
     
     {documentsModalVisible && (
-        <DocumentsModal
-          documents={selectedCaseDocuments}
-          onClose={closeDocumentsModal}
-        />
-      )}
+  <DocumentsModal
+    documents={selectedCaseDocuments}
+    publicAdvocateFormDetails={selectedCase.publicAdvocateFormDetails}  // Assuming publicAdvocateFormDetails is part of selectedCase
+    onClose={closeDocumentsModal}
+  />
+)}
       </>
       )}
 
