@@ -163,6 +163,7 @@ display: grid;
 grid-template-columns: 1fr 1fr 1fr;
 margin: 0 0;
 height: 90vh;
+gap: 40px;
 }
 .cases{
 grid-column: span 2;

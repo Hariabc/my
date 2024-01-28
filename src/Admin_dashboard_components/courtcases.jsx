@@ -158,7 +158,7 @@ const AdminDashboard = () => {
                 <p>State: {selectedCase.defendantDetails.state}</p>
                 <p>District: {selectedCase.defendantDetails.district}</p>
               </div> 
-              <div className="section">
+              <div className="section-case section">
           <h3>Case Details</h3>
           <p>Case : {selectedCase.filecasetype}</p>
                 <p>Title: {selectedCase.caseDetails.title}</p>
@@ -189,8 +189,7 @@ const AdminDashboard = () => {
               documents={selectedCaseDocuments}
               publicAdvocateFormDetails={selectedCase.publicAdvocateFormDetails}
               onClose={closeDocumentsModal}
-                          />
-                          
+            />                  
           )}
         </>
       )}

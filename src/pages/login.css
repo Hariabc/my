@@ -142,3 +142,6 @@ button:hover {
     display: none;
   }
 }
+.login-input:focus{
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
