@@ -217,7 +217,7 @@ export default ClientDashboard;
 
 const HomeDashboard = () => {
   return (
-    <div className="home-dashboard" style={{height:"85vh"}}>
+    <div className="home-dashboard" style={{minHeight:"85vh"}}>
       <div className="cases">
         <MyCases/>
       </div>

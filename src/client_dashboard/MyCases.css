@@ -1,13 +1,12 @@
-/* MyCases.css */
 
 .cases-container {
-  margin: 20px auto;
+  /* margin: 20px auto; */
   padding: 20px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   border-radius: 8px;
   width: 80%;
   max-width: 800px;
-  background-color: #f7f7f7;
+  /* background-color: #f7f7f7; */
   font-family: Arial, sans-serif;
 }
 
@@ -25,6 +24,7 @@ h3 {
   background-color: #fff;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  border-top: 2px solid #0C2D57;
 }
 
 .case-item h4 {
@@ -36,4 +36,10 @@ p {
   color: #777;
   font-style: italic;
   text-align: center;
+}
+
+.cases-container{
+  margin-top: 20px;
+  margin: 0 auto;
+  
 }
