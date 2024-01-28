@@ -57,9 +57,9 @@ import Judgecauselist from './judge/Cause_list.jsx'
 import { ThemeProvider } from 'react-bootstrap';
 import theme from './theme.jsx';
 import Courtcases from './Admin_dashboard_components/courtcases.jsx'
-import Orders from './judge/Order.jsx';
-import Judgements from './judge/Judgement.jsx';
 import OrderJudgements from './judge/orders&judgements.jsx';
+import Orders from './judge/Order.jsx';
+import Judgement from './judge/Judgement.jsx';
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
@@ -119,6 +119,10 @@ const App = () => {
             <Route path='judge/case-tracking' element={<JudgeCaseTracking />} />
           <Route path='judge/cause-list' element={<Judgecauselist/>}/>
           <Route path='advocate/cause-list' element={<Advcauselist/>}/>
+          <Route path='/judge/order-judgements' element={<OrderJudgements/>}/>
+          <Route path='/orders' element={<Orders/>}/>
+          <Route path='/judgements' element={<Judgement/>}/>
+
             
             
           <Route path='/cao/scheduling-event' element={<AdminEventForm/>}/>
