@@ -18,7 +18,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/cao/mycases', { withCredentials: true });
+        const response = await axios.get('http://localhost:5000/cao/allcases', { withCredentials: true });
         setCases(response.data.courtCases);
         setFilteredCases(response.data.courtCases);
       } catch (error) {
@@ -158,7 +158,7 @@ const AdminDashboard = () => {
                 <p>State: {selectedCase.defendantDetails.state}</p>
                 <p>District: {selectedCase.defendantDetails.district}</p>
               </div> 
-              <div className="section">
+              <div className="section-case section">
           <h3>Case Details</h3>
           <p>Case : {selectedCase.filecasetype}</p>
                 <p>Title: {selectedCase.caseDetails.title}</p>
@@ -189,8 +189,7 @@ const AdminDashboard = () => {
               documents={selectedCaseDocuments}
               publicAdvocateFormDetails={selectedCase.publicAdvocateFormDetails}
               onClose={closeDocumentsModal}
-                          />
-                          
+            />                  
           )}
         </>
       )}

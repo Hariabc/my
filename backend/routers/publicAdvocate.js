@@ -170,7 +170,7 @@ router.post('/case', async (req, res) => {
     if (!courtAdmin) {
       return res.status(404).json({ message: 'Court admin not found' });
     }
-    courtAdmin.AllCases.push(newCase._id);
+    courtAdmin.AllCases.push(newPublicAdvocateCase._id);
 
     courtAdmin.courtCases.push(newPublicAdvocateCase._id);
     await courtAdmin.save();

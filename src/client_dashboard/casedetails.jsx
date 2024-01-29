@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, Button, Typography, Grid } from '@mui/material';
+import { Card, CardContent, Button, Typography, Grid, Container } from '@mui/material';
 import './MyCases.css';
 
 const MyCases = () => {
@@ -27,22 +27,24 @@ const MyCases = () => {
   };
 
   return (
+    <>
+    <Container className='cases-container'  style={{border:"3px solid #332941",marginTop:"10px"}}>
     <Grid container spacing={2} className="cases-container" style={{ maxWidth: '100%', margin: 'auto' }}>
       <Grid item xs={12}>
-        <Typography variant="h4" gutterBottom >
+        <Typography variant="h4" gutterBottom align='center' >
           MY CASES
         </Typography>
       </Grid>
       {cases.length > 0 ? (
         cases.map((caseItem) => (
-          <Grid item key={caseItem._id} xs={12} sm={6} md={4}>
-            <Card>
+          <Grid item key={caseItem._id}  md={4} >
+            <Card style={{borderTop:"3px solid #864AF9"}}>
               <CardContent>
                 <Typography variant="h6" component="div" gutterBottom>
                   Case ID: {caseItem.caseNumber}
                 </Typography>
                 {/* Display other case details */}
-                <Button variant="outlined" onClick={() => viewCaseDetails(caseItem._id)}>
+                <Button variant="contained" onClick={() => viewCaseDetails(caseItem._id)}>
                   View Case Details
                 </Button>
               </CardContent>
@@ -55,6 +57,8 @@ const MyCases = () => {
         </Grid>
       )}
     </Grid>
+    </Container>
+    </>
   );
 };
 

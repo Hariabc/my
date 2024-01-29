@@ -125,6 +125,7 @@ const LoginPage = () => {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className='login-input'
             >
             </motion.input>
             <label htmlFor="password" style={{fontSize:"20px"}}>Password:</label>
@@ -137,6 +138,7 @@ const LoginPage = () => {
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className='login-input'
             />
             <button type="submit" style={{backgroundColor:"#28da8a",color:"black",fontWeight:"600",fontSize:"20px"}}>Login</button>
             <p className='Register'>
