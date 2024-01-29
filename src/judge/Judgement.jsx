@@ -174,6 +174,17 @@ const Judgement = () => {
 
   return (
     <Container component="main" maxWidth="md">
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Paper elevation={3} style={{ padding: '20px' }}>
         <Typography variant="h6">Judgment Form</Typography>
         <Grid container spacing={2}>

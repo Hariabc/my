@@ -136,15 +136,16 @@ const CauselistPage = () => {
   };
   
   return (
-    <Container maxWidth="xl" className="container-list" >
-    <div className="heading">
+    <div style={{ border: '4px solid #ddd', borderRadius: '10px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', paddingTop: '90px',margin:'20px' }}>
+    <Container maxWidth="xl" className="container-list" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
+    <div className="heading" style={{ marginBottom: '20px' }}>
       <Typography variant="h4" align="center" gutterBottom><b>CAUSE LIST</b></Typography>
     </div>
 
     {!showCauseList ? (
-      <div className="dropdown-container">
-        <div className="flex-container">
-          <div className="dropdown-box">
+      <div className="dropdown-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div className="flex-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+          <div className="dropdown-box"  style={{ width: '250px', marginBottom: '20px' }}>
             <InputLabel id="state-label">Select State:</InputLabel>
             <Select labelId="state-label" label="Select State" style={{ width: '250px' }} id="states" onChange={handleStateChange}>
             <MenuItem value="">
@@ -158,7 +159,7 @@ const CauselistPage = () => {
     </Select>
   </div>
 
-          <div className="dropdown-box">
+          <div className="dropdown-box" style={{ width: '250px', marginBottom: '20px' }}>
             <InputLabel id="state-label">Select District:</InputLabel>
             <Select labelId="district-label" id="districts" style={{ width: '250px' }} onChange={handleDistrictChange}>
               <MenuItem value=""><em>Select a district</em></MenuItem>
@@ -170,7 +171,7 @@ const CauselistPage = () => {
             </Select>
           </div>
 
-          <div className="dropdown-box">
+          <div className="dropdown-box" style={{ width: '250px', marginBottom: '20px' }}>
             <InputLabel htmlFor="courts">Select Court:</InputLabel>
             <Select id="courts" style={{ width: '250px' }} onChange={(e) => setSelectedCourt(e.target.value)}>
               <MenuItem value="">Select a court</MenuItem>
@@ -181,7 +182,7 @@ const CauselistPage = () => {
               ))}
             </Select>
           </div>
-          <div className="dropdown-box">
+          <div className="dropdown-box" style={{ width: '250px', margin: '5px' }}>
   <label htmlFor="date">Cause List Date:</label>
   <TextField
     type="date"
@@ -195,56 +196,57 @@ const CauselistPage = () => {
 </div>
 
          
-<div className="captcha-box">
-  <Typography variant="h6" className="label-captcha"><b>Enter Captcha:</b></Typography>
+<div className="captcha-box" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
+  <Typography variant="h6" style={{ marginBottom: '10px' }} className="label-captcha"><b>Enter Captcha:</b></Typography>
   
-  <div className="captcha-container">
+  <div className="captcha-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
     <Typography variant="body1">Captcha</Typography>
-    <Typography variant="body1" className="captcha-text-box">{captcha}</Typography>
+    <Typography variant="body1" className="captcha-text-box" style={{ margin: '10px 0', fontSize: '1.2em', fontWeight: 'bold' }}>{captcha}</Typography>
     <TextField
       type="text"
       id="captcha"
       className="captcha-input"
       variant="outlined"
       onChange={handleCaptchaInputChange}
+      style={{ width: '250px' }}
     />
   </div>
   <Button variant="contained" color="primary" className="captcha-verify-button" onClick={handleVerifyCaptcha} style={{ marginTop: '10px' }}>
     Verify
   </Button>
-  {captchaVerified && <Typography variant="body2" className="success-message">Verification successful!</Typography>}
+  {captchaVerified && <Typography variant="body2" className="success-message" style={{ marginTop: '10px', color: 'green' }}>Verification successful!</Typography>}
 </div>
 
 
-<div className="submit-button-container">
+<div className="submit-button-container" style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
 <Button
   variant='contained'
   color="primary"
   size="small" // Add this line to make the button small
   onClick={handleSubmit}
   fullWidth
-  style={{ marginTop: '10px', marginLeft:'610px' ,  width: '250px' }}
+  style={{  width: '250px' }}
   >
   Submit
 </Button>
 </div>
         </div>
       ) : (
-        <div>
-    <h2>Cause List for {courts.find((court) => court.id === selectedCourt)?.name}</h2>
+        <div style={{width: '100%' }}>
+    <h2 style={{ marginLeft: '500px' }}>CAUSE LIST FOR  {courts.find((court) => court.id === selectedCourt)?.name}</h2>
     <TableContainer component={Paper}>
-      <Table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
+      <Table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <TableHead>
           <TableRow>
-            <TableCell style={tableHeaderStyle}>Sl. No</TableCell>
-            <TableCell style={tableHeaderStyle}>Case Number</TableCell>
-            <TableCell style={tableHeaderStyle}>Parties Involved</TableCell>
-            <TableCell style={tableHeaderStyle}>Court Name</TableCell>
+            <TableCell style={tableHeaderStyle}>Sl. NO</TableCell>
+            <TableCell style={tableHeaderStyle}>CASE NUMBER</TableCell>
+            <TableCell style={tableHeaderStyle}>PARTIES INVOLVED</TableCell>
+            <TableCell style={tableHeaderStyle}>COURT NAME</TableCell>
             {/* <TableCell style={tableHeaderStyle}>Judge Name</TableCell> */}
-            <TableCell style={tableHeaderStyle}>Hearing Date</TableCell>
-            <TableCell style={tableHeaderStyle}>Hearing Time</TableCell>
-            <TableCell style={tableHeaderStyle}>Mode of Hearing</TableCell>
-            <TableCell style={tableHeaderStyle}>Status</TableCell>
+            <TableCell style={tableHeaderStyle}>HEARING DATE</TableCell>
+            <TableCell style={tableHeaderStyle}>HEARING TIME</TableCell>
+            <TableCell style={tableHeaderStyle}>MODE OF HEARING</TableCell>
+            <TableCell style={tableHeaderStyle}>STATUS</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -292,21 +294,24 @@ const CauselistPage = () => {
 )}
 
 </Container>
+</div>
    
   );
 };
 
 const tableHeaderStyle = {
-  border: '1px solid #ddd',
-  padding: '10px',
-  backgroundColor: '#f2f2f2',
+  border: '2px solid black',
+  padding: '20px',
+  background: 'blue',
   textAlign: 'left',
+  color:'white',
 };
 
 const tableCellStyle = {
-  border: '1px solid #ddd',
-  padding: '10px',
+  border: '2px solid black',
+  padding: '20px',
   textAlign: 'left',
+  fontSize: '20px',
 };
 
 const formatDate = (dateString) => {

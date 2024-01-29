@@ -4,12 +4,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./JudgeConference.css";
 import { useNavigate } from 'react-router-dom';
-import { TextField, Button, Typography, Grid, Paper,List, ListItem, ListItemText,IconButton } from '@mui/material';
+import { TextField, Button, Typography, Grid,Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle, Paper ,TableContainer, Table, TableHead, TableRow, TableCell,  TableBody} from '@mui/material';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import AddIcon from '@mui/icons-material/Add';
+import { padding } from '@mui/system';
+
 
 
 const JudgeConference = () => {
@@ -36,6 +40,16 @@ const [defendantEmail, setDefendantEmail] = useState('');
 const [showForm, setShowForm] = useState(false);
   const [updateMode, setUpdateMode] = useState(false);
   const [updateConferenceId, setUpdateConferenceId] = useState('');
+  const [selectedConferenceDetails, setSelectedConferenceDetails] = useState(null);
+
+  const handleCaseNumberClick = (conference) => {
+    setSelectedConferenceDetails(conference);
+  };
+
+  const handleClosePopup = () => {
+    setSelectedConferenceDetails(null);
+  };
+
 
   useEffect(() => {
     const fetchScheduledConferences = async () => {
@@ -193,7 +207,7 @@ const generateMeetingID = () => {
 
   const handleUpdateClick =  (conferenceId) => {
     // If not already in update mode, set the form fields and update mode
-    if (!updateMode) {
+    
       const conferenceToUpdate = conferences.find((conference) => conference._id === conferenceId);
       setCaseNumber(conferenceToUpdate.caseNumber);
       setPlaintiffName(conferenceToUpdate.plaintiffName);
@@ -208,7 +222,7 @@ const generateMeetingID = () => {
   
       setUpdateMode(true);
       setUpdateConferenceId(conferenceId);
-    }
+     setShowForm(true);
   };
 
   const handleCancelUpdate = () => {
@@ -224,6 +238,7 @@ const generateMeetingID = () => {
     
     setUpdateMode(false);
     setUpdateConferenceId('');
+    setShowForm(false);
   };
 
   const handleUpdate = async () => {
@@ -330,25 +345,24 @@ const generateMeetingID = () => {
     setShowForm((prevShowForm) => !prevShowForm);
 
     // Reset form fields and update mode when toggling the form
-    if(!showForm){
-    setCaseNumber('');
-    setPlaintiffName('');
-    setPlaintiffEmail('');
-    setDefendantName('');
-    setDefendantEmail('');
-    setAdvocateName('');
-    setTitle('');
-    setDescription('');
-    setDate('');
+    if (!showForm) {
+      setCaseNumber('');
+      setPlaintiffName('');
+      setPlaintiffEmail('');
+      setDefendantName('');
+      setDefendantEmail('');
+      setAdvocateName('');
+      setTitle('');
+      setDescription('');
+      setDate('');
 
-    setUpdateMode(false);
-    setUpdateConferenceId('');
-    }    
+      setUpdateMode(false);
+      setUpdateConferenceId('');
+    }
   };
 
 
 
-  
   
 
   
@@ -367,21 +381,30 @@ const generateMeetingID = () => {
         draggable
         pauseOnHover
       />
-       <Typography variant="h2" className="event-scheduler-title">
-        Pre-trial Conferences
+       <Typography variant="h4" className="event-scheduler-title" style={{ textAlign: 'center' }}>
+        PRE-TRAIL CONFERENCES
       </Typography>
-
-      <IconButton className="schedule-conference-button" color="primary" onClick={handleToggleForm}>
-        <AddIcon />
-      </IconButton>
+      <br></br>
+      <Button
+        variant="contained"
+        color="primary"
+        className="schedule-conference-button"
+        onClick={handleToggleForm}
+        style={{ display: 'block', margin: 'auto', marginTop: '10px' }}
+      >
+        {showForm ? 'Back to Scheduled Conferences' : 'Schedule a Conference'}
+      </Button>
+      <br></br>
       
-      {showForm && (
-      <Paper elevation={3} className="event-form-container">
-      <Typography variant="h4" className="event-form-title">
-        {updateMode ? 'Update Conference' : 'Schedule Conference'}
+      {showForm ?(
+      <Paper elevation={3} className="event-form-container" >
+      <Typography variant="h5" className="event-form-title" style={{ textAlign: 'center' }}>
+        <br></br>
+        {updateMode ? 'UPDATE CONFERENCE ' : 'SCHEDULE A CONFERENCE'}
       </Typography>
+      <br></br>
 
-      <form onSubmit={handleSubmit} className="event-form">
+      <form onSubmit={handleSubmit} className="event-form" style={{ width: '80%', margin: 'auto', textAlign: 'center' }}>
       <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
       <TextField
@@ -396,57 +419,56 @@ const generateMeetingID = () => {
     />
     </Grid>
 
-    <Grid item xs={12}>
+    <Grid item xs={12} sm={6}>
     <TextField
       label="Plantiff Name"
       variant="outlined"
       value={plaintiffName}
-      onChange={(e) => setTitle(e.target.value)}
+      onChange={(e) => setPlaintiffName(e.target.value)}
       required
       fullWidth
     />
     </Grid>
 
-
-    <Grid item xs={12}>
+    <Grid item xs={12} sm={6}>
     <TextField
       label="Plantiff Email"
       variant="outlined"
       value={plaintiffEmail}
-      onChange={(e) => setTitle(e.target.value)}
+      onChange={(e) => setPlaintiffEmail(e.target.value)}
       required
       fullWidth
     />
     </Grid>
 
-    <Grid item xs={12}>
+    <Grid item xs={12} sm={6}>
     <TextField
       label="Defendant Name"
       variant="outlined"
       value={defendantName}
-      onChange={(e) => setTitle(e.target.value)}
+      onChange={(e) => setDefendantName(e.target.value)}
       required
       fullWidth
     />
     </Grid>
     
-    <Grid item xs={12}>
+    <Grid item xs={12} sm={6}>
     <TextField
       label="Defendant Email"
       variant="outlined"
       value={defendantEmail}
-      onChange={(e) => setTitle(e.target.value)}
+      onChange={(e) => setDefendantEmail(e.target.value)}
       required
       fullWidth
     />
     </Grid>
 
-    <Grid item xs={12}>
+    <Grid item xs={12} sm={6}>
     <TextField
       label="Advocate Name"
       variant="outlined"
       value={advocateName}
-      onChange={(e) => setTitle(e.target.value)}
+      onChange={(e) => setAdvocateName(e.target.value)}
       required
       fullWidth
     />
@@ -485,105 +507,135 @@ const generateMeetingID = () => {
               required
             />
           </Grid>
-        </Grid>
+      
       
         
+          <Grid item xs={12}  style={{ display: 'flex', justifyContent: 'center', marginTop:'50px' }}>
           <Button
-    type="submit"
-    variant="contained"
-    color="primary"
-    className="event-form-submit-button"
-  >
-    {updateMode ? 'Update Conference' : 'Schedule Conference'}
-  </Button>
-  {updateMode && (
-    <Button
-      type="button"
-      variant="outlined"
-      color="secondary"
-      className="event-form-cancel-update-button"
-      onClick={handleCancelUpdate}
-    >
-      Cancel Update
-    </Button>
-  )}
-  
-
-
-        </form>
+            type="submit"
+            variant="contained"
+            color="primary"
+            style={{marginBottom:'30px'}}
+          >
+            {updateMode ? 'Update Conference' : 'Schedule Conference'}
+          </Button>
+      {updateMode && (
+        <Button
+          type="button"
+          variant="outlined"
+          color="secondary"
+          style={{ marginLeft: '20px',paddingRight:'40px',paddingLeft:'40px', height:'37px' }}
+          onClick={handleCancelUpdate}
+        >
+          Cancel Update
+        </Button>
+      )}
+    </Grid>
+  </Grid>
+</form>
         </Paper>
       
-      )}
+      ):(
 
-        <Paper elevation={3} className="event-list-container">
-      <Typography variant="h4" className="event-list-title">
-        Conference Scheduled!!
-      </Typography>
-      {conferences.length === 0 ? (
-        <p>No Conferences are available.</p>
-      ) : (
-        <List className="event-list">
-          {conferences.map((conference) => (
-            <ListItem key={conference._id} className="event-list-item">
-              <div className="event-details">
-              <ListItemText
-                  primary={`Case Number: ${conference.caseNumber}`}
-                 
-                />
-                <ListItemText
-                  primary={`Plaintiff Name: ${conference.plaintiffName}`}
-                  secondary={`Plaintiff Email: ${conference.plaintiffEmail}`}
-                />
-
-                <ListItemText
-                  primary={`Defendant Name: ${conference.defendantName}`}
-                  secondary={`Defendant Email: ${conference.defendantEmail}`}
-                />
-                <ListItemText
-                  secondary={`Advocate Name: ${conference.advocateName}`}
-                  
-                />
-                <ListItemText primary={`Title: ${conference.title}`} />
-                <ListItemText primary={`Description: ${conference.description}`} />
-                <ListItemText primary={`Date: ${conference.date}`} />
-                <ListItemText primary={`Meeting ID: ${conference.meetingID}`} />
+        <Paper elevation={3} className='event-list-container' style={{ width: '90%', margin: 'auto',marginTop:'40px' }}>
+        <Typography variant='h5' className='event-list-title' style={{ textAlign: 'center' }}></Typography>
+        {conferences.length === 0 ? (
+          <p>No Conferences are available.</p>
+        ) : (
+          <TableContainer component={Paper} style={{ width: '100%', margin: 'auto' }}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center" style={{ color:'white',backgroundColor: '#003366', fontWeight: 'bold' ,fontSize:'15px'}}>S.NO</TableCell>
+                  <TableCell align="center" style={{ color:'white',backgroundColor: '#003366', fontWeight: 'bold' ,fontSize:'15px'}}>CASE NUMBER</TableCell>
+                  <TableCell align="center" style={{ color:'white',backgroundColor: '#003366', fontWeight: 'bold',fontSize:'15px' }}>MEETING ID</TableCell>
+                  <TableCell align="center" style={{ color:'white',backgroundColor: '#003366' , fontWeight: 'bold',fontSize:'15px'}}>ACTIONS</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {conferences.map((conference, index) => (
+                  <TableRow key={conference._id}>
+                    <TableCell align="center" style={{fontSize:'15px'}}>{index + 1}</TableCell>
+                    <TableCell align="center" style={{fontSize:'50px'}}>
+                      <Button
+                        type='button'
+                        color='primary'
+                        style={{fontSize:'15px'}}
+                        onClick={() => handleCaseNumberClick(conference)}
+                      >
+                        {conference.caseNumber}
+                      </Button>
+                    </TableCell>
+                    <TableCell align="center">
+                      <Typography variant="body1" style={{ fontWeight: 'bold' }}>
+                        {conference.meetingID}
+                      </Typography>
+                    </TableCell>
+                      <TableCell align="center">
+                      <Button
+                        type='button'
+                        variant='contained'
+                        color='primary'
+                        className='event-list-join-button'
+                        onClick={() => handleJoinClick(conference.meetingID)}
+                      >
+                        Join
+                      </Button>
+                      <Button
+                        type='button'
+                        variant='contained'
+                        color='secondary'
+                        className='event-list-update-button'
+                        onClick={() => handleUpdateClick(conference._id)}
+                        disabled={updateMode}
+                        style={{ marginLeft: '40px' }}
+                      >
+                        Update
+                      </Button>
+                      <Button
+                        type='button'
+                        variant='contained'
+                        color='error'
+                        className='event-list-delete-button'
+                        onClick={() => handleDelete(conference._id)}
+                        style={{ marginLeft: '40px' }}
+                      >
+                        Delete
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
+        {selectedConferenceDetails && (
+          <Dialog open={true} onClose={handleClosePopup} maxWidth="xl">
+            <DialogTitle style={{ textAlign: 'center', fontSize: '24px' }}><b>CONFERENCE DETAILS</b></DialogTitle>
+            <DialogContent style={{ width: '900px' }}>
+              {/* Render the details in a way that suits your UI */}
+              <div style={{ lineHeight: '2', fontSize: '18px' }}>
+              <p><strong>Case Number:</strong> {selectedConferenceDetails.caseNumber}</p>
+            <p><strong>Plaintiff Name:</strong> {selectedConferenceDetails.plaintiffName}</p>
+            <p><strong>Plaintiff Email:</strong> {selectedConferenceDetails.plaintiffEmail}</p>
+            <p><strong>Defendant Name:</strong> {selectedConferenceDetails.defendantName}</p>
+            <p><strong>Defendant Email:</strong> {selectedConferenceDetails.defendantEmail}</p>
+            <p><strong>Advocate Name:</strong> {selectedConferenceDetails.advocateName}</p>
+            <p><strong>Title:</strong> {selectedConferenceDetails.title}</p>
+            <p><strong>Description:</strong> {selectedConferenceDetails.description}</p>
+            <p><strong>Date:</strong> {selectedConferenceDetails.date}</p>
+                {/* Add other details as needed */}
               </div>
-
-              <div className="event-buttons">
-                <Button
-                  type="button"
-                  variant="contained"
-                  color="primary"
-                  className="event-list-join-button"
-                  onClick={() => handleJoinClick(conference.meetingID)}
-                >
-                  Join
-                </Button>
-                <Button
-                  type="button"
-                  variant="contained"
-                  color="secondary"
-                  className="event-list-update-button"
-                  onClick={() => handleUpdateClick(conference._id)}
-                  disabled={updateMode}
-                >
-                  Update
-                </Button>
-                <Button
-                  type="button"
-                  variant="contained"
-                  color="error"
-                  className="event-list-delete-button"
-                  onClick={() => handleDelete(conference._id)}
-                >
-                  Delete
-                </Button>
-              </div>
-            </ListItem>
-          ))}
-        </List>
-      )}
-    </Paper>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClosePopup} color='primary'>
+                Close
+              </Button>
+            </DialogActions>
+          </Dialog>
+        )}
+      </Paper>
+    )}
     </div>
   );
 };

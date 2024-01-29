@@ -15,14 +15,17 @@ import { styled } from '@mui/system';
 
 const Container = styled('div')({
   marginTop: '2rem',
+  maxWidth: '1200px', // Set your desired maximum width
+  margin: '0 auto', 
+  
 });
 
 const FormContainer = styled(Paper)({
   padding: '2rem',
   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
   borderRadius: '8px',
-  maxWidth: '400px',
-  margin: 'auto',
+  maxWidth: '80%',
+  margin: '90px',
 });
 
 const Form = styled('form')({
@@ -30,11 +33,13 @@ const Form = styled('form')({
   flexDirection: 'column',
   alignItems: 'center',
   gap: '1.5rem',
+  maxWidth:'90%',
 });
 
 const Input = styled(TextField)({
   marginBottom: '1rem',
   width: '100%',
+  marginLeft:'30px',
 });
 
 const TextArea = styled(TextareaAutosize)({
@@ -44,6 +49,7 @@ const TextArea = styled(TextareaAutosize)({
   borderRadius: '4px',
   border: '1px solid #ccc',
   resize: 'vertical',
+  marginLeft:'30px',
 });
 
 const ButtonGroup = styled('div')({
@@ -51,7 +57,8 @@ const ButtonGroup = styled('div')({
   flexDirection: 'row',
   justifyContent: 'center',
   gap: '1rem',
-  marginTop: '1rem',
+  marginTop: '0.5rem',
+  marginLeft: '100px'
 });
 
 const EventListContainer = styled('div')({
@@ -63,10 +70,12 @@ const EventListItem = styled('li')({
   flexDirection: 'column',
   gap: '0.5rem',
   padding: '1.5rem',
-  border: '2px solid #e0e0e0',
+  border: '4px solid #e0e0e0',
   borderRadius: '8px',
   marginBottom: '1rem',
   backgroundColor: '#f9f9f9',
+  
+ 
 });
 
 const EventDetails = styled('div')({
@@ -75,23 +84,26 @@ const EventDetails = styled('div')({
   flexDirection: 'column',
   alignItems: 'center', // Align content in the center horizontally
   justifyContent: 'center', // Align content in the center vertically
+  
 });
 
 
 const EventButtons = styled('div')({
   display: 'flex',
   gap: '0.5rem',
-  marginTop: '1rem',
   justifyContent: 'flex-end',
+  marginTop: '1rem',
 });
 
-
-const AddEventButton = styled(Button)({
+const AddEventButton = styled(Button)(({ showForm }) => ({
   position: 'fixed',
   top: '2rem',
   right: '1rem',
   zIndex: 1000,
-});
+  display: showForm ? 'none' : 'flex', // Use flex display
+  alignItems: 'center', // Align items vertically in the center
+  gap: '0.5rem', // Add some spacing between icon and text
+}));
 
 const NoEventsMessage = styled('p')({
   textAlign: 'center',
@@ -100,10 +112,12 @@ const NoEventsMessage = styled('p')({
 
 const EventText = styled(Typography)({
   marginBottom: '0.5rem',
+  fontSize : '15px',
   wordBreak: 'break-word',
   fontWeight: 'bold', // Make the text bold
-  textAlign: 'center', // Center the text horizontally
-});
+  textAlign: 'center'
+  });
+
 
 const ClientEventForm = () => {
   const [events, setEvents] = useState([]);
@@ -262,13 +276,14 @@ const ClientEventForm = () => {
         color="primary"
         startIcon={<Add />}
         onClick={handleAddEventClick}
+        showForm={showForm}
       >
         Add Event
       </AddEventButton>
 
       <EventListContainer style={{ display: showForm ? 'none' : 'block' , paddingTop: '10px'  }}>
-        <Typography variant="h5" align="center" gutterBottom>
-          Events Scheduled
+        <Typography variant="h4" align="center" gutterBottom>
+         SCHEDULED EVENTS
         </Typography>
         {events.length === 0 ? (
             <NoEventsMessage>No events are available.</NoEventsMessage>
@@ -277,9 +292,9 @@ const ClientEventForm = () => {
             {events.map((event) => (
               <EventListItem key={event._id}>
                  <EventDetails>
-                  <EventText variant="subtitle1">{event.title}</EventText>
-                  <EventText variant="body2">{event.description}</EventText>
-                  <EventText variant="body2">{event.date}</EventText>
+                  <EventText style={{ fontSize: '30px' }} variant="subtitle1"> {event.title}</EventText>
+                  <EventText style={{ color: 'black' }} variant="body2"><b>Description :</b>  {event.description}</EventText>
+                  <EventText style={{ color: 'black' }} variant="body2"><b>Event Created On :</b> {event.date}</EventText>
                 </EventDetails>
                 <EventButtons>
                   <Button
@@ -309,6 +324,7 @@ const ClientEventForm = () => {
       </EventListContainer>
 
       <FormContainer style={{ display: showForm ? 'block' : 'none' }}>
+        <h2 style={{marginLeft:'350px'}}> SCHEDULE EVENT </h2>
         <Form onSubmit={handleSubmit}>
           <Input
             label="Title"

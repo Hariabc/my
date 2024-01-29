@@ -1,78 +1,93 @@
+// homeCon.jsx
 
-// // homeCon.jsx
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import styled from "styled-components";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-// import React, { useState, useEffect } from "react";
-// import { useNavigate, useParams } from "react-router-dom";
-// import axios from "axios";
-// import "./homeCon.css";
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
 
-// const HomeCon = () => {
-//   const [meetingID, setMeetingID] = useState("");
-//   const [scheduledMeetingID, setScheduledMeetingID] = useState("");
-//   const navigate = useNavigate();
-//   const { conferenceId } = useParams();
+const FormContainer = styled.div`
+  text-align: center;
+`;
 
-//   useEffect(() => {
-//     const fetchScheduledMeetingID = async () => {
-//       try {
-//         // Assuming there is an API endpoint to fetch the scheduled meeting ID
-//         const response = await axios.get(`http://localhost:5000/judge/scheduled-meeting/${conferenceId}`, {
-//           withCredentials: true,
-//         });
-//         setScheduledMeetingID(response.data?.scheduledMeetingID || ""); // Handle the case where response.data or response.data.scheduledMeetingID may be undefined
-//       } catch (error) {
-//         console.error("Error fetching scheduled meeting ID:", error);
-//       }
-//     };
-  
-//     fetchScheduledMeetingID();
-//   }, [conferenceId]);
+const Title = styled.h1`
+  font-size: 2rem;
+  margin-bottom: 1rem;
+`;
 
-//   const submitCode = (e) => {
-//     e.preventDefault();
+const Subtitle = styled.p`
+  font-size: 1rem;
+  margin-bottom: 2rem;
+`;
 
-//     // Validate meetingID
-//     const isValidMeetingID = /^[A-Z0-9]{8}$/.test(meetingID);
+const StyledTextField = styled.input`
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+`;
 
-//     if (isValidMeetingID && meetingID === scheduledMeetingID) {
-//       navigate(`/room/${meetingID}`);
-//     } else {
-//       // Handle validation error or mismatched meeting ID
-//       console.error("Invalid Meeting ID or mismatched with the scheduled meeting ID.");
-//     }
-//   };
+const StyledButton = styled.button`
+  padding: 0.75rem 1.5rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+`;
 
-//   return (
-//     <div className="home-con-container">
-//       <div className="hero-section">
-//       <div className="overlay-V"></div>
-//         <div className="hero-content">
-//           <div className="main-info">
-//             <h1 className="main-title">Welcome To Pre-Trial Conference</h1>
-//             <p className="subtitle">By E-Courts Services</p>
-//           </div>
-//         <form onSubmit={submitCode} className="enter-code-form">
-//           <div className="code-input">
-//             <label className="code-label">Enter Meeting ID</label>
-//             <input
-//               type="text"
-//               required
-//               placeholder="Enter Meeting ID"
-//               value={meetingID}
-//               onChange={(e) => setMeetingID(e.target.value)}
-//               pattern="^[A-Z0-9]{8}$"
-//               title="Meeting ID should be 8 characters of only capital alphabets and numbers."
-//               className="code-input-field"
-//             />
-//           </div>
-//           <button type="submit" className="submit-button">
-//             Go
-//           </button>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
+const HomeCon = () => {
+  const [meetingID, setMeetingID] = useState("");
+  const navigate = useNavigate();
 
+  const submitCode = (e) => {
+    e.preventDefault();
 
-// export default HomeCon;
+    const isValidMeetingID = /^[A-Z0-9]{8}$/.test(meetingID);
+
+    if (isValidMeetingID) {
+      toast.success("Meeting ID is valid. Redirecting...");
+      setTimeout(() => {
+        navigate(`/room/${meetingID}`);
+      }, 2000);
+    } else {
+      toast.error("Invalid Meeting ID. Please enter a valid meeting ID.");
+    }
+  };
+
+  return (
+    <Container>
+      <FormContainer>
+        <Title>Welcome To Pre-Trial Conference</Title>
+        <Subtitle>By E-Courts Services</Subtitle>
+
+        <form onSubmit={submitCode}>
+          <StyledTextField
+            type="text"
+            required
+            placeholder="Enter Meeting ID"
+            value={meetingID}
+            onChange={(e) => setMeetingID(e.target.value)}
+            pattern="^[A-Z0-9]{8}$"
+            title="Meeting ID should be 8 characters of only capital alphabets and numbers."
+          />
+          <StyledButton type="submit">Go</StyledButton>
+        </form>
+      </FormContainer>
+
+      <ToastContainer />
+    </Container>
+  );
+};
+
+export default HomeCon;
