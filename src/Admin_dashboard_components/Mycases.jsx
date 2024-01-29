@@ -219,6 +219,8 @@ const AdminDashboard = () => {
     setSelectedCase(caseItem);
     setSelectedCaseDocuments(caseItem.documents);
     setDocumentsModalVisible(true);
+    // setSelectedCase(null);
+
   };
   const handleApprove = (caseId) => {
     // Set state to show approve options modal

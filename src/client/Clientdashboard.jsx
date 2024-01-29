@@ -86,7 +86,8 @@ const FAQ_DATA = [
 const ClientDashboard = () => {
   const [selectedComponent, setSelectedComponent] = useState(<BriefcaseDashboard/>);
   const [userData, setUserData] = useState({});
-  const [activeIcon, setActiveIcon] = useState('briefcase'); // Add state for active icon
+  const [activeIcon, setActiveIcon] = useState('briefcase');
+  // Add state for active icon
   const navigate = useNavigate();
 
   const handleChatButtonClick = () => {
