@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/system';
 import axios from 'axios';
+import { RiNurseFill } from 'react-icons/ri';
 
 // Styled components for better structure
 const CustomContainer = styled(Container)({
@@ -23,7 +24,7 @@ const CustomContainer = styled(Container)({
 });
 
 const CustomCard = styled('div')({
-  maxWidth: 800,
+  maxWidth: '80%',
   width: '100%',
   padding: '1.5rem',
   borderRadius: '1rem',
@@ -34,6 +35,7 @@ const CustomCard = styled('div')({
 const Heading = styled(Typography)({
   marginBottom: '1rem',
   color: '#2C3E50',
+  textAlign : 'center',
 });
 
 const FormControlWrapper = styled('div')({
@@ -135,9 +137,9 @@ const CaseTracking = () => {
       setLoading(true);
 
       const response = await axios.post('http://localhost:5000/client/case-tracking', {
-        courtState: selectedCourt.courtState,
-        courtDistrict: selectedCourt.courtDistrict,
-        courtName: selectedCourt.courtName,
+        // courtState: selectedCourt.courtState,
+        // courtDistrict: selectedCourt.courtDistrict,
+        // courtName: selectedCourt.courtName,
         searchType: trackingOption,
         searchValue: searchValue,
       });
@@ -164,16 +166,17 @@ const CaseTracking = () => {
   };
 
   return (
-    <CustomContainer>
-      <CustomCard>
+    <CustomContainer >
+      <CustomCard >
         <Heading variant="h4">
           <b>CASE TRACKING</b>
         </Heading>
+        <br></br>
 
         {trackingOption && (
-          <div>
-            <div className="flex-container">
-              <div className="dropdown-box">
+          <div >
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' ,justifyContent: 'space-between'  }}>
+            <FormControlWrapper style={{ marginRight: '40px' }}>
                 <InputLabel id="state-label">Select State:</InputLabel>
                 <Select labelId="state-label" label="Select State" style={{ width: '250px' }} id="states" onChange={handleStateChange}>
                   <MenuItem value="">
@@ -185,9 +188,9 @@ const CaseTracking = () => {
                     </MenuItem>
                   ))}
                 </Select>
-              </div>
+                </FormControlWrapper>
 
-              <div className="dropdown-box">
+              <FormControlWrapper style={{ marginRight: '40px' }}>
                 <InputLabel id="state-label">Select District:</InputLabel>
                 <Select labelId="district-label" id="districts" style={{ width: '250px' }} onChange={handleDistrictChange}>
                   <MenuItem value=""><em>Select a district</em></MenuItem>
@@ -197,9 +200,9 @@ const CaseTracking = () => {
                     </MenuItem>
                   ))}
                 </Select>
-              </div>
+             </FormControlWrapper>
 
-              <div className="dropdown-box">
+              <FormControlWrapper style={{ marginRight: '40px' }}>
                 <InputLabel htmlFor="courts">Select Court:</InputLabel>
                 <Select id="courts" style={{ width: '250px' }} onChange={(e) => setSelectedCourt(e.target.value)}>
                   <MenuItem value="">Select a court</MenuItem>
@@ -209,20 +212,20 @@ const CaseTracking = () => {
                     </MenuItem>
                   ))}
                 </Select>
-              </div>
+              </FormControlWrapper>
             </div>
 
             <br />
 
             <FormControlWrapper>
-              <InputLabel id="tracking-option-label">Tracking Option</InputLabel>
+              <InputLabel id="tracking-option-label" >Tracking Option</InputLabel>
               <Select
                 labelId="tracking-option-label"
                 id="tracking-option"
                 value={trackingOption}
                 onChange={(e) => setTrackingOption(e.target.value)}
                 style={{ width: '100%' }}
-              >
+              >                           
                 <MenuItem value="cnr">CNR</MenuItem>
                 {/* Add more options as needed */}
               </Select>
@@ -232,7 +235,7 @@ const CaseTracking = () => {
               type="text"
               placeholder={`Enter ${trackingOption === 'cnr' ? 'CNR' : ''}`}
               value={searchValue}
-              onChange={handleInputChange}
+              onInput={handleInputChange}
             />
 
             <br />
@@ -250,7 +253,7 @@ const CaseTracking = () => {
         )}
 
         <NoCaseMessage>
-          {!loading && !caseDetails && searchValue.trim() && <p>No case found.</p>}
+          {!loading && !caseDetails === null && searchValue.trim() && <p>No case found.</p>}
         </NoCaseMessage>
 
         {!loading && caseDetails && (

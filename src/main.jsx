@@ -19,7 +19,7 @@ import JudgeConference from './Features/JudgeConference.jsx';
 import Conference from './Features/Video_Conference/Conference.jsx';
 import CaseFilingForm from './dashborad-components/FileACase.jsx';
 import FileACaseMin from './dashborad-components/FileACaseMin.jsx';
-// import HomeCon from './Features/Video_Conference/homeCon.jsx';
+import HomeCon from './Features/Video_Conference/homeCon.jsx';
 import Room from './Features/Video_Conference/Room.jsx';
 import Advcauselist from './advocate/Cause_list.jsx'
 import CaseTracking from './client_dashboard/CaseTracking.jsx';
@@ -97,7 +97,7 @@ const App = () => {
           <Route path='/fileacase' element={<FileACaseMin/>}/>
           <Route path='/client/pre-trial' element={<VideoConference/>}/>
           <Route path='judge/schedule-pre-trial' element={<JudgeConference/>}/>
-          {/* <Route path="/homecon/:meetingID" element={<HomeCon/>}/> */}
+          <Route path="/homecon/:meetingID" element={<HomeCon/>}/>
           <Route path='/room/:roomID' element={<Room/>}/>
           <Route path='client/case-tracking' element={<CaseTracking/>}/>
           <Route path="/judge/register/complete/:token" element={<JudgeReg />} />
@@ -116,8 +116,8 @@ const App = () => {
             <Route path="/cao/judge-assign" element={<Judgeassign />} />
             <Route path="/cao/publicadvocate-assign" element={<PubAdvassign />} />
 
-            <Route path='judge/case-tracking' element={<JudgeCaseTracking />} />
-          <Route path='judge/cause-list' element={<Judgecauselist/>}/>
+            <Route path='judge/case-tracking' element={<CaseTracking />} />
+          <Route path='judge/cause-list' element={<Causelist/>}/>
           <Route path='advocate/cause-list' element={<Advcauselist/>}/>
           <Route path='/judge/order-judgements' element={<OrderJudgements/>}/>
           <Route path='/orders' element={<Orders/>}/>

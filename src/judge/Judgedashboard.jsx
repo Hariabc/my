@@ -160,7 +160,7 @@ const BriefcaseDashboard = () => {
   { path: "/scheduling-event", label: "Calendar Scheduling", image: scheduling },
   { path: "/my-cases", label: "My Cases", image: casedetails },
   { path: "/cause-list", label: "Cause List", image: causelist },
-  { path: "/Judge-case-tracking", label: "Case Tracking", image: casetracking },
+  { path: "/case-tracking", label: "Case Tracking", image: casetracking },
   { path: "/order-judgements", label: "ORDERS & JUDGEMENTS", image: caseanalytics },
 ];
 

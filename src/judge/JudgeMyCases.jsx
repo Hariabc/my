@@ -50,6 +50,7 @@ const JudgeMyCases = ({ judgeId }) => {
   };
 
   const handleJudgement = (caseId) => {
+    navigate('/judge/order-judgements')
     console.log(`Providing judgement for case ${caseId}`);
   };
 
@@ -93,7 +94,7 @@ const JudgeMyCases = ({ judgeId }) => {
                 <button className={`text-blue-500 ${getStatusColor(caseItem.progress)}`} onClick={() => handleViewDetails(caseItem._id)}>View Case Details</button>
                 <button className={`text-gray-500 ml-2 ${getStatusColor(caseItem.progress)}`} onClick={() => handleViewDocuments(caseItem._id)}>View Documents</button>
                 <button className={`text-green-500 ml-2 ${getStatusColor(caseItem.progress)}`} onClick={() => handleSchedulePreTrial(caseItem._id)}>Schedule Conference</button>
-                <button className={`text-indigo-500 ml-2 ${getStatusColor(caseItem.progress)}`} onClick={() => handleJudgement(caseItem._id)}>Orders</button>
+                <button className={`text-indigo-500 ml-2 ${getStatusColor(caseItem.progress)}`} onClick={() => handleJudgement(caseItem._id)}>Orders & Judgements</button>
                 {caseItem.progress !== 'Closed' && (
                   <button className={`text-red-500 ml-2`} onClick={() => handleCloseCase(caseItem._id)}>Close</button>
                 )}

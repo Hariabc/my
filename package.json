@@ -75,6 +75,7 @@
     "socket.io-client": "^4.7.2",
     "stream-chat": "^8.14.4",
     "stream-chat-react": "^11.2.1",
+    "styled-components": "^6.1.8",
     "tailwindcss": "^3.4.1",
     "uuid": "^9.0.1",
     "vite-plugin-node": "^3.1.0",

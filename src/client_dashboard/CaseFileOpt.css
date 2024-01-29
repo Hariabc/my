@@ -4,6 +4,9 @@ body, html {
   height: 100%;
   margin: 0;
 }
+.party-in-person-button.active {
+  color: black !important;
+}
 
 .three-option-container {
     display: flex;
