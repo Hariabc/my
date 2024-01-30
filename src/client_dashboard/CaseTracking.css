@@ -1,0 +1,126 @@
+/* Default styles */
+.custom-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.custom-heading-container {
+  padding-left: 250px;
+}
+
+.custom-card {
+  width: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-form-control.small-input {
+  border-radius: 50px;
+  background-color: aliceblue;
+  margin-top: 10px;
+}
+
+.custom-btn.custom-btn-primary.small-button {
+  padding: 10px;
+  font-size: 14px;
+}
+
+.custom-card-body {
+  padding: 20px;
+  margin: 10px;
+}
+
+.custom-input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 700px;
+}
+
+.custom-mt-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.unique-case-details {
+  margin-top: 20px;
+}
+
+.unique-case-heading {
+  margin-bottom: 15px;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.unique-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 15px;
+}
+
+.unique-card-body {
+  padding: 15px;
+}
+
+.unique-case-number {
+  font-weight: bold;
+}
+
+.unique-case-info {
+  margin-top: 10px;
+}
+
+.unique-no-case {
+  margin-top: 20px;
+  color: #777;
+}
+
+.custom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.custom-btn-group {
+  display: flex;
+  justify-content: center;
+}
+
+/* Adjust these styles based on your design preferences */
+.custom-form-control {
+  width: 200px; /* Adjust the width as needed */
+  margin-right: 10px; /* Adjust the spacing between the Dropdown and TextField */
+}
+
+/* Add this to center the buttons */
+.custom-mt-3 {
+  display: flex;
+  justify-content: center;
+}
+
+/* Add this to center the loading spinner */
+.custom-no-case {
+  display: flex;
+  justify-content: center;
+}
+
+/* Responsive styles */
+@media (max-width: 1300px) {
+  .custom-heading-container {
+    padding-left: 0;
+  }
+
+  .custom-card {
+    width: 80%;
+  }
+
+  .custom-input-group {
+    width: 90%;
+  }
+
+}

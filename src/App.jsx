@@ -30,5 +30,13 @@
 //     </div>
 //   );
 // };
+//   return (
+//     <div>
+//       <h1>Socket.IO Notifications Example</h1>
+//       <button onClick={sendNotification}>Send Notification</button>
+     
+//     </div>
+//   );
+// };
 
 // export default App;

@@ -1,0 +1,184 @@
+/* src/components/EventForm.css */
+
+/* General styling for the event scheduler container */
+.event-scheduler {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 20px;
+}
+
+/* Styling for input boxes */
+.input-box {
+  margin-bottom: 20px;
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* Styling for the event scheduler title */
+.event-scheduler-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Container for two sections */
+.event-container {
+  display: flex;
+  width: 100%;
+}
+
+/* Styling for the event form section */
+.event-form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  padding-right: 20px;
+}
+
+/* Styling for event form labels */
+.event-form-label {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+/* Styling for event form inputs and textarea */
+.event-form-input,
+.event-form-textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  resize: vertical;
+  overflow: auto;
+}
+
+/* Styling for checkboxes in the event form */
+.event-form-checkbox {
+  margin-right: 5px;
+}
+
+/* Styling for the submit button in the event form */
+.event-form-submit-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Hover effect for the submit button */
+.event-form-submit-button:hover {
+  background-color: #45a049;
+}
+
+/* Styling for the event list */
+.event-list {
+  list-style: none;
+  padding: 0;
+}
+
+/* Styling for the event list title */
+.event-list-title {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+/* Styling for each event list item */
+.event-list-item {
+  border: 2px solid black;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+}
+
+/* Styling for event details section in each list item */
+.event-details {
+  margin-bottom: 10px;
+}
+
+/* Styling for event list item title */
+.event-list-item-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Styling for event list item description */
+.event-list-item-description {
+  color: #555;
+  font-size: 16px;
+}
+
+/* Styling for event list item date */
+.event-list-item-date {
+  font-style: italic;
+  color: #777;
+  font-size: 14px;
+}
+
+/* Styling for update button in the event list */
+.event-list-update-button,
+.event-list-delete-button {
+  padding: 5px 10px;
+  font-size: 14px;
+  margin-top: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Styling for disabled update button */
+.event-list-update-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Hover effect for update and delete buttons */
+.event-list-update-button:hover,
+.event-list-delete-button:hover {
+  filter: brightness(90%);
+}
+
+/* Alert popup styling */
+.alert-popup {
+  background-color: #4caf50;
+  color: white;
+  padding: 16px;
+  border: 1px solid #4caf50;
+  border-radius: 4px;
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  width: 250px;
+  text-align: center;
+}
+
+/* Styling for cancel update button in the event form */
+.event-form-cancel-update-button {
+  background-color: #ff5c5c;
+  color: white;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+/* Styling for the event buttons section */
+.event-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Styling for the event list container */
+.event-list-container {
+  width: 50%;
+}

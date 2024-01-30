@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 const authMiddleware = require("../middleware/advAuthMiddleware");
 const session = require('express-session');
 const cookie = require("cookie-parser")
+const CourtAdmin=require('../models/cao')
 // router.use(
 //   session({
 //     secret: 'thisisasecretkeyforthisproject',
@@ -62,13 +63,52 @@ router.post('/private/register', async (req, res) => {
 
     await newAdvocate.save();
 
-    await sendSetPasswordEmail(email, token);
+    await sendSetPasswordEmai(email, token);
 
     return res.status(201).json({ message: 'Advocate registered successfully' });
   } catch (err) {
     return res.status(500).json({ error: 'Failed to register advocate', message: err.message });
   }
 });
+
+const sendSetPasswordEmai = async (email, token) => {
+  const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: "ecourtservicehelper@gmail.com",
+      pass: "aryj ahqq wggy bawx"
+    },
+  });
+  const registrationLink = `http://localhost:5173/advocate/register/complete/${token}`;
+  const mailOptions = {
+    from: "ecourtservicehelper@gmail.com",
+    to: email,
+    subject: 'Set Your Password for Court Case Management Portal',
+    html: `
+    <html>
+      <head>
+        <title>Set Your Password</title>
+      </head>
+      <body>
+        <p>Hello,</p>
+        <p>To set your password, please click on the following link:</p>
+        <p><a href="${registrationLink}">Set Password</a></p>
+        <p>If the above link doesn't work, you can copy and paste this URL in your browser:</p>
+        <p>${registrationLink}</p>
+        <p>Thank you!</p>
+      </body>
+    </html>
+  `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log('Email sent for setting password');
+  } catch (error) {
+    console.error('Error occurred while sending email:', error);
+    throw new Error('Failed to send email');
+  }
+};
 
 const sendSetPasswordEmail = async (email, token, firstName) => {
   const transporter = nodemailer.createTransport({
@@ -103,12 +143,18 @@ const sendSetPasswordEmail = async (email, token, firstName) => {
 // Route for public advocate registration
 router.post('/public/register', async (req, res) => {
   try {
-    const { email } = req.body;
+    const { email, courtAdminId } = req.body;
 
     const existingAdvocate = await Advocate.findOne({ email });
 
     if (existingAdvocate) {
       return res.status(400).json({ error: 'Email already exists.' });
+    }
+
+    const courtAdmin = await CourtAdmin.findOne({ courtAdminId });
+
+    if (!courtAdmin) {
+      return res.status(400).json({ error: 'Invalid Court Admin ID' });
     }
 
     const token = Math.random().toString(36).substr(2, 10);
@@ -126,24 +172,32 @@ router.post('/public/register', async (req, res) => {
       barAssociation: req.body.barAssociation,
       yearsOfPractice: req.body.yearsOfPractice,
       practiceArea: req.body.practiceArea,
-      courtAdminId:req.body.courtAdminId,
+      courtAdminId:courtAdmin._id,
       isPrivateAdvocate: false,
       isAppointedByCourtAdmin: true,
     });
+
     publicAdvocate.password_token = token;
     await publicAdvocate.save();
 
-    await sendSetPasswordEmail(publicAdvocate.email, token,publicAdvocate.firstName);
+    // Save Public Advocate ID in Court Admin's array
+    courtAdmin.Publicadvocates.push(publicAdvocate._id);
+    await courtAdmin.save();
+
+    // Save Court Admin's ID in Public Advocate's field
+    // publicAdvocate.courtAdminMail = courtAdmin.email;
+    // await publicAdvocate.save();
+
+    await sendSetPasswordEmail(publicAdvocate.email, token, publicAdvocate.firstName);
 
     res.status(200).json({
       message: 'Public advocate registered by court admin successfully. Please check your email to complete the registration.',
     });
   } catch (error) {
-    res.status(500).json({
-      error
-    });
+    res.status(500).json({ error:error.message });
   }
 });
+
 
 // Complete the registration for a public advocate
 router.post('/register/complete/:token', async (req, res) => {
@@ -170,7 +224,7 @@ router.post('/register/complete/:token', async (req, res) => {
     return res.status(200).json({ message: 'Registration completed successfully.' });
   } catch (err) {
     // Handle errors
-    return res.status(500).json({ error: 'An error occurred while completing the registration.', message: err.message });
+    return res.status(500).json({ error: 'An error occurred while completing the registration.', message: err });
   }
 });
 
@@ -248,7 +302,34 @@ router.get('/user', authMiddleware, (req, res) => {
   }
 });
 
+router.post('/logout', (req, res) => {
+  try {
+    // Clear the JWT token from the cookie
+    res.clearCookie('jwtoken', { httpOnly: true, secure: true });
+
+    res.status(200).json({ message: 'Logout successful' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 
+router.get('/mycases', authMiddleware, async (req, res) => {
+  const advocateId = req.user._id; // Use req.user._id to get the authenticated judge's ID
+  // console.log(advocateId);
+  try {
+    const advocate = await Advocate.findById(advocateId).populate('cases');
+
+    if (!advocate) {
+      return res.status(404).json({ message: 'Advocate not found' });
+    }
+
+    res.json(advocate.cases);
+  } catch (error) {
+    console.error('Error fetching advocate cases:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 module.exports = router;

@@ -1,0 +1,115 @@
+/* Update your CSS file */
+
+.causelist-container {
+  max-width: 90vw;
+  margin: 0 40px;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.dropdown-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dropdown-box {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+}
+
+.captcha-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.captcha-text-box {
+  display: flex; /* Make it a flex container */
+  flex-direction: column; /* Stack child elements vertically */
+  padding: 10px;
+  border: 3px solid #ddd;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.captcha-input-container {
+  flex: 1;
+  display: flex;
+}
+
+.captcha-input {
+ 
+  padding: 10px;
+  box-sizing: border-box;
+  border: 3px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+
+}
+
+.captcha-verify-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.success-message {
+  color: green;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+label.label-captcha {
+  font-size: 16px;
+  padding-left: 50px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .container-list {
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  .dropdown-container {
+    flex-direction: column;
+  }
+
+  .button-box button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}

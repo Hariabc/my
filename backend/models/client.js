@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 // User Schema
 const clientSchema = new mongoose.Schema({
@@ -42,7 +41,7 @@ const clientSchema = new mongoose.Schema({
   },
   cases: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Case'
+    ref: 'Filedcase'
   }],
 
   gender: {
@@ -56,11 +55,14 @@ const clientSchema = new mongoose.Schema({
   role: {
     type: String,
     default:"client"
-  }
+  },
+
+  scheduledConferences: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'JudgeConference',
+  }],
 
 }, { timestamps: true });
 
 // Create a model based on the schema
-const User = mongoose.model('User', clientSchema);
-
-module.exports = User;
+module.exports= mongoose.model('User', clientSchema);

@@ -1,0 +1,139 @@
+.button {
+    margin: 10px;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .judges-form,
+  .lawyers-form {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column; /* Change to column layout */
+    align-items: center;
+    justify-content: center;
+  }
+
+  .form-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .lawyers-form-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    padding: 40px;
+    width: 100%;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .form-label-checkbox {
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  .form-input,
+  .form-checkbox,
+  .form-select{
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-top: 5px;
+  }
+
+  .submit-button {
+    margin-top: 20px; /* Adjust the margin-top to move the button down */
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .lawyers-form-container .submit-button {
+    grid-column: span 3; /* Span across all columns in the grid */
+    height: 40px;
+    width: 40%; /* Adjust the width as needed */
+    margin-left: 30%; /* Adjust the margin-left as needed for centering */
+  }
+
+  /* AddUsers.css */
+
+.judges-form {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .judges-form-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    padding: 20px;
+    /* width: 50%; */
+    margin: auto;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .form-input,
+  .form-select {
+    width: 400px;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-top: 5px;
+  }
+
+  .submit-button {
+    margin-top: 15px;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .judges-form-container .submit-button{
+    grid-column: span 3; /* Span across all columns in the grid */
+    height: 40px;
+    width: 40%; /* Adjust the width as needed */
+    margin-left: 30%;
+  }
+
+  .add-users-container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+  }

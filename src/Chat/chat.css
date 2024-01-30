@@ -1,0 +1,9 @@
+/* Import statements at the beginning */
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap");
+
+/* Other CSS rules follow */
+.sendbird-avatar {
+  display: inline-block;
+}
+
+/* More CSS rules */
