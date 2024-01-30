@@ -92,7 +92,11 @@ const courtAdminSchema = new mongoose.Schema({
   Publicadvocates: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Advocate'
- }]
+ }],
+ scheduledConferences: [{
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'JudgeConference',
+}],
  
 });
 

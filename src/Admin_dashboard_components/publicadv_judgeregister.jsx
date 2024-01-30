@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './Addreg.css';
-import axios from "axios";
+import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { Grid, Button, Paper, Typography } from '@mui/material';
 
 export default function AddUsers() {
   const [showJudgesForm, setShowJudgesForm] = useState(false);
@@ -20,23 +20,35 @@ export default function AddUsers() {
   };
 
   return (
-    <>
-    <div className="add-users-container">
-      <button className="button" onClick={handleJudgesClick}>
-        Add Judges
-      </button>
-      <button className="button" onClick={handleLawyersClick}>
-        Add Public Advocates
-      </button>
+    <div className="center-container">
+      {!(showJudgesForm || showLawyersForm) && (
+        <Paper elevation={10} className="add-users-box" style={{ width: '1300px', height: '200px', padding: '20px' }}>
+          <Typography variant="body1" style={{ marginBottom: '10px' }}>
+            Click on one of those options to proceed
+          </Typography>
+          <br />
+          <Grid container justify="center" spacing={10} className="add-users-container">
+            <Grid item>
+              <Button variant="contained" color="primary" size="large" onClick={handleJudgesClick}>
+                Add Judges
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button variant="contained" color="secondary" size="large" onClick={handleLawyersClick}>
+                Add Public Advocates
+              </Button>
+            </Grid>
+          </Grid>
+        </Paper>
+      )}
+
+      <div className="forms">
+        {showJudgesForm && <JudgesForm />}
+        {showLawyersForm && <LawyersForm />}
+      </div>
     </div>
-    <div className="forms">
-      {showLawyersForm && <LawyersForm />}
-      {showJudgesForm && <JudgesForm />}
-    </div>
-    </>
   );
 }
-
 function LawyersForm() {
     const [formData, setFormData] = useState({
       username: '',
@@ -102,8 +114,10 @@ function LawyersForm() {
   
     return (
       <div className="lawyers-form">
+        <br></br>
+        <br></br>
         <h2 style={{ marginBottom: "0", paddingBottom: "0" }}>
-          Public Advocate Registration
+          PUBLIC ADVOCATE REGISTRATION
         </h2>
         <form className="lawyers-form-container" onSubmit={handleSubmit}>
           {/* Form fields and labels */}
@@ -333,8 +347,9 @@ function JudgesForm() {
       <div className="judges-form">
           <ToastContainer/>
       <h2 style={{ marginBottom: "0", paddingBottom: "0" }}>
-        Judges Form
+        JUDGE REGISTRATION FORM
       </h2>
+      <br></br>
       <form className="judges-form-container" onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="firstname" className="form-label">
