@@ -6,6 +6,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DocumentsModal from './documents';
+import { Button, Container, Paper, Select,MenuItem, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 
 const AdminDashboard = () => {
   const [cases, setCases] = useState([]);
@@ -75,57 +76,81 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="case-container" style={{ width: "100%", backgroundColor: "white", padding: "20px", borderRadius: "4px" }}>
+    <Container component="div" maxWidth="xl">
       <ToastContainer />
-      <h1>Admin Dashboard - All cases </h1>
+      <Typography variant="h3" style={{ textAlign: 'center', margin: '20px 0' }}>ADMIN DASHBOARD - ALL CASES</Typography>
+
       {filteredCases.length === 0 ? (
-        <p>No filed cases available.</p>
+        <Typography variant="p" style={{ textAlign: 'center' }}>No filed cases available.</Typography>
       ) : (
         <>
-          <div className="filter-section" style={{ width: "300px" }}>
-            <label>Filter by Case Type:</label>
-            <select value={filterType} onChange={handleFilterChange}>
-              <option value="all">All</option>
-              <option value="partyinperson">Party in Person</option>
-              <option value="privateAdvocate">Private Advocate</option>
-              <option value="publicAdvocate">Public Advocate</option>
-            </select>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+            <div style={{ width: '300px' }}>
+            <label style={{ marginRight: '10px', fontSize: '20px', fontWeight: 'bold' }}>Filter by Case Type:</label>
+            <br></br>
+            <Select
+  value={filterType}
+  onChange={handleFilterChange}
+  style={{ fontSize: '16px', minWidth: '150px' }}
+  MenuProps={{
+    style: { fontSize: '16px', color: 'blue' },
+    getContentAnchorEl: null,
+    anchorOrigin: {
+      vertical: 'bottom',
+      horizontal: 'left',
+    },
+  }}
+>
+  <MenuItem value="all">All</MenuItem>
+  <MenuItem value="partyinperson">Party in Person</MenuItem>
+  <MenuItem value="privateAdvocate">Private Advocate</MenuItem>
+  <MenuItem value="publicAdvocate">Public Advocate</MenuItem>
+</Select>
+
+            </div>
           </div>
+
           <div>
-            <h2>Filtered Cases:</h2>
+            <Typography variant="h5"></Typography>
             {filteredCases.length > 0 ? (
-              <table>
-                <thead>
-                  <tr>
-                    <th>Serial No</th>
-                    <th>Case Title</th>
-                    <th>Case Number</th>
-                    <th>View Details</th>
-                    <th>View Documents</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredCases.map((caseItem, index) => (
-                    <tr key={caseItem._id}>
-                      <td>{index + 1}</td>
-                      <td>{caseItem.caseDetails.title}</td>
-                      <td>{caseItem.caseNumber}</td>
-                      <td>
-                        <button onClick={() => openCaseDetailsModal(caseItem)}>View Details</button>
-                      </td>
-                      <td>
-                        <button onClick={() => viewDocuments(caseItem)}>View Documents</button>
-                      </td>
-                      <td>
-                        {caseItem.progress} {/* Replace 'status' with the actual property representing the status */}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <TableContainer component={Paper}>
+                <Table>
+                <TableHead>
+  <TableRow>
+    <TableCell style={{ background: 'darkblue', color: 'white' }}>S.NO.</TableCell>
+    <TableCell style={{ background: 'darkblue', color: 'white' }}>CASE TITLE</TableCell>
+    <TableCell style={{ background: 'darkblue', color: 'white' }}>CASE NUMBER</TableCell>
+    <TableCell style={{ background: 'darkblue', color: 'white' }}>VIEW DETAILS</TableCell>
+    <TableCell style={{ background: 'darkblue', color: 'white' }}>VIEW DOCUMENTS</TableCell>
+    <TableCell style={{ background: 'darkblue', color: 'white' }}>STATUS</TableCell>
+  </TableRow>
+</TableHead>
+                  <TableBody>
+                    {filteredCases.map((caseItem, index) => (
+                      <TableRow key={caseItem._id}>
+                        <TableCell>{index + 1}</TableCell>
+                        <TableCell>{caseItem.caseDetails.title}</TableCell>
+                        <TableCell>
+                          <strong>{caseItem.caseNumber}</strong>
+                        </TableCell>
+                        <TableCell>
+                          <Button variant="outlined" color="primary" onClick={() => openCaseDetailsModal(caseItem)}>
+                            View Details
+                          </Button>
+                        </TableCell>
+                        <TableCell>
+                          <Button variant="outlined" color="primary" onClick={() => viewDocuments(caseItem)}>
+                            View Documents
+                          </Button>
+                        </TableCell>
+                        <TableCell>{caseItem.progress}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             ) : (
-              <p>No cases match the selected filter.</p>
+              <Typography variant="p" style={{ textAlign: 'center' }}>No cases match the selected filter.</Typography>
             )}
           </div>
 
@@ -193,7 +218,7 @@ const AdminDashboard = () => {
           )}
         </>
       )}
-    </div>
+    </Container>
   );
 };
 

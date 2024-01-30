@@ -60,6 +60,7 @@ const Orders = () => {
     spaceBetweenButtons: {
       marginBottom: '10px', // Adjust as needed
     },
+    
   };
 
 
@@ -323,21 +324,23 @@ setOrderDate(null);
                         marginBottom: '10px',
                       }}
                       >
-                      <Typography variant="subtitle1">
-                        <strong>Order ID:</strong> {order.orderId}
-                      </Typography>
-                      <Typography variant="subtitle1">
-                        <strong>Order Type:</strong> {order.orderType}
-                      </Typography>
-                      <Typography variant="subtitle1">
-                        <strong>Order Content:</strong> {order.orderContent}
-                      </Typography>
-                      <Typography variant="subtitle1">
-                        <strong>Order Date:</strong> {new Date(order.orderDate).toLocaleDateString()}
-                      </Typography>
-                      <Typography variant="subtitle1">
-                        <strong>Judge:</strong> {order.judge}
-                      </Typography>
+                       <Typography variant="subtitle1">
+      <strong>Case Number:</strong> {order.caseNumber}
+    </Typography>
+    
+    <Typography variant="subtitle1">
+      <strong>Order ID:</strong> {order.orderId}
+    </Typography>
+    <Typography variant="subtitle1">
+      <strong>Order Type:</strong> {order.orderType}
+    </Typography>
+    <Typography variant="subtitle1">
+      <strong>Order Content:</strong> {order.orderContent}
+    </Typography>
+    <Typography variant="subtitle1">
+      <strong>Order Date:</strong> {new Date(order.orderDate).toLocaleDateString()}
+    </Typography>
+    
                     </li>
                     ))}
                   </ul>
