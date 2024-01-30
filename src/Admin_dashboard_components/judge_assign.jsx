@@ -3,6 +3,21 @@ import axios from 'axios';
 import './judge_assign.css';
 import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  Modal,
+  Box,
+  Typography,
+  Select,
+  MenuItem,
+} from '@mui/material';
 
 const AssignJudgeDashboard = () => {
   const [judgeApprovedCases, setJudgeApprovedCases] = useState([]);
@@ -93,79 +108,108 @@ const AssignJudgeDashboard = () => {
   };
 
   return (
-    <div className="assign-judge-dashboard">
-      <ToastContainer/>
-      <h1>Assign Judge Dashboard</h1>
+    <div className="assign-judge-dashboard" style={{ width: '90%', margin: 'auto' }}>
+      <ToastContainer />
+      <Typography variant="h4" gutterBottom style={{marginLeft:'400px'}}>
+        ASSIGN JUDGE DASHBOARD
+      </Typography>
 
-      <div>
-        <h2>Judge Approved Cases</h2>
-        <ul className="case-list">
-          {filteredJudgeApprovedCases.map((caseItem) => (
-            <li key={caseItem._id} className="case-box">
-              {/* Display case details */}
-              <div className="case-details">
-                <strong>Case Number:</strong> {caseItem.caseNumber}
-              </div>
-              <div className="case-details">
-                <strong>Case Title:</strong> {caseItem.caseDetails.title}
-              </div>
-              <div className="case-details">
-                <strong>Case Type:</strong> {caseItem.caseDetails.caseType}
-              </div>
-              <div className="case-details">
-                <strong>Plaintiff Name:</strong> {caseItem.plaintiffDetails.fullName}
-              </div>
-              <div className="case-details">
-                <strong>Defendant Name:</strong> {caseItem.defendantDetails.fullName}
-              </div>
-              <div className="case-details">
-                <strong>Court Name:</strong> {caseItem.caseDetails.courtName}
-              </div>
-              <div className="assign-button-container">
-                <button
-                  onClick={() => handleAssignJudgeClick(caseItem._id)}
-                  className="assign-button"
-                >
-                  Assign Judge for the Case
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <TableContainer component={Paper} style={{ width: '100%' }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell style={{ color: 'white',backgroundColor:'darkblue', fontWeight: 'bold' }}>CASE NUMBER</TableCell>
+              <TableCell style={{ color: 'white',backgroundColor:'darkblue', fontWeight: 'bold' }}>CASE TITLE</TableCell>
+              <TableCell style={{ color: 'white',backgroundColor:'darkblue', fontWeight: 'bold' }}>CASE TYPE</TableCell>
+              <TableCell style={{ color: 'white',backgroundColor:'darkblue', fontWeight: 'bold' }}>PLANTIFF NAME</TableCell>
+              <TableCell style={{ color: 'white',backgroundColor:'darkblue', fontWeight: 'bold' }}>DEFENDANT NAME</TableCell>
+              <TableCell style={{ color: 'white',backgroundColor:'darkblue', fontWeight: 'bold' }}>COURT NAME</TableCell>
+              <TableCell style={{ color: 'white',backgroundColor:'darkblue', fontWeight: 'bold' }}>ACTION</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {filteredJudgeApprovedCases.map((caseItem) => (
+              <TableRow key={caseItem._id}>
+                <TableCell style={{fontWeight:'bold'}}>{caseItem.caseNumber}</TableCell>
+                <TableCell>{caseItem.caseDetails.title}</TableCell>
+                <TableCell>{caseItem.caseDetails.caseType}</TableCell>
+                <TableCell>{caseItem.plaintiffDetails.fullName}</TableCell>
+                <TableCell>{caseItem.defendantDetails.fullName}</TableCell>
+                <TableCell>{caseItem.caseDetails.courtName}</TableCell>
+                <TableCell>
+                  <Button
+                    onClick={() => handleAssignJudgeClick(caseItem._id)}
+                    variant="outlined"
+                    color="primary"
+                  >
+                    Assign Judge
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
 
-      {/* Modal for selecting a judge */}
-      {isModalOpen && (
-        <div className="overlay">
-          <div className="box">
-            <h2>Select a Judge</h2>
-            <div className="select-container">
-              <label>Select a Judge:</label>
-              <select
-                onChange={(e) => setSelectedJudge(e.target.value)}
-                className="judge-dropdown"
-              >
-                <option value="" disabled selected>
-                  Choose a Judge
-                </option>
-                {registeredJudges.map((judge) => (
-                  <option key={judge._id} value={judge._id}>
-                    {judge.name} - {judge.gender}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="modal-buttons">
-              <button onClick={() => handleAssignJudge(selectedCase)} className="modal-button">
-                Assign Judge
-              </button>
-              <button onClick={handleCloseModal} className="close-button">
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <Modal open={isModalOpen} onClose={handleCloseModal}>
+  <Box
+    className="modal-box"
+    sx={{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: '400px', // Adjust the width as needed
+      p: 4,
+      bgcolor: 'white',
+      boxShadow: 24,
+      borderRadius: 4,
+      textAlign: 'center',
+    }}
+  >
+    <Typography variant="h6" gutterBottom>
+      Select a Judge
+    </Typography>
+    <div className="select-container" style={{ marginBottom: '20px' }}>
+      <label>Select a Judge:</label>
+      <Select
+        onChange={(e) => setSelectedJudge(e.target.value)}
+        className="judge-dropdown"
+        value={selectedJudge || ''}
+        sx={{ width: '100%', maxWidth: '300px' }}
+        MenuComponent={({ children, ...props }) => (
+          <Menu
+            {...props}
+            PaperProps={{
+              style: {
+                maxHeight: '150px', // Adjust the maxHeight as needed
+              },
+            }}
+          >
+            {children}
+          </Menu>
+        )}
+      >
+        <MenuItem value="" disabled>
+          Choose a Judge
+        </MenuItem>
+        {registeredJudges.map((judge) => (
+          <MenuItem key={judge._id} value={judge._id}>
+            {judge.name} - {judge.gender}
+          </MenuItem>
+        ))}
+      </Select>
+    </div>
+    <div className="modal-buttons">
+      <Button onClick={() => handleAssignJudge(selectedCase)} variant="contained" color="primary" sx={{ mr: 2 }}>
+        Assign Judge
+      </Button>
+      <Button onClick={handleCloseModal} variant="outlined" color="secondary">
+        Close
+      </Button>
+    </div>
+  </Box>
+</Modal>
     </div>
   );
 };

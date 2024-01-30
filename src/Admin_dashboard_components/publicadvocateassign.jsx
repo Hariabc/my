@@ -3,6 +3,20 @@ import axios from 'axios';
 import './judge_assign.css'; // Make sure to create the appropriate CSS file
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {
+  Button,
+  Box,
+  MenuItem,
+  Select,
+  Typography,
+  Modal,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 
 const AssignPublicAdvocateDashboard = () => {
   const [publicAdvocateApprovedCases, setPublicAdvocateApprovedCases] = useState([]);
@@ -85,76 +99,89 @@ const AssignPublicAdvocateDashboard = () => {
   };
 
   return (
-    <div className="assign-public-advocate-dashboard">
+    <div className="assign-public-advocate-dashboard" style={{ width: '90%', margin: 'auto' }}>
       <ToastContainer />
-      <h1>Assign Public Advocate Dashboard</h1>
-
+      <Typography variant="h4" style={{marginLeft:'300px'}}>ASSIGN PUBLIC ADVOCATE DASHBOARD</Typography>
+  <br></br>
       <div>
-        <h2>Public Advocate Approved Cases</h2>
-        <ul className="case-list">
-          {filteredPublicAdvocateApprovedCases.map((caseItem) => (
-            <li key={caseItem._id} className="case-box">
-              <div className="case-details">
-                <strong>Case Number:</strong> {caseItem.caseNumber}
-              </div>
-              <div className="case-details">
-                <strong>Case Title:</strong> {caseItem.caseDetails.title}
-              </div>
-              <div className="case-details">
-                <strong>Case Type:</strong> {caseItem.caseDetails.caseType}
-              </div>
-              <div className="case-details">
-                <strong>Plaintiff Name:</strong> {caseItem.plaintiffDetails.fullName}
-              </div>
-              <div className="case-details">
-                <strong>Defendant Name:</strong> {caseItem.defendantDetails.fullName}
-              </div>
-              <div className="case-details">
-                <strong>Court Name:</strong> {caseItem.caseDetails.courtName}
-              </div>
-              <div className="assign-button-container">
-                <button
-                  onClick={() => handleAssignPublicAdvocateClick(caseItem._id)}
-                  className="assign-button"
-                >
-                  Assign Public Advocate for the Case
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <Typography variant="h4"></Typography>
+        <TableContainer style={{ width: '100%' }}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell style={{ color: 'white',backgroundColor:'darkblue', fontWeight: 'bold' }}>CASE NUMBER</TableCell>
+                <TableCell style={{ color: 'white',backgroundColor:'darkblue', fontWeight: 'bold' }}>CASE TITLE</TableCell>
+                <TableCell style={{ color: 'white',backgroundColor:'darkblue', fontWeight: 'bold' }}>CASE TYPE</TableCell>
+                <TableCell style={{ color: 'white',backgroundColor:'darkblue', fontWeight: 'bold' }}>PLANTIFF NAME</TableCell>
+                <TableCell style={{ color: 'white',backgroundColor:'darkblue', fontWeight: 'bold' }}>DEFENDANT NAME</TableCell>
+                <TableCell style={{ color: 'white',backgroundColor:'darkblue', fontWeight: 'bold' }}>COURT NAME</TableCell>
+                <TableCell style={{ color: 'white',backgroundColor:'darkblue', fontWeight: 'bold' }}>ACTION</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredPublicAdvocateApprovedCases.map((caseItem) => (
+                <TableRow key={caseItem._id}>
+                  <TableCell style={{fontWeight:'bold'}}>{caseItem.caseNumber}</TableCell>
+                  <TableCell>{caseItem.caseDetails.title}</TableCell>
+                  <TableCell>{caseItem.caseDetails.caseType}</TableCell>
+                  <TableCell>{caseItem.plaintiffDetails.fullName}</TableCell>
+                  <TableCell>{caseItem.defendantDetails.fullName}</TableCell>
+                  <TableCell>{caseItem.caseDetails.courtName}</TableCell>
+                  <TableCell>
+                    <Button
+                      onClick={() => handleAssignPublicAdvocateClick(caseItem._id)}
+                      variant="outlined"
+                      color="primary"
+                    >
+                      Assign Public Advocate
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
 
       {isModalOpen && (
-        <div className="overlay">
-          <div className="box">
-            <h2>Select a Public Advocate</h2>
-            <div className="select-container">
+        <Modal open={isModalOpen} onClose={handleCloseModal} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Box className="modal-box" style={{ width: '400px', padding: '20px', textAlign: 'center' , backgroundColor: 'white'}}>
+            <Typography variant="h6" gutterBottom>
+              Select a Public Advocate
+            </Typography>
+            <div className="select-container" style={{ marginBottom: '20px' }}>
               <label>Select a Public Advocate:</label>
-              <select
+              <Select
                 onChange={(e) => setSelectedPublicAdvocate(e.target.value)}
                 className="public-advocate-dropdown"
+                value={selectedPublicAdvocate || ''}
+                sx={{ width: '100%', maxWidth: '300px' }}
               >
-                <option value="" disabled selected>
+                <MenuItem value="" disabled>
                   Choose a Public Advocate
-                </option>
+                </MenuItem>
                 {registeredPublicAdvocates.map((publicAdvocate) => (
-                  <option key={publicAdvocate._id} value={publicAdvocate._id}>
-                        {publicAdvocate.firstName} {publicAdvocate.lastName} - {publicAdvocate.gender}-{`Practice area- ${publicAdvocate.practiceArea}`}
-                  </option>
+                  <MenuItem key={publicAdvocate._id} value={publicAdvocate._id}>
+                    {publicAdvocate.firstName} {publicAdvocate.lastName} - {publicAdvocate.gender}-{`Practice area- ${publicAdvocate.practiceArea}`}
+                  </MenuItem>
                 ))}
-              </select>
+              </Select>
             </div>
             <div className="modal-buttons">
-              <button onClick={() => handleAssignPublicAdvocate(selectedCase)} className="modal-button">
+              <Button
+                onClick={() => handleAssignPublicAdvocate(selectedCase)}
+                variant="contained"
+                color="primary"
+                style={{ marginRight: '10px' }}
+              >
                 Assign Public Advocate
-              </button>
-              <button onClick={handleCloseModal} className="close-button">
+              </Button>
+              <Button onClick={handleCloseModal} variant="outlined" color="secondary">
                 Close
-              </button>
+              </Button>
             </div>
-          </div>
-        </div>
+          </Box>
+        </Modal>
       )}
     </div>
   );
