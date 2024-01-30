@@ -525,5 +525,18 @@ const nodemailer = require('nodemailer');
     }
   });
 
+  router.get('/get-judgements', authMiddleware, async (req, res) => {
+    try {
+      const judgeId = req.user._id;
+  
+      // Assuming you have a judge field in your Conference model
+      const judgements = await Judgement.find({ judge: judgeId });
+  
+      res.json(judgements);
+    } catch (error) {
+      console.error('Error fetching judgements:', error);
+      res.status(500).json({ error: 'Failed to fetch judgements' });
+    }
+  });
 
   module.exports = router;

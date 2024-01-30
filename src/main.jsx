@@ -111,7 +111,7 @@ const App = () => {
           <Route path="/cao/mycases" element={<Mycases />} />
           <Route path="/cao/court-cases" element={<Courtcases />} />   
           <Route path="/cao/addjudge-publicadv" element={<AddUsers/>} />
-          <Route path='/cao/pre-trial-conferencing' element={<VideoConference/>}/>
+          {/* <Route path='/cao/pre-trial-conferencing' element={<VideoConference/>}/> */}
           <Route  path="*" element={<ErrorPage/>}/>
           <Route path="/client/cause-list" element={<Causelist />} />
             <Route path="/cao/judge-assign" element={<Judgeassign />} />
