@@ -78,7 +78,7 @@ const AdminDashboard = () => {
   return (
     <Container component="div" maxWidth="xl">
       <ToastContainer />
-      <Typography variant="h3" style={{ textAlign: 'center', margin: '20px 0' }}>ADMIN DASHBOARD - ALL CASES</Typography>
+      <Typography variant="h4" style={{ textAlign: 'center', margin: '20px 0' }}>ADMIN DASHBOARD - ALL CASES</Typography>
 
       {filteredCases.length === 0 ? (
         <Typography variant="p" style={{ textAlign: 'center' }}>No filed cases available.</Typography>
@@ -91,7 +91,7 @@ const AdminDashboard = () => {
             <Select
   value={filterType}
   onChange={handleFilterChange}
-  style={{ fontSize: '16px', minWidth: '150px' }}
+  style={{ fontSize: '16px', minWidth: '250px' }}
   MenuProps={{
     style: { fontSize: '16px', color: 'blue' },
     getContentAnchorEl: null,
