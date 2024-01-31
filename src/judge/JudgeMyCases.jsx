@@ -3,6 +3,8 @@ import axios from 'axios';
 import './JudgeMyCases.css';
 import { useNavigate } from 'react-router-dom';
 import DocumentModal from './document';
+import { toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const JudgeMyCases = ({ judgeId }) => {
   const [cases, setCases] = useState([]);
@@ -54,10 +56,31 @@ const JudgeMyCases = ({ judgeId }) => {
     console.log(`Providing judgement for case ${caseId}`);
   };
 
-  const handleCloseCase = (caseId) => {
-    console.log(`Closing case ${caseId}`);
-    // You can add logic for closing the case (e.g., making an API call to update the case status)
+  const handleCloseCase = async (caseId) => {
+    try {
+      // Make an API call to update the case status to 'Closed'
+      await axios.put(`http://localhost:5000/judge/close-case/${caseId}`, { status: 'Closed' }, { withCredentials: true });
+  
+      // Update the local state to reflect the closed status
+      setCases((prevCases) =>
+        prevCases.filter((caseItem) => caseItem._id !== caseId)
+      );
+  
+      // Display a success toast
+      toast.success(`Case ${caseId} closed successfully`, {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000, // Adjust the duration of the toast
+      });
+    } catch (error) {
+      console.error(`Error closing case ${caseId}:`, error.message);
+      // Display an error toast
+      toast.error(`Error closing case ${caseId}`, {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+      });
+    }
   };
+  
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -74,6 +97,7 @@ const JudgeMyCases = ({ judgeId }) => {
 
   return (
     <div className="container mx-auto mt-8">
+      <ToastContainer/>
       <h2 className="text-3xl font-semibold mb-4">My Cases</h2>
       <table className="min-w-full border border-gray-300">
         <thead>
