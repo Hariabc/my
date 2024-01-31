@@ -13,11 +13,12 @@
   height: 80vh;
 }
 
-.container {
+.contact-container {
   display: grid;
-  width: 100%;
-  height: 100vh;
+  width: 95vw;
   padding-left: 20px;
+  background-color: aliceblue;
+
 }
 
 .title {
@@ -36,13 +37,13 @@
   grid-template-columns: 3fr 1fr;
   grid-template-rows: 5fr 4fr;
   grid-template-areas: "form info" "form map";
-  gap: 20px;
+  /* gap: 20px; */
 }
 
 .contact-form-container {
   width: 100%;
   padding: 20px; /* Adjusted padding for a more compact form */
-  background-color: aliceblue;
+  /* background-color: aliceblue; */
   border-radius: 10px;
 }
 
@@ -103,7 +104,6 @@
 
 /* Map styling */
 .contact-map iframe {
-  width: 100%;
   height: 100%;
   border-radius: 6px;
 }

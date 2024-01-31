@@ -30,7 +30,7 @@ const ContactUs = () => {
         <h1>Contact us</h1>
       </div>
       <section className='contact-section'>
-        <div className='contact-container'>
+        <div className='contact-container' style={{backgroundColor:"white"}}>
           <div className='contact-box'>
             <div className='contact-form-container form'>
               <h1 className='contact-form'>Contact Form</h1>
@@ -66,7 +66,7 @@ const ContactUs = () => {
             </div>
 
             <div className='contact-info info'>
-              <h2>Contact Information</h2>
+              <h2 style={{textAlign:"center"}}>Contact Information</h2>
               <p>abc@gmail.com</p>
               <p>1234 Sample Street,</p>
               <p>Cityville, Country</p>
@@ -79,7 +79,6 @@ const ContactUs = () => {
                 title='Google Maps'
                 width='100%'
                 height='300'
-                frameBorder='0'
                 style={{ border: 0 }}
                 src='https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3502.248911659996!2d77.23460879678954!3d28.622301100000016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1702632052611!5m2!1sen!2sin'
                 allowFullScreen

@@ -5,8 +5,8 @@ import { App as SendbirdApp } from "sendbird-uikit";
 import "sendbird-uikit/dist/index.css";
 import axios from 'axios';
 export default function Chat() {    
-    const APP_ID = "EAD127B3-C2FC-47A7-B744-D1F2DE076DB5";
-
+    // const APP_ID = "EAD127B3-C2FC-47A7-B744-D1F2DE076DB5";
+   const APP_ID="049FF9C5-DFDC-4991-B147-D2FDFDC72C54";
     const [userData, setUserData] = useState({});
 
     useEffect(() => {

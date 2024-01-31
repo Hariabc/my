@@ -21,6 +21,8 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import { TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import Search from '@mui/icons-material/Search';
+import { BeatLoader } from 'react-spinners';
+
 const AdminDashboard = () => {
   const [cases, setCases] = useState([]);
   const [filteredCases, setFilteredCases] = useState([]);
@@ -33,20 +35,22 @@ const AdminDashboard = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState('');
-
-  useEffect(() => {
-    // Apply the search filter to the initial set of cases
-    const filteredCases = cases.filter((caseItem) => {
-      const caseNumberMatch = (caseItem.caseNumber?.toString() || '').includes(searchQuery.toUpperCase());
-      const titleMatch = (caseItem.title || '').toLowerCase().includes(searchQuery.toLowerCase());
-      const plaintiffMatch = (caseItem.plaintiffDetails?.fullName || '').toLowerCase().includes(searchQuery.toLowerCase());
-      const defendantMatch = (caseItem.defendantDetails?.fullName || '').toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredCases2= cases.filter((caseItem) =>
+  caseItem.caseNumber.toString().includes(searchQuery.toUpperCase())
+);
+  // useEffect(() => {
+  //   // Apply the search filter to the initial set of cases
+  //   const filteredCases = cases.filter((caseItem) => {
+  //     const caseNumberMatch = (caseItem.caseNumber?.toString() || '').includes(searchQuery.toUpperCase());
+  //     const titleMatch = (caseItem.title || '').toLowerCase().includes(searchQuery.toLowerCase());
+  //     const plaintiffMatch = (caseItem.plaintiffDetails?.fullName || '').toLowerCase().includes(searchQuery.toLowerCase());
+  //     const defendantMatch = (caseItem.defendantDetails?.fullName || '').toLowerCase().includes(searchQuery.toLowerCase());
   
-      return caseNumberMatch || titleMatch || plaintiffMatch || defendantMatch;
-    });
+  //     return caseNumberMatch || titleMatch || plaintiffMatch || defendantMatch;
+  //   });
   
-    setFilteredCases(filteredCases);
-  }, [cases, searchQuery]);
+  //   setFilteredCases(filteredCases);
+  // }, [cases, searchQuery]);
   
 
 
@@ -272,10 +276,12 @@ const AdminDashboard = () => {
   return (
     <div className="case-container" style={{width:"100%",backgroundColor:"white",padding:"20px",borderRadius:"4px"}}>
       <ToastContainer />
-      <h1 style={{textAlign:"center"}}>Pending Cases</h1>
+      <h1 style={{textAlign:"center",marginBottom:"20px"}}>Filed Cases</h1>
       <hr />
       {filteredCases.length === 0 ? (
-        <p>No filed cases available.</p>
+        <div className="loader" style={{marginLeft:"48%",marginTop:"20%"}}>
+        <BeatLoader color="black"/>
+      </div>
       ) : (
         <>
       <div className="filter-section" style={{paddingTop:"20px"}}>
@@ -289,7 +295,7 @@ const AdminDashboard = () => {
       </div>
       <div>
         <h2>Filtered Cases:</h2>
-        {filteredCases.length > 0 ? (
+        {filteredCases2 ? (
         // <table>
         //   <thead>
         //     <tr>
@@ -354,7 +360,7 @@ const AdminDashboard = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-              {filteredCases
+              {filteredCases2
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((caseItem, index) => (
                     <TableRow key={caseItem._id}>

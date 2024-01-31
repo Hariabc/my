@@ -58,10 +58,10 @@
 }
 
 .horizontal-line {
-  width: 33%;
+  width: 40%;
   border: 1px solid #ddd; 
   margin-bottom: 10px;
-  margin-top: 11px;/* Adjust the border color as needed */
+  margin-top:5px;
 }
 /* ExploreButton.css */
 
