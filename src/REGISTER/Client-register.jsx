@@ -116,13 +116,13 @@ const ClientForm = () => {
           console.log('Server Response:', response.data);
           toast.success('Link has been sent to your mail to set password'); // Success message
           // Handle success (redirect, display a success message, etc.)
-          const userResponse = await axios.post('https://api-EAD127B3-C2FC-47A7-B744-D1F2DE076DB5.sendbird.com/v3/users', {
+          const userResponse = await axios.post('https://api-049FF9C5-DFDC-4991-B147-D2FDFDC72C54.sendbird.com/v3/users', {
           user_id: username,
           nickname: username,
           profile_url: 'https://example.com/profile-image.jpg'
         },{headers: {
           'Content-Type': 'application/json',
-          'Api-Token': 'c9522ff0fdedb06121c55e20cac9eeca44afb228',
+          'Api-Token': '2ef385818c2c2b64c09437dfbf7f5166c539d8f9',
         },}
         );
         console.log('User Response:', userResponse.data)
