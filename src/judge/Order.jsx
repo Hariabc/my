@@ -43,7 +43,6 @@ const Orders = () => {
     },
     header: {
       marginBottom: '20px',
-      marginBottom: '20px',
     },
     formPaper: {
       padding: '20px',
