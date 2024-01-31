@@ -17,11 +17,10 @@ import scheduling from '../assets/admindashboard/Admin Pics/scheduling calender.
 import notifications from '../assets/admindashboard/Admin Pics/sending notifications.jpg';
 import updatecauselist from '../assets/admindashboard/Admin Pics/updating causelist.jpg';
 import videoconfrence from '../assets/admindashboard/Admin Pics/video conference.jpg';
-
+import { App as SendbirdApp } from "sendbird-uikit";
+import "sendbird-uikit/dist/index.css";
 import {motion} from "framer-motion"
-import Chat from '../Chat/Chat'; // Replace with the correct path
 import MyCases from '../Admin_dashboard_components/Mycases';
-
 import { useNavigate } from 'react-router-dom';
 
 import { FiHome } from "react-icons/fi";
@@ -249,4 +248,31 @@ const Profile=()=> {
     </div>
     </div>
   );
+}
+
+const Chat=()=> {    
+  const APP_ID = "EAD127B3-C2FC-47A7-B744-D1F2DE076DB5";
+
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+      const fetchUserData = async () => {
+        try {
+          const response = await axios.get('http://localhost:5000/cao/user', { withCredentials: true });
+          setUserData(response.data.user);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      };
+  
+      fetchUserData();
+    }, []);
+    
+return (
+  <div className="App" style={{
+      height:"100vh"
+  }}>
+      <SendbirdApp appId={APP_ID} userId={userData.username} />
+  </div>
+);
 }

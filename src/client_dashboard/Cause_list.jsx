@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./causelist.css";
 import { Button, MenuItem, Typography, Select, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, InputLabel, Container } from '@mui/material';
+import { Stack } from 'react-bootstrap';
 
 
 const CauselistPage = () => {
@@ -139,7 +140,7 @@ const CauselistPage = () => {
     <div style={{ border: '4px solid #ddd', borderRadius: '10px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', paddingTop: '90px',margin:'20px' }}>
     <Container maxWidth="xl" className="container-list" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
     <div className="heading" style={{ marginBottom: '20px' }}>
-      <Typography variant="h4" align="center" gutterBottom><b>CAUSE LIST</b></Typography>
+      <Typography variant="h4" align="center" gutterBottom>CAUSE LIST</Typography>
     </div>
 
     {!showCauseList ? (
@@ -196,10 +197,11 @@ const CauselistPage = () => {
 </div>
 
          
-<div className="captcha-box" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
-  <Typography variant="h6" style={{ marginBottom: '10px' }} className="label-captcha"><b>Enter Captcha:</b></Typography>
+<div className="captcha-box" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: '20px' }}>
+  {/* <Typography variant="h6" style={{ marginBottom: '10px' }} className="label-captcha"><b>Enter Captcha:</b></Typography> */}
   
-  <div className="captcha-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '10px' }}>
+  <div className="captcha-container" style={{marginBottom: '10px' }}>
+    <Stack>
     <Typography variant="body1">Captcha</Typography>
     <Typography variant="body1" className="captcha-text-box" style={{ margin: '10px 0', fontSize: '1.2em', fontWeight: 'bold' }}>{captcha}</Typography>
     <TextField
@@ -207,13 +209,15 @@ const CauselistPage = () => {
       id="captcha"
       className="captcha-input"
       variant="outlined"
+      placeholder='Enter captcha'
       onChange={handleCaptchaInputChange}
       style={{ width: '250px' }}
     />
-  </div>
-  <Button variant="contained" color="primary" className="captcha-verify-button" onClick={handleVerifyCaptcha} style={{ marginTop: '10px' }}>
+  <Button variant="contained" color="primary" className="captcha-verify-button" onClick={handleVerifyCaptcha} style={{marginLeft:"30px",marginTop:"5px"}}>
     Verify
   </Button>
+  </Stack>
+  </div>
   {captchaVerified && <Typography variant="body2" className="success-message" style={{ marginTop: '10px', color: 'green' }}>Verification successful!</Typography>}
 </div>
 

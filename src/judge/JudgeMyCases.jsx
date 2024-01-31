@@ -6,12 +6,37 @@ import DocumentModal from './document';
 import { toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Button from '@mui/material/Button';
+import { Stack, TablePagination } from '@mui/material';
+import { ThemeProvider } from '@emotion/react';
+import theme from '../theme';
+import { styled, createTheme } from '@mui/system';
+import { tableCellClasses } from '@mui/material/TableCell';
+import { TextField, InputAdornment } from '@mui/material';
+import Search from '@mui/icons-material/Search';
+import { IoMdCloseCircle } from 'react-icons/io';
 const JudgeMyCases = ({ judgeId }) => {
   const [cases, setCases] = useState([]);
   const [selectedCase, setSelectedCase] = useState(null);
   const [documentModalVisible, setDocumentModalVisible] = useState(false);
+  const [selectedCaseDocuments, setSelectedCaseDocuments] = useState([]);
+  const [filteredCases, setFilteredCases] = useState([]);
+  const [user, setUser] = useState({});
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const navigate = useNavigate();
+  const filteredCases2= cases.filter((caseItem) =>
+  caseItem.caseNumber.toString().includes(searchQuery.toUpperCase())
+);
   useEffect(() => {
     const fetchJudgeCases = async () => {
       try {
@@ -26,18 +51,18 @@ const JudgeMyCases = ({ judgeId }) => {
     fetchJudgeCases();
   }, [judgeId]);
 
-  const handleViewDetails = (caseId) => {
-    const selected = cases.find(caseItem => caseItem._id === caseId);
-    setSelectedCase(selected);
+  const handleViewDetails = (caseItem) => {
+    setSelectedCase(caseItem);
+
   };
 
   const handleCloseModal = () => {
     setSelectedCase(null);
   };
 
-  const handleViewDocuments = (caseId) => {
-    const selected = cases.find((caseItem) => caseItem._id === caseId);
-    setSelectedCase(selected);
+  const handleViewDocuments = (caseItem) => {
+    setSelectedCase(caseItem);
+    setSelectedCaseDocuments(caseItem.documents);
     setDocumentModalVisible(true);
   };
 
@@ -81,7 +106,14 @@ const JudgeMyCases = ({ judgeId }) => {
     }
   };
   
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
   const getStatusColor = (status) => {
     switch (status) {
       case 'Pending':
@@ -94,12 +126,20 @@ const JudgeMyCases = ({ judgeId }) => {
         return 'text-gray-600';
     }
   };
-
+  const StyledTableHead = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      background: "#38598b",
+      color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
   return (
     <div className="container mx-auto mt-8">
       <ToastContainer/>
-      <h2 className="text-3xl font-semibold mb-4">My Cases</h2>
-      <table className="min-w-full border border-gray-300">
+      <h2>My Cases</h2>
+      {/* <table className="min-w-full border border-gray-300">
         <thead>
           <tr className="bg-gray-100">
             <th className="py-2 px-4 border-b">Case Number</th>
@@ -126,80 +166,137 @@ const JudgeMyCases = ({ judgeId }) => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */}
+      <ThemeProvider theme={theme}>
+        <Paper sx={{ width: '100%' }}>
+        <TextField
+        id='outlined-basic'
+        variant="outlined" 
+        label="CNR Number"
+        placeholder='Enter case Number'
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        fullWidth
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+               <Search/>
+            </InputAdornment>
+          ),
+        }}
+       />
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <StyledTableHead align='center'>Serial No</StyledTableHead>
+                  <StyledTableHead align='center'>Case Title</StyledTableHead>
+                  <StyledTableHead align='center'>Case Number</StyledTableHead>
+                  <StyledTableHead align='center'>View Details</StyledTableHead>
+                  <StyledTableHead align='center'>View Documents</StyledTableHead>
+                  <StyledTableHead align='center'>Actions</StyledTableHead>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+              {filteredCases2
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((caseItem, index) => (
+                    <TableRow key={caseItem._id}>
+                      <TableCell width='10'>{index + 1}</TableCell>
+                      <TableCell align='center'>{caseItem.title}</TableCell>
+                      <TableCell align='center'>{caseItem.caseNumber}</TableCell>
+                      <TableCell align='center'>
+                        <Button onClick={() => handleViewDetails(caseItem)} variant='contained'>
+                          View Details
+                        </Button>
+                      </TableCell>
+                      <TableCell align='center'>
+                        <Button onClick={() => handleViewDocuments(caseItem)} variant='contained'>
+                          View Documents
 
+        </Button>
+      </TableCell>
+      <TableCell align='center' width={40}>
+        <Stack spacing={3} justifyContent='space-evenly' direction='row'>
+          <Button  onClick={() => handleSchedulePreTrial(caseItem._id)} variant='outlined'>Schedule Conference</Button>
+          <Button onClick={() => handleJudgement(caseItem._id)} variant='outlined'>Orders & Judgements</Button>
+          {caseItem.progress !== 'Closed' && (
+                  <Button className={`text-red-500 ml-2`} onClick={() => handleCloseCase(caseItem._id)} variant='outlined'>Close</Button>
+                )}
+        </Stack>
+      </TableCell>
+    </TableRow>
+
+  ))}
+
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component='div'
+            rowsPerPage={rowsPerPage}
+            page={page}
+            count={filteredCases.length}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      </ThemeProvider>
       {/* Modal for displaying case details */}
       {selectedCase && (
-        <div className="modal-overlay">
-          <div className="modal-container">
+        <>
+        <div className="overlay">
+          <div className="modal">
+          <IoMdCloseCircle style={{marginLeft:"97%",cursor:"pointer", color:"#f95959"}} size={35} onClick={handleCloseModal}/>
             <div className="modal-content">
-              {/* Header */}
-              <div className="flex items-start justify-between p-5 border-b border-solid rounded-t border-blueGray-200">
-                <h3 className="text-3xl font-semibold">Case Details</h3>
-                <button
-                  className="p-1 ml-auto bg-transparent border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                  onClick={handleCloseModal}
-                >
-                  <span className="text-black h-6 w-6 text-2xl block outline-none focus:outline-none">×</span>
-                </button>
+              {/* Case Details Sections and other details... */}
+              <div className="section">
+          <h3>Plaintiff Details</h3>
+          <p>Name: {selectedCase.plaintiffDetails.fullName}</p>
+                <p>Gender: {selectedCase.plaintiffDetails.gender}</p>
+                <p>Age: {selectedCase.plaintiffDetails.age}</p>
+                <p>Email Address: {selectedCase.plaintiffDetails.partyEmailAddresses}</p>
+                <p>Phone Number: {selectedCase.plaintiffDetails.partyPhoneNumbers}</p>
+                <p>Relation: {selectedCase.plaintiffDetails.relation}</p>
+                <p>Address: {selectedCase.plaintiffDetails.partyAddress}</p>
+                <p>State: {selectedCase.plaintiffDetails.state}</p>
+                <p>District: {selectedCase.plaintiffDetails.district}</p>
+         
+        </div>
+        <div className="section">
+          <h3>Defendant Details</h3>
+          <p>Name: {selectedCase.defendantDetails.fullName}</p>
+                <p>Gender: {selectedCase.defendantDetails.gender}</p>
+                <p>Age: {selectedCase.defendantDetails.age}</p>
+                <p>Email Address: {selectedCase.defendantDetails.partyEmailAddresses}</p>
+                <p>Phone Number: {selectedCase.defendantDetails.partyPhoneNumbers}</p>
+                <p>Relation: {selectedCase.defendantDetails.relation}</p>
+                <p>Address: {selectedCase.defendantDetails.partyAddress}</p>
+                <p>State: {selectedCase.defendantDetails.state}</p>
+                <p>District: {selectedCase.defendantDetails.district}</p>
+              </div> 
+          <div className="section-case section">
+          <h3>Case Details</h3>
+          <p>Case : {selectedCase.filecasetype}</p>
+                <p>Title: {selectedCase.caseDetails.title}</p>
+                <p>Case-Type : {selectedCase.caseDetails.caseType}</p>
+                <p>Case-Summary : {selectedCase.caseDetails.caseSummary}</p>
+                <p>Cause of Action : {selectedCase.caseDetails.causeOfAction}</p>
+                <p>Date of cause of action: {selectedCase.caseDetails.dateOfCauseOfAction}</p>
+                <p>Relief-Sought: {selectedCase.caseDetails.reliefSought}</p>
+                <p>Court State : {selectedCase.caseDetails.courtState}</p>
+                <p>Court District : {selectedCase.caseDetails.courtDistrict}</p>
+                <p>Court Name : {selectedCase.caseDetails.courtName}</p>
               </div>
-              {/* Body */}
-              <div className="p-6">
-                {/* Your existing modal content */}
-                {/* ... */}
-                {/* Body */}
-<div className="p-6">
-                  {/* Plaintiff Details */}
-                  
-  <div className="section">
-                  <h3>Plaintiff Details</h3>
-                  <p>Name: {selectedCase.plaintiffDetails.fullName}</p>
-                  <p>Gender: {selectedCase.plaintiffDetails.gender}</p>
-                  <p>Age: {selectedCase.plaintiffDetails.age}</p>
-                  <p>Email Address: {selectedCase.plaintiffDetails.partyEmailAddresses}</p>
-                  <p>Phone Number: {selectedCase.plaintiffDetails.partyPhoneNumbers}</p>
-                  <p>Relation: {selectedCase.plaintiffDetails.relation}</p>
-                  <p>Address: {selectedCase.plaintiffDetails.partyAddress}</p>
-                  <p>State: {selectedCase.plaintiffDetails.state}</p>
-                  <p>District: {selectedCase.plaintiffDetails.district}</p>
-                </div>
-
-  {/* Defendant Details */}
-  <div className="section">
-                  <h3>Defendant Details</h3>
-                  <p>Name: {selectedCase.defendantDetails.fullName}</p>
-                  <p>Gender: {selectedCase.defendantDetails.gender}</p>
-                  <p>Age: {selectedCase.defendantDetails.age}</p>
-                  <p>Email Address: {selectedCase.defendantDetails.partyEmailAddresses}</p>
-                  <p>Phone Number: {selectedCase.defendantDetails.partyPhoneNumbers}</p>
-                  <p>Relation: {selectedCase.defendantDetails.relation}</p>
-                  <p>Address: {selectedCase.defendantDetails.partyAddress}</p>
-                  <p>State: {selectedCase.defendantDetails.state}</p>
-                  <p>District: {selectedCase.defendantDetails.district}</p>
-                </div>
-                <div className="section">
-                  <h3>Case Details</h3>
-                  <p>Case : {selectedCase.filecasetype}</p>
-                  <p>Title: {selectedCase.caseDetails.title}</p>
-                  <p>Case-Type : {selectedCase.caseDetails.caseType}</p>
-                  <p>Case-Summary : {selectedCase.caseDetails.caseSummary}</p>
-                  <p>Cause of Action : {selectedCase.caseDetails.causeOfAction}</p>
-                  <p>Date of cause of action: {selectedCase.caseDetails.dateOfCauseOfAction}</p>
-                  <p>Relief-Sought: {selectedCase.caseDetails.reliefSought}</p>
-                  <p>Court State : {selectedCase.caseDetails.courtState}</p>
-                  <p>Court District : {selectedCase.caseDetails.courtDistrict}</p>
-                  <p>Court Name : {selectedCase.caseDetails.courtName}</p>
-                </div>
-                <div className="section">
-                  <h3>Payment Details</h3>
-                  <p>Payment Method: {selectedCase.paymentDetails.paymentMethod}</p>
-                </div>
-</div>
-
+              <div className="section">
+          <h3>Payment Details</h3>
+          <p>Payment Method: {selectedCase.paymentDetails.paymentMethod}</p>
               </div>
             </div>
           </div>
         </div>
+      </>
       )}
       {documentModalVisible && (
         <DocumentModal documents={selectedCase.documents} onClose={handleCloseDocumentModal} />
