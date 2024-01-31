@@ -85,7 +85,7 @@ function LawyersForm() {
   
         // Handle success: show a success message, reset form, etc.
         console.log('Public advocate registered:', response.data);
-        alert('Public advocate registered successfully!');
+        toast.success('Public advocate registered successfully!', { position: toast.POSITION.TOP_CENTER });
   
         // Reset the form fields
         setFormData({
@@ -107,7 +107,7 @@ function LawyersForm() {
         });
       } catch (error) {
         // Handle error: show error message, log the error, etc.
-        console.error('Error registering public advocate:', error);
+        toast.error('Failed to register public advocate. Please try again.', { position: toast.POSITION.TOP_CENTER });
         // alert('Failed to register public advocate. Please try again.');
       }
     };
@@ -121,6 +121,7 @@ function LawyersForm() {
         </h2>
         <form className="lawyers-form-container" onSubmit={handleSubmit}>
           {/* Form fields and labels */}
+          <ToastContainer />
           <div className="form-group">
             <label htmlFor="username" className="form-label">
               Username:
