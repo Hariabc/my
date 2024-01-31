@@ -82,7 +82,17 @@ function LawyersForm() {
       try {
         // Send form data to the backend endpoint
         const response = await axios.post('http://localhost:5000/advocate/public/register', formData);
-  
+        const { username} = formData;
+      const userResponse = await axios.post('https://api-049FF9C5-DFDC-4991-B147-D2FDFDC72C54.sendbird.com/v3/users', {
+          user_id: username,
+          nickname: username,
+          profile_url: 'https://example.com/profile-image.jpg'
+        },{headers: {
+          'Content-Type': 'application/json',
+          'Api-Token': '2ef385818c2c2b64c09437dfbf7f5166c539d8f9',
+        },}
+        );
+        console.log('User Response:', userResponse.data)
         // Handle success: show a success message, reset form, etc.
         console.log('Public advocate registered:', response.data);
         alert('Public advocate registered successfully!');
@@ -316,7 +326,17 @@ function JudgesForm() {
     try {
       const response = await axios.post('http://localhost:5000/judge/register', formData);
       console.log('Response:', response);
-  
+      const { username} = formData;
+      const userResponse = await axios.post('https://api-049FF9C5-DFDC-4991-B147-D2FDFDC72C54.sendbird.com/v3/users', {
+          user_id: username,
+          nickname: username,
+          profile_url: 'https://example.com/profile-image.jpg'
+        },{headers: {
+          'Content-Type': 'application/json',
+          'Api-Token': '2ef385818c2c2b64c09437dfbf7f5166c539d8f9',
+        },}
+        );
+        console.log('User Response:', userResponse.data)
       if (response && response.data) {
         console.log('Judge registered:', response.data);
         toast.success('Judge registered successfully');
