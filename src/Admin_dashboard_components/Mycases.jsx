@@ -359,7 +359,7 @@ const AdminDashboard = () => {
                   .map((caseItem, index) => (
                     <TableRow key={caseItem._id}>
                       <TableCell width='10'>{index + 1}</TableCell>
-                      <TableCell align='center'>{caseItem.title}</TableCell>
+                      <TableCell align='center'>{caseItem.caseDetails.title}</TableCell>
                       <TableCell align='center'>{caseItem.caseNumber}</TableCell>
                       <TableCell align='center'>
                         <Button onClick={() => openCaseDetailsModal(caseItem)} variant='contained'>

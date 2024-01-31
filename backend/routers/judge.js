@@ -8,7 +8,8 @@ const nodemailer = require('nodemailer');
   const cookie = require("cookie-parser")
   const Admin = require("../models/cao")
   const Event = require('../models/event')
-  const JudgeConference = require('../models/meeting');
+const JudgeConference = require('../models/meeting');
+  const Filedcase=require('../models/partyinperson')
   const { Case, Hearing, Order } = require("../models/courtcase"); // Import the Case model
   const Judge = require('../models/judge');
   const Judgement = require('../models/judgement');
@@ -283,7 +284,43 @@ const nodemailer = require('nodemailer');
   });
   
   
+  router.put('/close-case/:caseId', authMiddleware,async (req, res) => {
+    const { caseId } = req.params;
+  
+    try {
+      // Find the case in the database by its ID
+      const existingCase = await Filedcase.findById(caseId);
+  
+      if (!existingCase) {
+        return res.status(404).json({ message: 'Case not found' });
+      }
 
+      
+  
+      // Update the case status to 'Closed'
+      existingCase.progress = 'closed';
+      await existingCase.save();
+  
+      // Find the judge and update disposedCases
+      const judgeId = req.user.id; // Adjust as per your authentication logic
+      const judge = await Judge.findById(judgeId);
+  
+      if (!judge) {
+        return res.status(404).json({ message: 'Judge not found' });
+      }
+  
+      // Remove closed case from cases and add to disposedCases
+      judge.cases = judge.cases.filter(caseItem => caseItem.toString() !== caseId);
+      judge.disposedCases.push(existingCase);
+  
+      await judge.save();
+  
+      res.json({ message: `Case ${caseId} closed successfully`, closedCase: existingCase });
+    } catch (error) {
+      console.error(`Error closing case ${caseId}:`, error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
   router.post('/logout', (req, res) => {
     try {
       // Clear the JWT token from the cookie

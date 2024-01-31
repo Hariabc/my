@@ -24,7 +24,7 @@ const caseSchema = new mongoose.Schema({
       'rejectedByCourtAdmin',
       'preTrialconferenceScheduled',
       'inProgress',
-      'completed'
+      'closed'
     ],
     default:"pending",
     required: true
@@ -59,6 +59,7 @@ const caseSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref : 'Judgement'
   }],
+ 
   publicAdvocateDetails: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Advocate'
