@@ -139,7 +139,7 @@ router.post('/case', async (req, res) => {
     await newCase.save();
 
 
-    await newCase.save();
+    // await newCase.save();
 
     const user = await User.findById(id);
     if (!user) {
@@ -155,6 +155,8 @@ router.post('/case', async (req, res) => {
     }
 
     courtAdmin.courtCases.push(newCase._id);
+    courtAdmin.AllCases.push(newCase._id);
+
     await courtAdmin.save();
     const pdfFilePath = await generatePDF(newCase);
     await sendEmailWithAttachment(user.email, pdfFilePath, newCase.caseNumber);
