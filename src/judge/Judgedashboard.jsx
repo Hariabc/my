@@ -162,6 +162,7 @@ const BriefcaseDashboard = () => {
   { path: "/cause-list", label: "Cause List", image: causelist },
   { path: "/case-tracking", label: "Case Tracking", image: casetracking },
     { path: "/order-judgements", label: "ORDERS & JUDGEMENTS", image: caseanalytics },
+    { path: "/case-closure", label: "Case Closure", image: caseanalytics },
   
 ];
 
