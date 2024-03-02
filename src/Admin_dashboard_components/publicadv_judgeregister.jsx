@@ -19,6 +19,28 @@ export default function AddUsers() {
     setShowLawyersForm(true);
   };
 
+  const practiceAreas = [
+    "Civil Law", "Criminal Law", "Family Law", "Corporate Law", "Tax Law",
+    "Intellectual Property Law", "Environmental Law", "Human Rights Law", "International Law", "Other"
+  ];
+  const educationQualifications = [
+    "Bachelor of Laws (LL.B.)", "Master of Laws (LL.M.)", "Doctor of Juridical Science (J.S.D.)", "Other"
+  ];
+  const barAssociations = [
+    "Bar Council of India", "State Bar Council", "High Court Bar Association",
+    "Supreme Court Bar Association", "Other"
+  ];
+  const jurisdictions = [
+    "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana",
+    "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur",
+    "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana",
+    "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal", "Andaman and Nicobar Islands", "Chandigarh",
+    "Dadra and Nagar Haveli and Daman and Diu", "Delhi", "Jammu and Kashmir", "Ladakh", "Lakshadweep",
+    "Puducherry", "Other"
+  ];
+  const gender=["Male","Female","Others"]
+  
+
   return (
     <div className="center-container">
       {!(showJudgesForm || showLawyersForm) && (
@@ -75,6 +97,36 @@ function LawyersForm() {
         [name]: value,
       }));
     };
+
+    const practiceAreas = [
+      "Civil Law", "Criminal Law", "Family Law", "Corporate Law", "Tax Law",
+      "Intellectual Property Law", "Environmental Law", "Human Rights Law", "International Law", "Other"
+    ];
+    const educationQualifications = [
+      "Bachelor of Laws (LL.B.)", "Master of Laws (LL.M.)", "Doctor of Juridical Science (J.S.D.)", "Other"
+    ];
+    const barAssociations = [
+      "Bar Council of India", "State Bar Council", "High Court Bar Association",
+      "Supreme Court Bar Association", "Other"
+    ];
+    const jurisdictions = [
+      "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana",
+      "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur",
+      "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana",
+      "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal", "Andaman and Nicobar Islands", "Chandigarh",
+      "Dadra and Nagar Haveli and Daman and Diu", "Delhi", "Jammu and Kashmir", "Ladakh", "Lakshadweep",
+      "Puducherry", "Other"
+    ];
+    const gender=["Male","Female","Others"]
+
+    const inputStyle = {
+      marginBottom: '15px',
+      padding: '10px',
+      width: '100%',
+      boxSizing: 'border-box',
+      border: '1px solid #ccc',
+      borderRadius: '5px',
+    };
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -123,27 +175,19 @@ function LawyersForm() {
     };
   
     return (
-      <div className="lawyers-form">
+      
+      <div className="lawyers-form" style={{ maxWidth: '100%', marginTop: '30px', padding: '90px', border: '1px solid #ccc', borderRadius: '5px', backgroundColor: '#fff', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
+        <ToastContainer />
         <br></br>
         <br></br>
-        <h2 style={{ marginBottom: "0", paddingBottom: "0" }}>
+
+        <h1 style={{ marginTop: "90px" }}>
           PUBLIC ADVOCATE REGISTRATION
-        </h2>
+        </h1>
+        
         <form className="lawyers-form-container" onSubmit={handleSubmit}>
           {/* Form fields and labels */}
-          <ToastContainer />
-          <div className="form-group">
-            <label htmlFor="username" className="form-label">
-              Username:
-            </label>
-            <input
-              type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              className="form-input"
-            />
-          </div>
+          
           <div className="form-group">
           <label htmlFor="firstName" className="form-label">
             First Name:
@@ -154,6 +198,7 @@ function LawyersForm() {
             value={formData.firstName}
             onChange={handleChange}
             className="form-input"
+            style={inputStyle}
           />
         </div>
         <div className="form-group">
@@ -166,8 +211,23 @@ function LawyersForm() {
             value={formData.lastName}
             onChange={handleChange}
             className="form-input"
+            style={inputStyle}
           />
         </div>
+          <div className="form-group">
+            <label htmlFor="username" className="form-label">
+              Username:
+            </label>
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              className="form-input"
+              style={inputStyle}
+            />
+          </div>
+          
         <div className="form-group">
           <label htmlFor="email" className="form-label">
             Email:
@@ -178,6 +238,7 @@ function LawyersForm() {
             value={formData.email}
             onChange={handleChange}
             className="form-input"
+            style={inputStyle}
           />
         </div>
         <div className="form-group">
@@ -190,6 +251,7 @@ function LawyersForm() {
             value={formData.phoneNumber}
             onChange={handleChange}
             className="form-input"
+            style={inputStyle}
           />
         </div>
         <div className="form-group">
@@ -201,6 +263,7 @@ function LawyersForm() {
     value={formData.gender}
     onChange={handleChange}
     className="form-select"
+    style={inputStyle}
   >
     <option value="">Select Gender</option>
     <option value="male">Male</option>
@@ -218,42 +281,65 @@ function LawyersForm() {
             value={formData.licenseNumber}
             onChange={handleChange}
             className="form-input"
+            style={inputStyle}
           />
         </div>
         <div className="form-group">
           <label htmlFor="educationQualifications" className="form-label">
             Education:
           </label>
-          <input
+          <select
             name="educationQualifications"
             value={formData.educationQualifications}
             onChange={handleChange}
-            className="form-input"
-          ></input>
+            className="form-select"
+            style={inputStyle}
+          >
+            <option value="">Select Education</option>
+            {educationQualifications.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="form-group">
           <label htmlFor="jurisdiction" className="form-label">
             Jurisdiction:
           </label>
-          <input
-            type="text"
+          <select
             name="jurisdiction"
             value={formData.jurisdiction}
             onChange={handleChange}
-            className="form-input"
-          />
+            className="form-select"
+            style={inputStyle}
+          >
+            <option value="">Select Jurisdiction</option>
+            {jurisdictions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="form-group">
           <label htmlFor="barAssociation" className="form-label">
             Bar Association:
           </label>
-          <input
-            type="text"
+          <select
             name="barAssociation"
             value={formData.barAssociation}
             onChange={handleChange}
-            className="form-input"
-          />
+            className="form-select"
+            style={inputStyle}
+          >
+            <option value="">Select Bar Association</option>
+            {barAssociations.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="form-group">
           <label htmlFor="yearsOfPractice" className="form-label">
@@ -265,20 +351,29 @@ function LawyersForm() {
             value={formData.yearsOfPractice}
             onChange={handleChange}
             className="form-input"
+            style={inputStyle}
           />
         </div>
         <div className="form-group">
           <label htmlFor="practiceArea" className="form-label">
             Practice Area:
           </label>
-          <input
-            type="text"
+          <select
             name="practiceArea"
             value={formData.practiceArea}
             onChange={handleChange}
-            className="form-input"
-          />
+            className="form-select"
+            style={inputStyle}
+          >
+            <option value="">Select Practice Area</option>
+            {practiceAreas.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
         </div>
+
         <div className="form-group">
           <label htmlFor="courtAdminId" className="form-label">
             Court Admin ID:
@@ -289,9 +384,10 @@ function LawyersForm() {
             value={formData.courtAdminId}
             onChange={handleChange}
             className="form-input"
+            style={inputStyle}
           />
         </div>
-          <button type="submit" className="submit-button">
+          <button type="submit" className="submit-button" style={{ backgroundColor: '#4CAF50', color: 'white', padding: '10px 15px', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
             Submit
           </button>
         </form>
