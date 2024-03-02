@@ -13,7 +13,7 @@ import Advpassword from "./components/privateAdvpassword.jsx";
 import PaymentComponent from './dashborad-components/payment.jsx'
 import AdvocateList from './dashborad-components/AdvoacateList.jsx'
 import FileUploader from './dashborad-components/Sendingfiles.jsx';
-
+import Caseclosure from './judge/disposedCases.jsx'
 import VideoConference from './Features/Video_Conference/VideoConference.jsx';
 import JudgeConference from './Features/JudgeConference.jsx';
 import Conference from './Features/Video_Conference/Conference.jsx';
@@ -122,7 +122,9 @@ const App = () => {
           <Route path='advocate/cause-list' element={<Advcauselist/>}/>
           <Route path='/judge/order-judgements' element={<OrderJudgements/>}/>
           <Route path='/orders' element={<Orders/>}/>
-          <Route path='/judgements' element={<Judgement/>}/>
+              <Route path='/judgements' element={<Judgement />} />
+          <Route path='/judge/case-closure' element={<Caseclosure/>}/>
+              
 
             
             

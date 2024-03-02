@@ -83,8 +83,9 @@ const JudgeMyCases = ({ judgeId }) => {
 
   const handleCloseCase = async (caseId) => {
     try {
+      console.log(caseId)
       // Make an API call to update the case status to 'Closed'
-      await axios.put(`http://localhost:5000/judge/close-case/${caseId}`, { status: 'Closed' }, { withCredentials: true });
+      await axios.post(`http://localhost:5000/judge/close-case/${caseId}`, { status: 'Closed' }, { withCredentials: true });
   
       // Update the local state to reflect the closed status
       setCases((prevCases) =>

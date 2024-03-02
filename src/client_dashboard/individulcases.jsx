@@ -91,9 +91,9 @@ const CaseDetails = () => {
               <div className="details">
                 <p>Name: {caseDetails.plaintiffDetails.fullName}</p>
                 <p>Gender: {caseDetails.plaintiffDetails.gender}</p>
-                <p>Age: {caseDetails.plaintiffDetails.Age}</p>
+                <p>Age: {caseDetails.plaintiffDetails.age}</p>
                 <p>Email Address: {caseDetails.plaintiffDetails.partyEmailAddresses}</p>
-                <p>Phonenumber: {caseDetails.plaintiffDetails.partyPhoneNumber}</p>
+                <p>Phonenumber: {caseDetails.plaintiffDetails.partyPhoneNumbers}</p>
                 <p>State: {caseDetails.plaintiffDetails.state}</p>
                 <p>District: {caseDetails.plaintiffDetails.district}</p>
                 <p>Village: {caseDetails.plaintiffDetails.village}</p>
@@ -108,7 +108,7 @@ const CaseDetails = () => {
                 <p>Gender: {caseDetails.defendantDetails.gender}</p>
                 <p>Age: {caseDetails.defendantDetails.age}</p>
                 <p>Email Address: {caseDetails.defendantDetails.partyEmailAddresses}</p>
-                <p>Phonenumber: {caseDetails.defendantDetails.partyPhoneNumber}</p>
+                <p>Phonenumber: {caseDetails.defendantDetails.partyPhoneNumbers}</p>
                 <p>State: {caseDetails.defendantDetails.state}</p>
                 <p>District: {caseDetails.defendantDetails.district}</p>
                 <p>Village: {caseDetails.defendantDetails.village}</p>
@@ -124,7 +124,7 @@ const CaseDetails = () => {
                 <p>Case Summary: {caseDetails.caseDetails.caseSummary}</p>
                 <p>Cause of Action: {caseDetails.caseDetails.causeOfAction}</p>
                 <p>Date of cause of Action: {caseDetails.caseDetails.dateOfCauseOfAction}</p>
-                <p>Relief Sought: {caseDetails.caseDetails.reliefsought}</p>
+                <p>Relief Sought: {caseDetails.caseDetails.reliefSought}</p>
                 <p>Court Name: {caseDetails.caseDetails.courtName}</p>
                 <p>Court District: {caseDetails.caseDetails.courtDistrict}</p>
                 <p>Court State: {caseDetails.caseDetails.courtState}</p>

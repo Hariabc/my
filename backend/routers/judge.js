@@ -284,9 +284,9 @@ const JudgeConference = require('../models/meeting');
   });
   
   
-  router.put('/close-case/:caseId', authMiddleware,async (req, res) => {
+  router.post('/close-case/:caseId', authMiddleware,async (req, res) => {
     const { caseId } = req.params;
-  
+    
     try {
       // Find the case in the database by its ID
       const existingCase = await Filedcase.findById(caseId);
@@ -321,6 +321,27 @@ const JudgeConference = require('../models/meeting');
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+
+
+  router.get('/disposedcases', authMiddleware, async (req, res) => {
+    try {
+      const judgeId = req.user._id; // Retrieve court admin ID from authenticated user
+      // console.log(courtAdminId)
+      // console.log(judgeId);
+      // Find the court admin by ID and populate the associated court cases
+      const judge = await Judge.findById(judgeId).populate('disposedCases');
+      // console.log(judge.disposedCases)
+      if (!judge) {
+        return res.status(404).json({ message: 'Judge not found' });
+      }
+      
+      res.status(200).json({ disposedCases: judge.disposedCases });
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching court cases', error: error.message });
+    }
+  });
+
+
   router.post('/logout', (req, res) => {
     try {
       // Clear the JWT token from the cookie
