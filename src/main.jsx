@@ -119,7 +119,11 @@ const App = () => {
 
             <Route path='judge/case-tracking' element={<CaseTracking />} />
           <Route path='judge/cause-list' element={<Causelist/>}/>
-          <Route path='advocate/cause-list' element={<Advcauselist/>}/>
+              <Route path='advocate/cause-list' element={<Causelist />} />
+          <Route path='advocate/my-cases' element={<Pubadvcases/>}/>
+
+          <Route path='advocate/case-tracking' element={<CaseTracking/>}/>
+              
           <Route path='/judge/order-judgements' element={<OrderJudgements/>}/>
           <Route path='/orders' element={<Orders/>}/>
               <Route path='/judgements' element={<Judgement />} />
