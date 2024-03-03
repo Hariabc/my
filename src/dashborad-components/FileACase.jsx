@@ -24,7 +24,7 @@ export default function FileACase() {
           <span>Party-in-Person</span>
         </button>
       </div>
-      <div className={`option-container ${selectedOption === 'privateAdvocate' ? 'selected' : ''}`}>
+      {/* <div className={`option-container ${selectedOption === 'privateAdvocate' ? 'selected' : ''}`}>
         <button
           className="option"
           onClick={() => handleOptionClick('privateAdvocate')}
@@ -32,7 +32,7 @@ export default function FileACase() {
           <img src={PartyInPersonImage} alt="Private Advocate" />
           <span>Private Advocate</span>
         </button>
-      </div>
+      </div> */}
       <div className={`option-container ${selectedOption === 'publicAdvocate' ? 'selected' : ''}`}>
         <button
           className="option"
@@ -44,7 +44,7 @@ export default function FileACase() {
       </div>
     </div>
       {selectedOption === 'partyInPerson' && <PartyInPersonForm />}
-      {selectedOption === 'privateAdvocate' && <PrivateAdvocateForm />}
+      {/* {selectedOption === 'privateAdvocate' && <PrivateAdvocateForm />} */}
       {selectedOption === 'publicAdvocate' && <PublicAdvocateForm />}
    </div>
   );

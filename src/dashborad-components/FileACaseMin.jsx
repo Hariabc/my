@@ -20,7 +20,7 @@ export default function FileACaseMin() {
       
       <div>
         {selectedOption === 'partyInPerson' && <PartyInPersonfrom />}
-        {selectedOption === 'privateAdvocate' && <PrivateAdvocate />}
+        {/* {selectedOption === 'privateAdvocate' && <PrivateAdvocate />} */}
         {selectedOption === 'publicAdvocate' && <PublicAdvocate />}
       </div>
     </div>

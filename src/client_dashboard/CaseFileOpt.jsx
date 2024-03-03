@@ -24,12 +24,12 @@ export default function FileACaseMin() {
 
           {selectedOption !== 'partyInPerson' && (
             <>
-              {selectedOption !== 'privateAdvocate' && (
+              {/* {selectedOption !== 'privateAdvocate' && (
                 <button className='option-button' onClick={() => handleOptionClick('privateAdvocate')}>
                   <b>PRIVATE ADVOCATE</b> <br />
                   (Choose Your Advocate)
                 </button>
-              )}
+              )} */}
 
               {selectedOption !== 'publicAdvocate' && (
                 <button className='option-button' onClick={() => handleOptionClick('publicAdvocate')}>
