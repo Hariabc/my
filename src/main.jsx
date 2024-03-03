@@ -60,6 +60,7 @@ import Courtcases from './Admin_dashboard_components/courtcases.jsx'
 import OrderJudgements from './judge/orders&judgements.jsx';
 import Orders from './judge/Order.jsx';
 import Judgement from './judge/Judgement.jsx';
+import Advcasefile from './client_dashboard/PartyInPerson.jsx'
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
@@ -122,7 +123,9 @@ const App = () => {
               <Route path='advocate/cause-list' element={<Causelist />} />
           <Route path='advocate/my-cases' element={<Pubadvcases/>}/>
 
-          <Route path='advocate/case-tracking' element={<CaseTracking/>}/>
+              <Route path='advocate/case-tracking' element={<CaseTracking />} />
+          <Route path='advocate/file-a-case' element={<Advcasefile/>}/>
+              
               
           <Route path='/judge/order-judgements' element={<OrderJudgements/>}/>
           <Route path='/orders' element={<Orders/>}/>
