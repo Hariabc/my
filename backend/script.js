@@ -34,7 +34,8 @@ app.use("/publicadvocate",publicAdvocate)
 
 // MongoDB connection URI with authentication credentials
 
-const uri = "mongodb+srv://kasojusaiteja10:NScp7nXc2sFJU9wG@cluster0.0wflstm.mongodb.net/eportalDB?retryWrites=true&w=majority";
+const uri = process.env.CONNECTION;
+
 
 // Create a new MongoClient
 
