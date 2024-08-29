@@ -8,15 +8,15 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken")
 const cookie = require('cookie-parser')
 const User=require("../models/client")
-const authMiddleware = require("../middleware/authMiddleware")
+const authMiddleware = require("../middleware/clientAuthMiddleware")
 router.use(cookie());
-router.use(
-  session({
-    secret: 'thisisasecretkeyforthisproject',
-    resave: false,
-    saveUninitialized: true,
-  })
-);
+// router.use(
+//   session({
+//     secret: 'thisisasecretkeyforthisproject',
+//     resave: false,
+//     saveUninitialized: true,
+//   })
+// );
 
 // Function to send an email with the link to set the password
 const sendSetPasswordEmail = async (email, token) => {
@@ -27,13 +27,29 @@ const sendSetPasswordEmail = async (email, token) => {
       pass:"aryj ahqq wggy bawx"
     },
   });
+  const registrationLink = `http://localhost:5173/client/set-password/${token}`;
+
 
   const mailOptions = {
     from:"ecourtservicehelper@gmail.com",
     to: email,
     subject: 'Set Your Password for Court Case Management Portal',
-    text: `To set your password, please click on the following link: http://localhost:5173/client/set-password/${token}`,
-  };
+    html: `
+    <html>
+      <head>
+        <title>Set Your Password</title>
+      </head>
+      <body>
+        <p>Hello,</p>
+        <p>To set your password, please click on the following link:</p>
+        <p><a href="${registrationLink}">Set Password</a></p>
+        <p>If the above link doesn't work, you can copy and paste this URL in your browser:</p>
+        <p>${registrationLink}</p>
+        <p>Thank you!</p>
+      </body>
+    </html>
+  `,
+};
 
   try {
     await transporter.sendMail(mailOptions);
@@ -70,7 +86,7 @@ router.post('/register', async (req, res) => {
         username,
         adhar,
         address,
-        temp_token: token, // Store the token for setting the password
+        password_token: token, // Store the token for setting the password
       // Add any other relevant fields
     });
 
@@ -89,7 +105,6 @@ router.post('/register', async (req, res) => {
   }
 });
 
-
 // Route to handle setting the password from the form submission
 router.post('/set-password/:token', async (req, res) => {
   try {
@@ -97,7 +112,7 @@ router.post('/set-password/:token', async (req, res) => {
     const { password } = req.body;
 
     // Find the client by the verification token
-    const client = await Client.findOne({ temp_token: token });
+    const client = await Client.findOne({ password_token: token });
 
     if (!client) {
       return res.status(404).json({ error: 'Invalid token or client not found' });
@@ -108,7 +123,7 @@ router.post('/set-password/:token', async (req, res) => {
 
     // Update client's password and remove verification token
     client.password = hashedPassword;
-    client.verificationToken = undefined;
+    client.password_token = undefined;
     await client.save();
 
     return res.status(200).json({ message: 'Password set successfully' });
@@ -119,9 +134,6 @@ router.post('/set-password/:token', async (req, res) => {
 });
 // Route for client login
 // Other necessary imports and configurations
-
-
-
 
 router.post('/login',async (req, res) => {
   try {
@@ -175,24 +187,5 @@ router.get('/user', authMiddleware, (req, res) => {
   }
 });
 
-
-// module.exports = router;
-
-// Logout route
-router.post('/logout', (req, res) => {
-  try {
-    // Destroy the session and clear the client ID
-    req.session.destroy((err) => {
-      if (err) {
-        return res.status(500).json({ error: 'Failed to logout', message: err.message });
-      }
-      // Send a success response after destroying the session
-      return res.status(200).json({ message: 'Logout successful' });
-    });
-  } catch (err) {
-    // Handle errors
-    return res.status(500).json({ error: 'Failed to logout', message: err.message });
-  }
-});
 
 module.exports = router;

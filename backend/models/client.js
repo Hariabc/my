@@ -40,12 +40,17 @@ const clientSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  cases: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Case'
+  }],
+
   gender: {
     type: String,
     enum: ['male', 'female', 'other'],
     required: true
   },
-  temp_token: {
+  password_token: {
     type: String
   },
   role: {
@@ -53,7 +58,7 @@ const clientSchema = new mongoose.Schema({
     default:"client"
   }
 
-});
+}, { timestamps: true });
 
 // Create a model based on the schema
 const User = mongoose.model('User', clientSchema);
