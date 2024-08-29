@@ -63,9 +63,6 @@ const advocateSchema = new mongoose.Schema({
     type: Boolean,
     required: true
   },
-  courtAdminMail: {
-    type: String,
-  },
   password_token: {
     type: String,
   },
@@ -75,7 +72,7 @@ const advocateSchema = new mongoose.Schema({
   },
   cases: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Case'
+    ref: 'Filedcase'
   }],
   courtAdminId: {
     type: String,

@@ -1,0 +1,84 @@
+/* Add this to your existing CSS or create a new stylesheet */
+
+
+  
+  .hero-section {
+    position: relative;
+    height: 100vh;
+  }
+  
+  .overlay-V {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: black;
+  }
+  
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 10;
+    padding: 0 1rem;
+    max-width: 90vw;
+    margin: 0 auto;
+  }
+  
+  .main-info {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .main-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .subtitle {
+    font-size: 1.5rem;
+    color: white;
+  }
+  
+  .enter-code-form {
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  .code-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .code-label {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+  
+  .code-input-field {
+    padding: 0.75rem;
+    border-radius: 25px;
+    max-width: 14rem;
+    outline: none;
+  }
+  
+  .submit-button {
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+    padding: 5px 15px;
+    border-radius: 25px;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-out;
+  }
+  
+  .submit-button:hover {
+    background-color: #2980b9;
+  }
+  

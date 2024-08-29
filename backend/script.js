@@ -6,9 +6,14 @@ const cors = require("cors");
 const clientRouters = require("./routers/clientRouters");
 const AdvocateRouters = require("./routers/advocate")
 const caoRouters = require("./routers/caoRouters")
-const courtRouters = require(".//routers/court")
-const judgeRouters=require("./routers/judge")
+const courtRouters = require("./routers/court")
+const judgeRouters = require("./routers/judge")
+const PartyinpersonRouter = require("./routers/PartyInPerson")
+const publicAdvocate = require("./routers/publicAdvocate")
 
+// const { MongoClient, ServerApiVersion } = require('mongodb');
+
+// app.use(bodyParser.json());
 app.use(cors({
     origin: 'http://localhost:5173', // Change this to your React app's URL
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -22,10 +27,33 @@ app.use("/court", courtRouters)
 app.use("/cao", caoRouters)
 app.use("/advocate", AdvocateRouters)
 app.use("/judge", judgeRouters);
+app.use("/file", PartyinpersonRouter)
+app.use("/publicadvocate",publicAdvocate)
+
+// app.use("/conferences",ConferenceRouter)
+
+// MongoDB connection URI with authentication credentials
+
+const uri = process.env.CONNECTION;
 
 
+// Create a new MongoClient
 
-mongoose.connect('mongodb://127.0.0.1:27017/eportalDB', {
+// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// async function run() {
+//   try {
+//     await client.connect();
+//     console.log("Connected to MongoDB!");
+//   } catch (error) {
+//     console.error("Error connecting to MongoDB:", error);
+//   } finally {
+//     await client.close();
+//   }
+// }
+
+// run().catch(console.error);
+mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -35,6 +63,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/eportalDB', {
 .catch((err) => {
     console.error("Error connecting to MongoDB:", err.message)
 })
+
+
 // app.use("/client", clientRouters)
 // app.use("/advocate", AdvRouters);
 // app.use("/cao",caoRouters)

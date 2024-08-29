@@ -8,7 +8,8 @@ import judge from "../assets/judge.png";
 import axios from "axios";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import login from "../assets/DASHBOARDS/login-img.png"
+import {motion} from "framer-motion"
 const LoginPage = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [email, setEmail] = useState('');
@@ -94,6 +95,9 @@ const LoginPage = () => {
 
   return (
     <div className="login-container">
+      <div className="image">
+        <img src={login} alt="" style={{position:"absolute",left:"10%",top:"10%",right:"20%"}}/>
+      </div>
       <ToastContainer />
       <div className="user-selection">
         {users.map((user) => (
@@ -109,10 +113,11 @@ const LoginPage = () => {
       </div>
       {selectedUser && (
         <div className="login-form">
-          <h2>Login as {users.find((user) => user.id === selectedUser).name}</h2>
+          <h2 style={{paddingBottom:"5px",fontWeight:"unset",textAlign:"center"}} >Login as {users.find((user) => user.id === selectedUser).name}</h2>
           <form onSubmit={handleLogin}>
-            <label htmlFor="email">Email:</label>
-            <input
+            <label htmlFor="email" style={{fontSize:"20px"}}>Email:</label>
+            <motion.input 
+              whileFocus={{ scale: 1.1 }} 
               type="text"
               id="email"
               name="email"
@@ -120,9 +125,12 @@ const LoginPage = () => {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-            />
-            <label htmlFor="password">Password:</label>
-            <input
+              className='login-input'
+            >
+            </motion.input>
+            <label htmlFor="password" style={{fontSize:"20px"}}>Password:</label>
+            <motion.input 
+              whileFocus={{ scale: 1.1 }} 
               type="password"
               id="password"
               name="password"
@@ -130,10 +138,11 @@ const LoginPage = () => {
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className='login-input'
             />
-            <button type="submit">Login</button>
+            <button type="submit" style={{backgroundColor:"#28da8a",color:"black",fontWeight:"600",fontSize:"20px"}}>Login</button>
             <p className='Register'>
-              Don't have an account?<span><Link to={`/${selectedUser}/register`} style={{ textDecoration: "none" }}>Register</Link></span>
+              Don't have an account?<span><Link to={`/${selectedUser}/register`} style={{ textDecoration: "none" ,paddingLeft:"7px",color:"blue"}}>Register</Link></span>
             </p>
           </form>
         </div>

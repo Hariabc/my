@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PartyInPersonfrom from './PartyInPerson';
+
 import PrivateAdvocate from './PrivateAdvocate';
 import PublicAdvocate from './PublicAdvocate';
 
@@ -20,7 +20,7 @@ export default function FileACaseMin() {
       
       <div>
         {selectedOption === 'partyInPerson' && <PartyInPersonfrom />}
-        {selectedOption === 'privateAdvocate' && <PrivateAdvocate />}
+        {/* {selectedOption === 'privateAdvocate' && <PrivateAdvocate />} */}
         {selectedOption === 'publicAdvocate' && <PublicAdvocate />}
       </div>
     </div>

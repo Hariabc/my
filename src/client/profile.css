@@ -1,9 +1,14 @@
-/* Profile.css */
+
+.profile-height{
+  height: auto;
+}
 .profile-container {
     max-width: 600px;
-    margin: 0 auto;
+    margin:auto;
+    margin-top: 100px;
     padding: 20px;
-    border: 1px solid #ddd; /* Add a border to the profile container */
+    border: 1px solid #000000;
+    color: #000000;
   }
   
   .profile-header {
@@ -21,6 +26,7 @@
     margin-top: 0;
     margin-bottom: 20px;
     font-size: 20px;
+    color: #000;
   }
   
   .profile-details {
@@ -31,6 +37,10 @@
   .profile-details p {
     margin-bottom: 10px;
     position: relative;
+    color: #000;
+    padding-bottom: 6px;
+    font-weight: 500;
+    font-style: normal;
   }
   
   .profile-details p::after {

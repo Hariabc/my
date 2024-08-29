@@ -1,0 +1,193 @@
+/* src/components/EventForm.css */
+
+.event-scheduler {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white; /* Set your desired background color */
+  padding: 20px; 
+  
+}
+.input-box {
+  margin-bottom: 20px; /* Adjust the margin as needed */
+  border: 1px solid black; /* Border color for the input box */
+  padding: 10px; /* Padding inside the input box */
+  border-radius: 8px; /* Border radius for rounded corners */
+}
+
+.event-scheduler-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Container for two sections */
+.event-container {
+  display: flex;
+  width: 100%;
+}
+
+/* Event Form */
+.event-form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  padding-right: 20px; /* Add some space between the two sections */
+}
+
+.event-form-label {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.event-form-input,
+.event-form-textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  resize: vertical;
+  overflow: auto;
+}
+
+.event-form-checkbox {
+  margin-right: 5px;
+}
+
+.event-form-submit-button {
+  background-color: #4caf50; /* Green */
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.event-form-submit-button:hover {
+  background-color: #45a049;
+}
+
+/* Event List */
+.event-list {
+  list-style: none;
+  padding: 0;
+}
+
+.event-list-title {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.event-list-item {
+  border: 2px solid black;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); 
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+}
+
+.event-details {
+  margin-bottom: 10px; /* Add space between event details and buttons */
+}
+
+.event-list-item-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.event-list-item-description {
+  color: #555;
+  font-size: 16px;
+}
+
+.event-list-item-date {
+  font-style: italic;
+  color: #777;
+  font-size: 14px;
+}
+
+.event-list-update-button {
+  background-color: #2196F3; /* Blue */
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.event-list-update-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.event-list-update-button:hover {
+  background-color: #0b7dda;
+}
+
+.event-list-delete-button {
+  background-color: #f44336; /* Red */
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.event-list-delete-button:hover {
+  background-color: #da190b;
+}
+
+/* Add this to your CSS or create a new CSS file */
+.alert-popup {
+  background-color: #4caf50;
+  color: white;
+  padding: 16px;
+  border: 1px solid #4caf50;
+  border-radius: 4px;
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  width: 250px;
+  text-align: center;
+}
+
+.event-form-cancel-update-button {
+  background-color: #ff5c5c;
+  color: white;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.event-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.event-list-container {
+  width: 50%; /* Adjust the width as needed */
+}
+
+.event-list-join-button {
+  background-color: green; /* Green */
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.event-list-join-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

@@ -1,0 +1,54 @@
+/* Add styling for the container */
+div {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style for input fields */
+  input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Style for the button */
+  button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Hover effect for the button */
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Styling for ToastContainer (notifications) */
+  .Toastify__toast-container {
+    z-index: 9999;
+    top: 0;
+    right: 0;
+    position: fixed;
+    padding: 15px;
+  }
+  
+  /* Styling for success notification */
+  .Toastify__toast--success {
+    background-color: #4caf50;
+  }
+  
+  /* Styling for error notification */
+  .Toastify__toast--error {
+    background-color: #f44336;
+  }
+  

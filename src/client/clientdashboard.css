@@ -1,137 +1,180 @@
-.client-dashboard {
+/* temp.css */
+*{
+  box-sizing: border-box;
+}
+.dashboard-container {
+  display: flex;
+  height:auto;
+  width: 100%;
+  background-color: #000000;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2000 1500'%3E%3Cdefs%3E%3Cpath fill='none' stroke-width='1' stroke-opacity='0.53' id='a' d='M0-478l-413.96 717h827.92L0-478l-413.96 717h827.92z'/%3E%3C/defs%3E%3Cg transform='scale(0.577)' style='transform-origin:center'%3E%3Cg transform='rotate(81.6 0 0)' style='transform-origin:center'%3E%3Cg transform='rotate(-46.4 0 0)' style='transform-origin:center'%3E%3Cg transform='translate(1000 750)'%3E%3Cuse stroke='%23FF0' href='%23a' transform='rotate(-23.2 0 0) scale(0.768)'/%3E%3Cuse stroke='%23fff700' href='%23a' transform='rotate(-20.3 0 0) scale(0.797)'/%3E%3Cuse stroke='%23fff000' href='%23a' transform='rotate(-17.4 0 0) scale(0.826)'/%3E%3Cuse stroke='%23ffe800' href='%23a' transform='rotate(-14.5 0 0) scale(0.855)'/%3E%3Cuse stroke='%23ffe000' href='%23a' transform='rotate(-11.6 0 0) scale(0.884)'/%3E%3Cuse stroke='%23ffd800' href='%23a' transform='rotate(-8.7 0 0) scale(0.913)'/%3E%3Cuse stroke='%23ffd000' href='%23a' transform='rotate(-5.8 0 0) scale(0.942)'/%3E%3Cuse stroke='%23ffc800' href='%23a' transform='rotate(-2.9 0 0) scale(0.971)'/%3E%3Cuse stroke='%23ffc000' href='%23a'/%3E%3Cuse stroke='%23ffb800' href='%23a' transform='rotate(2.9 0 0) scale(1.029)'/%3E%3Cuse stroke='%23ffb000' href='%23a' transform='rotate(5.8 0 0) scale(1.058)'/%3E%3Cuse stroke='%23ffa700' href='%23a' transform='rotate(8.7 0 0) scale(1.087)'/%3E%3Cuse stroke='%23ff9f00' href='%23a' transform='rotate(11.6 0 0) scale(1.116)'/%3E%3Cuse stroke='%23ff9600' href='%23a' transform='rotate(14.5 0 0) scale(1.145)'/%3E%3Cuse stroke='%23ff8d00' href='%23a' transform='rotate(17.4 0 0) scale(1.174)'/%3E%3Cuse stroke='%23ff8400' href='%23a' transform='rotate(20.3 0 0) scale(1.203)'/%3E%3Cuse stroke='%23ff7b00' href='%23a' transform='rotate(23.2 0 0) scale(1.232)'/%3E%3Cuse stroke='%23ff7100' href='%23a' transform='rotate(26.1 0 0) scale(1.261)'/%3E%3Cuse stroke='%23ff6700' href='%23a' transform='rotate(29 0 0) scale(1.29)'/%3E%3Cuse stroke='%23ff5d00' href='%23a' transform='rotate(31.9 0 0) scale(1.319)'/%3E%3Cuse stroke='%23ff5200' href='%23a' transform='rotate(34.8 0 0) scale(1.348)'/%3E%3Cuse stroke='%23ff4500' href='%23a' transform='rotate(37.7 0 0) scale(1.377)'/%3E%3Cuse stroke='%23ff3700' href='%23a' transform='rotate(40.6 0 0) scale(1.406)'/%3E%3Cuse stroke='%23ff2400' href='%23a' transform='rotate(43.5 0 0) scale(1.435)'/%3E%3Cuse stroke='%23F00' href='%23a' transform='rotate(46.4 0 0) scale(1.464)'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+background-attachment: fixed;
+background-size: cover;
+background-color: #9BAAA2;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 2 1'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%239BAAA2'/%3E%3Cstop offset='1' stop-color='%23878CFF'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%231684FF' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%231684FF' stop-opacity='1'/%3E%3C/linearGradient%3E%3ClinearGradient id='c' gradientUnits='userSpaceOnUse' x1='0' y1='0' x2='2' y2='2'%3E%3Cstop offset='0' stop-color='%231684FF' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%231684FF' stop-opacity='1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='0' y='0' fill='url(%23a)' width='2' height='1'/%3E%3Cg fill-opacity='0.5'%3E%3Cpolygon fill='url(%23b)' points='0 1 0 0 2 0'/%3E%3Cpolygon fill='url(%23c)' points='2 1 2 0 0 0'/%3E%3C/g%3E%3C/svg%3E");
+background-attachment: fixed;
+background-size: cover;
+}
+
+.sidebar {
+  height: auto;
+  width: 60px;
+  background-color: #333;
+  color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  font-family: 'Arial', sans-serif;
-  background-color: #91b3ce;
+  padding-top: 20px;
+  box-shadow: 0px 1px 2px rgba(48, 105, 251, 0.5), 
+  0px 2px 4px rgba(48, 105, 251, 0.5), 
+  0px 4px 8px rgba(48, 105, 251, 0.5), 
+  0px 8px 16px rgba(48, 105, 251, 0.5);
+  z-index: 999;
+  box-sizing: border-box;
+  background-color: #192234;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='250' viewBox='0 0 1080 900'%3E%3Cg fill-opacity='0.02'%3E%3Cpolygon fill='%23444' points='90 150 0 300 180 300'/%3E%3Cpolygon points='90 150 180 0 0 0'/%3E%3Cpolygon fill='%23AAA' points='270 150 360 0 180 0'/%3E%3Cpolygon fill='%23DDD' points='450 150 360 300 540 300'/%3E%3Cpolygon fill='%23999' points='450 150 540 0 360 0'/%3E%3Cpolygon points='630 150 540 300 720 300'/%3E%3Cpolygon fill='%23DDD' points='630 150 720 0 540 0'/%3E%3Cpolygon fill='%23444' points='810 150 720 300 900 300'/%3E%3Cpolygon fill='%23FFF' points='810 150 900 0 720 0'/%3E%3Cpolygon fill='%23DDD' points='990 150 900 300 1080 300'/%3E%3Cpolygon fill='%23444' points='990 150 1080 0 900 0'/%3E%3Cpolygon fill='%23DDD' points='90 450 0 600 180 600'/%3E%3Cpolygon points='90 450 180 300 0 300'/%3E%3Cpolygon fill='%23666' points='270 450 180 600 360 600'/%3E%3Cpolygon fill='%23AAA' points='270 450 360 300 180 300'/%3E%3Cpolygon fill='%23DDD' points='450 450 360 600 540 600'/%3E%3Cpolygon fill='%23999' points='450 450 540 300 360 300'/%3E%3Cpolygon fill='%23999' points='630 450 540 600 720 600'/%3E%3Cpolygon fill='%23FFF' points='630 450 720 300 540 300'/%3E%3Cpolygon points='810 450 720 600 900 600'/%3E%3Cpolygon fill='%23DDD' points='810 450 900 300 720 300'/%3E%3Cpolygon fill='%23AAA' points='990 450 900 600 1080 600'/%3E%3Cpolygon fill='%23444' points='990 450 1080 300 900 300'/%3E%3Cpolygon fill='%23222' points='90 750 0 900 180 900'/%3E%3Cpolygon points='270 750 180 900 360 900'/%3E%3Cpolygon fill='%23DDD' points='270 750 360 600 180 600'/%3E%3Cpolygon points='450 750 540 600 360 600'/%3E%3Cpolygon points='630 750 540 900 720 900'/%3E%3Cpolygon fill='%23444' points='630 750 720 600 540 600'/%3E%3Cpolygon fill='%23AAA' points='810 750 720 900 900 900'/%3E%3Cpolygon fill='%23666' points='810 750 900 600 720 600'/%3E%3Cpolygon fill='%23999' points='990 750 900 900 1080 900'/%3E%3Cpolygon fill='%23999' points='180 0 90 150 270 150'/%3E%3Cpolygon fill='%23444' points='360 0 270 150 450 150'/%3E%3Cpolygon fill='%23FFF' points='540 0 450 150 630 150'/%3E%3Cpolygon points='900 0 810 150 990 150'/%3E%3Cpolygon fill='%23222' points='0 300 -90 450 90 450'/%3E%3Cpolygon fill='%23FFF' points='0 300 90 150 -90 150'/%3E%3Cpolygon fill='%23FFF' points='180 300 90 450 270 450'/%3E%3Cpolygon fill='%23666' points='180 300 270 150 90 150'/%3E%3Cpolygon fill='%23222' points='360 300 270 450 450 450'/%3E%3Cpolygon fill='%23FFF' points='360 300 450 150 270 150'/%3E%3Cpolygon fill='%23444' points='540 300 450 450 630 450'/%3E%3Cpolygon fill='%23222' points='540 300 630 150 450 150'/%3E%3Cpolygon fill='%23AAA' points='720 300 630 450 810 450'/%3E%3Cpolygon fill='%23666' points='720 300 810 150 630 150'/%3E%3Cpolygon fill='%23FFF' points='900 300 810 450 990 450'/%3E%3Cpolygon fill='%23999' points='900 300 990 150 810 150'/%3E%3Cpolygon points='0 600 -90 750 90 750'/%3E%3Cpolygon fill='%23666' points='0 600 90 450 -90 450'/%3E%3Cpolygon fill='%23AAA' points='180 600 90 750 270 750'/%3E%3Cpolygon fill='%23444' points='180 600 270 450 90 450'/%3E%3Cpolygon fill='%23444' points='360 600 270 750 450 750'/%3E%3Cpolygon fill='%23999' points='360 600 450 450 270 450'/%3E%3Cpolygon fill='%23666' points='540 600 630 450 450 450'/%3E%3Cpolygon fill='%23222' points='720 600 630 750 810 750'/%3E%3Cpolygon fill='%23FFF' points='900 600 810 750 990 750'/%3E%3Cpolygon fill='%23222' points='900 600 990 450 810 450'/%3E%3Cpolygon fill='%23DDD' points='0 900 90 750 -90 750'/%3E%3Cpolygon fill='%23444' points='180 900 270 750 90 750'/%3E%3Cpolygon fill='%23FFF' points='360 900 450 750 270 750'/%3E%3Cpolygon fill='%23AAA' points='540 900 630 750 450 750'/%3E%3Cpolygon fill='%23FFF' points='720 900 810 750 630 750'/%3E%3Cpolygon fill='%23222' points='900 900 990 750 810 750'/%3E%3Cpolygon fill='%23222' points='1080 300 990 450 1170 450'/%3E%3Cpolygon fill='%23FFF' points='1080 300 1170 150 990 150'/%3E%3Cpolygon points='1080 600 990 750 1170 750'/%3E%3Cpolygon fill='%23666' points='1080 600 1170 450 990 450'/%3E%3Cpolygon fill='%23DDD' points='1080 900 1170 750 990 750'/%3E%3C/g%3E%3C/svg%3E");
 }
-.admin {
+
+.sidebar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 20px; /* Adjust as needed */
+}
+
+.main-content {
+  flex: 1;
+}
+
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color:#f2f2f5;
   padding: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width:100%;
-  border-radius: 10px;
+  background-color: #ffffff;
+  background-color: #192234;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='250' viewBox='0 0 1080 900'%3E%3Cg fill-opacity='0.02'%3E%3Cpolygon fill='%23444' points='90 150 0 300 180 300'/%3E%3Cpolygon points='90 150 180 0 0 0'/%3E%3Cpolygon fill='%23AAA' points='270 150 360 0 180 0'/%3E%3Cpolygon fill='%23DDD' points='450 150 360 300 540 300'/%3E%3Cpolygon fill='%23999' points='450 150 540 0 360 0'/%3E%3Cpolygon points='630 150 540 300 720 300'/%3E%3Cpolygon fill='%23DDD' points='630 150 720 0 540 0'/%3E%3Cpolygon fill='%23444' points='810 150 720 300 900 300'/%3E%3Cpolygon fill='%23FFF' points='810 150 900 0 720 0'/%3E%3Cpolygon fill='%23DDD' points='990 150 900 300 1080 300'/%3E%3Cpolygon fill='%23444' points='990 150 1080 0 900 0'/%3E%3Cpolygon fill='%23DDD' points='90 450 0 600 180 600'/%3E%3Cpolygon points='90 450 180 300 0 300'/%3E%3Cpolygon fill='%23666' points='270 450 180 600 360 600'/%3E%3Cpolygon fill='%23AAA' points='270 450 360 300 180 300'/%3E%3Cpolygon fill='%23DDD' points='450 450 360 600 540 600'/%3E%3Cpolygon fill='%23999' points='450 450 540 300 360 300'/%3E%3Cpolygon fill='%23999' points='630 450 540 600 720 600'/%3E%3Cpolygon fill='%23FFF' points='630 450 720 300 540 300'/%3E%3Cpolygon points='810 450 720 600 900 600'/%3E%3Cpolygon fill='%23DDD' points='810 450 900 300 720 300'/%3E%3Cpolygon fill='%23AAA' points='990 450 900 600 1080 600'/%3E%3Cpolygon fill='%23444' points='990 450 1080 300 900 300'/%3E%3Cpolygon fill='%23222' points='90 750 0 900 180 900'/%3E%3Cpolygon points='270 750 180 900 360 900'/%3E%3Cpolygon fill='%23DDD' points='270 750 360 600 180 600'/%3E%3Cpolygon points='450 750 540 600 360 600'/%3E%3Cpolygon points='630 750 540 900 720 900'/%3E%3Cpolygon fill='%23444' points='630 750 720 600 540 600'/%3E%3Cpolygon fill='%23AAA' points='810 750 720 900 900 900'/%3E%3Cpolygon fill='%23666' points='810 750 900 600 720 600'/%3E%3Cpolygon fill='%23999' points='990 750 900 900 1080 900'/%3E%3Cpolygon fill='%23999' points='180 0 90 150 270 150'/%3E%3Cpolygon fill='%23444' points='360 0 270 150 450 150'/%3E%3Cpolygon fill='%23FFF' points='540 0 450 150 630 150'/%3E%3Cpolygon points='900 0 810 150 990 150'/%3E%3Cpolygon fill='%23222' points='0 300 -90 450 90 450'/%3E%3Cpolygon fill='%23FFF' points='0 300 90 150 -90 150'/%3E%3Cpolygon fill='%23FFF' points='180 300 90 450 270 450'/%3E%3Cpolygon fill='%23666' points='180 300 270 150 90 150'/%3E%3Cpolygon fill='%23222' points='360 300 270 450 450 450'/%3E%3Cpolygon fill='%23FFF' points='360 300 450 150 270 150'/%3E%3Cpolygon fill='%23444' points='540 300 450 450 630 450'/%3E%3Cpolygon fill='%23222' points='540 300 630 150 450 150'/%3E%3Cpolygon fill='%23AAA' points='720 300 630 450 810 450'/%3E%3Cpolygon fill='%23666' points='720 300 810 150 630 150'/%3E%3Cpolygon fill='%23FFF' points='900 300 810 450 990 450'/%3E%3Cpolygon fill='%23999' points='900 300 990 150 810 150'/%3E%3Cpolygon points='0 600 -90 750 90 750'/%3E%3Cpolygon fill='%23666' points='0 600 90 450 -90 450'/%3E%3Cpolygon fill='%23AAA' points='180 600 90 750 270 750'/%3E%3Cpolygon fill='%23444' points='180 600 270 450 90 450'/%3E%3Cpolygon fill='%23444' points='360 600 270 750 450 750'/%3E%3Cpolygon fill='%23999' points='360 600 450 450 270 450'/%3E%3Cpolygon fill='%23666' points='540 600 630 450 450 450'/%3E%3Cpolygon fill='%23222' points='720 600 630 750 810 750'/%3E%3Cpolygon fill='%23FFF' points='900 600 810 750 990 750'/%3E%3Cpolygon fill='%23222' points='900 600 990 450 810 450'/%3E%3Cpolygon fill='%23DDD' points='0 900 90 750 -90 750'/%3E%3Cpolygon fill='%23444' points='180 900 270 750 90 750'/%3E%3Cpolygon fill='%23FFF' points='360 900 450 750 270 750'/%3E%3Cpolygon fill='%23AAA' points='540 900 630 750 450 750'/%3E%3Cpolygon fill='%23FFF' points='720 900 810 750 630 750'/%3E%3Cpolygon fill='%23222' points='900 900 990 750 810 750'/%3E%3Cpolygon fill='%23222' points='1080 300 990 450 1170 450'/%3E%3Cpolygon fill='%23FFF' points='1080 300 1170 150 990 150'/%3E%3Cpolygon points='1080 600 990 750 1170 750'/%3E%3Cpolygon fill='%23666' points='1080 600 1170 450 990 450'/%3E%3Cpolygon fill='%23DDD' points='1080 900 1170 750 990 750'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-.logo-admin img,
-.logo-profile img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%; /* Added border-radius for a circular shape */
-}
-
-.logo-admin,
-.logo-profile {
+.user-info {
   display: flex;
   align-items: center;
 }
 
-.logo-admin h2,
-.logo-profile h2 {
-  margin-left: 10px;
-  font-size: 24px;
-  display: inline;
-  color: rgb(9, 9, 9);
-}
-
-.logo-profile {
+.notification-icon {
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
-.logo-profile h2 {
-  font-size: 18px;
-  margin-right: 10px;
-  display: inline;
+.notification-badge {
+  background-color: red;
+  color: #fff;
+  border-radius: 50%;
+  padding: 5px;
+  margin-left: 5px;
 }
 
-
-.client-body {
-  width: 100%;
-  max-width: 1200px;
-  margin: 20px 0;
+.dashboard-heading {
+  font-size: 24px;
+  margin-bottom: 20px; /* Adjust as needed */
 }
 
-.dashboard-boxes {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 50px;
-  color:white;
+.updates {
+  width: 25vw;
+  background-color: #f4f5f7;
+  color:black;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.dashborad-element-container {
+display: grid;
+grid-template-rows: 1fr 1fr; /* Adjust the column width as needed */
+gap: 20px; /* Adjust the gap between grid items as needed */
+}
+
+.selected-component-container {
+grid-column: 2 / span 1; 
+margin: 30px;/* Adjust the column span for the selected component container */
+}
+
+.briefcase-dashboard {
+display: grid;
+grid-template-rows: 1fr 1fr 1fr ; 
 }
 
 .dashboard-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  text-decoration: none;
-  color: white;
-  border: 1px solid #ddd;
-  padding: 20px;
-  border-radius: 8px;
-  transition: background-color 0.3s;
-  /* background-color: #3e4056; */
-}
-
-.dashboard-box img {
-  width: 80px;
-  height: 70px;
-  margin-bottom: 8px;
+text-align: center;
+text-decoration: none;
+color: #000;
+border-radius: 8px;
+width:auto;
 }
 
 .dashboard-box:hover {
-  background-color: #a28a8a;
+transform: scale(1.05);
 }
 
-.faq-box {
-  width: 100%;
-  max-width: 800px;
-  margin-top: 20px;
+.dashboard-box img {
+border-radius: 8px;
+margin-bottom: 10px;
 }
 
-.faq-item {
-  border: 1px solid #ddd;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  overflow: hidden;
-  transition: background-color 0.3s;
+
+/* Add this to your external CSS file or style block */
+
+.briefcase-dashboard {
+margin: 20px;
 }
 
-.faq-item.active {
-  background-color: #f5f5f5;
+.dashboard-box {
+width: 200px;
+margin: 10px;
+padding: 15px;
+border: 1px solid #ddd;
+border-radius: 8px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+transition: transform 0.3s ease-in-out;
+background-color: #fff;
+text-align: center;
+color: #333;
+text-decoration: none;
 }
 
-.faq-question {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-  cursor: pointer;
-  color:white;
+.dashboard-box:hover {
+transform: scale(1.05);
 }
 
-.faq-question h4 {
-  margin: 0;
-  font-size: 16px;
-  color: #000;
+.dashboard-box img {
+max-width: 100%;
+height: auto;
+border-radius: 8px;
+margin-bottom: 10px;
 }
 
-.faq-item p {
-  padding: 15px;
-  margin: 0;
-  font-size: 14px;
+.dashboard-box h3 {
+font-size: 16px;
+margin: 0;
 }
 
-.icon {
-  font-size: 20px;
-  color: #777;
+.home-dashboard{
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+margin: 0 0;
+height: 90vh;
+gap: 40px;
 }
-.dashboard-boxes h3{
-  color: rgb(223, 221, 221);
+.cases{
+grid-column: span 2;
 }
-.faq-box h3{
-  color: aliceblue;
+.briefcase-dashboard{
+  height: 50vh;
+}
+
+.faq-box{
+  margin-left: 20%;
+}
+.active {
+  color: #ff4500 !important;
 }

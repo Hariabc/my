@@ -158,7 +158,17 @@ const AdvocateForm = () => {
 
     try {
       const response = await axios.post('http://localhost:5000/advocate/private/register', formData);
-
+      const { username} = formData;
+      const userResponse = await axios.post('https://api-049FF9C5-DFDC-4991-B147-D2FDFDC72C54.sendbird.com/v3/users', {
+          user_id: username,
+          nickname: username,
+          profile_url: 'https://example.com/profile-image.jpg'
+        },{headers: {
+          'Content-Type': 'application/json',
+          'Api-Token': '2ef385818c2c2b64c09437dfbf7f5166c539d8f9',
+        },}
+        );
+        console.log('User Response:', userResponse.data)
       if (response.status === 201) {
         toast.success('Email has been sent to set the password');
       }

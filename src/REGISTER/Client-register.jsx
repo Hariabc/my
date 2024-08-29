@@ -106,6 +106,9 @@ const ClientForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const { username,firstName } = formData;
+
+
     if (validateForm()) {
       try {
         const response = await axios.post('http://localhost:5000/client/register', formData);
@@ -113,6 +116,16 @@ const ClientForm = () => {
           console.log('Server Response:', response.data);
           toast.success('Link has been sent to your mail to set password'); // Success message
           // Handle success (redirect, display a success message, etc.)
+          const userResponse = await axios.post('https://api-049FF9C5-DFDC-4991-B147-D2FDFDC72C54.sendbird.com/v3/users', {
+          user_id: username,
+          nickname: username,
+          profile_url: 'https://example.com/profile-image.jpg'
+        },{headers: {
+          'Content-Type': 'application/json',
+          'Api-Token': '2ef385818c2c2b64c09437dfbf7f5166c539d8f9',
+        },}
+        );
+        console.log('User Response:', userResponse.data)
         } else {
           console.error('Error: Response or response data is undefined');
           toast.error('Failed to register client'); // Error message

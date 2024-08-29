@@ -1,0 +1,59 @@
+/* CaseFileOpt.css */
+
+body, html {
+  height: 100%;
+  margin: 0;
+}
+.party-in-person-button.active {
+  color: black !important;
+}
+
+.three-option-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color:aliceblue;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    border: 2px solid black; /* Add a black border */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a shadow with some transparency */
+    border-radius: 8px;
+  }
+  
+  
+
+.three-button-container {
+  display: flex;
+  align-items: center;
+}
+
+.option-button {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 20px;
+  margin: 10px;
+  cursor: pointer;
+  font-size: 16px;
+ 
+  transition: background-color 0.3s ease;
+  height: 100px;
+  width: 200px;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+button.active {
+  background-color: #2ecc71;
+  
+}
+
+.form-click-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Adjust margin-top as needed */
+}

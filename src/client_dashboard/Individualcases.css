@@ -1,0 +1,63 @@
+/* Individualcases.css */
+
+.ind-container {
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+
+.subtitle {
+  color: #555;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.details {
+  margin-bottom: 20px;
+}
+
+.details p {
+  margin: 5px 0;
+  font-size: 16px;
+  display: flex;
+  justify-content: flex-start;
+  padding-bottom: 2px;
+  color: #000;
+}
+
+.loading {
+  font-size: 18px;
+  color: #888;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.printButton-div {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.printButton {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 50px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.printButton:hover {
+  background-color: #45a049;
+}
+
+.details-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap:30px;
+}
+
+.boxC{
+  grid-column: span 2;
+}

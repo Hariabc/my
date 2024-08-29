@@ -1,0 +1,91 @@
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+
+
+.plaintiff-form {
+  max-width: 100%;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.form-section-title {
+  color: #333;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.form-grid {
+    max-width: 98%;
+  display: grid;
+  gap: 20px;
+}
+
+.section-title {
+  color: white;
+  background-color: #333;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.submit-section {
+  text-align: center;
+}
+
+.submit-button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Add shades of black and gray for better contrast and aesthetics */
+.grid-half {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Add hover effect for better interactivity */
+.submit-button:hover {
+  background-color: #45a049;
+}
+
+/* Add styling for dropdowns */
+.form-input.select {
+  appearance: none;
+  padding: 8px;
+}
+
+.form-input.select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
